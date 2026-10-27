@@ -140,6 +140,9 @@ export class TauriBackend implements Backend {
   appVersion() {
     return invoke<string>("app_version");
   }
+  appSetCloseToTray(enabled: boolean) {
+    return invoke<void>("app_set_close_to_tray", { enabled });
+  }
 
   async on<E extends keyof BackendEvents>(event: E, handler: (payload: BackendEvents[E]) => void) {
     return listen<BackendEvents[E]>(event, (e) => handler(e.payload));

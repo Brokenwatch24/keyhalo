@@ -146,7 +146,8 @@ export interface BackendEvents {
   "foreground-changed": ForegroundApp;
   "input-key": InputKeyEvent;
   "input-mouse": InputMouseSample;
-  "remap-fired": { packId: string; key: string; label?: string };
+  /** A binding fired. Actions Rust cannot perform itself (dpi, profile) are carried in `action`. */
+  "remap-fired": { packId: string; key: string; label?: string; action?: import("../types").KeyAction };
   "audio-bands": AudioBands;
   "mqtt-message": { id: string; topic: string; payload: string };
   "mqtt-status": { id: string; connected: boolean; error?: string };
@@ -265,6 +266,8 @@ export interface Backend {
   hudShow(payload: HudPayload): Promise<void>;
   /** app_version() */
   appVersion(): Promise<string>;
+  /** app_set_close_to_tray({ enabled }) — closing the main window hides it instead of quitting. */
+  appSetCloseToTray(enabled: boolean): Promise<void>;
 
   on<E extends keyof BackendEvents>(event: E, handler: (payload: BackendEvents[E]) => void): Promise<Unlisten>;
 }

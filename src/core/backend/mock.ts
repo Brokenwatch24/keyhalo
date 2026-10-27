@@ -271,6 +271,7 @@ export class MockBackend implements Backend {
   async appVersion() {
     return "1.0.0-demo";
   }
+  async appSetCloseToTray() {}
 
   async on<E extends keyof BackendEvents>(event: E, handler: (payload: BackendEvents[E]) => void): Promise<Unlisten> {
     let set = handlers.get(event);
