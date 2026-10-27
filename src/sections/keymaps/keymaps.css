@@ -1200,3 +1200,30 @@
 .keymaps-sub .kh-field .kh-seg {
   align-self: flex-start;
 }
+
+/* ---------- Narrow windows (≈960–1180 px) ---------- */
+.keymaps-main .kh-tabs {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+@media (max-width: 1180px) {
+  .keymaps-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .keymaps-side {
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .keymaps-packs {
+    max-height: 340px;
+    overflow: auto;
+  }
+  .keymaps-emergency {
+    grid-column: 1 / -1;
+  }
+  .keymaps-packhead {
+    flex-wrap: wrap;
+  }
+}
