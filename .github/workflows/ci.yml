@@ -75,10 +75,4 @@ jobs:
 
       - name: Build CLI
         if: steps.detect.outputs.present == 'true'
-        shell: bash
-        run: |
-          if cargo metadata --no-deps --format-version 1 --manifest-path src-tauri/Cargo.toml | grep -q '"name":"keyhalo-cli"'; then
-            cargo build --release -p keyhalo-cli --manifest-path src-tauri/Cargo.toml
-          else
-            echo "No keyhalo-cli package yet"
-          fi
+        run: cargo build --release --manifest-path cli/Cargo.toml

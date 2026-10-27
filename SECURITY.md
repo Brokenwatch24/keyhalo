@@ -41,7 +41,9 @@ the backend or the network.
 - CI rejects effect files that reference `fetch`, `XMLHttpRequest`, `WebSocket`,
   `importScripts`, `eval` or `Function(`, and validates their `meta` export without running
   the effect itself (in a `node:vm` context with no globals and a timeout).
-- At runtime the worker removes network and dynamic-code APIs before loading the effect.
+- At runtime the worker removes network, storage and code-loading APIs (`fetch`, `XMLHttpRequest`,
+  `WebSocket`, `EventSource`, `importScripts`, nested workers…) before evaluating the effect, rejects
+  `import`/`require`, and disables effects that throw, stall or exceed their frame budget.
 
 ### Risky keymap actions need your review
 

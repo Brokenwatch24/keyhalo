@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/typing.schema.json",
   "id": "es-common-words",
   "name": "Español: palabras comunes",
   "language": "es",

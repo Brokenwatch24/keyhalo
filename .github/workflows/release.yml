@@ -1,10 +1,13 @@
 name: Release
 
+# Run manually from the Actions tab: builds the installers on a clean runner and drafts a
+# GitHub Release for the given tag (created from the selected branch if it doesn't exist).
 on:
-  push:
-    tags:
-      - "v*"
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag, e.g. v1.0.1"
+        required: true
 
 permissions:
   contents: write
@@ -35,8 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: KeyHalo ${{ github.ref_name }}
+          tagName: ${{ inputs.tag }}
+          releaseName: KeyHalo ${{ inputs.tag }}
           releaseBody: |
             See the [changelog and release notes](https://github.com/Brokenwatch24/keyhalo/blob/main/CHANGELOG.md) for what's new.
 
@@ -51,9 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if cargo metadata --no-deps --format-version 1 --manifest-path src-tauri/Cargo.toml | grep -q '"name":"keyhalo-cli"'; then
-            cargo build --release -p keyhalo-cli --manifest-path src-tauri/Cargo.toml
-            gh release upload "${{ github.ref_name }}" src-tauri/target/release/keyhalo-cli.exe --clobber
-          else
-            echo "No keyhalo-cli package yet"
-          fi
+          cargo build --release --manifest-path cli/Cargo.toml
+          cp cli/target/release/keyhalo.exe keyhalo-cli.exe
+          gh release upload "${{ inputs.tag }}" keyhalo-cli.exe --clobber

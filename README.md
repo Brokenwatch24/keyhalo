@@ -52,9 +52,11 @@ bridge for more hardware.
 
 ### Typing trainer
 
-- Words, quotes, code and adaptive lessons in several languages
+- Adaptive lessons that unlock letters as you improve, timed tests, passages, code snippets,
+  app-shortcut drills and Fn-layer drills for 60 % boards, in English and Spanish (accents and dead keys included)
 - WPM, accuracy, consistency, per-key **heatmap** on your real keyboard layout
-- Ghost races against your previous runs
+- Ghost races against your best run or a friend's, and a shareable result card
+- The next key lights up on your **physical keyboard** while you type
 
 ![Typing trainer](docs/screenshots/typing-dark.png)
 
@@ -96,8 +98,17 @@ bridge for more hardware.
 
 ![Dashboard](docs/screenshots/dashboard-dark.png)
 
-More screenshots: [devices](docs/screenshots/devices-dark.png) ·
-[settings](docs/screenshots/settings-dark.png)
+<details>
+<summary><b>More screenshots</b> (light theme, device wizard, typing results…)</summary>
+
+| | |
+|---|---|
+| ![Dashboard in light theme](docs/screenshots/dashboard-light.png) | ![Lighting studio in light theme](docs/screenshots/lighting-light.png) |
+| ![Device wizard mapping LEDs to keys](docs/screenshots/wizard-dark.png) | ![Typing trainer results with per-key heatmap](docs/screenshots/typing-results-dark.png) |
+| ![Devices page with hardware effects and desk arrangement](docs/screenshots/devices-dark.png) | ![Effect picker with live previews](docs/screenshots/lighting-picker-dark.png) |
+| ![Keymaps in light theme](docs/screenshots/keymaps-light.png) | ![Settings](docs/screenshots/settings-dark.png) |
+
+</details>
 
 ## Supported devices
 
@@ -121,6 +132,22 @@ generically, with no definition needed. Missing your device? Add it with the in-
 [device support request](https://github.com/Brokenwatch24/keyhalo/issues/new?template=device_request.yml).
 Tested it? Send a
 ["Works on my device" report](https://github.com/Brokenwatch24/keyhalo/issues/new?template=works_on_my_device.yml).
+
+## Project status
+
+KeyHalo 1.0 is a **public beta**. What has been verified on real hardware (Razer Huntsman Mini
+fw 1.12 + DeathAdder V2 Pro fw 2.02 on Windows 11):
+
+- ✅ Device detection, firmware/serial/layout/battery/DPI/polling reads, state snapshots
+- ✅ Per-key software lighting and hardware effects, and handing devices back to their onboard
+  effect when KeyHalo quits
+- ✅ Windows Dynamic Lighting enumeration (61 lamps on the Huntsman Mini), system metrics (NVML),
+  foreground-app detection, local API
+
+Implemented and unit-tested but **not yet verified on real hardware/services** — reports welcome:
+the OpenRGB bridge, LampArray colour writes, Bambu Lab MQTT, Home Assistant discovery, CS2/Dota 2
+GSI and the LoL client API, DPI-stage writes and the remap engine in long sessions. The other
+Razer definitions in the table are marked *Experimental* for the same reason.
 
 ## Install
 

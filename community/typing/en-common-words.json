@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/typing.schema.json",
   "id": "en-common-words",
   "name": "English: common words",
   "language": "en",

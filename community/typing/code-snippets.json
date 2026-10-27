@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/typing.schema.json",
   "id": "code-snippets",
   "name": "Code snippets",
   "language": "any",

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-27T05:14:20.714Z",
+  "generated": "2026-10-27T06:26:03.000Z",
   "repo": "Brokenwatch24/keyhalo",
   "entries": [
     {
@@ -16,7 +16,7 @@
         "mouse"
       ],
       "path": "community/devices/razer/basilisk-v3.json",
-      "updated": "2026-10-27T05:02:37.955Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -32,7 +32,7 @@
         "keyboard"
       ],
       "path": "community/devices/razer/blackwidow-v3.json",
-      "updated": "2026-10-27T05:02:37.953Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -48,7 +48,7 @@
         "keyboard"
       ],
       "path": "community/devices/razer/blackwidow-v3-tkl.json",
-      "updated": "2026-10-27T05:02:37.951Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -64,7 +64,7 @@
         "mouse"
       ],
       "path": "community/devices/razer/deathadder-v2.json",
-      "updated": "2026-10-27T05:02:37.954Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -80,7 +80,7 @@
         "mouse"
       ],
       "path": "community/devices/razer/deathadder-v2-mini.json",
-      "updated": "2026-10-27T05:02:37.954Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -97,7 +97,7 @@
         "mouse"
       ],
       "path": "community/devices/razer/deathadder-v2-pro.json",
-      "updated": "2026-10-27T05:02:37.946Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -114,7 +114,7 @@
         "keyboard"
       ],
       "path": "community/devices/razer/huntsman-mini.json",
-      "updated": "2026-10-27T05:02:37.945Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -130,7 +130,7 @@
         "keyboard"
       ],
       "path": "community/devices/razer/huntsman-mini-analog.json",
-      "updated": "2026-10-27T05:02:37.949Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "device",
@@ -146,7 +146,7 @@
         "mouse"
       ],
       "path": "community/devices/razer/viper-ultimate.json",
-      "updated": "2026-10-27T05:02:37.955Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -159,7 +159,7 @@
         "calm"
       ],
       "path": "community/profiles/focus.json",
-      "updated": "2026-10-27T05:13:23.168Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -171,7 +171,7 @@
         "gaming"
       ],
       "path": "community/profiles/gaming-wasd.json",
-      "updated": "2026-10-27T05:13:23.171Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -184,7 +184,7 @@
         "default"
       ],
       "path": "community/profiles/halo.json",
-      "updated": "2026-10-27T05:13:23.168Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -197,7 +197,7 @@
         "reactive"
       ],
       "path": "community/profiles/neon.json",
-      "updated": "2026-10-27T05:13:23.169Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -210,7 +210,7 @@
         "calm"
       ],
       "path": "community/profiles/ocean.json",
-      "updated": "2026-10-27T05:13:23.169Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -223,7 +223,7 @@
         "status"
       ],
       "path": "community/profiles/stealth.json",
-      "updated": "2026-10-27T05:13:23.170Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -236,7 +236,7 @@
         "streaming"
       ],
       "path": "community/profiles/streamer.json",
-      "updated": "2026-10-27T05:13:23.170Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "profile",
@@ -249,7 +249,7 @@
         "warm"
       ],
       "path": "community/profiles/sunset.json",
-      "updated": "2026-10-27T05:13:23.169Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -266,7 +266,7 @@
         "animation"
       ],
       "path": "community/keymaps/blender.json",
-      "updated": "2026-10-27T05:13:58.457Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -283,7 +283,7 @@
         "productivity"
       ],
       "path": "community/keymaps/chrome.json",
-      "updated": "2026-10-27T05:13:58.457Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -300,7 +300,7 @@
         "color"
       ],
       "path": "community/keymaps/davinci-resolve.json",
-      "updated": "2026-10-27T05:13:58.457Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -317,7 +317,7 @@
         "social"
       ],
       "path": "community/keymaps/discord.json",
-      "updated": "2026-10-27T05:13:58.458Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -334,7 +334,7 @@
         "productivity"
       ],
       "path": "community/keymaps/excel.json",
-      "updated": "2026-10-27T05:13:58.458Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -351,7 +351,7 @@
         "prototyping"
       ],
       "path": "community/keymaps/figma.json",
-      "updated": "2026-10-27T05:13:58.458Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -368,7 +368,7 @@
         "video"
       ],
       "path": "community/keymaps/obs-studio.json",
-      "updated": "2026-10-27T05:13:58.459Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -385,7 +385,7 @@
         "adobe"
       ],
       "path": "community/keymaps/photoshop.json",
-      "updated": "2026-10-27T05:13:58.459Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -402,7 +402,7 @@
         "adobe"
       ],
       "path": "community/keymaps/premiere-pro.json",
-      "updated": "2026-10-27T05:13:58.460Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -417,7 +417,7 @@
         "60%"
       ],
       "path": "community/keymaps/sixty-percent-nav.json",
-      "updated": "2026-10-27T05:13:58.460Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -434,7 +434,7 @@
         "rainbow-six-siege"
       ],
       "path": "community/keymaps/tactical-fps.json",
-      "updated": "2026-10-27T05:13:58.461Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -451,7 +451,7 @@
         "development"
       ],
       "path": "community/keymaps/vscode.json",
-      "updated": "2026-10-27T05:13:58.461Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "keymap",
@@ -465,7 +465,7 @@
         "productivity"
       ],
       "path": "community/keymaps/windows-essentials.json",
-      "updated": "2026-10-27T05:13:58.462Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "effect",
@@ -478,7 +478,7 @@
         "calm"
       ],
       "path": "community/effects/breathing-duo.js",
-      "updated": "2026-10-27T05:14:20.654Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "effect",
@@ -491,7 +491,7 @@
         "warm"
       ],
       "path": "community/effects/lava-lamp.js",
-      "updated": "2026-10-27T05:14:20.511Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "effect",
@@ -504,7 +504,7 @@
         "retro"
       ],
       "path": "community/effects/matrix-rain.js",
-      "updated": "2026-10-27T05:14:20.376Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "effect",
@@ -517,7 +517,7 @@
         "vivid"
       ],
       "path": "community/effects/neon-scanner.js",
-      "updated": "2026-10-27T05:14:20.583Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "effect",
@@ -529,7 +529,7 @@
         "reactive"
       ],
       "path": "community/effects/typing-sparks.js",
-      "updated": "2026-10-27T05:14:20.714Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "typing",
@@ -542,7 +542,7 @@
         "code"
       ],
       "path": "community/typing/code-snippets.json",
-      "updated": "2026-10-27T05:09:37.596Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "typing",
@@ -555,7 +555,7 @@
         "words"
       ],
       "path": "community/typing/en-common-words.json",
-      "updated": "2026-10-27T05:04:24.624Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "typing",
@@ -568,7 +568,7 @@
         "quotes"
       ],
       "path": "community/typing/en-passages.json",
-      "updated": "2026-10-27T05:08:29.935Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "typing",
@@ -581,7 +581,7 @@
         "words"
       ],
       "path": "community/typing/es-common-words.json",
-      "updated": "2026-10-27T05:05:40.243Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     },
     {
       "kind": "typing",
@@ -594,7 +594,7 @@
         "quotes"
       ],
       "path": "community/typing/es-passages.json",
-      "updated": "2026-10-27T05:08:30.097Z"
+      "updated": "2026-10-27T06:26:03.000Z"
     }
   ]
 }
