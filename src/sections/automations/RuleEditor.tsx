@@ -42,6 +42,8 @@ function defaultTrigger(type: Trigger["type"]): Trigger {
       return { type, game: "cs2", event: "bomb_planted" };
     case "hotkey":
       return { type, accelerator: "Ctrl+Alt+P" };
+    case "notification":
+      return { type, app: "", contains: "" };
   }
 }
 
@@ -539,6 +541,25 @@ function TriggerFields({ trigger, onChange }: { trigger: Trigger; onChange: (t: 
           <Field label={t("automation.ui.fields.accelerator")}>
             <Input className="mono" value={trigger.accelerator} onChange={(e) => onChange({ ...trigger, accelerator: e.target.value })} />
           </Field>
+        </div>
+      );
+    case "notification":
+      return (
+        <div className="col" style={{ gap: 10 }}>
+          <div className="automations-grid2">
+            <Field label={t("automation.ui.fields.notifApp")} hint={t("automation.ui.fields.notifAppHint")}>
+              <Input value={trigger.app ?? ""} placeholder="Discord" onChange={(e) => onChange({ ...trigger, app: e.target.value })} />
+            </Field>
+            <Field label={t("automation.ui.fields.notifContains")} hint={t("automation.ui.fields.notifContainsHint")}>
+              <Input value={trigger.contains ?? ""} onChange={(e) => onChange({ ...trigger, contains: e.target.value })} />
+            </Field>
+          </div>
+          <div className="subtle" style={{ fontSize: 12 }}>
+            {t("automation.ui.fields.notifNeeds")}{" "}
+            <a href="#/integrations/notifications" className="automations-link">
+              {t("automation.ui.fields.openIntegrations")}
+            </a>
+          </div>
         </div>
       );
   }

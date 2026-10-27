@@ -1,6 +1,6 @@
 [package]
 name = "keyhalo-cli"
-version = "1.0.0"
+version = "1.1.0"
 description = "Command-line client for KeyHalo's local API (status, actions, notifications, Claude Code hooks)."
 license = "MIT"
 repository = "https://github.com/Brokenwatch24/keyhalo"

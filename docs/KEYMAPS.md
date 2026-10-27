@@ -75,8 +75,9 @@ KeyHalo watches the focused window. Packs whose `apps` contain the focused proce
 first, then global packs (`apps: []`) underneath. The shortcut **cheat-sheet** uses the same
 order: hold Ctrl/Shift/Alt/Win for ~350 ms and the keys of every shortcut that uses *exactly*
 those modifiers light up in their category colour (Settings → `cheatsheet` turns it off).
-With no modifier held, legend-only packs light their plain keys (e.g. Blender's G/R/S or the
-Tactical FPS movement keys) when the lighting profile shows legends.
+While an app with its own pack is in front, its shortcut keys **glow softly** in their category
+colours (Settings → `appShortcutGlow`, or the switch on the Keymaps page). Global packs never glow
+on their own; they show up in the cheat-sheet.
 
 ### Layers and tap-hold — the 60% navigation pack
 

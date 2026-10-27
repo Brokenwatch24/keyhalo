@@ -17,7 +17,8 @@ export type EngineEvent =
   | { type: "mqtt"; topic: string; payload: string }
   | { type: "api"; event: string }
   | { type: "game"; game: string; event: string }
-  | { type: "hotkey"; accelerator: string };
+  | { type: "hotkey"; accelerator: string }
+  | { type: "notification"; app: string; text: string };
 
 /** Which event type feeds each trigger type. */
 export const TRIGGER_EVENT: Record<Trigger["type"], EngineEvent["type"]> = {
@@ -32,6 +33,7 @@ export const TRIGGER_EVENT: Record<Trigger["type"], EngineEvent["type"]> = {
   api: "api",
   game: "game",
   hotkey: "hotkey",
+  notification: "notification",
 };
 
 export const SUSTAIN_MS = 10_000;
@@ -79,6 +81,12 @@ export function payloadMatches(match: string | undefined, payload: string): bool
     }
   }
   return payload.toLowerCase().includes(match.toLowerCase());
+}
+
+/** Case-insensitive "contains"; an empty needle matches anything. */
+export function includesCi(haystack: string, needle: string | undefined): boolean {
+  const n = needle?.trim().toLocaleLowerCase();
+  return !n || haystack.toLocaleLowerCase().includes(n);
 }
 
 export function normalizeAccelerator(a: string): string {
@@ -182,6 +190,8 @@ export class TriggerEvaluator {
         return ev.type === "game" && ev.game === tr.game && ev.event === tr.event;
       case "hotkey":
         return ev.type === "hotkey" && normalizeAccelerator(ev.accelerator) === normalizeAccelerator(tr.accelerator);
+      case "notification":
+        return ev.type === "notification" && includesCi(ev.app, tr.app) && includesCi(ev.text, tr.contains);
     }
   }
 }
@@ -211,5 +221,7 @@ export function describeTrigger(tr: Trigger): string {
       return `${tr.game}: ${tr.event}`;
     case "hotkey":
       return `hotkey ${tr.accelerator}`;
+    case "notification":
+      return `notification${tr.app ? ` from ${tr.app}` : ""}${tr.contains ? ` containing "${tr.contains}"` : ""}`;
   }
 }

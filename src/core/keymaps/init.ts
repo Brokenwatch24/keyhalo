@@ -7,6 +7,7 @@ import { acquireInputListening } from "@/core/stats/input";
 import { t } from "@/i18n";
 import { compileRemapConfig } from "./compile";
 import { startCheatsheet } from "./cheatsheet";
+import { startAppGlow } from "./appglow";
 import { useKeymaps } from "./store";
 
 let started = false;
@@ -153,4 +154,5 @@ export async function init(): Promise<void> {
 
   // --- Cheat-sheet overlay --------------------------------------------------------------------
   startCheatsheet();
+  startAppGlow();
 }

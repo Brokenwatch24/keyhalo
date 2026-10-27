@@ -4,6 +4,25 @@ All notable changes to KeyHalo are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] — 2026-10-27
+
+### Added
+- **Automatic updates**: the app checks GitHub at start and every six hours, downloads new
+  versions in the background and restarts into them with one click (Settings or the sidebar).
+  Updates are signed; installs from 1.0.0 need to download 1.1.0 by hand once.
+- **Windows notifications**: lights keys for notifications from any app, including your phone
+  through Phone Link, with per-app and per-word rules, mute rules, keys that stay lit until you
+  read the message, a "mark all as seen" hotkey and a **Notification arrives** automation trigger.
+  Notification text never leaves memory.
+- **Connect Claude Code** in one click: KeyHalo adds its hooks to `~/.claude/settings.json`
+  (other settings kept, backup saved) using `curl`, so the CLI is no longer needed.
+- **App shortcuts glow**: while an app with a shortcut pack is in front, its shortcut keys light
+  up softly; holding a modifier still shows the cheat-sheet. A "how it works" guide opens the
+  Keymaps page.
+
+### Changed
+- Window-title unread badges are now the *Window titles (legacy)* notification source.
+
 ## [1.0.0] — 2026-10-27
 
 First public beta.

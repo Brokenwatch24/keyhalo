@@ -6,6 +6,8 @@ pub mod metrics;
 pub mod mic;
 pub mod pointer;
 pub mod steam;
+#[cfg(windows)]
+pub mod toasts;
 
 use crate::util::{blocking, err, CmdResult};
 use foreground::{ForegroundApp, WindowInfo};
@@ -70,6 +72,34 @@ pub async fn system_set_mic_muted(muted: bool) -> CmdResult<()> {
     {
         let _ = muted;
         Err("not supported".into())
+    }
+}
+
+/// Windows notifications currently in the Action Center (empty elsewhere).
+#[tauri::command]
+pub async fn system_notifications() -> CmdResult<serde_json::Value> {
+    #[cfg(windows)]
+    return blocking(|| toasts::list().map(|v| serde_json::to_value(v).unwrap_or_default())).await;
+    #[cfg(not(windows))]
+    Ok(serde_json::Value::Array(vec![]))
+}
+
+/// "allowed" | "denied" | "unspecified" | "unsupported". `request` shows the Windows prompt.
+#[tauri::command]
+pub async fn system_notifications_access(request: Option<bool>) -> CmdResult<String> {
+    #[cfg(windows)]
+    return blocking(move || {
+        if request.unwrap_or(false) {
+            toasts::request_access()
+        } else {
+            toasts::access()
+        }
+    })
+    .await;
+    #[cfg(not(windows))]
+    {
+        let _ = request;
+        Ok("unsupported".into())
     }
 }
 

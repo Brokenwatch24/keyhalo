@@ -72,6 +72,15 @@ export class TauriBackend implements Backend {
   windows() {
     return invoke<Awaited<ReturnType<Backend["windows"]>>>("system_windows");
   }
+  claudeHooks(action: "status" | "install" | "remove", port: number, token?: string) {
+    return invoke<Awaited<ReturnType<Backend["claudeHooks"]>>>("claude_hooks", { action, port, token: token || null });
+  }
+  notifications() {
+    return invoke<Awaited<ReturnType<Backend["notifications"]>>>("system_notifications");
+  }
+  notificationsAccess(request = false) {
+    return invoke<Awaited<ReturnType<Backend["notificationsAccess"]>>>("system_notifications_access", { request });
+  }
   systemMetrics() {
     return invoke<Awaited<ReturnType<Backend["systemMetrics"]>>>("system_metrics");
   }

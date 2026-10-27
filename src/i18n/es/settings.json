@@ -18,7 +18,11 @@
     "languageHint": "Se usa en toda la app, el menú de la bandeja y el HUD.",
     "theme": "Tema",
     "themeHint": "Sistema sigue el modo claro/oscuro de Windows.",
-    "themes": { "system": "Sistema", "light": "Claro", "dark": "Oscuro" },
+    "themes": {
+      "system": "Sistema",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
     "startWithWindows": "Iniciar con Windows",
     "startWithWindowsHint": "Abre KeyHalo minimizado en la bandeja al iniciar sesión, para que la iluminación y los atajos estén listos.",
     "desktopOnly": "Disponible en la app de escritorio.",
@@ -26,7 +30,7 @@
     "tray": "Minimizar a la bandeja",
     "trayHint": "Al cerrar la ventana, KeyHalo sigue funcionando en el área de notificaciones. Sal desde el icono de la bandeja.",
     "updates": "Buscar actualizaciones",
-    "updatesHint": "Comprueba si hay una nueva versión en GitHub al iniciar. No se envía nada más.",
+    "updatesHint": "Busca una nueva versión en GitHub al iniciar y cada pocas horas, y la descarga en segundo plano. No se envía nada más.",
     "version": "Versión",
     "versionHint": "Compara con la última versión publicada en GitHub.",
     "checkNow": "Comprobar ahora",
@@ -35,7 +39,12 @@
     "available": "La versión {version} está disponible",
     "download": "Descargar",
     "noReleases": "Todavía no se ha publicado ninguna versión.",
-    "checkFailed": "No se pudo comprobar ({message})."
+    "checkFailed": "No se pudo comprobar ({message}).",
+    "autoUpdateHint": "Las actualizaciones se descargan solas; tú eliges cuándo reiniciar.",
+    "downloading": "Descargando {version}… {percent} %",
+    "ready": "La versión {version} está lista para instalar",
+    "installing": "Instalando… KeyHalo se reiniciará.",
+    "restartToUpdate": "Reiniciar y actualizar"
   },
   "lighting": {
     "desc": "Haz que la iluminación sea cómoda y los colores de estado legibles para todos.",
@@ -44,7 +53,12 @@
     "colorVision": "Visión del color",
     "colorVisionHint": "Los colores de estado (batería, CPU, notificaciones) cambian a una paleta que puedas distinguir.",
     "statusPreview": "Vista previa de colores de estado",
-    "status": { "good": "OK", "warn": "Aviso", "bad": "Alerta", "info": "Info" },
+    "status": {
+      "good": "OK",
+      "warn": "Aviso",
+      "bad": "Alerta",
+      "info": "Info"
+    },
     "cv": {
       "normal": "Predeterminada",
       "protanopia": "Protanopía (rojo)",

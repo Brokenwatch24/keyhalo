@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, RefreshCw } from "lucide-react";
 import { useT } from "@/i18n";
 import { useDevices } from "@/core/devices";
 import { useProfiles, useSignals } from "@/core/lighting";
 import type { ConnectedDevice } from "@/core/types";
+import { installUpdate, useUpdates } from "@/core/updates";
 import { navigate } from "./router";
 import { BatteryIcon, DeviceIcon } from "@/sections/dashboard/shared";
 import "./sidebar-footer.css";
@@ -13,6 +14,7 @@ export function SidebarFooter() {
   const devices = useDevices((s) => s.devices);
   return (
     <div className="kh-sf">
+      <UpdateReady />
       <ProfileSwitcher />
       {devices.length > 0 && (
         <div className="kh-sf__devices">
@@ -22,6 +24,20 @@ export function SidebarFooter() {
         </div>
       )}
     </div>
+  );
+}
+
+/** One-click restart once a downloaded update is ready. */
+function UpdateReady() {
+  const t = useT();
+  const status = useUpdates((s) => s.status);
+  const version = useUpdates((s) => s.version);
+  if (status !== "ready" && status !== "installing") return null;
+  return (
+    <button type="button" className="kh-sf__update" disabled={status === "installing"} onClick={() => void installUpdate()} title={t("settings.general.ready", { version: version ?? "" })}>
+      <RefreshCw size={14} className={status === "installing" ? "settings-spin" : undefined} />
+      <span className="kh-sf__text">{t("settings.general.restartToUpdate")}</span>
+    </button>
   );
 }
 

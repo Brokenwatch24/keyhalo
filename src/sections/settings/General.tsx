@@ -8,6 +8,7 @@ import { STATUS_PALETTES } from "@/core/lighting";
 import { useSettings } from "@/core/state/settings";
 import { useStats } from "@/core/stats";
 import { bus } from "@/core/util/bus";
+import { checkForUpdates, installUpdate, useUpdates } from "@/core/updates";
 import type { ColorVision, Settings, ThemeMode } from "@/core/types";
 import { compareVersions, Note, Row, Section } from "./parts";
 
@@ -123,13 +124,60 @@ export function GeneralSection({ version }: { version: string }) {
             <span className="mono settings-version">{version || "…"}</span>
           </span>
         }
-        hint={<UpdateLine upd={upd} />}
+        hint={isTauri ? <AutoUpdateLine /> : <UpdateLine upd={upd} />}
       >
-        <Button size="sm" icon={<RefreshCw className={upd.status === "checking" ? "settings-spin" : undefined} />} onClick={checkNow} disabled={upd.status === "checking"}>
-          {upd.status === "checking" ? t("settings.general.checking") : t("settings.general.checkNow")}
-        </Button>
+        {isTauri ? <AutoUpdateButton /> : (
+          <Button size="sm" icon={<RefreshCw className={upd.status === "checking" ? "settings-spin" : undefined} />} onClick={checkNow} disabled={upd.status === "checking"}>
+            {upd.status === "checking" ? t("settings.general.checking") : t("settings.general.checkNow")}
+          </Button>
+        )}
       </Row>
     </Section>
+  );
+}
+
+/** Desktop app: status of the built-in updater (src/core/updates.ts). */
+function AutoUpdateLine() {
+  const t = useT();
+  const u = useUpdates();
+  switch (u.status) {
+    case "latest":
+      return (
+        <span className="settings-inline settings-inline--ok">
+          <Check size={13} /> {t("settings.general.upToDate")}
+        </span>
+      );
+    case "downloading":
+      return <span>{t("settings.general.downloading", { version: u.version ?? "", percent: Math.round((u.progress ?? 0) * 100) })}</span>;
+    case "ready":
+      return (
+        <Badge tone="info" dot>
+          {t("settings.general.ready", { version: u.version ?? "" })}
+        </Badge>
+      );
+    case "installing":
+      return <span>{t("settings.general.installing")}</span>;
+    case "error":
+      return <span className="settings-inline settings-inline--danger">{t("settings.general.checkFailed", { message: u.error ?? "" })}</span>;
+    default:
+      return <span>{t("settings.general.autoUpdateHint")}</span>;
+  }
+}
+
+function AutoUpdateButton() {
+  const t = useT();
+  const status = useUpdates((s) => s.status);
+  if (status === "ready" || status === "installing")
+    return (
+      <Button size="sm" variant="primary" icon={<RefreshCw />} onClick={() => void installUpdate()} disabled={status === "installing"}>
+        {t("settings.general.restartToUpdate")}
+      </Button>
+    );
+  const busy = status === "checking" || status === "downloading";
+  return (
+    <Button size="sm" icon={<RefreshCw className={busy ? "settings-spin" : undefined} />} onClick={() => void checkForUpdates()} disabled={busy}>
+      {busy ? t("settings.general.checking") : t("settings.general.checkNow")}
+    </Button>
   );
 }
 

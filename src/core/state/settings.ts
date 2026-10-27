@@ -19,6 +19,7 @@ export const DEFAULT_SETTINGS: Settings = {
   autoSwitchProfiles: true,
   hud: { enabled: true, position: "bottom", durationMs: 1400 },
   cheatsheet: true,
+  appShortcutGlow: true,
 };
 
 interface SettingsState {

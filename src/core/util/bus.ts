@@ -9,7 +9,7 @@ import type { HudPayload } from "../backend/api";
  *  - devices/lighting: "profile:apply", "dpi:*", "lighting:*", "device:effect"
  *  - keymaps: "keymaps:*"
  *  - app shell: "hud"
- *  - integrations: "notify" (flash + HUD)
+ *  - integrations: "notify" (flash + HUD), "notifications:clear"
  */
 export interface BusEvents {
   // Profiles & lighting
@@ -33,6 +33,10 @@ export interface BusEvents {
   // Shell
   hud: HudPayload;
   notify: { text: string; color?: string; keys?: string[] };
+  /** A new Windows notification that no mute rule silenced (ruleId = matching rule, if any). Text stays in memory only. */
+  "notification:received": { app: string; appId: string; title: string; body: string; ruleId: string | null };
+  /** Mark all notifications as seen (turns off "keep lit" keys). */
+  "notifications:clear": Record<string, never>;
 
   // Community
   "community:installed": { kind: CatalogKind; id: string; data: unknown };

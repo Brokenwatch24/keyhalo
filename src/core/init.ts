@@ -9,6 +9,7 @@ import { init as community } from "./community/init";
 import { init as typing } from "./typing/init";
 import { init as stats } from "./stats/init";
 import { initShell } from "./shell";
+import { initUpdates } from "./updates";
 
 /**
  * `?theme=light|dark|system` (in the query string or after the hash route) forces a theme
@@ -52,4 +53,5 @@ export async function initApp() {
       console.error(`[init] ${name} failed`, e);
     }
   }
+  initUpdates();
 }

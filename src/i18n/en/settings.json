@@ -18,7 +18,11 @@
     "languageHint": "Used everywhere in the app, the tray menu and the HUD.",
     "theme": "Theme",
     "themeHint": "System follows your Windows light/dark setting.",
-    "themes": { "system": "System", "light": "Light", "dark": "Dark" },
+    "themes": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
     "startWithWindows": "Start with Windows",
     "startWithWindowsHint": "Launch KeyHalo minimised to the tray when you sign in, so lighting and keymaps are ready.",
     "desktopOnly": "Available in the desktop app.",
@@ -26,7 +30,7 @@
     "tray": "Minimise to tray",
     "trayHint": "Closing the window keeps KeyHalo running in the notification area. Quit from the tray icon.",
     "updates": "Check for updates",
-    "updatesHint": "Look for a new release on GitHub when the app starts. Nothing else is sent.",
+    "updatesHint": "Look for a new release on GitHub at start and every few hours, and download it in the background. Nothing else is sent.",
     "version": "Version",
     "versionHint": "Compare with the latest release on GitHub.",
     "checkNow": "Check now",
@@ -35,7 +39,12 @@
     "available": "Version {version} is available",
     "download": "Download",
     "noReleases": "No releases have been published yet.",
-    "checkFailed": "Couldn't check for updates ({message})."
+    "checkFailed": "Couldn't check for updates ({message}).",
+    "autoUpdateHint": "Updates download on their own; you choose when to restart.",
+    "downloading": "Downloading {version}… {percent} %",
+    "ready": "Version {version} is ready to install",
+    "installing": "Installing… KeyHalo will restart.",
+    "restartToUpdate": "Restart and update"
   },
   "lighting": {
     "desc": "Make lighting comfortable and status colours readable for everyone.",
@@ -44,7 +53,12 @@
     "colorVision": "Colour vision",
     "colorVisionHint": "Status colours (battery, CPU, notifications) switch to a palette you can tell apart.",
     "statusPreview": "Status colours preview",
-    "status": { "good": "OK", "warn": "Warn", "bad": "Alert", "info": "Info" },
+    "status": {
+      "good": "OK",
+      "warn": "Warn",
+      "bad": "Alert",
+      "info": "Info"
+    },
     "cv": {
       "normal": "Default",
       "protanopia": "Protanopia (red-blind)",

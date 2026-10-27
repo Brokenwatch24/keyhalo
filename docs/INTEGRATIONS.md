@@ -11,7 +11,7 @@ and retried with back-off.
 | [System monitor](#system-monitor) | CPU / GPU / RAM | on (polls only while needed) |
 | [Bambu Lab printer](#bambu-lab-printer) | print progress, state, layers | off |
 | [Claude Code](#claude-code) | working / waiting / done / error | on |
-| [App notifications](#app-notifications) | unread badges → flash | off |
+| [App notifications](#app-notifications) | Windows notifications → flash / keys that stay lit | off |
 | [Microphone mute](#microphone-mute) | mute state + hotkey | on |
 | [Games](#games) | CS2 / Dota 2 GSI, League of Legends | on |
 | [Home Assistant / MQTT](#home-assistant--mqtt) | keyboard as a light, sensors | off |
@@ -51,8 +51,15 @@ Lights your keyboard while [Claude Code](https://docs.claude.com/en/docs/claude-
 alerts you (HUD + flash) when it is **waiting** for your input. States: `idle`, `working`,
 `waiting`, `done`, `error`.
 
-The desktop app installs a small `keyhalo` CLI. Add hooks to `~/.claude/settings.json`
-(or a project's `.claude/settings.json`):
+**One click:** Integrations → Claude Code → **Connect**. KeyHalo adds its hooks to
+`~/.claude/settings.json`, keeps every other setting and hook as it is, and saves a backup next to
+the file (`settings.json.keyhalo-backup`) the first time. **Disconnect** removes only KeyHalo's
+hooks. The hooks call the local API with `curl` (built into Windows 10/11), so nothing else needs
+to be installed; they exit quietly when KeyHalo is closed. Restart open Claude Code sessions after
+connecting.
+
+To set it up by hand instead (or in a project's `.claude/settings.json`), with the optional
+`keyhalo` CLI on your PATH:
 
 ```json
 {
@@ -85,24 +92,31 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:27463/api/v1/action `
 
 ## App notifications
 
-Flashes an app's colour when its **unread count goes up**. KeyHalo reads the titles of visible
-top-level windows every 2 s (no screen capture, no message content) and looks for the badge the
-app puts in its title:
+Lights your keyboard when a **Windows notification** arrives: Discord, WhatsApp, Telegram, Slack,
+Teams, Outlook, your phone through **Phone Link**, or any other app. KeyHalo reads the
+notifications in the Windows Action Center (`UserNotificationListener`, polled every 1.5 s) and
+checks them against your **rules**, top to bottom; the first rule that matches decides:
 
-| App | Process | Title pattern | Notes |
-|---|---|---|---|
-| Discord | `Discord.exe` | `(3) #channel - Discord` | mentions + DMs |
-| WhatsApp | `WhatsApp.exe`, `WhatsApp.Root.exe` | `(5) WhatsApp` | |
-| Telegram | `Telegram.exe` | `Telegram (12)` | |
-| Slack | `slack.exe` | `* Slack …` (unread), `! Slack …` (mention), `… 3 new items` | no exact count for `*`/`!` |
-| Microsoft Teams | `ms-teams.exe`, `Teams.exe` | `(2) Chat \| … \| Microsoft Teams` | |
-| Outlook | `OUTLOOK.EXE`, `olk.exe` | `(3) …` / `Inbox (3)` | classic Outlook usually shows no count |
-| Gmail (off by default) | browsers | `Inbox (12) - … - Gmail` | only when Gmail is the active tab |
+| Rule field | Meaning |
+|---|---|
+| Apps | parts of the app name or AppUserModelID (`discord`, `yourphone`); empty = any app |
+| Only if it contains | words in the title or text (`@you`, `urgent`); empty = anything |
+| Colour, keys | what flashes (no keys = the whole keyboard) |
+| Keep lit until read | the keys stay on until the notification leaves the Action Center (you open or dismiss it, or the app clears it after you read the message) |
+| Mute | ignore matching notifications (put it above broader rules) |
+| HUD | also show the on-screen HUD |
 
-This is **best effort**: apps change their title format between versions, the window must
-exist (minimised or in the tray-but-open is fine; fully closed to tray is not), and the first
-poll only records a baseline. Each app has its own colour, optional key list (empty = whole
-keyboard) and optional HUD. The local API can also trigger notifications (see `notify` below).
+"Keep lit" rules without keys of their own use the **indicator keys** (Escape by default). A
+**Mark all as seen** button and an optional hotkey turn every waiting light off. Only
+notifications that arrive while KeyHalo runs count; older ones in the Action Center are ignored.
+
+**Privacy:** notification text is matched in memory and never saved, logged or sent. Access is
+controlled by Windows: Settings → Privacy & security → Notifications → *Let apps access your
+notifications*. The **Notification arrives** automation trigger (with optional app / text
+filters) uses the same feed.
+
+The previous method, unread badges in **window titles** (`(3) Discord`), is still available as
+the *Window titles (legacy)* source for setups where notifications are turned off.
 
 ## Microphone mute
 

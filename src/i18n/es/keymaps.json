@@ -306,6 +306,18 @@
       "version": "Versión",
       "defaultName": "Mi pack",
       "defaultCategory": "General"
+    },
+    "glow": "Iluminar los atajos de la app abierta",
+    "glowShort": "Sus teclas de atajo brillan suave mientras la app está al frente",
+    "howto": {
+      "title": "Cómo funcionan los packs de atajos",
+      "hide": "Entendido",
+      "oneTitle": "Abre una app",
+      "one": "Cuando una app con pack está al frente (VS Code, Photoshop, Blender, Rainbow Six…), sus teclas de atajo brillan con el color de su categoría.",
+      "twoTitle": "Mantén Ctrl, Shift, Alt o Win",
+      "two": "Medio segundo después solo quedan encendidos los atajos de ese modificador, así ves qué hace Ctrl+B o Alt+F sin buscarlo.",
+      "threeTitle": "Crea los tuyos",
+      "three": "Activa packs en la lista, edítalos o crea uno con «Nuevo pack». Las reasignaciones y macros cambian lo que hacen las teclas; las leyendas solo las iluminan."
     }
   }
 }

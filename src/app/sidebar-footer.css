@@ -157,6 +157,27 @@
   color: var(--danger);
 }
 
+.kh-sf__update {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 8px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong, var(--border));
+  background: var(--text);
+  color: var(--bg);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+.kh-sf__update:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 @media (max-width: 860px) {
   .kh-sf__text,
   .kh-sf__chev,

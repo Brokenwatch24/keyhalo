@@ -1,12 +1,13 @@
 /** Public API of the integrations feature (see README.md). */
 export { useIntegrations, registerTest, type IntegrationsState, type IntegrationStatus, type IntegrationState, type TestResult } from "./store";
-export { DEFAULT_INTEGRATIONS, DEFAULT_NOTIFICATION_APPS, type IntegrationsConfig, type IntegrationId } from "./config";
+export { DEFAULT_INTEGRATIONS, DEFAULT_NOTIFICATION_APPS, DEFAULT_NOTIFICATION_RULES, type IntegrationsConfig, type IntegrationId, type NotificationRule } from "./config";
 export type * from "./config";
 export { acquireSystemMetrics, useSystemMetrics, onSystemMetrics, lastSystemMetrics } from "./system";
 export { mergeBambuReport, DEMO_PRINTER, type BambuState } from "./bambu";
 export { setClaudeState, isClaudeState, CLAUDE_STATES, type ClaudeState } from "./claude";
 export { UNREAD_APPS, parseUnread, unreadCounts, type UnreadApp } from "./unread";
-export { lastUnread } from "./notifications";
+export { lastUnread, useNotifications, clearNotifications, requestNotificationAccess, type PendingNotification, type RecentNotification } from "./notifications";
+export { matchRule, toastAppName } from "./toasts";
 export { toggleMic } from "./mic";
 export { installGsi, handleGsi, onGameEvent, type GsiInstallResult } from "./games";
 export { parseCs2, parseDota, parseLol, deriveGameEvents, gsiConfigFile, GAME_EVENTS, type GameEvent, type GameSignal, type GameId } from "./gsi";

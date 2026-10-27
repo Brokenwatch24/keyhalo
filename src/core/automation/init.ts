@@ -6,6 +6,7 @@ import { acquireSystemMetrics, onSystemMetrics } from "@/core/integrations/syste
 import { mqttSubscribe } from "@/core/integrations/mqtt";
 import { onGameEvent } from "@/core/integrations/games";
 import { registerHotkey } from "@/core/integrations/hotkeys";
+import { bus } from "@/core/util/bus";
 import { executeAction } from "./actions";
 import { setRuleRunner, useRules, type RunLogEntry } from "./store";
 import { describeTrigger, TriggerEvaluator, type EngineEvent } from "./triggers";
@@ -68,6 +69,7 @@ export async function init(): Promise<void> {
     dispatch({ type: "api", event: action });
   });
   onGameEvent((game, event) => dispatch({ type: "game", game, event }));
+  bus.on("notification:received", (n) => dispatch({ type: "notification", app: `${n.app}\n${n.appId}`, text: `${n.title}\n${n.body}` }));
 
   const batterySnapshot = () => {
     const ds = useDevices.getState();

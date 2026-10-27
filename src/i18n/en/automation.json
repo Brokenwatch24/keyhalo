@@ -20,7 +20,8 @@
     "mqtt": "MQTT message",
     "api": "Local API action",
     "game": "Game event",
-    "hotkey": "Global hotkey"
+    "hotkey": "Global hotkey",
+    "notification": "Notification arrives"
   },
   "gameEvents": {
     "round_start": "Round starts",
@@ -95,7 +96,8 @@
       "mqtt": "MQTT",
       "api": "API action",
       "game": "Game event",
-      "hotkey": "Hotkey"
+      "hotkey": "Hotkey",
+      "notification": "Notification"
     },
     "desc": {
       "appFocus": "When {app} is focused",
@@ -113,7 +115,10 @@
       "mqttMatch": "MQTT {topic} matches “{match}”",
       "api": "Local API action “{event}”",
       "game": "{game}: {event}",
-      "hotkey": "Hotkey {keys}"
+      "hotkey": "Hotkey {keys}",
+      "notification": "Notification from {app}",
+      "notificationContains": "Notification from {app} containing “{text}”",
+      "anyApp": "any app"
     },
     "days": {
       "0": "Sun",
@@ -159,7 +164,12 @@
       "keys": "Keys",
       "keysHint": "Leave empty to flash the whole keyboard.",
       "message": "Message",
-      "payload": "Payload"
+      "payload": "Payload",
+      "notifApp": "From app",
+      "notifAppHint": "Part of the app name, e.g. Discord or Phone Link. Empty = any app.",
+      "notifContains": "Containing",
+      "notifContainsHint": "Text in the title or message, e.g. your name. Empty = any text.",
+      "notifNeeds": "Uses the Windows notifications integration, which must be on."
     },
     "templates": {
       "dimNight": {

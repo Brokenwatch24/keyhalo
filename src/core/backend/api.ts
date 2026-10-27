@@ -39,6 +39,21 @@ export interface WindowInfo {
   pid: number;
 }
 
+/** A notification currently in the Windows Action Center (system_notifications). */
+export interface ToastNotification {
+  id: number;
+  /** Display name of the sending app ("Discord", "Phone Link"); can be empty. */
+  app: string;
+  /** AppUserModelID (stable across languages). */
+  appId: string;
+  title: string;
+  body: string;
+  /** Unix epoch ms. */
+  time: number;
+}
+
+export type NotificationAccess = "allowed" | "denied" | "unspecified" | "unsupported";
+
 export interface SystemMetrics {
   cpuLoad: number; // 0..100
   cpuTemp?: number; // °C, when available
@@ -218,6 +233,12 @@ export interface Backend {
   processes(): Promise<string[]>;
   /** system_windows() — visible top-level windows (used for unread-badge detection). */
   windows(): Promise<WindowInfo[]>;
+  /** system_notifications() — Windows notifications in the Action Center; rejects when access is denied. */
+  notifications(): Promise<ToastNotification[]>;
+  /** system_notifications_access({ request }) — `request` shows the Windows consent prompt. */
+  notificationsAccess(request?: boolean): Promise<NotificationAccess>;
+  /** claude_hooks({ action, port, token }) — add/remove KeyHalo's hooks in ~/.claude/settings.json (other settings kept). */
+  claudeHooks(action: "status" | "install" | "remove", port: number, token?: string): Promise<{ installed: boolean; path: string; backup?: string }>;
   /** system_metrics() */
   systemMetrics(): Promise<SystemMetrics>;
   /** system_pointer_get() / system_pointer_set({ settings }) */

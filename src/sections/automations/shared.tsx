@@ -10,6 +10,7 @@ import {
   Gamepad2,
   Globe,
   Keyboard,
+  MessageSquare,
   Moon,
   Palette,
   Radio,
@@ -37,6 +38,7 @@ export const TRIGGER_TYPES: Trigger["type"][] = [
   "api",
   "game",
   "hotkey",
+  "notification",
 ];
 export const ACTION_TYPES: RuleAction["type"][] = ["profile", "flash", "notify", "brightness", "dpi", "pauseRemap", "mqttPublish", "http"];
 
@@ -52,6 +54,7 @@ export const TRIGGER_ICONS: Record<Trigger["type"], ReactNode> = {
   api: <Webhook />,
   game: <Gamepad2 />,
   hotkey: <Keyboard />,
+  notification: <MessageSquare />,
 };
 
 export const ACTION_ICONS: Record<RuleAction["type"], ReactNode> = {
@@ -119,6 +122,10 @@ export function describe(t: Translate, tr: Trigger, deviceName?: (id: string) =>
       });
     case "hotkey":
       return t("automation.ui.desc.hotkey", { keys: tr.accelerator });
+    case "notification": {
+      const app = tr.app?.trim() || t("automation.ui.desc.anyApp");
+      return tr.contains?.trim() ? t("automation.ui.desc.notificationContains", { app, text: tr.contains.trim() }) : t("automation.ui.desc.notification", { app });
+    }
   }
 }
 

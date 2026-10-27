@@ -6,6 +6,17 @@ import { riskyRuleActions, validateRule } from "./validate";
 const rule = (trigger: Trigger, id = "r"): Rule => ({ id, name: id, enabled: true, trigger, actions: [{ type: "flash", color: "#fff" }] });
 
 describe("TriggerEvaluator", () => {
+  it("notification matches app and text filters case-insensitively; empty filters match anything", () => {
+    const ev = new TriggerEvaluator();
+    const n = { type: "notification" as const, app: "Discord\ncom.squirrel.Discord.Discord", text: "Ana\nare you joining?" };
+    expect(ev.evaluate(rule({ type: "notification" }), n)).toBe(true);
+    expect(ev.evaluate(rule({ type: "notification", app: "discord", contains: "JOINING" }), n)).toBe(true);
+    expect(ev.evaluate(rule({ type: "notification", app: "whatsapp" }), n)).toBe(false);
+    expect(ev.evaluate(rule({ type: "notification", contains: "urgent" }), n)).toBe(false);
+    expect(ev.evaluate(rule({ type: "notification" }), { type: "api", event: "x" })).toBe(false);
+    expect(validateRule(rule({ type: "notification", app: "Discord" })).length).toBe(0);
+  });
+
   it("appFocus / appLaunch match process names case-insensitively (with or without .exe)", () => {
     const ev = new TriggerEvaluator();
     expect(ev.evaluate(rule({ type: "appFocus", process: "resolve" }), { type: "focus", process: "Resolve.exe" })).toBe(true);

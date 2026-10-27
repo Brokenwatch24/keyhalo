@@ -40,6 +40,9 @@ function checkTrigger(t: unknown, errors: string[]) {
     case "hotkey":
       if (!isStr(tr.accelerator) || !tr.accelerator) errors.push("trigger.accelerator is required");
       break;
+    case "notification":
+      if ((tr.app !== undefined && !isStr(tr.app)) || (tr.contains !== undefined && !isStr(tr.contains))) errors.push("trigger.app and trigger.contains must be strings");
+      break;
     default:
       errors.push(`unknown trigger type "${String((t as { type?: unknown }).type)}"`);
   }

@@ -1227,3 +1227,55 @@
     flex-wrap: wrap;
   }
 }
+
+/* ---------- How it works ---------- */
+.keymaps-howto {
+  margin-bottom: var(--space-5, 20px);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+}
+.keymaps-howto__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.keymaps-howto__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.keymaps-howto__steps li {
+  display: flex;
+  gap: 10px;
+}
+.keymaps-howto__n {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+}
+.keymaps-howto__t {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.keymaps-howto__d {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+@media (max-width: 960px) {
+  .keymaps-howto__steps {
+    grid-template-columns: 1fr;
+  }
+}

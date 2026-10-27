@@ -306,6 +306,18 @@
       "version": "Version",
       "defaultName": "My pack",
       "defaultCategory": "General"
+    },
+    "glow": "Light the open app's shortcuts",
+    "glowShort": "Its shortcut keys glow softly while the app is in front",
+    "howto": {
+      "title": "How shortcut packs work",
+      "hide": "Got it",
+      "oneTitle": "Open an app",
+      "one": "When an app with a pack is in front (VS Code, Photoshop, Blender, Rainbow Six…), its shortcut keys glow in category colours.",
+      "twoTitle": "Hold Ctrl, Shift, Alt or Win",
+      "two": "After half a second only the shortcuts for that modifier stay lit, so you can see what Ctrl+B or Alt+F does without looking it up.",
+      "threeTitle": "Make your own",
+      "three": "Turn packs on in the list, edit them, or create one with “New pack”. Remaps and macros change what keys do; legends only light them."
     }
   }
 }

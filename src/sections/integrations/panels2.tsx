@@ -1,95 +1,16 @@
 import { useState, type ReactNode } from "react";
-import { AlertTriangle, CheckCircle2, Download, Eye, EyeOff, KeyRound, Mic, MicOff, RefreshCw, ShieldCheck, Zap } from "lucide-react";
-import { Badge, Button, ColorInput, Field, Input, Progress, Slider, Toggle, toast } from "@/ui";
+import { AlertTriangle, CheckCircle2, Download, Eye, EyeOff, KeyRound, Mic, MicOff, RefreshCw, ShieldCheck } from "lucide-react";
+import { Badge, Button, Field, Input, Progress, Slider, Toggle, toast } from "@/ui";
 import { useT } from "@/i18n";
 import { backend } from "@/core/backend";
 import { useSignals } from "@/core/lighting/signals";
 import { useSettings } from "@/core/state/settings";
-import { BUILTIN_API_ACTIONS, UNREAD_APPS, flash, haTopics, installGsi, toggleMic, useIntegrations, type GsiInstallResult } from "@/core/integrations";
+import { BUILTIN_API_ACTIONS, haTopics, installGsi, toggleMic, useIntegrations, type GsiInstallResult } from "@/core/integrations";
 import { KeyRecorder } from "../keymaps/KeyRecorder";
-import { ChipsInput } from "../keymaps/ChipsInput";
-import { KEY_CODES } from "@/core/keymaps";
 import { accelToCodes, codesToAccel } from "../automations/shared";
-import { useUnreadNow } from "./live";
 import { CodeBlock, KV, Section } from "./common";
 
 const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
-
-// ---------------------------------------------------------------------------
-// Notifications
-// ---------------------------------------------------------------------------
-
-export function NotificationsPanel() {
-  const t = useT();
-  const cfg = useIntegrations((s) => s.config.notifications);
-  const update = useIntegrations((s) => s.update);
-  const counts = useUnreadNow((s) => s.counts);
-  const [keysFor, setKeysFor] = useState<string | null>(null);
-  const setApp = (id: string, patch: Partial<(typeof cfg.apps)[string]>) =>
-    update("notifications", {
-      apps: { ...cfg.apps, [id]: { ...cfg.apps[id], ...patch } },
-    });
-
-  return (
-    <div className="integrations-panel">
-      <div className="integrations-callout">
-        <ShieldCheck />
-        <div>{t("integrations.notifications.bestEffort")}</div>
-      </div>
-      <div className="integrations-apps">
-        {UNREAD_APPS.map((app) => {
-          const c = cfg.apps[app.id] ?? {
-            enabled: false,
-            color: "#ffffff",
-            keys: [],
-            hud: false,
-          };
-          const n = counts?.[app.id];
-          return (
-            <div key={app.id} className={cx("integrations-app", !c.enabled && "is-off")}>
-              <div className="integrations-app__main">
-                <span className="integrations-app__icon" style={{ ["--c" as string]: c.color }}>
-                  {app.name.slice(0, 1)}
-                </span>
-                <div className="grow" style={{ minWidth: 0 }}>
-                  <div className="integrations-app__name">
-                    {app.name}
-                    {n !== undefined && n > 0 && <Badge tone="info">{t("integrations.notifications.unread", { count: n })}</Badge>}
-                  </div>
-                  <div className="integrations-app__proc mono">{app.processes.join(", ")}</div>
-                </div>
-                <ColorInput value={c.color} onChange={(color) => setApp(app.id, { color })} />
-                <Button size="sm" variant={keysFor === app.id ? "secondary" : "ghost"} onClick={() => setKeysFor((k) => (k === app.id ? null : app.id))}>
-                  {c.keys.length
-                    ? t("integrations.ui.notifications.keysN", {
-                        n: c.keys.length,
-                      })
-                    : t("integrations.ui.notifications.allKeys")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  iconOnly
-                  icon={<Zap />}
-                  title={t("integrations.ui.notifications.preview")}
-                  onClick={() => flash(c.color, c.keys.length ? c.keys : undefined, 2)}
-                />
-                <Toggle checked={c.enabled} onChange={(enabled) => setApp(app.id, { enabled })} />
-              </div>
-              {keysFor === app.id && (
-                <div className="integrations-app__keys">
-                  <ChipsInput value={c.keys} onChange={(keys) => setApp(app.id, { keys })} suggestions={[...KEY_CODES]} placeholder="F1, Escape…" />
-                  <Toggle checked={c.hud} onChange={(hud) => setApp(app.id, { hud })} label={t("integrations.ui.hud")} />
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-      <p className="integrations-note">{counts ? t("integrations.ui.notifications.detected") : t("integrations.ui.notifications.detecting")}</p>
-    </div>
-  );
-}
 
 // ---------------------------------------------------------------------------
 // Microphone

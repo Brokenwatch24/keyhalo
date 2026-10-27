@@ -333,7 +333,9 @@ export type Trigger =
   | { type: "mqtt"; topic: string; match?: string }
   | { type: "api"; event: string }
   | { type: "game"; game: "cs2" | "dota2" | "lol"; event: string }
-  | { type: "hotkey"; accelerator: string };
+  | { type: "hotkey"; accelerator: string }
+  /** A Windows notification arrives (needs the Notifications integration on). Empty filters match anything. */
+  | { type: "notification"; app?: string; contains?: string };
 
 export type RuleAction =
   | { type: "profile"; profileId: string }
@@ -425,6 +427,8 @@ export interface Settings {
   openrgb?: { enabled: boolean; host: string; port: number };
   /** Light the shortcut cheat-sheet while Ctrl/Shift/Alt/Win is held (keymaps). */
   cheatsheet: boolean;
+  /** Softly light the focused app's shortcut keys while it has a pack (keymaps). */
+  appShortcutGlow: boolean;
 }
 
 export interface InputStats {

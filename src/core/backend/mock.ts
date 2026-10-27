@@ -164,6 +164,26 @@ export class MockBackend implements Backend {
       { process: "chrome.exe", title: "KeyHalo — GitHub", pid: 101 },
     ];
   }
+  async notifications() {
+    // A message every 30 s that stays in the Action Center for 18 s, rotating apps.
+    const demo = [
+      { app: "Discord", appId: "com.squirrel.Discord.Discord", title: "Ana", body: "are you joining tonight?" },
+      { app: "WhatsApp", appId: "5319275A.WhatsAppDesktop_cv1g1gvanyjgm!App", title: "Mom", body: "Call me when you can" },
+      { app: "Phone Link", appId: "Microsoft.YourPhone_8wekyb3d8bbwe!App", title: "Bank", body: "Your package was delivered" },
+    ];
+    const bucket = Math.floor(Date.now() / 30_000);
+    const start = bucket * 30_000;
+    if (Date.now() - start > 18_000) return [];
+    return [{ id: bucket, time: start, ...demo[bucket % demo.length] }];
+  }
+  private claudeHooked = false;
+  async claudeHooks(action: "status" | "install" | "remove") {
+    if (action !== "status") this.claudeHooked = action === "install";
+    return { installed: this.claudeHooked, path: "~/.claude/settings.json" };
+  }
+  async notificationsAccess() {
+    return "allowed" as const;
+  }
   async systemMetrics() {
     const t = Date.now() / 1000;
     return {

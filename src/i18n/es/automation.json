@@ -20,7 +20,8 @@
     "mqtt": "Mensaje MQTT",
     "api": "Acción de la API local",
     "game": "Evento de juego",
-    "hotkey": "Atajo global"
+    "hotkey": "Atajo global",
+    "notification": "Llega una notificación"
   },
   "gameEvents": {
     "round_start": "Empieza la ronda",
@@ -95,7 +96,8 @@
       "mqtt": "MQTT",
       "api": "Acción API",
       "game": "Evento de juego",
-      "hotkey": "Atajo"
+      "hotkey": "Atajo",
+      "notification": "Notificación"
     },
     "desc": {
       "appFocus": "Cuando {app} está en primer plano",
@@ -113,7 +115,10 @@
       "mqttMatch": "MQTT {topic} coincide con «{match}»",
       "api": "Acción de la API local «{event}»",
       "game": "{game}: {event}",
-      "hotkey": "Atajo {keys}"
+      "hotkey": "Atajo {keys}",
+      "notification": "Notificación de {app}",
+      "notificationContains": "Notificación de {app} que contiene «{text}»",
+      "anyApp": "cualquier app"
     },
     "days": {
       "0": "Dom",
@@ -159,7 +164,12 @@
       "keys": "Teclas",
       "keysHint": "Vacío = destella todo el teclado.",
       "message": "Mensaje",
-      "payload": "Contenido"
+      "payload": "Contenido",
+      "notifApp": "De la app",
+      "notifAppHint": "Parte del nombre de la app, p. ej. Discord o Enlace Móvil. Vacío = cualquier app.",
+      "notifContains": "Que contenga",
+      "notifContainsHint": "Texto en el título o el mensaje, p. ej. tu nombre. Vacío = cualquier texto.",
+      "notifNeeds": "Usa la integración de notificaciones de Windows, que debe estar activada."
     },
     "templates": {
       "dimNight": {

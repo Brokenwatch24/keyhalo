@@ -69,14 +69,17 @@ bridge for more hardware.
 ### Automations
 
 - Rules: when an app opens, a time arrives, the battery is low, the PC is idle or the CPU/GPU
-  is hot → switch profile, flash keys, notify, change DPI, call MQTT or HTTP
+  is hot, or a notification arrives → switch profile, flash keys, notify, change DPI, call MQTT
+  or HTTP
 
 ![Automations](docs/screenshots/automations-dark.png)
 
 ### Integrations
 
 - **Bambu Lab** 3D printers: print progress on your keyboard
-- **Claude Code**: see when your AI agent needs you
+- **Claude Code**: see when your AI agent needs you; connect it with one click
+- **Windows notifications**: Discord, WhatsApp, your phone through Phone Link or any app light
+  your keys, with per-app and per-word rules, and the keys stay lit until you read the message
 - **Home Assistant / MQTT**
 - Game state lighting for **CS2**, **Dota 2** and **League of Legends**
 
@@ -156,6 +159,8 @@ Razer definitions in the table are marked *Experimental* for the same reason.
 Download the latest **`KeyHalo_x.y.z_x64-setup.exe`** (NSIS, recommended) or **`.msi`** from
 [Releases](https://github.com/Brokenwatch24/keyhalo/releases/latest) and run it.
 Windows 11 is recommended (Windows Dynamic Lighting devices require Windows 11).
+From 1.1.0 on, KeyHalo **updates itself**: new versions download in the background and install
+with one click (signed updates, Settings → General → Check for updates).
 
 ### Build from source
 

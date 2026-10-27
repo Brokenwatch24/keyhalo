@@ -1,10 +1,12 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { Eye, EyeOff, Pause, Play, SkipForward, Square } from "lucide-react";
-import { Button, ColorInput, Field, Input, Progress, Segmented, Slider, Sparkline, Toggle } from "@/ui";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { AlertTriangle, Eye, EyeOff, Pause, Play, SkipForward, Square } from "lucide-react";
+import { Button, ColorInput, Field, Input, Progress, Segmented, Slider, Sparkline, Toggle, toast } from "@/ui";
 import { useT } from "@/i18n";
 import { backend } from "@/core/backend";
 import { useSignals } from "@/core/lighting/signals";
 import { useSettings } from "@/core/state/settings";
+import { newLayerId, useLighting, useProfiles } from "@/core/lighting";
+import type { LightingLayer } from "@/core/types";
 import { CLAUDE_STATES, DEMO_PRINTER, setClaudeState, useIntegrations, usePomodoro, type ClaudeState } from "@/core/integrations";
 import { useMetricsHistory } from "./live";
 import { CodeBlock, KV, Section, fmtClock, fmtMinutes } from "./common";
@@ -258,6 +260,111 @@ const HOOKS = `{
   }
 }`;
 
+/** Number row: a status bar that reads on 60% boards too. */
+const CLAUDE_KEYS = ["Escape", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace"];
+
+/**
+ * Put a Claude Code status layer on top of the active profile. Bundled profiles are read-only,
+ * so they get a copy ("Halo + Claude") that becomes the active profile.
+ */
+async function addClaudeLayer(name: (base: string) => string): Promise<string> {
+  const ps = useProfiles.getState();
+  const scene = useLighting.getState().scene;
+  const layer: LightingLayer = { id: newLayerId(), effect: "widget:claude", params: {}, blend: "normal", opacity: 1, enabled: true, mask: CLAUDE_KEYS };
+  const lighting = { ...scene, layers: [...scene.layers, layer] };
+  const active = ps.profiles.find((p) => p.id === ps.activeId);
+  if (active && ps.sources[active.id] === "user") {
+    ps.update(active.id, { lighting });
+    return active.name;
+  }
+  const copy = ps.create(name(active?.name ?? "KeyHalo"), { ...(active ? structuredClone(active) : {}), lighting });
+  await ps.apply(copy.id, "user");
+  return copy.name;
+}
+
+/** One click: add KeyHalo's hooks to Claude Code's user settings (backed up first). */
+function ClaudeConnect() {
+  const t = useT();
+  const api = useSettings((s) => s.settings.api);
+  const [st, setSt] = useState<{ installed: boolean; path: string; backup?: string } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const hasLayer = useLighting((s) => s.scene.layers.some((l) => l.effect === "widget:claude" && l.enabled));
+  useEffect(() => {
+    backend.claudeHooks("status", api.port).then(setSt, () => setSt(null));
+  }, [api.port]);
+  const run = async (action: "install" | "remove") => {
+    setBusy(true);
+    try {
+      const r = await backend.claudeHooks(action, api.port, api.token);
+      setSt(r);
+      toast(t(action === "install" ? "integrations.ui.claude.connected" : "integrations.ui.claude.disconnected"));
+    } catch (e) {
+      toast(String((e as Error)?.message ?? e), "danger");
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <Section title={t("integrations.ui.claude.connectTitle")}>
+      <div className="integrations-connect">
+        <div className="grow">
+          <div className="integrations-connect__state">
+            <span className="integrations-ldot" style={{ background: st?.installed ? "var(--success)" : "var(--text-3)" }} />
+            {st?.installed ? t("integrations.ui.claude.isConnected") : t("integrations.ui.claude.notConnected")}
+          </div>
+          <p className="integrations-note" style={{ margin: "4px 0 0" }}>
+            {st?.installed ? t("integrations.ui.claude.connectedHint") : t("integrations.ui.claude.connectHint")}
+          </p>
+          {st?.path && (
+            <div className="mono subtle" style={{ fontSize: 11, marginTop: 4 }}>
+              {st.path}
+            </div>
+          )}
+          {!api.enabled && (
+            <div className="integrations-callout integrations-callout--warn" style={{ marginTop: 8 }}>
+              <AlertTriangle />
+              <div>{t("integrations.ui.claude.apiOff")}</div>
+            </div>
+          )}
+          <div className="row" style={{ gap: 10, marginTop: 10, flexWrap: "wrap" }}>
+            {hasLayer ? (
+              <span className="subtle" style={{ fontSize: 12 }}>
+                {t("integrations.ui.claude.layerOn")}
+              </span>
+            ) : (
+              <>
+                <span className="subtle" style={{ fontSize: 12 }}>
+                  {t("integrations.ui.claude.layerOff")}
+                </span>
+                <Button
+                  size="sm"
+                  onClick={() =>
+                    addClaudeLayer((base) => t("integrations.ui.claude.profileName", { name: base })).then(
+                      (n) => toast(t("integrations.ui.claude.layerAdded", { name: n })),
+                      (e) => toast(String((e as Error)?.message ?? e), "danger"),
+                    )
+                  }
+                >
+                  {t("integrations.ui.claude.addLayer")}
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
+        {st?.installed ? (
+          <Button onClick={() => void run("remove")} disabled={busy}>
+            {t("integrations.ui.claude.disconnect")}
+          </Button>
+        ) : (
+          <Button variant="primary" onClick={() => void run("install")} disabled={busy}>
+            {t("integrations.ui.claude.connect")}
+          </Button>
+        )}
+      </div>
+    </Section>
+  );
+}
+
 export function ClaudePanel() {
   const t = useT();
   const cfg = useIntegrations((s) => s.config.claude);
@@ -318,17 +425,21 @@ export function ClaudePanel() {
           </div>
         </div>
       </Section>
-      <Section title={t("integrations.ui.claude.hooks")}>
-        <p className="integrations-note">{t("integrations.ui.claude.hooksHint")}</p>
-        <CodeBlock code={HOOKS} label="~/.claude/settings.json" />
-      </Section>
-      <Section title={t("integrations.ui.claude.cli")}>
-        <p className="integrations-note">{t("integrations.ui.claude.cliHint")}</p>
-        <div className="integrations-code-grid">
-          <CodeBlock code={curl} label="bash · curl" />
-          <CodeBlock code={ps} label="PowerShell" />
-        </div>
-      </Section>
+      <ClaudeConnect />
+      <details className="integrations-manual">
+        <summary>{t("integrations.ui.claude.manual")}</summary>
+        <Section title={t("integrations.ui.claude.hooks")}>
+          <p className="integrations-note">{t("integrations.ui.claude.hooksHint")}</p>
+          <CodeBlock code={HOOKS} label="~/.claude/settings.json" />
+        </Section>
+        <Section title={t("integrations.ui.claude.cli")}>
+          <p className="integrations-note">{t("integrations.ui.claude.cliHint")}</p>
+          <div className="integrations-code-grid">
+            <CodeBlock code={curl} label="bash · curl" />
+            <CodeBlock code={ps} label="PowerShell" />
+          </div>
+        </Section>
+      </details>
     </div>
   );
 }

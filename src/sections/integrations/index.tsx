@@ -6,12 +6,13 @@ import { useRoute, navigate } from "@/app/router";
 import { backend } from "@/core/backend";
 import { useSignals } from "@/core/lighting/signals";
 import { useSettings } from "@/core/state/settings";
-import { useIntegrations, usePomodoro, useSystemMetrics, type TestResult } from "@/core/integrations";
+import { useIntegrations, useNotifications, usePomodoro, useSystemMetrics, type TestResult } from "@/core/integrations";
 import { useThemeQuery } from "../keymaps/util";
 import { PANELS, StatusBadge, fmtClock, fmtMinutes, isPanel, useEnabled, useStatus, type PanelId } from "./common";
 import { useDemoLife, useMetricsHistory, useUnreadNow, useUnreadPolling, wireMetricsHistory } from "./live";
 import { BambuPanel, CLAUDE_COLORS, ClaudePanel, DATA_COLORS, FluidSpark, PomodoroPanel, SystemPanel } from "./panels1";
-import { ApiPanel, GamesPanel, HomeAssistantPanel, MicPanel, NotificationsPanel } from "./panels2";
+import { ApiPanel, GamesPanel, HomeAssistantPanel, MicPanel } from "./panels2";
+import { NotificationsPanel } from "./notifications";
 import "./integrations.css";
 
 wireMetricsHistory();
@@ -37,7 +38,8 @@ export default function IntegrationsSection() {
   const selected = isPanel(route[1]) ? route[1] : null;
   // Metrics flow while this page is open (cards and the System panel show them live).
   useSystemMetrics(true);
-  useUnreadPolling(true);
+  const source = useIntegrations((s) => s.config.notifications.source);
+  useUnreadPolling(source === "titles");
   useDemoLife();
 
   return (
@@ -113,6 +115,8 @@ function Readout({ id }: { id: PanelId }) {
   const pomo = useSignals((s) => s.pomodoro);
   const phase = usePomodoro((s) => s.phase);
   const counts = useUnreadNow((s) => s.counts);
+  const notifSource = useIntegrations((s) => s.config.notifications.source);
+  const pending = useNotifications((s) => s.pending);
   const ha = useIntegrations((s) => s.config.homeAssistant);
   const focusMin = useIntegrations((s) => s.config.pomodoro.focusMin);
   const api = useSettings((s) => s.settings.api);
@@ -170,6 +174,20 @@ function Readout({ id }: { id: PanelId }) {
       );
     }
     case "notifications": {
+      if (notifSource === "windows")
+        return (
+          <span className="integrations-readout">
+            {pending.length ? (
+              [...new Map(pending.map((p) => [p.app, p])).values()].map((p) => (
+                <span key={p.app} className="integrations-unread" style={{ color: p.color }}>
+                  {`${p.app} ${pending.filter((x) => x.app === p.app).length}`}
+                </span>
+              ))
+            ) : (
+              <span className="subtle">{t("integrations.ui.notifications.pendingNone")}</span>
+            )}
+          </span>
+        );
       const found = Object.entries(counts ?? {}).filter(([, n]) => n > 0);
       return (
         <span className="integrations-readout">

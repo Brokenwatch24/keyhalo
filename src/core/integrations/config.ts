@@ -34,9 +34,36 @@ export interface NotificationAppConfig {
   hud: boolean;
 }
 
+/** One rule for Windows notifications. Rules are checked in order; the first match wins. */
+export interface NotificationRule {
+  id: string;
+  name: string;
+  enabled: boolean;
+  /** Case-insensitive parts of the app name or AppUserModelID ("discord", "yourphone"). Empty = any app. */
+  apps: string[];
+  /** Only when the title or text contains one of these (case-insensitive). Empty = any text. */
+  contains: string[];
+  /** Matching notifications are ignored (put mute rules above broader ones). */
+  mute?: boolean;
+  color: string;
+  /** Keys to flash (empty = whole keyboard). */
+  keys: string[];
+  hud: boolean;
+  /** Keep keys lit until the notification leaves the Action Center (read or dismissed). */
+  keepLit: boolean;
+}
+
 export interface NotificationsConfig {
   enabled: boolean;
   intervalMs: number;
+  /** "windows": real Windows notifications; "titles": legacy unread badges in window titles. */
+  source: "windows" | "titles";
+  rules: NotificationRule[];
+  /** Keys that "keep lit" rules without keys of their own light up. */
+  indicatorKeys: string[];
+  /** Tauri accelerator that marks everything as seen. Empty = none. */
+  clearHotkey: string;
+  /** Per-app settings for the "titles" source. */
   apps: Record<string, NotificationAppConfig>;
 }
 
@@ -106,11 +133,43 @@ export const DEFAULT_NOTIFICATION_APPS: Record<string, NotificationAppConfig> = 
   gmail: { enabled: false, color: "#ea4335", keys: [], hud: false },
 };
 
+const rule = (id: string, name: string, apps: string[], color: string, enabled = true): NotificationRule => ({
+  id,
+  name,
+  enabled,
+  apps,
+  contains: [],
+  color,
+  keys: [],
+  hud: false,
+  keepLit: true,
+});
+
+/** Default Windows-notification rules: messaging apps, phone notifications, then everything else (off). */
+export const DEFAULT_NOTIFICATION_RULES: NotificationRule[] = [
+  rule("discord", "Discord", ["discord"], "#5865f2"),
+  rule("whatsapp", "WhatsApp", ["whatsapp"], "#25d366"),
+  rule("telegram", "Telegram", ["telegram"], "#2aabee"),
+  rule("slack", "Slack", ["slack"], "#e01e5a"),
+  rule("teams", "Microsoft Teams", ["teams"], "#6264a7"),
+  rule("outlook", "Outlook", ["outlook"], "#0a64ad"),
+  rule("phone", "Phone Link", ["yourphone", "phone link", "enlace móvil"], "#ffb900"),
+  { ...rule("other", "Other apps", [], "#ffffff", false), keepLit: false },
+];
+
 export const DEFAULT_INTEGRATIONS: IntegrationsConfig = {
   system: { enabled: true, intervalMs: 1000 },
   bambu: { enabled: false, host: "", port: 8883, serial: "", accessCode: "", flashOnFinish: true, hud: true },
   claude: { enabled: true, hudOnWaiting: true, flashOnWaiting: true, flashColor: "#d97757" },
-  notifications: { enabled: false, intervalMs: 2000, apps: DEFAULT_NOTIFICATION_APPS },
+  notifications: {
+    enabled: false,
+    intervalMs: 1500,
+    source: "windows",
+    rules: DEFAULT_NOTIFICATION_RULES,
+    indicatorKeys: ["Escape"],
+    clearHotkey: "",
+    apps: DEFAULT_NOTIFICATION_APPS,
+  },
   mic: { enabled: true, hotkey: "Ctrl+Shift+M", hud: true },
   games: { enabled: true, cs2: true, dota2: true, lol: true, lowHealth: 30 },
   homeAssistant: {

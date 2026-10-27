@@ -8,4 +8,5 @@ export { importVsCodeKeybindings, parseJsonc, parseVsCodeStroke, type VsCodeImpo
 export { exportKanata, kanataKey, type KanataExport } from "./kanata";
 export { exportAutoHotkey } from "./ahk";
 export { CHEATSHEET_OVERLAY, CHEATSHEET_PRIORITY } from "./cheatsheet";
+export { APP_GLOW_OVERLAY, APP_GLOW_PRIORITY } from "./appglow";
 export * from "./codes";

@@ -3,6 +3,7 @@
 
 pub mod api_server;
 pub mod audio;
+pub mod claude_hooks;
 pub mod hid;
 pub mod http;
 pub mod input;
@@ -41,6 +42,8 @@ pub fn run() {
         .plugin(tauri_plugin_deep_link::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_autostart::init(
             tauri_plugin_autostart::MacosLauncher::LaunchAgent,
@@ -116,6 +119,8 @@ pub fn run() {
             system::system_pointer_set,
             system::system_mic_muted,
             system::system_set_mic_muted,
+            system::system_notifications,
+            system::system_notifications_access,
             system::system_open_path,
             system::system_find_steam_game,
             system::system_write_file,
@@ -129,6 +134,7 @@ pub fn run() {
             storage::storage_write,
             storage::storage_list,
             storage::storage_delete,
+            claude_hooks::claude_hooks,
             shell::tray_set_profiles,
             shell::hud_show,
             shell::app_version,

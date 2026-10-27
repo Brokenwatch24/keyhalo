@@ -227,6 +227,7 @@ export default function KeymapsSection() {
         </>
       }
     >
+      <HowItWorks />
       <div className="keymaps-layout">
         <aside className="keymaps-side">
           <StatusCard onSelect={select} onPauseApps={() => setModal({ kind: "pauseApps" })} />
@@ -434,6 +435,48 @@ function SourceBadges({ source, edited }: { source: string | null; edited: boole
 // Left column
 // ---------------------------------------------------------------------------
 
+/** Three-step explainer at the top of the page; dismissible, remembered per viewer. */
+function HowItWorks() {
+  const t = useT();
+  const [hidden, setHidden] = useState(() => {
+    try {
+      return localStorage.getItem("kh.keymaps.howto") === "hidden";
+    } catch {
+      return false;
+    }
+  });
+  if (hidden) return null;
+  const hide = () => {
+    setHidden(true);
+    try {
+      localStorage.setItem("kh.keymaps.howto", "hidden");
+    } catch {
+      /* ignore */
+    }
+  };
+  return (
+    <div className="keymaps-howto">
+      <div className="keymaps-howto__head">
+        <b>{t("keymaps.ui.howto.title")}</b>
+        <Button size="sm" variant="ghost" onClick={hide}>
+          {t("keymaps.ui.howto.hide")}
+        </Button>
+      </div>
+      <ol className="keymaps-howto__steps">
+        {(["one", "two", "three"] as const).map((k, i) => (
+          <li key={k}>
+            <span className="keymaps-howto__n">{i + 1}</span>
+            <div>
+              <div className="keymaps-howto__t">{t(`keymaps.ui.howto.${k}Title`)}</div>
+              <div className="keymaps-howto__d">{t(`keymaps.ui.howto.${k}`)}</div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 function StatusCard({ onSelect, onPauseApps }: { onSelect: (id: string) => void; onPauseApps: () => void }) {
   const t = useT();
   const foreground = useKeymaps((s) => s.foreground);
@@ -476,6 +519,15 @@ function StatusCard({ onSelect, onPauseApps }: { onSelect: (id: string) => void;
             </div>
           </div>
           <Toggle checked={settings.remapEnabled} onChange={(remapEnabled) => update({ remapEnabled })} />
+        </div>
+        <div className="keymaps-status__row">
+          <div className="grow">
+            <div>{t("keymaps.ui.glow")}</div>
+            <div className="subtle" style={{ fontSize: 12 }}>
+              {t("keymaps.ui.glowShort")}
+            </div>
+          </div>
+          <Toggle checked={settings.appShortcutGlow} onChange={(appShortcutGlow) => update({ appShortcutGlow })} />
         </div>
         <div className="keymaps-status__row">
           <div className="grow">
