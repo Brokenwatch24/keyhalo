@@ -1,0 +1,61 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "sunset",
+  "name": "Sunset",
+  "description": "Warm pink, orange and gold, slowly sliding across the desk.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "ambient",
+    "warm"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "gradient",
+        "params": {
+          "colors": [
+            "#ff2e63",
+            "#ff7a3c",
+            "#ffc94d",
+            "#ff7a3c"
+          ],
+          "angle": 0,
+          "speed": 0.05
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "embers",
+        "effect": "starlight",
+        "params": {
+          "colors": [
+            "#ffe2a8",
+            "#ff9d5c"
+          ],
+          "density": 0.3,
+          "fade": 1.8
+        },
+        "blend": "screen",
+        "opacity": 0.6,
+        "enabled": true
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      }
+    ],
+    "brightness": 0.75,
+    "fps": 30
+  }
+}

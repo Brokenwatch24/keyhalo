@@ -1,0 +1,130 @@
+{
+  "id": "code-snippets",
+  "name": "Code snippets",
+  "language": "any",
+  "kind": "code",
+  "author": "KeyHalo contributors",
+  "description": "Original short snippets in JavaScript, TypeScript, Python, Rust, Go and C# for practising brackets, operators and indentation.",
+  "texts": [
+    {
+      "text": "function debounce(fn, ms = 150) {\n  let timer = null;\n  return (...args) => {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn(...args), ms);\n  };\n}\n\nwindow.addEventListener(\"keydown\", debounce((e) => save(e.key)));",
+      "source": "JavaScript · debounce key events"
+    },
+    {
+      "text": "const parseHex = (hex) => {\n  const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);\n  if (!m) return null;\n  return m.slice(1).map((h) => parseInt(h, 16));\n};\n\nconsole.log(parseHex(\"#ff8800\")); // [255, 136, 0]",
+      "source": "JavaScript · parse a hex colour"
+    },
+    {
+      "text": "export function wpm(chars, ms) {\n  if (ms <= 0) return 0;\n  const words = chars / 5;\n  return Math.round((words / ms) * 60_000);\n}\n\nconst best = results.reduce((a, r) => (r.wpm > a.wpm ? r : a), { wpm: 0 });",
+      "source": "JavaScript · words per minute"
+    },
+    {
+      "text": "const byCategory = shortcuts.reduce((acc, s) => {\n  (acc[s.category] ??= []).push(s.label);\n  return acc;\n}, {});\n\nfor (const [name, labels] of Object.entries(byCategory)) {\n  console.log(`${name}: ${labels.join(\", \")}`);\n}",
+      "source": "JavaScript · group shortcuts by category"
+    },
+    {
+      "text": "async function fetchJson(url, ms = 5000) {\n  const ctrl = new AbortController();\n  const id = setTimeout(() => ctrl.abort(), ms);\n  try {\n    const res = await fetch(url, { signal: ctrl.signal });\n    if (!res.ok) throw new Error(`HTTP ${res.status}`);\n    return await res.json();\n  } finally {\n    clearTimeout(id);\n  }\n}",
+      "source": "JavaScript · fetch with timeout"
+    },
+    {
+      "text": "type KeyCode = `Key${string}` | \"Space\" | \"Enter\";\n\nconst remap: Record<KeyCode, KeyCode> = {\n  KeyQ: \"KeyA\",\n  KeyA: \"KeyQ\",\n  Space: \"Enter\",\n};\n\nexport const resolve = (code: KeyCode): KeyCode => remap[code] ?? code;",
+      "source": "TypeScript · key remap table"
+    },
+    {
+      "text": "export class Ring<T> {\n  private items: (T | undefined)[];\n  private head = 0;\n  constructor(private size: number) {\n    this.items = new Array(size);\n  }\n  push(value: T): void {\n    this.items[this.head] = value;\n    this.head = (this.head + 1) % this.size;\n  }\n  toArray(): T[] {\n    return this.items.filter((x): x is T => x !== undefined);\n  }\n}",
+      "source": "TypeScript · generic ring buffer"
+    },
+    {
+      "text": "type Action =\n  | { type: \"color\"; rgb: [number, number, number] }\n  | { type: \"brightness\"; value: number }\n  | { type: \"off\" };\n\nfunction describe(a: Action): string {\n  switch (a.type) {\n    case \"color\": return `rgb(${a.rgb.join(\", \")})`;\n    case \"brightness\": return `${Math.round(a.value * 100)}%`;\n    case \"off\": return \"off\";\n  }\n}",
+      "source": "TypeScript · discriminated union"
+    },
+    {
+      "text": "type RGB = [number, number, number];\n\nconst lerp = (a: number, b: number, t: number) => a + (b - a) * t;\n\nexport function mix(from: RGB, to: RGB, t: number): RGB {\n  const k = Math.min(1, Math.max(0, t));\n  return from.map((c, i) => Math.round(lerp(c, to[i], k))) as RGB;\n}",
+      "source": "TypeScript · lerp between colours"
+    },
+    {
+      "text": "type Events = { press: string; release: string; idle: number };\n\nclass Emitter<E extends Record<string, unknown>> {\n  private map = new Map<keyof E, Set<(p: never) => void>>();\n  on<K extends keyof E>(event: K, fn: (payload: E[K]) => void) {\n    if (!this.map.has(event)) this.map.set(event, new Set());\n    this.map.get(event)!.add(fn as (p: never) => void);\n    return () => this.map.get(event)!.delete(fn as (p: never) => void);\n  }\n}\n\nconst bus = new Emitter<Events>();",
+      "source": "TypeScript · typed event emitter"
+    },
+    {
+      "text": "from collections import Counter\n\ndef letter_frequency(text: str) -> list[tuple[str, int]]:\n    letters = (c.lower() for c in text if c.isalpha())\n    return Counter(letters).most_common()\n\nfor letter, count in letter_frequency(\"hello keyboard\")[:5]:\n    print(f\"{letter}: {count}\")",
+      "source": "Python · count letter frequency"
+    },
+    {
+      "text": "def slowest_keys(times: dict[str, list[float]], top: int = 3):\n    averages = {\n        key: sum(ms) / len(ms)\n        for key, ms in times.items()\n        if ms\n    }\n    return sorted(averages.items(), key=lambda kv: kv[1], reverse=True)[:top]\n\nprint(slowest_keys({\"a\": [120, 140], \"q\": [260, 300], \"z\": [310]}))",
+      "source": "Python · slowest keys"
+    },
+    {
+      "text": "from dataclasses import dataclass, field\n\n@dataclass\nclass Profile:\n    name: str\n    brightness: float = 0.8\n    keys: dict[str, str] = field(default_factory=dict)\n\n    def dim(self, factor: float) -> \"Profile\":\n        return Profile(self.name, self.brightness * factor, dict(self.keys))",
+      "source": "Python · dataclass profile"
+    },
+    {
+      "text": "import time\nfrom functools import wraps\n\ndef retry(times=3, delay=0.5):\n    def wrap(fn):\n        @wraps(fn)\n        def inner(*args, **kwargs):\n            for attempt in range(times):\n                try:\n                    return fn(*args, **kwargs)\n                except OSError:\n                    time.sleep(delay * (attempt + 1))\n            return fn(*args, **kwargs)\n        return inner\n    return wrap",
+      "source": "Python · retry decorator"
+    },
+    {
+      "text": "import json\nfrom pathlib import Path\n\ndef load_settings(path: Path) -> dict:\n    try:\n        return json.loads(path.read_text(encoding=\"utf-8\"))\n    except (FileNotFoundError, json.JSONDecodeError):\n        return {\"theme\": \"dark\", \"fps\": 30}\n\nsettings = load_settings(Path.home() / \".keyhalo\" / \"settings.json\")",
+      "source": "Python · read settings safely"
+    },
+    {
+      "text": "fn fade(from: [u8; 3], to: [u8; 3], t: f32) -> [u8; 3] {\n    let t = t.clamp(0.0, 1.0);\n    let mut out = [0u8; 3];\n    for i in 0..3 {\n        let a = from[i] as f32;\n        let b = to[i] as f32;\n        out[i] = (a + (b - a) * t).round() as u8;\n    }\n    out\n}",
+      "source": "Rust · fade an LED"
+    },
+    {
+      "text": "enum Event {\n    Press(u16),\n    Release(u16),\n    Scroll { dx: i32, dy: i32 },\n}\n\nfn describe(e: &Event) -> String {\n    match e {\n        Event::Press(code) => format!(\"down {code}\"),\n        Event::Release(code) => format!(\"up {code}\"),\n        Event::Scroll { dy, .. } if *dy < 0 => \"scroll up\".into(),\n        Event::Scroll { .. } => \"scroll\".into(),\n    }\n}",
+      "source": "Rust · match on key events"
+    },
+    {
+      "text": "use std::num::ParseIntError;\n\nfn parse_dpi(input: &str) -> Result<u32, ParseIntError> {\n    let value: u32 = input.trim().trim_end_matches(\"dpi\").parse()?;\n    Ok(value.clamp(100, 26_000))\n}\n\nfn main() {\n    match parse_dpi(\"1600dpi\") {\n        Ok(dpi) => println!(\"dpi = {dpi}\"),\n        Err(e) => eprintln!(\"bad value: {e}\"),\n    }\n}",
+      "source": "Rust · parse with Result"
+    },
+    {
+      "text": "pub struct Ring<T, const N: usize> {\n    items: [Option<T>; N],\n    head: usize,\n}\n\nimpl<T: Copy, const N: usize> Ring<T, N> {\n    pub fn push(&mut self, value: T) {\n        self.items[self.head] = Some(value);\n        self.head = (self.head + 1) % N;\n    }\n    pub fn len(&self) -> usize {\n        self.items.iter().filter(|x| x.is_some()).count()\n    }\n}",
+      "source": "Rust · ring buffer push"
+    },
+    {
+      "text": "fn average_wpm(results: &[(String, f32)]) -> Option<f32> {\n    if results.is_empty() {\n        return None;\n    }\n    let total: f32 = results.iter().map(|(_, wpm)| wpm).sum();\n    Some(total / results.len() as f32)\n}",
+      "source": "Rust · iterator average"
+    },
+    {
+      "text": "package stats\n\ntype KeyStat struct {\n  Hits, Misses int\n}\n\nfunc Accuracy(stats map[string]KeyStat) float64 {\n  hits, total := 0, 0\n  for _, s := range stats {\n    hits += s.Hits\n    total += s.Hits + s.Misses\n  }\n  if total == 0 {\n    return 1\n  }\n  return float64(hits) / float64(total)\n}",
+      "source": "Go · key stats map"
+    },
+    {
+      "text": "func pressAll(codes []string) <-chan string {\n  out := make(chan string, len(codes))\n  go func() {\n    defer close(out)\n    for _, c := range codes {\n      out <- strings.ToUpper(c)\n    }\n  }()\n  return out\n}",
+      "source": "Go · goroutines and channels"
+    },
+    {
+      "text": "func loadProfile(path string) (*Profile, error) {\n  data, err := os.ReadFile(path)\n  if err != nil {\n    return nil, fmt.Errorf(\"read %s: %w\", path, err)\n  }\n  var p Profile\n  if err := json.Unmarshal(data, &p); err != nil {\n    return nil, fmt.Errorf(\"parse %s: %w\", path, err)\n  }\n  return &p, nil\n}",
+      "source": "Go · error wrapping"
+    },
+    {
+      "text": "func handleColor(w http.ResponseWriter, r *http.Request) {\n  hex := r.URL.Query().Get(\"hex\")\n  if len(hex) != 6 {\n    http.Error(w, \"expected 6 hex digits\", http.StatusBadRequest)\n    return\n  }\n  w.Header().Set(\"Content-Type\", \"application/json\")\n  fmt.Fprintf(w, `{\"color\":\"#%s\"}`, hex)\n}",
+      "source": "Go · HTTP handler"
+    },
+    {
+      "text": "func finger(col int) string {\n  switch {\n  case col <= 1:\n    return \"pinky\"\n  case col == 2:\n    return \"ring\"\n  case col == 3:\n    return \"middle\"\n  default:\n    return \"index\"\n  }\n}",
+      "source": "Go · switch with fallthrough"
+    },
+    {
+      "text": "var recent = results\n    .Where(r => r.Accuracy >= 0.95)\n    .OrderByDescending(r => r.Date)\n    .Take(10)\n    .ToList();\n\ndouble average = recent.Count > 0 ? recent.Average(r => r.Wpm) : 0;\nConsole.WriteLine($\"Average: {average:F1} wpm\");",
+      "source": "C# · LINQ over results"
+    },
+    {
+      "text": "public record Key(string Code, int Row, int Col);\n\nstatic string Zone(Key key) => key switch\n{\n    { Row: 0 } => \"number row\",\n    { Row: 2, Col: >= 1 and <= 4 } => \"left home\",\n    { Row: 2 } => \"home row\",\n    _ => \"other\",\n};",
+      "source": "C# · record and pattern matching"
+    },
+    {
+      "text": "public async Task<IReadOnlyList<Device>> ScanAsync(CancellationToken ct)\n{\n    var found = new List<Device>();\n    foreach (var port in await _hid.ListAsync(ct))\n    {\n        if (port.VendorId == 0x1532)\n        {\n            found.Add(new Device(port.Path, port.ProductId));\n        }\n    }\n    return found;\n}",
+      "source": "C# · async device scan"
+    },
+    {
+      "text": "var palette = new Dictionary<string, (byte R, byte G, byte B)>\n{\n    [\"warning\"] = (245, 158, 11),\n    [\"danger\"] = (239, 68, 68),\n    [\"ok\"] = (34, 197, 94),\n};\n\nif (palette.TryGetValue(state, out var c))\n{\n    keyboard.Fill(c.R, c.G, c.B);\n}",
+      "source": "C# · dictionary of colours"
+    },
+    {
+      "text": "public class Lighting\n{\n    private double _brightness = 0.8;\n\n    public double Brightness\n    {\n        get => _brightness;\n        set => _brightness = Math.Clamp(value, 0.0, 1.0);\n    }\n\n    public override string ToString() => $\"{Brightness:P0}\";\n}",
+      "source": "C# · property with validation"
+    }
+  ]
+}

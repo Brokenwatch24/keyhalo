@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- KeyHalo app icon: a keycap (inner square) with a spectrum halo (ring), on a dark plate.
+       Geometry = src/app/Logo.tsx (32x32 viewBox) scaled by 25.6 and centred. -->
+  <defs>
+    <linearGradient id="halo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff4d6d"/>
+      <stop offset="0.35" stop-color="#ffb703"/>
+      <stop offset="0.65" stop-color="#3ddc97"/>
+      <stop offset="1" stop-color="#4c6fff"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a3a42"/>
+      <stop offset="1" stop-color="#26262c"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d1d21"/>
+      <stop offset="1" stop-color="#18181b"/>
+    </linearGradient>
+    <filter id="glow" filterUnits="userSpaceOnUse" x="-8" y="-8" width="48" height="48">
+      <feGaussianBlur stdDeviation="0.9"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="1024" height="1024" rx="232" fill="url(#plate)"/>
+  <rect x="1.5" y="1.5" width="1021" height="1021" rx="230.5" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="3"/>
+  <g transform="translate(512 512) scale(25.6) translate(-16 -16)">
+    <rect x="2" y="2" width="28" height="28" rx="9" fill="none" stroke="url(#halo)" stroke-width="2.5" opacity="0.55" filter="url(#glow)"/>
+    <rect x="2" y="2" width="28" height="28" rx="9" fill="none" stroke="url(#halo)" stroke-width="2.5"/>
+    <rect x="8.5" y="8.5" width="15" height="15" rx="4.5" fill="url(#cap)"/>
+    <rect x="8.75" y="8.75" width="14.5" height="14.5" rx="4.25" fill="none" stroke="#ffffff" stroke-opacity="0.10" stroke-width="0.5"/>
+  </g>
+</svg>

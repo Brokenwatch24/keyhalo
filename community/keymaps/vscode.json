@@ -1,0 +1,396 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "vscode",
+  "name": "Visual Studio Code",
+  "description": "Default Windows shortcuts for Visual Studio Code: editing, navigation, panels and debugging.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "Code.exe"
+  ],
+  "categories": {
+    "File": "#9aa5b1",
+    "Edit": "#5aa9ff",
+    "Navigation": "#7ee0a1",
+    "Search": "#c792ea",
+    "View": "#4dd0e1",
+    "Debug": "#ffb454"
+  },
+  "legends": [
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyP"
+      ],
+      "label": "Command Palette",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyP"
+      ],
+      "label": "Quick Open file",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyN"
+      ],
+      "label": "New file",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyO"
+      ],
+      "label": "Open file",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Save",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyW"
+      ],
+      "label": "Close editor",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyT"
+      ],
+      "label": "Reopen closed editor",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Comma"
+      ],
+      "label": "Settings",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyB"
+      ],
+      "label": "Toggle sidebar",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyJ"
+      ],
+      "label": "Toggle panel",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Backquote"
+      ],
+      "label": "Toggle terminal",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Backquote"
+      ],
+      "label": "New terminal",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyE"
+      ],
+      "label": "Explorer",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyG"
+      ],
+      "label": "Source Control",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyX"
+      ],
+      "label": "Extensions",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Backslash"
+      ],
+      "label": "Split editor",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyF"
+      ],
+      "label": "Find",
+      "category": "Search"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyH"
+      ],
+      "label": "Replace",
+      "category": "Search"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyF"
+      ],
+      "label": "Search in files",
+      "category": "Search"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyD"
+      ],
+      "label": "Add next match to selection",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyL"
+      ],
+      "label": "Select all occurrences",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowUp"
+      ],
+      "label": "Move line up",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowDown"
+      ],
+      "label": "Move line down",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "AltLeft",
+        "ArrowUp"
+      ],
+      "label": "Copy line up",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "AltLeft",
+        "ArrowDown"
+      ],
+      "label": "Copy line down",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "ArrowUp"
+      ],
+      "label": "Add cursor above",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "ArrowDown"
+      ],
+      "label": "Add cursor below",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyK"
+      ],
+      "label": "Delete line",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Slash"
+      ],
+      "label": "Toggle line comment",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "AltLeft",
+        "KeyF"
+      ],
+      "label": "Format document",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Space"
+      ],
+      "label": "Trigger suggestion",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Period"
+      ],
+      "label": "Quick fix",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "F2"
+      ],
+      "label": "Rename symbol",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "F12"
+      ],
+      "label": "Go to definition",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "F12"
+      ],
+      "label": "Show references",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyG"
+      ],
+      "label": "Go to line",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyO"
+      ],
+      "label": "Go to symbol in file",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowLeft"
+      ],
+      "label": "Go back",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowRight"
+      ],
+      "label": "Go forward",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "F5"
+      ],
+      "label": "Start / continue debugging",
+      "category": "Debug"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "F5"
+      ],
+      "label": "Stop debugging",
+      "category": "Debug"
+    },
+    {
+      "keys": [
+        "F9"
+      ],
+      "label": "Toggle breakpoint",
+      "category": "Debug"
+    },
+    {
+      "keys": [
+        "F10"
+      ],
+      "label": "Step over",
+      "category": "Debug"
+    },
+    {
+      "keys": [
+        "F11"
+      ],
+      "label": "Step into",
+      "category": "Debug"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "F11"
+      ],
+      "label": "Step out",
+      "category": "Debug"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "code",
+    "editor",
+    "development"
+  ]
+}

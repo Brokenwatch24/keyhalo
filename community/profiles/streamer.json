@@ -1,0 +1,59 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "streamer",
+  "name": "Streamer",
+  "description": "Audio visualizer bars that move with whatever your PC is playing, plus a big red mic-mute key.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "audio",
+    "streaming"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "audio-visualizer",
+        "params": {
+          "mode": "bars",
+          "colors": [
+            "#00e5ff",
+            "#7b5cff",
+            "#ff2bd6"
+          ],
+          "sensitivity": 1.3,
+          "background": "#050510"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "mic",
+        "effect": "widget:mic",
+        "params": {
+          "showLive": false
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true,
+        "mask": [
+          "Escape"
+        ]
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      }
+    ],
+    "brightness": 0.9,
+    "fps": 30
+  }
+}

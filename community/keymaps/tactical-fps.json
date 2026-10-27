@@ -1,0 +1,180 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "tactical-fps",
+  "name": "Tactical FPS",
+  "description": "Legend-only overlay of Rainbow Six Siege default PC binds; it performs no remaps, so it is anti-cheat safe.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "RainbowSix.exe"
+  ],
+  "categories": {
+    "Movement": "#7ee0a1",
+    "Stance": "#4dd0e1",
+    "Combat": "#ff6b6b",
+    "Gadgets": "#c792ea",
+    "Interface": "#9aa5b1"
+  },
+  "legends": [
+    {
+      "keys": [
+        "KeyW"
+      ],
+      "label": "Move forward",
+      "category": "Movement"
+    },
+    {
+      "keys": [
+        "KeyA"
+      ],
+      "label": "Move left",
+      "category": "Movement"
+    },
+    {
+      "keys": [
+        "KeyS"
+      ],
+      "label": "Move backward",
+      "category": "Movement"
+    },
+    {
+      "keys": [
+        "KeyD"
+      ],
+      "label": "Move right",
+      "category": "Movement"
+    },
+    {
+      "keys": [
+        "Space"
+      ],
+      "label": "Rappel / vault",
+      "category": "Movement"
+    },
+    {
+      "keys": [
+        "ShiftLeft"
+      ],
+      "label": "Sprint",
+      "category": "Movement"
+    },
+    {
+      "keys": [
+        "KeyQ"
+      ],
+      "label": "Lean left",
+      "category": "Stance"
+    },
+    {
+      "keys": [
+        "KeyE"
+      ],
+      "label": "Lean right",
+      "category": "Stance"
+    },
+    {
+      "keys": [
+        "KeyC"
+      ],
+      "label": "Crouch",
+      "category": "Stance"
+    },
+    {
+      "keys": [
+        "KeyZ"
+      ],
+      "label": "Prone",
+      "category": "Stance"
+    },
+    {
+      "keys": [
+        "KeyR"
+      ],
+      "label": "Reload",
+      "category": "Combat"
+    },
+    {
+      "keys": [
+        "KeyV"
+      ],
+      "label": "Melee",
+      "category": "Combat"
+    },
+    {
+      "keys": [
+        "KeyB"
+      ],
+      "label": "Fire mode",
+      "category": "Combat"
+    },
+    {
+      "keys": [
+        "Digit1"
+      ],
+      "label": "Primary weapon",
+      "category": "Combat"
+    },
+    {
+      "keys": [
+        "Digit2"
+      ],
+      "label": "Secondary weapon",
+      "category": "Combat"
+    },
+    {
+      "keys": [
+        "Digit3"
+      ],
+      "label": "Operator gadget",
+      "category": "Gadgets"
+    },
+    {
+      "keys": [
+        "Digit4"
+      ],
+      "label": "Secondary gadget",
+      "category": "Gadgets"
+    },
+    {
+      "keys": [
+        "Digit5"
+      ],
+      "label": "Drone / cameras",
+      "category": "Gadgets"
+    },
+    {
+      "keys": [
+        "KeyG"
+      ],
+      "label": "Quick-use secondary gadget",
+      "category": "Gadgets"
+    },
+    {
+      "keys": [
+        "KeyF"
+      ],
+      "label": "Interact / reinforce",
+      "category": "Gadgets"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "label": "Scoreboard",
+      "category": "Interface"
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "label": "Menu",
+      "category": "Interface"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "gaming",
+    "fps",
+    "rainbow-six-siege"
+  ]
+}

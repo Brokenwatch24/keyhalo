@@ -1,0 +1,95 @@
+{
+  "locale": "es-ES",
+  "description": "Sensor, tasa de sondeo, batería y ajustes del puntero de Windows, más herramientas de sensibilidad para tus juegos.",
+  "device": "Ratón",
+  "unreachable": "No responde",
+  "noMouse": {
+    "title": "No hay ningún ratón conectado",
+    "body": "Conecta un ratón compatible para ajustar DPI, tasa de sondeo y batería. Los ajustes del puntero y las herramientas de sensibilidad funcionan con cualquier ratón.",
+    "action": "Ir a Dispositivos"
+  },
+  "dpi": {
+    "title": "DPI",
+    "range": "{min}–{max} DPI · paso {step}",
+    "addStage": "Añadir nivel",
+    "stage": "Nivel {n}",
+    "stageOf": "Nivel {stage} de {count}",
+    "activeStage": "Nivel de DPI activo",
+    "makeActive": "Usar este nivel",
+    "remove": "Quitar nivel",
+    "lockXY": "Bloquear X e Y",
+    "unlockXY": "Ajustar X e Y por separado",
+    "override": "DPI temporal",
+    "vertical": "Vertical",
+    "hint": "Hasta {count} niveles. El botón de DPI del ratón los recorre. Los cambios se escriben al soltar el control.",
+    "unavailable": "No se pudieron leer los ajustes de DPI del ratón."
+  },
+  "response": {
+    "title": "Respuesta"
+  },
+  "polling": {
+    "title": "Tasa de sondeo",
+    "interval": "Informa cada {ms} ms",
+    "hint": "Las tasas altas se sienten más fluidas, pero usan algo más de CPU y batería.",
+    "test": "Mídela en el Banco de pruebas"
+  },
+  "sniper": {
+    "title": "DPI de precisión",
+    "short": "Precisión",
+    "active": "Precisión activa",
+    "hint": "DPI temporal mientras mantienes una tecla o botón. Asígnalo con la acción DPI → Precisión en",
+    "bind": "Atajos"
+  },
+  "lighting": {
+    "title": "Iluminación",
+    "brightness": "Brillo",
+    "hint": "Zonas: {zones}. Colores y efectos siguen tu perfil de iluminación —",
+    "open": "abrir Iluminación"
+  },
+  "battery": {
+    "title": "Batería",
+    "warnAt": "avisa al {pct}%",
+    "noHistory": "El historial de batería aparecerá aquí tras algunas lecturas.",
+    "idle": "Reposo por inactividad",
+    "low": "Aviso de batería baja",
+    "minutes": "{m} min",
+    "minSec": "{m}:{s} min",
+    "lowest": "Mínimo (7 d)",
+    "drain": "Consumo medio",
+    "perHour": "{v} %/h"
+  },
+  "pointer": {
+    "title": "Puntero de Windows",
+    "subtitle": "Ajustes del cursor de todo el sistema",
+    "speed": "Velocidad del puntero",
+    "slow": "Lenta",
+    "fast": "Rápida",
+    "oneToOne": "10 · 1:1",
+    "notOne": "A esta velocidad Windows multiplica cada cuenta del ratón por ×{mult}, así que se saltan o duplican cuentas. Deja 10 (la 6.ª de 11 marcas del antiguo Panel de control) y cambia el DPI.",
+    "enhance": "Mejorar la precisión del puntero",
+    "enhanceHint": "Aceleración del ratón de Windows: los movimientos rápidos recorren más que los lentos. Desactívala para apuntar de forma constante; los juegos con entrada directa (raw input) la ignoran.",
+    "effective": "En el escritorio: {dpi} DPI × velocidad del puntero ≈ {eff} DPI efectivos."
+  },
+  "sens": {
+    "title": "Herramientas de sensibilidad",
+    "subtitle": "eDPI, cm/360 y la misma sensación entre juegos (sin apuntar)",
+    "useDevice": "Usar DPI del ratón ({dpi})",
+    "yours": "Tu configuración",
+    "game": "Juego",
+    "sensitivity": "Sensibilidad",
+    "r6Multiplier": "Multiplicador de Siege",
+    "r6Hint": "MouseSensitivityMultiplierUnit en GameSettings.ini (por defecto 0,02). Solo sin apuntar: al apuntar (ADS) se usan multiplicadores según el FOV que no se convierten.",
+    "cm360": "cm / 360°",
+    "in360": "pulg / 360°",
+    "feelHigh": "Sensibilidad alta: giros rápidos, microajustes más difíciles.",
+    "feelMid": "Sensibilidad media: el rango que usa la mayoría de jugadores de shooters tácticos.",
+    "feelLow": "Sensibilidad baja: puntería precisa, necesita una alfombrilla grande.",
+    "sameFeel": "La misma sensación en cada juego",
+    "atDpi": "a",
+    "apply": "Aplicar DPI",
+    "applyHint": "Poner este DPI en el nivel activo del ratón",
+    "applied": "Nivel de DPI activo ajustado a {dpi}",
+    "hipfire": "sin apuntar",
+    "note": "Se convierte igualando la distancia de un giro de 360°. eDPI = DPI × sensibilidad y solo es comparable dentro del mismo juego. Fortnite usa el porcentaje del control X/Y; los valores de Siege son sin apuntar con el multiplicador de la izquierda."
+  }
+}

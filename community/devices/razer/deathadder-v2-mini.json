@@ -1,0 +1,61 @@
+{
+  "$schema": "../../schemas/device.schema.json",
+  "vendor": "Razer",
+  "driver": "razer",
+  "status": "experimental",
+  "id": "razer-deathadder-v2-mini",
+  "name": "Razer DeathAdder V2 Mini",
+  "type": "mouse",
+  "match": [
+    {
+      "vendorId": "0x1532",
+      "productId": "0x008C",
+      "interface": 0
+    }
+  ],
+  "driverOptions": {
+    "transactionId": "0x3F",
+    "led": "0x04",
+    "frameMode": "led"
+  },
+  "capabilities": {
+    "zones": true,
+    "hardwareEffects": [
+      "off",
+      "static",
+      "breathing",
+      "spectrum",
+      "reactive"
+    ],
+    "brightness": true,
+    "onboardMemory": true,
+    "dpi": {
+      "min": 100,
+      "max": 8500,
+      "step": 50,
+      "stages": 5,
+      "independentXY": true
+    },
+    "pollingRates": [
+      125,
+      500,
+      1000
+    ]
+  },
+  "leds": [
+    {
+      "id": "logo",
+      "name": "Logo",
+      "x": 1,
+      "y": 2.55,
+      "w": 0.5,
+      "h": 0.5,
+      "led": 4
+    }
+  ],
+  "size": {
+    "w": 2,
+    "h": 3.4
+  },
+  "notes": "PID 0x008C, logo LED 0x04, 8500 DPI sensor. Transaction 0x3F (OpenRazer) / 0x1F (OpenRGB). Not tested on hardware."
+}

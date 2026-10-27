@@ -1,0 +1,600 @@
+{
+  "generated": "2026-10-27T05:14:20.714Z",
+  "repo": "Brokenwatch24/keyhalo",
+  "entries": [
+    {
+      "kind": "device",
+      "id": "razer-basilisk-v3",
+      "name": "Razer Basilisk V3",
+      "description": "Razer mouse · Razer HID",
+      "devices": [
+        "razer-basilisk-v3"
+      ],
+      "status": "experimental",
+      "tags": [
+        "razer",
+        "mouse"
+      ],
+      "path": "community/devices/razer/basilisk-v3.json",
+      "updated": "2026-10-27T05:02:37.955Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-blackwidow-v3",
+      "name": "Razer BlackWidow V3",
+      "description": "Razer keyboard · Razer HID",
+      "devices": [
+        "razer-blackwidow-v3"
+      ],
+      "status": "experimental",
+      "tags": [
+        "razer",
+        "keyboard"
+      ],
+      "path": "community/devices/razer/blackwidow-v3.json",
+      "updated": "2026-10-27T05:02:37.953Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-blackwidow-v3-tkl",
+      "name": "Razer BlackWidow V3 Tenkeyless",
+      "description": "Razer keyboard · Razer HID",
+      "devices": [
+        "razer-blackwidow-v3-tkl"
+      ],
+      "status": "experimental",
+      "tags": [
+        "razer",
+        "keyboard"
+      ],
+      "path": "community/devices/razer/blackwidow-v3-tkl.json",
+      "updated": "2026-10-27T05:02:37.951Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-deathadder-v2",
+      "name": "Razer DeathAdder V2",
+      "description": "Razer mouse · Razer HID",
+      "devices": [
+        "razer-deathadder-v2"
+      ],
+      "status": "experimental",
+      "tags": [
+        "razer",
+        "mouse"
+      ],
+      "path": "community/devices/razer/deathadder-v2.json",
+      "updated": "2026-10-27T05:02:37.954Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-deathadder-v2-mini",
+      "name": "Razer DeathAdder V2 Mini",
+      "description": "Razer mouse · Razer HID",
+      "devices": [
+        "razer-deathadder-v2-mini"
+      ],
+      "status": "experimental",
+      "tags": [
+        "razer",
+        "mouse"
+      ],
+      "path": "community/devices/razer/deathadder-v2-mini.json",
+      "updated": "2026-10-27T05:02:37.954Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-deathadder-v2-pro",
+      "name": "Razer DeathAdder V2 Pro",
+      "description": "Razer mouse · Razer HID",
+      "author": "Brokenwatch24",
+      "devices": [
+        "razer-deathadder-v2-pro"
+      ],
+      "status": "verified",
+      "tags": [
+        "razer",
+        "mouse"
+      ],
+      "path": "community/devices/razer/deathadder-v2-pro.json",
+      "updated": "2026-10-27T05:02:37.946Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-huntsman-mini",
+      "name": "Razer Huntsman Mini",
+      "description": "Razer keyboard · Razer HID",
+      "author": "Brokenwatch24",
+      "devices": [
+        "razer-huntsman-mini"
+      ],
+      "status": "verified",
+      "tags": [
+        "razer",
+        "keyboard"
+      ],
+      "path": "community/devices/razer/huntsman-mini.json",
+      "updated": "2026-10-27T05:02:37.945Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-huntsman-mini-analog",
+      "name": "Razer Huntsman Mini Analog",
+      "description": "Razer keyboard · Razer HID",
+      "devices": [
+        "razer-huntsman-mini-analog"
+      ],
+      "status": "experimental",
+      "tags": [
+        "razer",
+        "keyboard"
+      ],
+      "path": "community/devices/razer/huntsman-mini-analog.json",
+      "updated": "2026-10-27T05:02:37.949Z"
+    },
+    {
+      "kind": "device",
+      "id": "razer-viper-ultimate",
+      "name": "Razer Viper Ultimate",
+      "description": "Razer mouse · Razer HID",
+      "devices": [
+        "razer-viper-ultimate"
+      ],
+      "status": "experimental",
+      "tags": [
+        "razer",
+        "mouse"
+      ],
+      "path": "community/devices/razer/viper-ultimate.json",
+      "updated": "2026-10-27T05:02:37.955Z"
+    },
+    {
+      "kind": "profile",
+      "id": "focus",
+      "name": "Focus",
+      "description": "Calm warm white with a pomodoro bar on the number row and a mic-mute key.",
+      "author": "KeyHalo",
+      "tags": [
+        "work",
+        "calm"
+      ],
+      "path": "community/profiles/focus.json",
+      "updated": "2026-10-27T05:13:23.168Z"
+    },
+    {
+      "kind": "profile",
+      "id": "gaming-wasd",
+      "name": "Gaming WASD",
+      "description": "Dim board with movement keys in red, abilities in amber, number row in cyan and reactive flashes. Health and ammo bars light the number row in supported games.",
+      "author": "KeyHalo",
+      "tags": [
+        "gaming"
+      ],
+      "path": "community/profiles/gaming-wasd.json",
+      "updated": "2026-10-27T05:13:23.171Z"
+    },
+    {
+      "kind": "profile",
+      "id": "halo",
+      "name": "Halo",
+      "description": "KeyHalo's default: a slow, soft rainbow drifting across keyboard and mouse.",
+      "author": "KeyHalo",
+      "tags": [
+        "ambient",
+        "default"
+      ],
+      "path": "community/profiles/halo.json",
+      "updated": "2026-10-27T05:13:23.168Z"
+    },
+    {
+      "kind": "profile",
+      "id": "neon",
+      "name": "Neon",
+      "description": "Magenta-to-cyan gradient that scrolls slowly, with rings rippling from every key.",
+      "author": "KeyHalo",
+      "tags": [
+        "vivid",
+        "reactive"
+      ],
+      "path": "community/profiles/neon.json",
+      "updated": "2026-10-27T05:13:23.169Z"
+    },
+    {
+      "kind": "profile",
+      "id": "ocean",
+      "name": "Ocean",
+      "description": "Deep blues and teals drifting like light under water.",
+      "author": "KeyHalo",
+      "tags": [
+        "ambient",
+        "calm"
+      ],
+      "path": "community/profiles/ocean.json",
+      "updated": "2026-10-27T05:13:23.169Z"
+    },
+    {
+      "kind": "profile",
+      "id": "stealth",
+      "name": "Stealth",
+      "description": "Lights off. Only status keys glow: battery, mic mute, Caps Lock, Claude Code and notifications.",
+      "author": "KeyHalo",
+      "tags": [
+        "minimal",
+        "status"
+      ],
+      "path": "community/profiles/stealth.json",
+      "updated": "2026-10-27T05:13:23.170Z"
+    },
+    {
+      "kind": "profile",
+      "id": "streamer",
+      "name": "Streamer",
+      "description": "Audio visualizer bars that move with whatever your PC is playing, plus a big red mic-mute key.",
+      "author": "KeyHalo",
+      "tags": [
+        "audio",
+        "streaming"
+      ],
+      "path": "community/profiles/streamer.json",
+      "updated": "2026-10-27T05:13:23.170Z"
+    },
+    {
+      "kind": "profile",
+      "id": "sunset",
+      "name": "Sunset",
+      "description": "Warm pink, orange and gold, slowly sliding across the desk.",
+      "author": "KeyHalo",
+      "tags": [
+        "ambient",
+        "warm"
+      ],
+      "path": "community/profiles/sunset.json",
+      "updated": "2026-10-27T05:13:23.169Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "blender",
+      "name": "Blender",
+      "description": "Default Blender (2.8+) shortcuts for transforming, modeling, viewport navigation and animation.",
+      "author": "KeyHalo",
+      "apps": [
+        "blender.exe"
+      ],
+      "tags": [
+        "3d",
+        "modeling",
+        "animation"
+      ],
+      "path": "community/keymaps/blender.json",
+      "updated": "2026-10-27T05:13:58.457Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "chrome",
+      "name": "Google Chrome",
+      "description": "Default Google Chrome shortcuts on Windows for tabs, navigation, page tools and DevTools.",
+      "author": "KeyHalo",
+      "apps": [
+        "chrome.exe"
+      ],
+      "tags": [
+        "browser",
+        "web",
+        "productivity"
+      ],
+      "path": "community/keymaps/chrome.json",
+      "updated": "2026-10-27T05:13:58.457Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "davinci-resolve",
+      "name": "DaVinci Resolve (Edit page)",
+      "description": "Default DaVinci Resolve keyboard shortcuts for the Edit page on Windows.",
+      "author": "KeyHalo",
+      "apps": [
+        "Resolve.exe"
+      ],
+      "tags": [
+        "video",
+        "editing",
+        "color"
+      ],
+      "path": "community/keymaps/davinci-resolve.json",
+      "updated": "2026-10-27T05:13:58.457Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "discord",
+      "name": "Discord",
+      "description": "Default Discord desktop shortcuts on Windows for navigation, voice and chat.",
+      "author": "KeyHalo",
+      "apps": [
+        "Discord.exe"
+      ],
+      "tags": [
+        "chat",
+        "voice",
+        "social"
+      ],
+      "path": "community/keymaps/discord.json",
+      "updated": "2026-10-27T05:13:58.458Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "excel",
+      "name": "Microsoft Excel",
+      "description": "Default Microsoft Excel shortcuts on Windows for navigation, selection, formulas and formatting.",
+      "author": "KeyHalo",
+      "apps": [
+        "EXCEL.EXE"
+      ],
+      "tags": [
+        "office",
+        "spreadsheet",
+        "productivity"
+      ],
+      "path": "community/keymaps/excel.json",
+      "updated": "2026-10-27T05:13:58.458Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "figma",
+      "name": "Figma",
+      "description": "Default Figma desktop shortcuts on Windows for tools, layers, alignment and zoom.",
+      "author": "KeyHalo",
+      "apps": [
+        "Figma.exe"
+      ],
+      "tags": [
+        "design",
+        "ui",
+        "prototyping"
+      ],
+      "path": "community/keymaps/figma.json",
+      "updated": "2026-10-27T05:13:58.458Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "obs-studio",
+      "name": "OBS Studio",
+      "description": "Built-in OBS Studio editing shortcuts for the sources list and preview; streaming, recording and scene hotkeys are user-defined in Settings > Hotkeys and are not included.",
+      "author": "KeyHalo",
+      "apps": [
+        "obs64.exe"
+      ],
+      "tags": [
+        "streaming",
+        "recording",
+        "video"
+      ],
+      "path": "community/keymaps/obs-studio.json",
+      "updated": "2026-10-27T05:13:58.459Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "photoshop",
+      "name": "Adobe Photoshop",
+      "description": "Default Adobe Photoshop shortcuts on Windows for tools, layers, adjustments and view.",
+      "author": "KeyHalo",
+      "apps": [
+        "Photoshop.exe"
+      ],
+      "tags": [
+        "design",
+        "photo",
+        "adobe"
+      ],
+      "path": "community/keymaps/photoshop.json",
+      "updated": "2026-10-27T05:13:58.459Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "premiere-pro",
+      "name": "Adobe Premiere Pro",
+      "description": "Default Adobe Premiere Pro shortcuts on Windows for the timeline, tools and playback.",
+      "author": "KeyHalo",
+      "apps": [
+        "Adobe Premiere Pro.exe"
+      ],
+      "tags": [
+        "video",
+        "editing",
+        "adobe"
+      ],
+      "path": "community/keymaps/premiere-pro.json",
+      "updated": "2026-10-27T05:13:58.460Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "sixty-percent-nav",
+      "name": "60% Navigation",
+      "description": "Turns CapsLock into Esc on tap and a navigation layer on hold, with IJKL arrows, F-keys and media for compact keyboards.",
+      "author": "KeyHalo",
+      "tags": [
+        "layout",
+        "layer",
+        "navigation",
+        "60%"
+      ],
+      "path": "community/keymaps/sixty-percent-nav.json",
+      "updated": "2026-10-27T05:13:58.460Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "tactical-fps",
+      "name": "Tactical FPS",
+      "description": "Legend-only overlay of Rainbow Six Siege default PC binds; it performs no remaps, so it is anti-cheat safe.",
+      "author": "KeyHalo",
+      "apps": [
+        "RainbowSix.exe"
+      ],
+      "tags": [
+        "gaming",
+        "fps",
+        "rainbow-six-siege"
+      ],
+      "path": "community/keymaps/tactical-fps.json",
+      "updated": "2026-10-27T05:13:58.461Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "vscode",
+      "name": "Visual Studio Code",
+      "description": "Default Windows shortcuts for Visual Studio Code: editing, navigation, panels and debugging.",
+      "author": "KeyHalo",
+      "apps": [
+        "Code.exe"
+      ],
+      "tags": [
+        "code",
+        "editor",
+        "development"
+      ],
+      "path": "community/keymaps/vscode.json",
+      "updated": "2026-10-27T05:13:58.461Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "windows-essentials",
+      "name": "Windows Essentials",
+      "description": "Everyday Windows 11 shortcuts for windows, desktops, capture and the clipboard, lit on every app.",
+      "author": "KeyHalo",
+      "tags": [
+        "windows",
+        "system",
+        "productivity"
+      ],
+      "path": "community/keymaps/windows-essentials.json",
+      "updated": "2026-10-27T05:13:58.462Z"
+    },
+    {
+      "kind": "effect",
+      "id": "breathing-duo",
+      "name": "Breathing duo",
+      "description": "Left and right halves breathe in opposite phase with two colours.",
+      "author": "KeyHalo",
+      "tags": [
+        "ambient",
+        "calm"
+      ],
+      "path": "community/effects/breathing-duo.js",
+      "updated": "2026-10-27T05:14:20.654Z"
+    },
+    {
+      "kind": "effect",
+      "id": "lava-lamp",
+      "name": "Lava lamp",
+      "description": "Slow, warm blobs that rise, merge and split.",
+      "author": "KeyHalo",
+      "tags": [
+        "ambient",
+        "warm"
+      ],
+      "path": "community/effects/lava-lamp.js",
+      "updated": "2026-10-27T05:14:20.511Z"
+    },
+    {
+      "kind": "effect",
+      "id": "matrix-rain",
+      "name": "Matrix rain",
+      "description": "Bright heads with fading green trails falling down the keyboard.",
+      "author": "KeyHalo",
+      "tags": [
+        "ambient",
+        "retro"
+      ],
+      "path": "community/effects/matrix-rain.js",
+      "updated": "2026-10-27T05:14:20.376Z"
+    },
+    {
+      "kind": "effect",
+      "id": "neon-scanner",
+      "name": "Neon scanner",
+      "description": "A glowing bar that sweeps left and right across the whole desk.",
+      "author": "KeyHalo",
+      "tags": [
+        "retro",
+        "vivid"
+      ],
+      "path": "community/effects/neon-scanner.js",
+      "updated": "2026-10-27T05:14:20.583Z"
+    },
+    {
+      "kind": "effect",
+      "id": "typing-sparks",
+      "name": "Typing sparks",
+      "description": "Every key press throws coloured sparks onto nearby keys.",
+      "author": "KeyHalo",
+      "tags": [
+        "reactive"
+      ],
+      "path": "community/effects/typing-sparks.js",
+      "updated": "2026-10-27T05:14:20.714Z"
+    },
+    {
+      "kind": "typing",
+      "id": "code-snippets",
+      "name": "Code snippets",
+      "description": "Original short snippets in JavaScript, TypeScript, Python, Rust, Go and C# for practising brackets, operators and indentation.",
+      "author": "KeyHalo contributors",
+      "tags": [
+        "any",
+        "code"
+      ],
+      "path": "community/typing/code-snippets.json",
+      "updated": "2026-10-27T05:09:37.596Z"
+    },
+    {
+      "kind": "typing",
+      "id": "en-common-words",
+      "name": "English: common words",
+      "description": "About 1,200 everyday English words, most frequent first. Used by Test and Adaptive modes.",
+      "author": "KeyHalo contributors",
+      "tags": [
+        "en",
+        "words"
+      ],
+      "path": "community/typing/en-common-words.json",
+      "updated": "2026-10-27T05:04:24.624Z"
+    },
+    {
+      "kind": "typing",
+      "id": "en-passages",
+      "name": "English: short passages",
+      "description": "Original short passages written for KeyHalo: everyday life, making things, keyboards, travel, food and science.",
+      "author": "KeyHalo contributors",
+      "tags": [
+        "en",
+        "quotes"
+      ],
+      "path": "community/typing/en-passages.json",
+      "updated": "2026-10-27T05:08:29.935Z"
+    },
+    {
+      "kind": "typing",
+      "id": "es-common-words",
+      "name": "Español: palabras comunes",
+      "description": "About 1,100 everyday Spanish words with accents and ñ, most frequent first. Used by Test and Adaptive modes.",
+      "author": "KeyHalo contributors",
+      "tags": [
+        "es",
+        "words"
+      ],
+      "path": "community/typing/es-common-words.json",
+      "updated": "2026-10-27T05:05:40.243Z"
+    },
+    {
+      "kind": "typing",
+      "id": "es-passages",
+      "name": "Español: pasajes breves",
+      "description": "Pasajes breves originales escritos para KeyHalo: vida diaria, hacer cosas, teclados, viajes, comida y ciencia.",
+      "author": "KeyHalo contributors",
+      "tags": [
+        "es",
+        "quotes"
+      ],
+      "path": "community/typing/es-passages.json",
+      "updated": "2026-10-27T05:08:30.097Z"
+    }
+  ]
+}

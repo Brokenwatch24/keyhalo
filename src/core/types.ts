@@ -377,6 +377,8 @@ export interface TypingResult {
   id: string;
   date: string;
   mode: string;
+  /** Comparable run configuration (personal bests, ghosts), e.g. "test:30s:en:p". */
+  config?: string;
   language: string;
   wpm: number;
   rawWpm: number;
@@ -419,6 +421,10 @@ export interface Settings {
   activeProfileId?: string;
   autoSwitchProfiles: boolean;
   hud: { enabled: boolean; position: "top" | "bottom"; durationMs: number };
+  /** Optional OpenRGB SDK bridge (src/core/devices/drivers/openrgb.ts). Off when missing. */
+  openrgb?: { enabled: boolean; host: string; port: number };
+  /** Light the shortcut cheat-sheet while Ctrl/Shift/Alt/Win is held (keymaps). */
+  cheatsheet: boolean;
 }
 
 export interface InputStats {

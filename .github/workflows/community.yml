@@ -1,0 +1,126 @@
+name: Community content
+
+on:
+  pull_request:
+    paths:
+      - "community/**"
+  push:
+    branches: [main]
+    paths:
+      - "community/**"
+
+concurrency:
+  group: community-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate changed content
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: List changed community files
+        id: changed
+        shell: bash
+        run: |
+          git diff --name-only --diff-filter=ACMR "origin/${{ github.base_ref }}...HEAD" -- community > changed.txt || true
+          echo "Changed files:"
+          cat changed.txt
+          echo "count=$(grep -c . changed.txt || true)" >> "$GITHUB_OUTPUT"
+
+      - name: Validate
+        id: validate
+        continue-on-error: true
+        shell: bash
+        run: |
+          mapfile -t files < changed.txt
+          if [ "${#files[@]}" -eq 0 ]; then
+            node scripts/validate-community.mjs --summary-md validation-summary.md
+          else
+            node scripts/validate-community.mjs --changed "${files[@]}" --summary-md validation-summary.md
+          fi
+
+      - name: Write job summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -f validation-summary.md ]; then cat validation-summary.md >> "$GITHUB_STEP_SUMMARY"; fi
+
+      # PRs from forks get a read-only token, so commenting may fail there; the job summary
+      # above still shows the full report, and the final step still fails on errors.
+      - name: Comment on the pull request
+        if: always()
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const marker = "<!-- keyhalo-community-validation -->";
+            if (!fs.existsSync("validation-summary.md")) return;
+            let body = fs.readFileSync("validation-summary.md", "utf8");
+            if (!body.includes(marker)) body = `${marker}\n${body}`;
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number, per_page: 100 });
+            const previous = comments.find((c) => c.body && c.body.includes(marker));
+            if (previous) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: previous.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
+
+      - name: Fail on validation errors
+        if: steps.validate.outcome == 'failure'
+        run: |
+          echo "::error::Community content validation failed. See the job summary or PR comment for details."
+          exit 1
+
+  index:
+    name: Rebuild community index
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build index
+        run: node scripts/build-index.mjs
+
+      - name: Commit index if changed
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add community/index.json README.md
+          if git diff --cached --quiet; then
+            echo "Index is up to date."
+          else
+            git commit -m "chore(community): rebuild index [skip ci]"
+            git push
+          fi

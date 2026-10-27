@@ -1,0 +1,23 @@
+{
+  "title": "Input stats",
+  "today": "Today",
+  "keys": "Keystrokes",
+  "clicks": "Clicks",
+  "mouseDistance": "Mouse distance",
+  "meters": "{value} m",
+  "kilometers": "{value} km",
+  "wpm": "WPM",
+  "apm": "APM",
+  "peakWpm": "Peak WPM",
+  "lifetime": "Lifetime",
+  "since": "Since {date}",
+  "last14": "Last 14 days",
+  "heatmap": "Key heatmap",
+  "battery": "Battery history",
+  "liveRates": "Live typing & actions",
+  "disabled": "Input stats are off. Turn them on in Settings → Privacy.",
+  "privacy": "Only counts are stored — never what you type.",
+  "clear": "Clear all stats",
+  "clearConfirm": "Delete every saved stat, including lifetime totals and battery history?",
+  "demo": "Demo data"
+}

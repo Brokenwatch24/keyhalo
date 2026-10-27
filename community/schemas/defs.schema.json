@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Brokenwatch24/keyhalo/main/community/schemas/defs.schema.json",
+  "title": "KeyHalo shared definitions",
+  "description": "Building blocks shared by every KeyHalo community schema. Mirrors src/core/types.ts.",
+  "$defs": {
+    "schemaRef": { "type": "string", "description": "Optional path or URL of the JSON Schema, for editor support." },
+    "id": {
+      "type": "string",
+      "description": "Lowercase identifier. Must equal the file name (without extension).",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,79}$"
+    },
+    "color": { "type": "string", "description": "Colour as #rrggbb.", "pattern": "^#[0-9a-fA-F]{6}$" },
+    "rgb": {
+      "type": "array",
+      "description": "Colour as [r, g, b] with 0..255 components.",
+      "prefixItems": [
+        { "type": "integer", "minimum": 0, "maximum": 255 },
+        { "type": "integer", "minimum": 0, "maximum": 255 },
+        { "type": "integer", "minimum": 0, "maximum": 255 }
+      ],
+      "items": false,
+      "minItems": 3
+    },
+    "hex16": { "type": "string", "description": "16-bit hex string, e.g. \"0x1532\".", "pattern": "^0x[0-9a-fA-F]{4}$" },
+    "hexShort": { "type": "string", "description": "Hex string, e.g. \"0x01\" or \"0xFF00\".", "pattern": "^0x[0-9a-fA-F]{1,4}$" },
+    "keyCode": {
+      "type": "string",
+      "description": "W3C KeyboardEvent.code name (\"KeyA\", \"Digit1\", \"ShiftLeft\"...). \"Fn\" is the Fn key, which the OS never sees.",
+      "pattern": "^(Key[A-Z]|Digit[0-9]|F([1-9]|1[0-9]|2[0-4])|Numpad([0-9]|Add|Subtract|Multiply|Divide|Decimal|Enter|Equal|Comma|ParenLeft|ParenRight|Backspace|Clear|ClearEntry|Hash|Star|MemoryAdd|MemoryClear|MemoryRecall|MemoryStore|MemorySubtract)|Arrow(Up|Down|Left|Right)|(Shift|Control|Alt|Meta|OS)(Left|Right)|Escape|Backquote|Minus|Equal|Backspace|Tab|BracketLeft|BracketRight|Backslash|CapsLock|Semicolon|Quote|Enter|Comma|Period|Slash|Space|ContextMenu|PrintScreen|ScrollLock|Pause|Insert|Home|PageUp|Delete|End|PageDown|NumLock|IntlBackslash|IntlRo|IntlYen|KanaMode|Lang[1-5]|Convert|NonConvert|Fn|FnLock|Media(PlayPause|Stop|TrackNext|TrackPrevious|Select)|AudioVolume(Up|Down|Mute)|Browser(Back|Forward|Home|Refresh|Search|Stop|Favorites)|LaunchApp[12]|LaunchMail|Power|Sleep|WakeUp|Eject|Help|Undo|Copy|Cut|Paste|Again|Find|Open|Props|Select)$"
+    },
+    "bindingKey": {
+      "description": "Trigger of a binding: a KeyCode or a mouse button (\"Mouse1\"...\"Mouse9\").",
+      "anyOf": [{ "$ref": "#/$defs/keyCode" }, { "type": "string", "pattern": "^Mouse[1-9]$" }]
+    },
+    "modifierName": { "enum": ["Ctrl", "Shift", "Alt", "Meta"] },
+    "unit": { "type": "number", "minimum": 0 },
+    "ledAddress": {
+      "description": "Driver LED address: [row, col] for matrix devices or a lamp/LED index.",
+      "oneOf": [
+        { "type": "integer", "minimum": 0 },
+        {
+          "type": "array",
+          "prefixItems": [{ "type": "integer", "minimum": 0 }, { "type": "integer", "minimum": 0 }],
+          "items": false,
+          "minItems": 2
+        }
+      ]
+    },
+    "hardwareEffectType": { "enum": ["off", "static", "breathing", "spectrum", "wave", "reactive", "starlight", "custom"] },
+    "hardwareEffect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "$ref": "#/$defs/hardwareEffectType" },
+        "colors": { "type": "array", "items": { "$ref": "#/$defs/rgb" } },
+        "speed": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "direction": { "enum": ["left", "right"] }
+      }
+    },
+    "dpiStage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "integer", "minimum": 1 },
+        "y": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "mouseSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dpiStages", "activeStage", "pollingRate"],
+      "properties": {
+        "dpiStages": { "type": "array", "items": { "$ref": "#/$defs/dpiStage" }, "minItems": 1 },
+        "activeStage": { "type": "integer", "minimum": 0 },
+        "pollingRate": { "type": "integer", "minimum": 1 },
+        "idleSleepSeconds": { "type": "integer", "minimum": 0 },
+        "lowBatteryThreshold": { "type": "number", "minimum": 0 },
+        "sniperDpi": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "macroStep": {
+      "type": "object",
+      "required": ["op"],
+      "discriminator": { "propertyName": "op" },
+      "oneOf": [
+        { "type": "object", "additionalProperties": false, "required": ["op", "key"], "properties": { "op": { "const": "down" }, "key": { "$ref": "#/$defs/keyCode" } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "key"], "properties": { "op": { "const": "up" }, "key": { "$ref": "#/$defs/keyCode" } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "key"], "properties": { "op": { "const": "tap" }, "key": { "$ref": "#/$defs/keyCode" } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "ms"], "properties": { "op": { "const": "delay" }, "ms": { "type": "integer", "minimum": 0, "maximum": 60000 } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "text"], "properties": { "op": { "const": "text" }, "text": { "type": "string" } } }
+      ]
+    },
+    "keyAction": {
+      "type": "object",
+      "required": ["type"],
+      "discriminator": { "propertyName": "type" },
+      "oneOf": [
+        { "type": "object", "additionalProperties": false, "required": ["type", "keys"], "properties": { "type": { "const": "key" }, "keys": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/bindingKey" } } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "text"], "properties": { "type": { "const": "text" }, "text": { "type": "string" } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "steps"], "properties": { "type": { "const": "macro" }, "steps": { "type": "array", "items": { "$ref": "#/$defs/macroStep" } } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "path"], "properties": { "type": { "const": "launch" }, "path": { "type": "string", "minLength": 1 }, "args": { "type": "array", "items": { "type": "string" } } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "layer", "mode"], "properties": { "type": { "const": "layer" }, "layer": { "type": "string", "minLength": 1 }, "mode": { "enum": ["hold", "toggle"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "tap", "hold"], "properties": { "type": { "const": "tapHold" }, "tap": { "$ref": "#/$defs/keyAction" }, "hold": { "$ref": "#/$defs/keyAction" }, "termMs": { "type": "integer", "minimum": 50, "maximum": 2000 } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "button"], "properties": { "type": { "const": "mouse" }, "button": { "enum": ["left", "right", "middle", "back", "forward"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "mode"], "properties": { "type": { "const": "dpi" }, "mode": { "enum": ["sniper", "cycle", "set"] }, "value": { "type": "integer", "minimum": 1 } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "profileId"], "properties": { "type": { "const": "profile" }, "profileId": { "type": "string", "minLength": 1 } } },
+        { "type": "object", "additionalProperties": false, "required": ["type", "command"], "properties": { "type": { "const": "media" }, "command": { "enum": ["playPause", "next", "prev", "volumeUp", "volumeDown", "mute", "micMute"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["type"], "properties": { "type": { "const": "disabled" } } }
+      ]
+    },
+    "keyBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "action"],
+      "properties": {
+        "key": { "$ref": "#/$defs/bindingKey" },
+        "with": { "type": "array", "items": { "$ref": "#/$defs/modifierName" }, "uniqueItems": true },
+        "action": { "$ref": "#/$defs/keyAction" },
+        "label": { "type": "string" },
+        "category": { "type": "string" }
+      }
+    },
+    "supportStatus": { "enum": ["verified", "community", "experimental"] },
+    "tags": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 40 }, "uniqueItems": true, "maxItems": 20 },
+    "processName": { "type": "string", "minLength": 1, "description": "Process name, e.g. \"Resolve.exe\"." }
+  }
+}

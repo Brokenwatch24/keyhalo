@@ -1,0 +1,294 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "discord",
+  "name": "Discord",
+  "description": "Default Discord desktop shortcuts on Windows for navigation, voice and chat.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "Discord.exe"
+  ],
+  "categories": {
+    "Navigation": "#7ee0a1",
+    "Voice": "#ffb454",
+    "Chat": "#5aa9ff",
+    "View": "#4dd0e1",
+    "Server": "#c792ea"
+  },
+  "legends": [
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyK"
+      ],
+      "label": "Quick switcher",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowUp"
+      ],
+      "label": "Previous channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowDown"
+      ],
+      "label": "Next channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "AltLeft",
+        "ArrowUp"
+      ],
+      "label": "Previous unread channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "AltLeft",
+        "ArrowDown"
+      ],
+      "label": "Next unread channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "AltLeft",
+        "ArrowUp"
+      ],
+      "label": "Previous unread mention channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "AltLeft",
+        "ArrowDown"
+      ],
+      "label": "Next unread mention channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "ArrowUp"
+      ],
+      "label": "Previous server",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "ArrowDown"
+      ],
+      "label": "Next server",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyB"
+      ],
+      "label": "Return to previous text channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "KeyA"
+      ],
+      "label": "Return to connected audio channel",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyM"
+      ],
+      "label": "Toggle mute",
+      "category": "Voice"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyD"
+      ],
+      "label": "Toggle deafen",
+      "category": "Voice"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Enter"
+      ],
+      "label": "Answer incoming call",
+      "category": "Voice"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Quote"
+      ],
+      "label": "Start call in DM",
+      "category": "Voice"
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "label": "Mark channel as read / decline call",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Escape"
+      ],
+      "label": "Mark server as read",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "PageUp"
+      ],
+      "label": "Jump to oldest unread message",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "label": "Focus text area",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ArrowUp"
+      ],
+      "label": "Edit last message",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyE"
+      ],
+      "label": "Emoji picker",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyG"
+      ],
+      "label": "GIF picker",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Sticker picker",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyU"
+      ],
+      "label": "Upload a file",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyF"
+      ],
+      "label": "Search",
+      "category": "Chat"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyI"
+      ],
+      "label": "Toggle inbox",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyP"
+      ],
+      "label": "Toggle pins",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyU"
+      ],
+      "label": "Toggle member list",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Slash"
+      ],
+      "label": "Keyboard shortcuts list",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyH"
+      ],
+      "label": "Get help",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyN"
+      ],
+      "label": "Create or join a server",
+      "category": "Server"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyT"
+      ],
+      "label": "Create private group",
+      "category": "Server"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "chat",
+    "voice",
+    "social"
+  ]
+}

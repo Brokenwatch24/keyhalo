@@ -1,0 +1,23 @@
+{
+  "title": "Estadísticas de uso",
+  "today": "Hoy",
+  "keys": "Pulsaciones",
+  "clicks": "Clics",
+  "mouseDistance": "Distancia del ratón",
+  "meters": "{value} m",
+  "kilometers": "{value} km",
+  "wpm": "PPM",
+  "apm": "APM",
+  "peakWpm": "PPM máximas",
+  "lifetime": "Total histórico",
+  "since": "Desde {date}",
+  "last14": "Últimos 14 días",
+  "heatmap": "Mapa de calor de teclas",
+  "battery": "Historial de batería",
+  "liveRates": "Escritura y acciones en directo",
+  "disabled": "Las estadísticas están desactivadas. Actívalas en Ajustes → Privacidad.",
+  "privacy": "Solo se guardan recuentos, nunca lo que escribes.",
+  "clear": "Borrar estadísticas",
+  "clearConfirm": "¿Borrar todas las estadísticas guardadas, incluidos los totales y el historial de batería?",
+  "demo": "Datos de demostración"
+}

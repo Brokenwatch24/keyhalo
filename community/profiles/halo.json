@@ -1,0 +1,56 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "halo",
+  "name": "Halo",
+  "description": "KeyHalo's default: a slow, soft rainbow drifting across keyboard and mouse.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "ambient",
+    "default"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "wave",
+        "params": {
+          "speed": 0.35,
+          "wavelength": 22,
+          "direction": "right",
+          "rainbow": true
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "battery",
+        "effect": "widget:battery",
+        "params": {
+          "warnBelow": 25,
+          "badBelow": 12
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true,
+        "mask": [
+          "Escape"
+        ]
+      }
+    ],
+    "brightness": 0.8,
+    "fps": 30
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "gaming-wasd",
+  "name": "Gaming WASD",
+  "description": "Dim board with movement keys in red, abilities in amber, number row in cyan and reactive flashes. Health and ammo bars light the number row in supported games.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "gaming"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "static",
+        "params": {
+          "color": "#0c0c14"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "move",
+        "effect": "static",
+        "params": {
+          "color": "#ff1e3c"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true,
+        "mask": [
+          "KeyW",
+          "KeyA",
+          "KeyS",
+          "KeyD"
+        ]
+      },
+      {
+        "id": "abilities",
+        "effect": "static",
+        "params": {
+          "color": "#ffaa00"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true,
+        "mask": [
+          "KeyQ",
+          "KeyE",
+          "KeyR",
+          "KeyF",
+          "KeyG",
+          "KeyC",
+          "KeyX",
+          "KeyZ",
+          "ShiftLeft",
+          "ControlLeft",
+          "Space",
+          "Tab"
+        ]
+      },
+      {
+        "id": "numbers",
+        "effect": "static",
+        "params": {
+          "color": "#00d4ff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true,
+        "mask": [
+          "Digit1",
+          "Digit2",
+          "Digit3",
+          "Digit4",
+          "Digit5"
+        ]
+      },
+      {
+        "id": "react",
+        "effect": "reactive",
+        "params": {
+          "color": "#ffffff",
+          "fade": 0.35,
+          "background": "#000000"
+        },
+        "blend": "screen",
+        "opacity": 0.8,
+        "enabled": true
+      },
+      {
+        "id": "health",
+        "effect": "widget:game-health",
+        "params": {
+          "showEmpty": false
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "ammo",
+        "effect": "widget:game-ammo",
+        "params": {
+          "color": "#ffb000",
+          "showEmpty": false
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      }
+    ],
+    "brightness": 1,
+    "fps": 30
+  }
+}

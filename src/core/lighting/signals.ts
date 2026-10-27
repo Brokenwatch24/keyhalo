@@ -11,6 +11,7 @@ export interface Signals {
   ram?: { pct: number };
   /** Battery per device uid, 0..100. */
   battery: Record<string, { percent: number; charging: boolean }>;
+  /** Bambu printer: progress 0..100, state = gcode_state (RUNNING, FINISH, FAILED…). */
   bambu?: { progress: number; state: string; remainingMin?: number; layer?: number; totalLayers?: number };
   claude?: { state: "idle" | "working" | "waiting" | "done" | "error"; since: number };
   micMuted?: boolean;
@@ -22,7 +23,11 @@ export interface Signals {
   apm?: number;
   /** Audio spectrum, 0..1 per band. */
   audio?: { bands: number[]; level: number };
-  game?: { game: "cs2" | "dota2" | "lol"; health?: number; armor?: number; ammo?: number; mana?: number; dead?: boolean; bomb?: "planted" | "defused" | "exploded" | null; flashed?: number };
+  /**
+   * Live game state from official game APIs (integrations/games). health/armor/mana are 0..100,
+   * ammo is the clip ratio 0..1, flashed/burning are 0..1, phase is the round/game phase.
+   */
+  game?: { game: "cs2" | "dota2" | "lol"; health?: number; armor?: number; ammo?: number; mana?: number; dead?: boolean; bomb?: "planted" | "defused" | "exploded" | null; flashed?: number; burning?: number; phase?: string };
   /**
    * Full-keyboard overlays drawn above every layer, highest priority first:
    * typing trainer guidance, shortcut cheat-sheet, wizard LED mapping.

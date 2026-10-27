@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schemas/device.schema.json",
+  "vendor": "Razer",
+  "driver": "razer",
+  "status": "experimental",
+  "id": "razer-viper-ultimate",
+  "name": "Razer Viper Ultimate",
+  "type": "mouse",
+  "match": [
+    {
+      "vendorId": "0x1532",
+      "productId": "0x007A",
+      "interface": 0
+    },
+    {
+      "vendorId": "0x1532",
+      "productId": "0x007B",
+      "interface": 0
+    }
+  ],
+  "driverOptions": {
+    "transactionId": "0x3F",
+    "led": "0x04",
+    "frameMode": "led",
+    "wireless": true
+  },
+  "capabilities": {
+    "zones": true,
+    "hardwareEffects": [
+      "off",
+      "static",
+      "breathing",
+      "spectrum",
+      "reactive"
+    ],
+    "brightness": true,
+    "onboardMemory": true,
+    "dpi": {
+      "min": 100,
+      "max": 20000,
+      "step": 50,
+      "stages": 5,
+      "independentXY": true
+    },
+    "pollingRates": [
+      125,
+      500,
+      1000
+    ],
+    "battery": true,
+    "idleSleep": {
+      "min": 60,
+      "max": 900
+    },
+    "lowBatteryThreshold": {
+      "min": 5,
+      "max": 25
+    }
+  },
+  "leds": [
+    {
+      "id": "logo",
+      "name": "Logo",
+      "x": 1,
+      "y": 2.55,
+      "w": 0.5,
+      "h": 0.5,
+      "led": 4
+    }
+  ],
+  "size": {
+    "w": 2,
+    "h": 3.4
+  },
+  "notes": "Wired 0x007A / dongle 0x007B. LEDs use transaction 0x3F, misc commands 0xFF in OpenRazer (the driver falls back per command). Logo LED 0x04 per OpenRazer (OpenRGB uses 0x05). Not tested on hardware."
+}

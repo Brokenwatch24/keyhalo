@@ -1,0 +1,389 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "excel",
+  "name": "Microsoft Excel",
+  "description": "Default Microsoft Excel shortcuts on Windows for navigation, selection, formulas and formatting.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "EXCEL.EXE"
+  ],
+  "categories": {
+    "Edit": "#5aa9ff",
+    "Navigation": "#7ee0a1",
+    "Selection": "#4dd0e1",
+    "Formula": "#c792ea",
+    "Format": "#ffb454",
+    "File": "#9aa5b1",
+    "Delete": "#ff6b6b"
+  },
+  "legends": [
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyC"
+      ],
+      "label": "Copy",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyX"
+      ],
+      "label": "Cut",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyV"
+      ],
+      "label": "Paste",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyZ"
+      ],
+      "label": "Undo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyY"
+      ],
+      "label": "Redo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "F2"
+      ],
+      "label": "Edit active cell",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "Enter"
+      ],
+      "label": "New line in cell",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Enter"
+      ],
+      "label": "Fill selection with entry",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyD"
+      ],
+      "label": "Fill down",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyR"
+      ],
+      "label": "Fill right",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyE"
+      ],
+      "label": "Flash fill",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Semicolon"
+      ],
+      "label": "Insert current date",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Semicolon"
+      ],
+      "label": "Insert current time",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyF"
+      ],
+      "label": "Find",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyH"
+      ],
+      "label": "Replace",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Equal"
+      ],
+      "label": "Insert cells",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Minus"
+      ],
+      "label": "Delete cells",
+      "category": "Delete"
+    },
+    {
+      "keys": [
+        "Delete"
+      ],
+      "label": "Clear contents",
+      "category": "Delete"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Home"
+      ],
+      "label": "Go to cell A1",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "End"
+      ],
+      "label": "Go to last used cell",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ArrowUp"
+      ],
+      "label": "Jump to top of data region",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ArrowDown"
+      ],
+      "label": "Jump to bottom of data region",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "PageUp"
+      ],
+      "label": "Previous sheet",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "PageDown"
+      ],
+      "label": "Next sheet",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyG"
+      ],
+      "label": "Go To",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyA"
+      ],
+      "label": "Select all / current region",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Space"
+      ],
+      "label": "Select row",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Space"
+      ],
+      "label": "Select column",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyT"
+      ],
+      "label": "Create table",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyL"
+      ],
+      "label": "Toggle filters",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "Equal"
+      ],
+      "label": "AutoSum",
+      "category": "Formula"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "F3"
+      ],
+      "label": "Insert function",
+      "category": "Formula"
+    },
+    {
+      "keys": [
+        "F4"
+      ],
+      "label": "Toggle absolute reference / repeat",
+      "category": "Formula"
+    },
+    {
+      "keys": [
+        "F9"
+      ],
+      "label": "Calculate all",
+      "category": "Formula"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Backquote"
+      ],
+      "label": "Show formulas",
+      "category": "Formula"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Digit1"
+      ],
+      "label": "Format cells",
+      "category": "Format"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyB"
+      ],
+      "label": "Bold",
+      "category": "Format"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyI"
+      ],
+      "label": "Italic",
+      "category": "Format"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyU"
+      ],
+      "label": "Underline",
+      "category": "Format"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Digit4"
+      ],
+      "label": "Currency format",
+      "category": "Format"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Digit5"
+      ],
+      "label": "Percent format",
+      "category": "Format"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Digit1"
+      ],
+      "label": "Number format",
+      "category": "Format"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyO"
+      ],
+      "label": "Open",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Save",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "F12"
+      ],
+      "label": "Save As",
+      "category": "File"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "office",
+    "spreadsheet",
+    "productivity"
+  ]
+}

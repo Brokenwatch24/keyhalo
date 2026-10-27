@@ -2,7 +2,8 @@ import { useSyncExternalStore } from "react";
 
 /** Hash router: "#/lighting/editor" → ["lighting", "editor"]. */
 function read(): string[] {
-  const h = window.location.hash.replace(/^#\/?/, "");
+  // Ignore an inline query after the route ("#/typing?demoResult=1").
+  const h = window.location.hash.replace(/^#\/?/, "").split("?")[0];
   return h ? h.split("/").map(decodeURIComponent) : ["dashboard"];
 }
 

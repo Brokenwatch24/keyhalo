@@ -1,0 +1,240 @@
+{
+  "title": "Integrations",
+  "test": "Test",
+  "status": {
+    "idle": "Off",
+    "connecting": "Connecting…",
+    "connected": "Connected",
+    "error": "Error"
+  },
+  "system": {
+    "name": "System monitor",
+    "description": "CPU, GPU and RAM load for lighting widgets and automations."
+  },
+  "bambu": {
+    "name": "Bambu Lab printer",
+    "description": "Show print progress on your keyboard over the local network.",
+    "host": "Printer IP address",
+    "serial": "Serial number",
+    "accessCode": "LAN access code",
+    "flashOnFinish": "Flash when a print finishes or fails",
+    "started": "Print started",
+    "finished": "Print finished",
+    "failed": "Print failed"
+  },
+  "claude": {
+    "name": "Claude Code",
+    "description": "Light your keyboard when Claude Code is working, waiting for you or done.",
+    "waiting": "Claude Code is waiting for you",
+    "done": "Claude Code finished",
+    "error": "Claude Code hit an error",
+    "hudOnWaiting": "Show the HUD when Claude needs you",
+    "flashOnWaiting": "Flash the keyboard when Claude needs you"
+  },
+  "notifications": {
+    "name": "App notifications",
+    "description": "Flash a colour when Discord, WhatsApp, Telegram, Slack, Teams or Outlook show new unread messages.",
+    "unread": "{count} unread",
+    "bestEffort": "Detected from window titles — works while the app's window exists (also minimised or in the background)."
+  },
+  "mic": {
+    "name": "Microphone mute",
+    "description": "Mute indicator for lighting widgets and a global hotkey to toggle it.",
+    "hotkey": "Toggle hotkey",
+    "hotkeyConflict": "Ctrl+Shift+M is also Discord's own mute shortcut; pick another combo if you use Discord.",
+    "muted": "Microphone muted",
+    "live": "Microphone on"
+  },
+  "games": {
+    "name": "Games",
+    "description": "Health, ammo, bomb and round state from the official CS2, Dota 2 and League of Legends APIs.",
+    "install": "Install for {game}",
+    "installed": "Installed — restart the game",
+    "notFound": "Game not found in your Steam libraries",
+    "lowHealth": "Low health threshold",
+    "antiCheat": "Uses only official game integrations; KeyHalo never reads game memory."
+  },
+  "homeAssistant": {
+    "name": "Home Assistant / MQTT",
+    "description": "Your keyboard as a light in Home Assistant, plus WPM and battery sensors.",
+    "host": "Broker host",
+    "port": "Port",
+    "username": "Username",
+    "password": "Password",
+    "tls": "Use TLS",
+    "nodeId": "Computer name in topics",
+    "discovery": "Home Assistant discovery"
+  },
+  "api": {
+    "name": "Local API",
+    "description": "REST and WebSocket API on 127.0.0.1 for scripts, Stream Deck and hooks."
+  },
+  "pomodoro": {
+    "name": "Pomodoro",
+    "description": "Focus and break timer shown on your keyboard.",
+    "focus": "Focus time",
+    "break": "Take a break",
+    "longBreak": "Long break",
+    "minutes": "{min} min",
+    "focusOver": "Focus session done",
+    "breakOver": "Break is over",
+    "start": "Start",
+    "stop": "Stop",
+    "pause": "Pause",
+    "resume": "Resume",
+    "skip": "Skip"
+  },
+  "ui": {
+    "description": "Feed live data from your PC, printer, games and smart home into lighting, the HUD and automations.",
+    "all": "All integrations",
+    "status": {
+      "ready": "Ready"
+    },
+    "settings": "Settings",
+    "connection": "Connection",
+    "setup": "Setup",
+    "port": "Port",
+    "hud": "Show the HUD",
+    "reveal": "Show / hide",
+    "running": "Running",
+    "notConfigured": "Not configured",
+    "since": "since {time}",
+    "hm": "{h} h {m} min",
+    "m": "{m} min",
+    "demoNote": "Browser demo — values are simulated.",
+    "demoPrinter": "Demo printer",
+    "system": {
+      "cpu": "CPU load",
+      "gpu": "GPU load",
+      "gpuTemp": "GPU temperature",
+      "ram": "Memory",
+      "noTemp": "Temperature unavailable",
+      "noGpu": "No GPU data",
+      "vram": "VRAM {used} / {total} GB",
+      "ramOf": "{used} / {total} GB",
+      "interval": "Refresh",
+      "intervalHint": "Only polls while a widget, chart or rule needs the data.",
+      "note": "CPU temperature and GPU data come from the system and may be missing on some hardware."
+    },
+    "bambu": {
+      "remaining": "Remaining",
+      "left": "{time} left",
+      "layer": "Layer",
+      "waiting": "Waiting for the printer…",
+      "off": "Enable the integration and enter the printer details to see print progress here.",
+      "step1": "On the printer: Settings → Network — note the IP address and the LAN access code (LAN-only / developer mode must allow the local MQTT server).",
+      "step2": "Settings → Device (or the sticker / Bambu Handy app) — note the serial number.",
+      "step3": "Enter the details here, enable the integration and press Test. KeyHalo only reads status — it never sends print commands.",
+      "states": {
+        "IDLE": "Idle",
+        "PREPARE": "Preparing",
+        "RUNNING": "Printing",
+        "PAUSE": "Paused",
+        "FINISH": "Finished",
+        "FAILED": "Failed",
+        "SLICING": "Slicing"
+      }
+    },
+    "claude": {
+      "states": {
+        "idle": "Idle",
+        "working": "Working",
+        "waiting": "Waiting for you",
+        "done": "Done",
+        "error": "Error"
+      },
+      "noEvents": "No events yet",
+      "simulate": "Try a state",
+      "flashColor": "Flash colour",
+      "hooks": "Claude Code hooks",
+      "hooksHint": "Add these hooks to ~/.claude/settings.json (or a project's .claude/settings.json). They call the keyhalo CLI installed with the desktop app.",
+      "cli": "Without the CLI",
+      "cliHint": "Any script can set the state through the local API. Add the token header if you set one."
+    },
+    "notifications": {
+      "allKeys": "All keys",
+      "keysN": "{n} keys",
+      "preview": "Preview flash",
+      "none": "No unread badges",
+      "detected": "Badges are read from window titles every few seconds. Counts update live while this page is open.",
+      "detecting": "Looking for unread badges…"
+    },
+    "mic": {
+      "unknown": "Unknown",
+      "mute": "Mute",
+      "unmute": "Unmute",
+      "noHotkey": "No hotkey",
+      "hotkeyHint": "Global shortcut that toggles the default microphone.",
+      "keymapHint": "Keymap packs can also bind a key to “Mute microphone” (Media action)."
+    },
+    "games": {
+      "gsi": "Official Game State Integration — writes a small config file into the game folder.",
+      "lol": "Live Client Data API — nothing to install.",
+      "automatic": "Automatic while the game runs",
+      "live": "Live game data",
+      "none": "No game running. Start a match and the data appears here within a second.",
+      "noneShort": "No game running",
+      "demo": "Simulated CS2 match (browser demo).",
+      "inGame": "In game · {game}",
+      "dead": "Dead",
+      "health": "Health",
+      "armor": "Armor",
+      "ammo": "Ammo",
+      "mana": "Mana",
+      "phase": "Round phase",
+      "bomb": "Bomb",
+      "bombState": {
+        "planted": "Planted",
+        "defused": "Defused",
+        "exploded": "Exploded"
+      },
+      "effects": "Effects",
+      "flashed": "Flashed",
+      "burning": "Burning"
+    },
+    "ha": {
+      "topics": "Topics",
+      "state": "State",
+      "set": "Light commands",
+      "availability": "Availability",
+      "discovery": "Discovery",
+      "step1": "In Home Assistant, install the Mosquitto broker add-on and the MQTT integration, and create a user for KeyHalo.",
+      "step2": "Enter the broker host, port, user and password here, pick a computer name and enable the integration.",
+      "step3": "With discovery on, a “KeyHalo” device appears with the keyboard as a light (effects = your profiles) plus WPM and battery sensors."
+    },
+    "api": {
+      "token": "Token",
+      "tokenHint": "Send it as “Authorization: Bearer …” or ?token=…",
+      "noToken": "No token — any program on this computer can call the API.",
+      "none": "none",
+      "generate": "Generate",
+      "regenerate": "New token",
+      "remove": "Remove",
+      "tokenOn": "token required",
+      "tokenOff": "no token",
+      "endpoints": "Endpoints",
+      "actions": "Actions:",
+      "custom": "any other name fires automation rules with an API trigger",
+      "examples": "Examples",
+      "wsHint": "Pushes the status JSON whenever it changes.",
+      "ep": {
+        "status": "Status JSON: profile, devices, WPM, Claude, printer…",
+        "action": "Run an action: profile, flash, notify, dpi, pomodoro…",
+        "notify": "Flash + HUD message",
+        "ws": "Live status stream",
+        "gsi": "Game State Integration (CS2 / Dota 2)"
+      }
+    },
+    "pomodoro": {
+      "focusing": "Focus",
+      "onBreak": "Break",
+      "readyFor": "Ready · {min} min focus",
+      "sessions": "Focus sessions",
+      "completed": "{n} completed",
+      "cycles": "Sessions before a long break",
+      "auto": "Start the next phase automatically",
+      "flash": "Flash at each phase change",
+      "hint": "Shown on the keyboard by the timer widget. Also controllable from the API and Stream Deck."
+    }
+  }
+}

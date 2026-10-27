@@ -18,6 +18,7 @@ export const DEFAULT_SETTINGS: Settings = {
   github: {},
   autoSwitchProfiles: true,
   hud: { enabled: true, position: "bottom", durationMs: 1400 },
+  cheatsheet: true,
 };
 
 interface SettingsState {

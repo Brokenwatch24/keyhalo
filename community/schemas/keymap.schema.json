@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Brokenwatch24/keyhalo/main/community/schemas/keymap.schema.json",
+  "title": "KeyHalo keymap pack",
+  "description": "Per-app shortcut legends (lit by category), remaps and macros. Mirrors KeymapPack in src/core/types.ts. Packs using launch, text, macro-with-text or http actions are flagged for review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "apps", "categories", "legends", "bindings"],
+  "properties": {
+    "$schema": { "$ref": "defs.schema.json#/$defs/schemaRef" },
+    "id": { "$ref": "defs.schema.json#/$defs/id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": { "type": "string", "maxLength": 500 },
+    "author": { "type": "string" },
+    "version": { "type": "string" },
+    "apps": {
+      "type": "array",
+      "description": "Process names this pack activates for (\"Resolve.exe\"). Empty = global.",
+      "items": { "$ref": "defs.schema.json#/$defs/processName" }
+    },
+    "categories": {
+      "type": "object",
+      "description": "Category -> #rrggbb colour shown on the keys.",
+      "additionalProperties": { "$ref": "defs.schema.json#/$defs/color" }
+    },
+    "legends": { "type": "array", "items": { "$ref": "#/$defs/shortcutLegend" } },
+    "bindings": { "type": "array", "items": { "$ref": "defs.schema.json#/$defs/keyBinding" } },
+    "layers": { "type": "array", "items": { "$ref": "#/$defs/keymapLayer" } },
+    "tags": { "$ref": "defs.schema.json#/$defs/tags" }
+  },
+  "$defs": {
+    "shortcutLegend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keys", "label", "category"],
+      "properties": {
+        "keys": { "type": "array", "minItems": 1, "items": { "$ref": "defs.schema.json#/$defs/bindingKey" } },
+        "label": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "minLength": 1 }
+      }
+    },
+    "keymapLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "bindings"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "bindings": { "type": "array", "items": { "$ref": "defs.schema.json#/$defs/keyBinding" } }
+      }
+    }
+  }
+}

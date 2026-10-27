@@ -1,0 +1,190 @@
+{
+  "hud": {
+    "profile": "Profile",
+    "brightness": "Brightness"
+  },
+  "profiles": {
+    "copyOf": "{name} (copy)",
+    "readOnly": "Built-in and gallery profiles are read-only. Duplicate it to edit.",
+    "invalid": "This file is not a KeyHalo profile",
+    "notFound": "Profile \"{id}\" not found",
+    "unsaved": "Unsaved changes",
+    "saveAs": "Save as new profile",
+    "default": "Default"
+  },
+  "blend": {
+    "normal": "Normal",
+    "add": "Add",
+    "multiply": "Multiply",
+    "screen": "Screen",
+    "max": "Lighten"
+  },
+  "categories": {
+    "basic": "Basic",
+    "ambient": "Ambient",
+    "reactive": "Reactive",
+    "audio": "Audio",
+    "widget": "Widgets",
+    "community": "Community"
+  },
+  "errors": {
+    "layerDisabled": "Layer disabled: {reason}",
+    "unknownEffect": "Unknown effect \"{id}\"",
+    "sandbox": "This community effect was stopped: {reason}"
+  },
+  "preview": {
+    "virtual": "Preview (no device connected)"
+  },
+  "page": {
+    "description": "Stack effects into layers, mask them to keys and watch your desk light up live."
+  },
+  "stage": {
+    "live": "LIVE",
+    "hardware": "{names} is showing its onboard effect.",
+    "useKeyHalo": "Use KeyHalo lighting",
+    "brightness": "Brightness",
+    "fps": "Frame rate",
+    "flash": "Test flash",
+    "flashHint": "Flash the selected keys (or the whole desk) to check the connection",
+    "reactive": "Reacts to typing",
+    "selectHint": "Click, Shift+click or drag to select keys"
+  },
+  "select": {
+    "title": "Select",
+    "all": "All",
+    "letters": "Letters",
+    "numbers": "Numbers",
+    "wasd": "WASD",
+    "modifiers": "Modifiers",
+    "arrows": "Arrows / Fn",
+    "count": "{n} selected",
+    "clear": "Clear"
+  },
+  "layers": {
+    "title": "Layers",
+    "add": "Add layer",
+    "emptyTitle": "No layers yet",
+    "empty": "Add an effect to start lighting your desk.",
+    "hint": "Top layers draw over lower ones · drag to reorder · Alt+↑/↓",
+    "keys": "{n} keys",
+    "keys_one": "1 key",
+    "someDevices": "Some devices",
+    "allKeys": "Whole desk",
+    "hide": "Hide layer",
+    "show": "Show layer",
+    "base": "Base",
+    "duplicate": "Duplicate (Ctrl+D)",
+    "delete": "Delete (Del)"
+  },
+  "inspector": {
+    "layerTab": "Layer",
+    "profileTab": "Profile",
+    "noLayer": "No layer selected",
+    "noLayerHint": "Pick a layer on the left to edit its effect, blend and mask.",
+    "change": "Change effect",
+    "retry": "Retry",
+    "effect": "Effect",
+    "noParams": "This effect has no settings.",
+    "reactiveNote": "Reacts to your key presses. KeyHalo listens to global key events only to light keys (nothing is recorded).",
+    "layer": "Layer",
+    "blend": "Blend mode",
+    "visible": "Visible",
+    "opacity": "Opacity",
+    "appliesTo": "Applies to",
+    "selectFirst": "Select keys on the preview first (click, Shift+click or drag).",
+    "wholeDesk": "Whole desk",
+    "selectedKeys": "Selected keys",
+    "showMask": "Show on preview",
+    "useSelection": "Use selection ({n})",
+    "maskHint": "Select keys on the preview to limit this layer to them.",
+    "maskHintSel": "{n} keys selected on the preview: choose “Selected keys” to limit this layer to them.",
+    "devices": "Devices",
+    "allDevices": "All",
+    "keyboard": "Keyboard",
+    "mouse": "Mouse",
+    "custom": "Custom",
+    "addColor": "Add colour"
+  },
+  "picker": {
+    "title": "Add a layer",
+    "changeTitle": "Change effect",
+    "search": "Search effects…",
+    "by": "by {author}",
+    "none": "No effects match your search.",
+    "communityHint": "More effects in Community → Gallery. Community effects run sandboxed: no network, no files."
+  },
+  "widget": {
+    "reads": "Reads {signal}.",
+    "open": "Open",
+    "where": {
+      "integrations": "Configure it in Integrations.",
+      "devices": "Comes from your wireless devices.",
+      "typing": "Live while you type anywhere.",
+      "keymaps": "Set by keymap layers."
+    },
+    "signals": {
+      "cpu": "CPU load from the system monitor",
+      "gpu": "GPU temperature from the system monitor",
+      "ram": "memory usage from the system monitor",
+      "bambu": "your Bambu Lab printer’s progress",
+      "claude": "Claude Code’s status",
+      "pomodoro": "the pomodoro timer",
+      "game": "live game data (CS2, Dota 2, LoL)",
+      "notifications": "notifications from apps and automations",
+      "mic": "your microphone’s mute state",
+      "wpm": "your live typing speed",
+      "battery": "the battery level",
+      "caps": "the Caps Lock state",
+      "layer": "the active keymap layer"
+    }
+  },
+  "profile": {
+    "none": "No active profile",
+    "about": "Profile",
+    "layers": "{n} layers",
+    "layers_one": "1 layer",
+    "source": {
+      "bundled": "Built-in",
+      "installed": "From gallery",
+      "user": "Yours"
+    },
+    "descPlaceholder": "What is this profile for?",
+    "apps": "Auto-activate",
+    "appsHint": "Switch to this profile while one of these apps is in the foreground.",
+    "noApps": "No apps yet.",
+    "running": "Running now:",
+    "group": {
+      "user": "Your profiles",
+      "installed": "From the gallery",
+      "bundled": "Built-in"
+    }
+  },
+  "toolbar": {
+    "profile": "Profile",
+    "saved": "Saved",
+    "savedAs": "Saved as “{name}”",
+    "imported": "Imported “{name}”",
+    "new": "New profile",
+    "import": "Import JSON…",
+    "export": "Export JSON",
+    "duplicateToEdit": "Duplicate to edit",
+    "more": "More actions",
+    "newTitle": "New profile",
+    "newName": "My profile",
+    "create": "Create",
+    "deleteTitle": "Delete “{name}”?",
+    "deleteBody": "The profile is removed from this computer. Export it first if you want to keep a copy."
+  },
+  "share": {
+    "title": "Share “{name}”",
+    "gist": "Share a link",
+    "gistHint": "Creates a private GitHub gist and a keyhalo:// link anyone can import.",
+    "createGist": "Create link",
+    "signIn": "Sign in to GitHub",
+    "publish": "Publish to the gallery",
+    "publishHint": "Opens a pull request to the community repo so everyone can install it.",
+    "openCommunity": "Open Share & publish",
+    "json": "Copy or download JSON",
+    "jsonHint": "Plain profile file: import it with Import JSON on another PC."
+  }
+}

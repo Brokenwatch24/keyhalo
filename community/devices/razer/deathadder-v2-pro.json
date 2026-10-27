@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schemas/device.schema.json",
+  "id": "razer-deathadder-v2-pro",
+  "name": "Razer DeathAdder V2 Pro",
+  "vendor": "Razer",
+  "type": "mouse",
+  "match": [
+    {
+      "vendorId": "0x1532",
+      "productId": "0x007C",
+      "interface": 0
+    },
+    {
+      "vendorId": "0x1532",
+      "productId": "0x007D",
+      "interface": 0
+    }
+  ],
+  "driver": "razer",
+  "driverOptions": {
+    "transactionId": "0x3F",
+    "led": "0x04",
+    "frameMode": "led",
+    "wireless": true
+  },
+  "capabilities": {
+    "zones": true,
+    "hardwareEffects": [
+      "off",
+      "static",
+      "breathing",
+      "spectrum",
+      "reactive"
+    ],
+    "brightness": true,
+    "onboardMemory": true,
+    "dpi": {
+      "min": 100,
+      "max": 20000,
+      "step": 50,
+      "stages": 5,
+      "independentXY": true
+    },
+    "pollingRates": [
+      125,
+      500,
+      1000
+    ],
+    "battery": true,
+    "idleSleep": {
+      "min": 60,
+      "max": 900
+    },
+    "lowBatteryThreshold": {
+      "min": 5,
+      "max": 25
+    }
+  },
+  "leds": [
+    {
+      "id": "logo",
+      "name": "Logo",
+      "x": 1,
+      "y": 2.55,
+      "w": 0.5,
+      "h": 0.5,
+      "led": 4
+    }
+  ],
+  "size": {
+    "w": 2,
+    "h": 3.4
+  },
+  "status": "verified",
+  "testedBy": [
+    "Brokenwatch24"
+  ],
+  "notes": "Wired 1532:007C and HyperSpeed dongle 1532:007D, control interface 0, transaction id 0x3F. Verified: firmware 2.02, DPI/stage read, 1000 Hz polling, battery. Lighting is the logo LED (0x04, extended-matrix effects)."
+}

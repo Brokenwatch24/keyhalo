@@ -1,0 +1,70 @@
+{
+  "$schema": "../../schemas/device.schema.json",
+  "vendor": "Razer",
+  "driver": "razer",
+  "status": "experimental",
+  "id": "razer-deathadder-v2",
+  "name": "Razer DeathAdder V2",
+  "type": "mouse",
+  "match": [
+    {
+      "vendorId": "0x1532",
+      "productId": "0x0084",
+      "interface": 0
+    }
+  ],
+  "driverOptions": {
+    "transactionId": "0x3F",
+    "led": "0x04",
+    "frameMode": "led"
+  },
+  "capabilities": {
+    "zones": true,
+    "hardwareEffects": [
+      "off",
+      "static",
+      "breathing",
+      "spectrum",
+      "reactive"
+    ],
+    "brightness": true,
+    "onboardMemory": true,
+    "dpi": {
+      "min": 100,
+      "max": 20000,
+      "step": 50,
+      "stages": 5,
+      "independentXY": true
+    },
+    "pollingRates": [
+      125,
+      500,
+      1000
+    ]
+  },
+  "leds": [
+    {
+      "id": "scroll",
+      "name": "Scroll wheel",
+      "x": 1,
+      "y": 0.52,
+      "w": 0.2,
+      "h": 0.45,
+      "led": 1
+    },
+    {
+      "id": "logo",
+      "name": "Logo",
+      "x": 1,
+      "y": 2.55,
+      "w": 0.5,
+      "h": 0.5,
+      "led": 4
+    }
+  ],
+  "size": {
+    "w": 2,
+    "h": 3.4
+  },
+  "notes": "PID 0x0084, logo (0x04) + scroll wheel (0x01) LEDs. OpenRazer uses transaction 0x3F, OpenRGB 0x1F (the driver tries both). OpenRazer exposes no DPI-stage command for this mouse. Not tested on hardware."
+}

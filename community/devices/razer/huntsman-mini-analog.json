@@ -1,0 +1,744 @@
+{
+  "$schema": "../../schemas/device.schema.json",
+  "vendor": "Razer",
+  "driver": "razer",
+  "status": "experimental",
+  "id": "razer-huntsman-mini-analog",
+  "name": "Razer Huntsman Mini Analog",
+  "type": "keyboard",
+  "match": [
+    {
+      "vendorId": "0x1532",
+      "productId": "0x0282",
+      "usagePage": "0x0001",
+      "usage": "0x0002"
+    }
+  ],
+  "driverOptions": {
+    "transactionId": "0x1F",
+    "matrix": {
+      "rows": 5,
+      "cols": 15
+    },
+    "led": "0x05"
+  },
+  "capabilities": {
+    "perKeyRgb": true,
+    "hardwareEffects": [
+      "off",
+      "static",
+      "breathing",
+      "spectrum",
+      "wave",
+      "reactive",
+      "starlight",
+      "custom"
+    ],
+    "brightness": true,
+    "onboardMemory": true
+  },
+  "layouts": {
+    "ansi-us": {
+      "id": "ansi-us",
+      "name": "US ANSI",
+      "standard": "ansi",
+      "keys": [
+        {
+          "code": "Escape",
+          "label": "Esc",
+          "x": 0,
+          "y": 0,
+          "led": [
+            0,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "Digit1",
+          "label": "1",
+          "x": 1,
+          "y": 0,
+          "led": [
+            0,
+            2
+          ],
+          "finger": 0
+        },
+        {
+          "code": "Digit2",
+          "label": "2",
+          "x": 2,
+          "y": 0,
+          "led": [
+            0,
+            3
+          ],
+          "finger": 1
+        },
+        {
+          "code": "Digit3",
+          "label": "3",
+          "x": 3,
+          "y": 0,
+          "led": [
+            0,
+            4
+          ],
+          "finger": 2
+        },
+        {
+          "code": "Digit4",
+          "label": "4",
+          "x": 4,
+          "y": 0,
+          "led": [
+            0,
+            5
+          ],
+          "finger": 3
+        },
+        {
+          "code": "Digit5",
+          "label": "5",
+          "x": 5,
+          "y": 0,
+          "led": [
+            0,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "Digit6",
+          "label": "6",
+          "x": 6,
+          "y": 0,
+          "led": [
+            0,
+            7
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Digit7",
+          "label": "7",
+          "x": 7,
+          "y": 0,
+          "led": [
+            0,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Digit8",
+          "label": "8",
+          "x": 8,
+          "y": 0,
+          "led": [
+            0,
+            9
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Digit9",
+          "label": "9",
+          "x": 9,
+          "y": 0,
+          "led": [
+            0,
+            10
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Digit0",
+          "label": "0",
+          "x": 10,
+          "y": 0,
+          "led": [
+            0,
+            11
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Minus",
+          "label": "-",
+          "x": 11,
+          "y": 0,
+          "led": [
+            0,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Equal",
+          "label": "=",
+          "x": 12,
+          "y": 0,
+          "led": [
+            0,
+            13
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Backspace",
+          "label": "Backspace",
+          "x": 13,
+          "y": 0,
+          "w": 2,
+          "led": [
+            0,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Tab",
+          "label": "Tab",
+          "x": 0,
+          "y": 1,
+          "w": 1.5,
+          "led": [
+            1,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyQ",
+          "label": "Q",
+          "x": 1.5,
+          "y": 1,
+          "led": [
+            1,
+            2
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyW",
+          "label": "W",
+          "x": 2.5,
+          "y": 1,
+          "led": [
+            1,
+            3
+          ],
+          "finger": 1
+        },
+        {
+          "code": "KeyE",
+          "label": "E",
+          "x": 3.5,
+          "y": 1,
+          "led": [
+            1,
+            4
+          ],
+          "finger": 2
+        },
+        {
+          "code": "KeyR",
+          "label": "R",
+          "x": 4.5,
+          "y": 1,
+          "led": [
+            1,
+            5
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyT",
+          "label": "T",
+          "x": 5.5,
+          "y": 1,
+          "led": [
+            1,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyY",
+          "label": "Y",
+          "x": 6.5,
+          "y": 1,
+          "led": [
+            1,
+            7
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyU",
+          "label": "U",
+          "x": 7.5,
+          "y": 1,
+          "led": [
+            1,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyI",
+          "label": "I",
+          "x": 8.5,
+          "y": 1,
+          "led": [
+            1,
+            9
+          ],
+          "finger": 7
+        },
+        {
+          "code": "KeyO",
+          "label": "O",
+          "x": 9.5,
+          "y": 1,
+          "led": [
+            1,
+            10
+          ],
+          "finger": 8
+        },
+        {
+          "code": "KeyP",
+          "label": "P",
+          "x": 10.5,
+          "y": 1,
+          "led": [
+            1,
+            11
+          ],
+          "finger": 9
+        },
+        {
+          "code": "BracketLeft",
+          "label": "[",
+          "x": 11.5,
+          "y": 1,
+          "led": [
+            1,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "BracketRight",
+          "label": "]",
+          "x": 12.5,
+          "y": 1,
+          "led": [
+            1,
+            13
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Backslash",
+          "label": "\\",
+          "x": 13.5,
+          "y": 1,
+          "w": 1.5,
+          "led": [
+            1,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "CapsLock",
+          "label": "Caps",
+          "x": 0,
+          "y": 2,
+          "w": 1.75,
+          "led": [
+            2,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyA",
+          "label": "A",
+          "x": 1.75,
+          "y": 2,
+          "led": [
+            2,
+            2
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyS",
+          "label": "S",
+          "x": 2.75,
+          "y": 2,
+          "led": [
+            2,
+            3
+          ],
+          "finger": 1
+        },
+        {
+          "code": "KeyD",
+          "label": "D",
+          "x": 3.75,
+          "y": 2,
+          "led": [
+            2,
+            4
+          ],
+          "finger": 2
+        },
+        {
+          "code": "KeyF",
+          "label": "F",
+          "x": 4.75,
+          "y": 2,
+          "led": [
+            2,
+            5
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyG",
+          "label": "G",
+          "x": 5.75,
+          "y": 2,
+          "led": [
+            2,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyH",
+          "label": "H",
+          "x": 6.75,
+          "y": 2,
+          "led": [
+            2,
+            7
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyJ",
+          "label": "J",
+          "x": 7.75,
+          "y": 2,
+          "led": [
+            2,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyK",
+          "label": "K",
+          "x": 8.75,
+          "y": 2,
+          "led": [
+            2,
+            9
+          ],
+          "finger": 7
+        },
+        {
+          "code": "KeyL",
+          "label": "L",
+          "x": 9.75,
+          "y": 2,
+          "led": [
+            2,
+            10
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Semicolon",
+          "label": ";",
+          "x": 10.75,
+          "y": 2,
+          "led": [
+            2,
+            11
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Quote",
+          "label": "'",
+          "x": 11.75,
+          "y": 2,
+          "led": [
+            2,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Enter",
+          "label": "Enter",
+          "x": 12.75,
+          "y": 2,
+          "w": 2.25,
+          "led": [
+            2,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ShiftLeft",
+          "label": "Shift",
+          "x": 0,
+          "y": 3,
+          "w": 2.25,
+          "led": [
+            3,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyZ",
+          "label": "Z",
+          "x": 2.25,
+          "y": 3,
+          "led": [
+            3,
+            3
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyX",
+          "label": "X",
+          "x": 3.25,
+          "y": 3,
+          "led": [
+            3,
+            4
+          ],
+          "finger": 1
+        },
+        {
+          "code": "KeyC",
+          "label": "C",
+          "x": 4.25,
+          "y": 3,
+          "led": [
+            3,
+            5
+          ],
+          "finger": 2
+        },
+        {
+          "code": "KeyV",
+          "label": "V",
+          "x": 5.25,
+          "y": 3,
+          "led": [
+            3,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyB",
+          "label": "B",
+          "x": 6.25,
+          "y": 3,
+          "led": [
+            3,
+            7
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyN",
+          "label": "N",
+          "x": 7.25,
+          "y": 3,
+          "led": [
+            3,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyM",
+          "label": "M",
+          "x": 8.25,
+          "y": 3,
+          "led": [
+            3,
+            9
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Comma",
+          "label": ",",
+          "x": 9.25,
+          "y": 3,
+          "led": [
+            3,
+            10
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Period",
+          "label": ".",
+          "x": 10.25,
+          "y": 3,
+          "led": [
+            3,
+            11
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Slash",
+          "label": "/",
+          "x": 11.25,
+          "y": 3,
+          "led": [
+            3,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ShiftRight",
+          "label": "Shift",
+          "x": 12.25,
+          "y": 3,
+          "w": 2.75,
+          "led": [
+            3,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ControlLeft",
+          "label": "Ctrl",
+          "x": 0,
+          "y": 4,
+          "w": 1.25,
+          "led": [
+            4,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "MetaLeft",
+          "label": "Win",
+          "x": 1.25,
+          "y": 4,
+          "w": 1.25,
+          "led": [
+            4,
+            2
+          ],
+          "finger": 4
+        },
+        {
+          "code": "AltLeft",
+          "label": "Alt",
+          "x": 2.5,
+          "y": 4,
+          "w": 1.25,
+          "led": [
+            4,
+            3
+          ],
+          "finger": 4
+        },
+        {
+          "code": "Space",
+          "label": "",
+          "x": 3.75,
+          "y": 4,
+          "w": 6.25,
+          "led": [
+            4,
+            7
+          ],
+          "finger": 5
+        },
+        {
+          "code": "AltRight",
+          "label": "Alt",
+          "x": 10,
+          "y": 4,
+          "w": 1.25,
+          "led": [
+            4,
+            11
+          ],
+          "finger": 5
+        },
+        {
+          "code": "Fn",
+          "label": "Fn",
+          "x": 11.25,
+          "y": 4,
+          "w": 1.25,
+          "led": [
+            4,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ContextMenu",
+          "label": "Menu",
+          "x": 12.5,
+          "y": 4,
+          "w": 1.25,
+          "led": [
+            4,
+            13
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ControlRight",
+          "label": "Ctrl",
+          "x": 13.75,
+          "y": 4,
+          "w": 1.25,
+          "led": [
+            4,
+            14
+          ],
+          "finger": 9
+        }
+      ]
+    }
+  },
+  "layoutDetection": {
+    "0x01": "ansi-us"
+  },
+  "defaultLayout": "ansi-us",
+  "size": {
+    "w": 15,
+    "h": 5
+  },
+  "notes": "PID, transaction id and 5×15 keymap from OpenRazer/OpenRGB (same keymap as the Huntsman Mini). Not tested on hardware; the control interface is matched by usage page 0x0001 / usage 0x0002. Analog actuation settings are not supported."
+}

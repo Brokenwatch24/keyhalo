@@ -1,0 +1,61 @@
+name: Works on my device
+description: Report that a device definition works (or partly works) on your hardware.
+title: "[Works] "
+labels: ["device-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you! Reports like this move definitions from `community` / `experimental` to `verified`.
+        The app pre-fills this form from the device page ("Report: works on my device").
+  - type: input
+    id: definition
+    attributes:
+      label: Definition id
+      description: The `id` of the device definition (shown on the device page).
+      placeholder: "razer-huntsman-mini"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device model
+      placeholder: "Razer Huntsman Mini"
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+      placeholder: "1.12"
+  - type: input
+    id: layout
+    attributes:
+      label: Layout
+      placeholder: "ansi"
+  - type: input
+    id: app-version
+    attributes:
+      label: KeyHalo version
+      placeholder: "1.0.0"
+  - type: checkboxes
+    id: features
+    attributes:
+      label: What works
+      description: Tick everything you tested successfully.
+      options:
+        - label: Detection
+        - label: Per-key lighting
+        - label: Hardware effects
+        - label: Brightness
+        - label: DPI
+        - label: Polling rate
+        - label: Battery
+        - label: Onboard memory
+  - type: textarea
+    id: issues
+    attributes:
+      label: Anything that didn't work?
+      description: Wrong key positions, missing LEDs, errors…
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes

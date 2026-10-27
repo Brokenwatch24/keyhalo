@@ -1,0 +1,311 @@
+{
+  "title": "Mapas de teclas",
+  "packs": "Paquetes",
+  "enabled": "Activados",
+  "activeFor": "Activo para {app}",
+  "global": "Todas las apps",
+  "legendOnly": "Solo iluminación (sin reasignar)",
+  "source": {
+    "bundled": "Incluido",
+    "user": "Míos",
+    "installed": "De la galería"
+  },
+  "layers": "Capas",
+  "bindings": "Reasignaciones",
+  "legends": "Atajos",
+  "categories": "Categorías",
+  "cheatsheet": "Chuleta de atajos",
+  "cheatsheetHint": "Mantén Ctrl, Mayús, Alt o Win para iluminar los atajos de la app activa.",
+  "importVsCode": "Importar keybindings.json de VS Code",
+  "exportKanata": "Exportar para Kanata (.kbd)",
+  "exportAhk": "Exportar para AutoHotkey v2",
+  "exportWarnings": "Hay cosas que no se pudieron exportar:",
+  "paused": "Reasignación en pausa",
+  "pause": "Pausar reasignación",
+  "resume": "Reanudar reasignación",
+  "antiCheat": "La reasignación se pausa automáticamente en juegos competitivos (Ajustes → Reasignación). Los paquetes solo de iluminación siempre son seguros.",
+  "hud": {
+    "paused": "Reasignación en pausa",
+    "resumed": "Reasignación reanudada",
+    "layer": "Capa",
+    "baseLayer": "Base"
+  },
+  "conflicts": {
+    "title": "Conflictos",
+    "none": "Sin conflictos",
+    "appShortcut": "{combo} sustituye el atajo propio de la app «{shortcut}».",
+    "duplicate": "{combo} está asignado más de una vez.",
+    "osReserved": "{combo} está reservado por Windows ({what}).",
+    "missingKey": "{key} no existe en {keyboard}.",
+    "fnOnly": "{combo} solo es accesible con Fn+{base} en {keyboard}.",
+    "invalidKey": "«{key}» no es una tecla válida.",
+    "unknownLayer": "La capa «{layer}» no existe en este paquete."
+  },
+  "suggestions": {
+    "useLayer": "Asígnalo en una capa (p. ej. manteniendo Bloq Mayús con el paquete de navegación 60 %) o en la capa Fn."
+  },
+  "risk": {
+    "title": "Revisa antes de activar",
+    "intro": "Este paquete puede hacer más que reasignar teclas. Revisa cada acción antes de activarlo.",
+    "launch": "Abre un programa",
+    "macro": "Reproduce una macro",
+    "text": "Escribe texto",
+    "http": "Envía una petición de red",
+    "confirm": "Confío en este paquete"
+  },
+  "ui": {
+    "description": "Packs de atajos por aplicación que iluminan lo que hace cada tecla, además de remapeos, macros y capas.",
+    "newPack": "Nuevo pack",
+    "tabs": {
+      "keyboard": "Teclado"
+    },
+    "nowIn": "Ahora en",
+    "noForeground": "Ninguna app en primer plano",
+    "noActivePack": "No hay pack para esta app",
+    "remapping": "Remapeo",
+    "state": {
+      "on": "Activo",
+      "off": "Desactivado",
+      "paused": "En pausa",
+      "game": "En pausa en este juego"
+    },
+    "cheatsheetShort": "Mantén un modificador para iluminar atajos",
+    "pauseApps": {
+      "title": "Lista de pausa antitrampas",
+      "button": "Juegos ({n})",
+      "reset": "Restaurar valores"
+    },
+    "emergency": "Ctrl+Alt+Pausa siempre activa o desactiva el remapeo, incluso si una macro o capa se queda atascada.",
+    "emergencyShort": "¿Algo atascado? Ctrl+Alt+Pausa activa o desactiva el remapeo en cualquier momento.",
+    "searchPacks": "Buscar packs o apps",
+    "groups": {
+      "active": "Activos ahora",
+      "enabled": "Activados",
+      "library": "Biblioteca"
+    },
+    "edited": "Editado",
+    "noPacks": "Aún no hay packs",
+    "noMatches": "Sin resultados",
+    "reset": "Restaurar original",
+    "resetBody": "Se descartarán tus cambios en «{name}» y se restaurará la versión incluida.",
+    "deleteTitle": "Eliminar pack",
+    "deleteBody": "«{name}» se eliminará de este equipo. No se puede deshacer.",
+    "duplicated": "Creado «{name}»",
+    "share": {
+      "gist": "Enlace del gist copiado al portapapeles",
+      "json": "JSON del pack copiado — inicia sesión en GitHub en Comunidad para compartirlo como enlace"
+    },
+    "holding": "Pulsando",
+    "noModifier": "Ninguno",
+    "board": "Dibujo del teclado",
+    "boards": {
+      "ansi-100": "Completo (ANSI)",
+      "ansi-tkl": "TKL (ANSI)",
+      "ansi-75": "75 % (ANSI)",
+      "ansi-65": "65 % (ANSI)",
+      "ansi-60": "60 % (ANSI)",
+      "iso-100": "Completo (ISO)"
+    },
+    "manage": "Gestionar",
+    "noCategories": "Aún no hay categorías. Añade una para colorear atajos.",
+    "noCategory": "Sin categoría",
+    "newCategory": "Nueva categoría…",
+    "newCategoryName": "Categoría {n}",
+    "categoryName": "Nombre de la categoría",
+    "categoryInUse": "En uso — mueve antes sus atajos",
+    "uses": "{n} usos",
+    "allCategories": "Todas las categorías",
+    "moveUp": "Subir",
+    "moveDown": "Bajar",
+    "inspector": {
+      "title": "Detalles de la tecla",
+      "empty": "Haz clic en una tecla para ver sus atajos y añadir un remapeo.",
+      "nothing": "Esta tecla aún no tiene atajos ni remapeos.",
+      "addLegend": "Atajo",
+      "addRemap": "Remapeo",
+      "remap": "Remapeo"
+    },
+    "recorder": {
+      "listening": "Pulsa teclas…",
+      "placeholder": "Haz clic y pulsa las teclas",
+      "pick": "Elegir una tecla de la lista",
+      "pickShort": "⋯",
+      "clear": "Borrar"
+    },
+    "actions": {
+      "key": "Tecla / combinación",
+      "text": "Escribir texto",
+      "macro": "Macro",
+      "launch": "Abrir app",
+      "layer": "Capa",
+      "tapHold": "Toque / mantener",
+      "mouse": "Botón del ratón",
+      "dpi": "DPI",
+      "profile": "Perfil",
+      "media": "Multimedia",
+      "disabled": "Desactivada"
+    },
+    "summary": {
+      "macro": "Macro · {n} pasos",
+      "launch": "Abrir {app}",
+      "layerHold": "Mantener capa {layer}",
+      "layerToggle": "Alternar capa {layer}",
+      "dpiSniper": "Francotirador {dpi} DPI",
+      "dpiCycle": "Ciclar etapas de DPI",
+      "dpiSet": "Fijar {dpi} DPI",
+      "profile": "Perfil {profile}",
+      "macroOne": "Macro · 1 paso"
+    },
+    "mouse": {
+      "left": "Clic izquierdo",
+      "right": "Clic derecho",
+      "middle": "Clic central",
+      "back": "Atrás",
+      "forward": "Adelante"
+    },
+    "media": {
+      "playPause": "Reproducir / pausa",
+      "next": "Pista siguiente",
+      "prev": "Pista anterior",
+      "volumeUp": "Subir volumen",
+      "volumeDown": "Bajar volumen",
+      "mute": "Silenciar",
+      "micMute": "Silenciar micrófono"
+    },
+    "fields": {
+      "sendChord": "Enviar",
+      "sendChordHint": "Haz clic y pulsa las teclas que se enviarán, p. ej. Ctrl+Mayús+Z.",
+      "text": "Texto a escribir",
+      "textHint": "Se escribe carácter a carácter, en cualquier idioma.",
+      "path": "Programa",
+      "pathHint": "Ruta completa del .exe, una carpeta o una URL.",
+      "args": "Argumentos",
+      "layer": "Capa",
+      "mode": "Modo",
+      "hold": "Mientras se mantiene",
+      "toggle": "Alternar",
+      "noLayers": "Este pack aún no tiene capas — crea una en la pestaña Capas.",
+      "onTap": "Al tocar",
+      "onHold": "Al mantener",
+      "term": "Mantener tras",
+      "button": "Botón",
+      "dpiSniper": "Francotirador",
+      "dpiCycle": "Ciclar",
+      "dpiSet": "Fijar",
+      "dpiSniperHint": "Baja el DPI del ratón mientras se mantiene la tecla y luego lo restaura.",
+      "dpiCycleHint": "Recorre las etapas de DPI de tu ratón.",
+      "dpiSetHint": "Cambia el ratón a este DPI.",
+      "profile": "Perfil de iluminación",
+      "media": "Orden",
+      "disabledHint": "La tecla no hace nada mientras este pack esté activo."
+    },
+    "macro": {
+      "steps": "{n} pasos",
+      "empty": "Aún no hay pasos.",
+      "addKey": "Tecla",
+      "addDelay": "Espera",
+      "addText": "Texto",
+      "textPlaceholder": "Texto a escribir",
+      "ops": {
+        "tap": "Pulsar",
+        "down": "Presionar",
+        "up": "Soltar",
+        "delay": "Esperar",
+        "text": "Escribir"
+      },
+      "stepsOne": "1 paso"
+    },
+    "binding": {
+      "addTitle": "Añadir remapeo",
+      "editTitle": "Editar remapeo",
+      "trigger": "Disparador",
+      "whenPressed": "Cuando pulso",
+      "triggerHint": "Los modificadores que mantengas al grabar forman parte del disparador.",
+      "holding": "Manteniendo",
+      "mouseTrigger": "Botón del ratón…",
+      "layer": "Capa",
+      "action": "Acción",
+      "display": "Visualización",
+      "label": "Etiqueta",
+      "labelHint": "Se muestra en la tecla y en la chuleta.",
+      "labelPlaceholder": "p. ej. Deshacer",
+      "category": "Categoría",
+      "reviewNote": "Los packs con macros, texto o programas se revisan antes de que otra persona pueda activarlos."
+    },
+    "legend": {
+      "addTitle": "Añadir atajo",
+      "editTitle": "Editar atajo",
+      "keys": "Teclas",
+      "intro": "Los atajos describen lo que la app ya hace: solo iluminan teclas y nunca cambian lo que hacen.",
+      "labelPlaceholder": "p. ej. Paleta de comandos"
+    },
+    "bindingsTab": {
+      "emptyTitle": "Sin remapeos",
+      "emptyText": "Este pack solo ilumina los atajos propios de la app. Añade un remapeo para cambiar lo que hace una tecla: una combinación, una macro, una capa…",
+      "layerEmpty": "Esta capa aún no tiene asignaciones."
+    },
+    "legendsTab": {
+      "emptyTitle": "Aún no hay atajos",
+      "emptyText": "Añade los atajos de la app para que KeyHalo los ilumine por categoría."
+    },
+    "layersTab": {
+      "intro": "Las capas cambian lo que hacen las teclas mientras se mantiene o activa una tecla de capa.",
+      "namePlaceholder": "Nombre de la capa, p. ej. Navegación",
+      "add": "Añadir capa",
+      "emptyTitle": "Sin capas",
+      "emptyText": "Crea una capa y asígnala a una tecla (p. ej. mantener BloqMayús = capa de navegación, tocar = Esc).",
+      "bindings": "Asignaciones",
+      "activatedBy": "Se activa con",
+      "unreachable": "Ninguna tecla la activa",
+      "show": "Ver en el teclado"
+    },
+    "conflictsTab": {
+      "clean": "Nada pisa los atajos de la app ni de Windows, y todas las teclas existen en {keyboard}.",
+      "checked": "Comprobado con {keyboard}"
+    },
+    "severity": {
+      "error": "Error",
+      "warning": "Aviso",
+      "info": "Info"
+    },
+    "exportTab": {
+      "jsonHint": "El formato de pack de KeyHalo: compártelo o publícalo en la galería.",
+      "kanataHint": "Una configuración .kbd de Kanata con los remapeos y capas de este pack.",
+      "ahkHint": "Un script de AutoHotkey v2. Revísalo antes de ejecutarlo."
+    },
+    "import": {
+      "title": "Importar pack de atajos",
+      "reviewTitle": "Revisar importación",
+      "file": "Archivo JSON",
+      "paste": "Pegar JSON",
+      "choose": "Elegir archivo…",
+      "noFile": "Ningún archivo seleccionado",
+      "vscodeHint": "Elige o pega tu archivo de atajos de VS Code:",
+      "vscodeResult": "{imported} atajos importados, {removed} predeterminados eliminados, {skipped} omitidos.",
+      "skip": {
+        "chord": "combinación de varios pasos",
+        "unknownKey": "tecla desconocida",
+        "invalid": "no válido"
+      },
+      "replaces": "Ya existe un pack con el id «{id}»: al importar se reemplaza.",
+      "safe": "Este pack solo ilumina y remapea teclas: no ejecuta programas ni escribe texto.",
+      "importDisabled": "Importar (desactivado)",
+      "importEnable": "Importar y activar"
+    },
+    "risk": {
+      "enable": "Activar pack"
+    },
+    "details": {
+      "newTitle": "Nuevo pack de atajos",
+      "editTitle": "Detalles del pack",
+      "create": "Crear pack",
+      "idHint": "Se usa como nombre de archivo. Letras, dígitos, - _ .",
+      "idTaken": "Este id ya está en uso.",
+      "apps": "Apps",
+      "appsHint": "Nombres de proceso en los que se activa. Vacío = todas las apps.",
+      "version": "Versión",
+      "defaultName": "Mi pack",
+      "defaultCategory": "General"
+    }
+  }
+}

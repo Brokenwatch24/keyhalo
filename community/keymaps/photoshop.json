@@ -1,0 +1,374 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "photoshop",
+  "name": "Adobe Photoshop",
+  "description": "Default Adobe Photoshop shortcuts on Windows for tools, layers, adjustments and view.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "Photoshop.exe"
+  ],
+  "categories": {
+    "Tools": "#c792ea",
+    "Edit": "#5aa9ff",
+    "Layers": "#7ee0a1",
+    "Adjust": "#ffb454",
+    "Selection": "#f78fb3",
+    "View": "#4dd0e1",
+    "File": "#9aa5b1"
+  },
+  "legends": [
+    {
+      "keys": [
+        "KeyV"
+      ],
+      "label": "Move tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyM"
+      ],
+      "label": "Marquee tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyL"
+      ],
+      "label": "Lasso tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyW"
+      ],
+      "label": "Object / quick selection tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyC"
+      ],
+      "label": "Crop tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyI"
+      ],
+      "label": "Eyedropper tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyJ"
+      ],
+      "label": "Healing brush tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyB"
+      ],
+      "label": "Brush tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyS"
+      ],
+      "label": "Clone stamp tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyE"
+      ],
+      "label": "Eraser tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyG"
+      ],
+      "label": "Gradient / paint bucket tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyP"
+      ],
+      "label": "Pen tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyT"
+      ],
+      "label": "Type tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyU"
+      ],
+      "label": "Shape tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyH"
+      ],
+      "label": "Hand tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyZ"
+      ],
+      "label": "Zoom tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyX"
+      ],
+      "label": "Swap foreground / background",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyD"
+      ],
+      "label": "Default colors",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "BracketLeft"
+      ],
+      "label": "Decrease brush size",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "BracketRight"
+      ],
+      "label": "Increase brush size",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyZ"
+      ],
+      "label": "Undo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyZ"
+      ],
+      "label": "Redo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyT"
+      ],
+      "label": "Free transform",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyN"
+      ],
+      "label": "New layer",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyJ"
+      ],
+      "label": "Layer via copy",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyG"
+      ],
+      "label": "Group layers",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyE"
+      ],
+      "label": "Merge down",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "AltLeft",
+        "KeyE"
+      ],
+      "label": "Stamp visible",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "KeyG"
+      ],
+      "label": "Create clipping mask",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyL"
+      ],
+      "label": "Levels",
+      "category": "Adjust"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyM"
+      ],
+      "label": "Curves",
+      "category": "Adjust"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyU"
+      ],
+      "label": "Hue / Saturation",
+      "category": "Adjust"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyI"
+      ],
+      "label": "Invert",
+      "category": "Adjust"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyA"
+      ],
+      "label": "Select all",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyD"
+      ],
+      "label": "Deselect",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyI"
+      ],
+      "label": "Inverse selection",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Digit0"
+      ],
+      "label": "Fit on screen",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Digit1"
+      ],
+      "label": "100% zoom",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Equal"
+      ],
+      "label": "Zoom in",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Minus"
+      ],
+      "label": "Zoom out",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "label": "Hide panels",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyN"
+      ],
+      "label": "New document",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyO"
+      ],
+      "label": "Open",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Save",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyS"
+      ],
+      "label": "Save As",
+      "category": "File"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "design",
+    "photo",
+    "adobe"
+  ]
+}

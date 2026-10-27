@@ -1,0 +1,60 @@
+name: Bug report
+description: Something doesn't work as expected.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please search [existing issues](https://github.com/Brokenwatch24/keyhalo/issues) first.
+        **Security problems** must be reported privately: https://github.com/Brokenwatch24/keyhalo/security/advisories/new
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug. Screenshots or a short video help a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open Lighting
+        2. Add a "Wave" layer
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: KeyHalo version
+      description: Settings → About, or the installer file name.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Windows 11 24H2"
+    validations:
+      required: true
+  - type: textarea
+    id: devices
+    attributes:
+      label: Devices
+      description: Keyboards / mice involved (model, and VID:PID if you know it).
+      placeholder: "Razer Huntsman Mini (1532:0257), firmware 1.12"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant log output. Remove anything private.
+      render: shell

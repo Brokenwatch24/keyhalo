@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Windows installers
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Build and draft release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: KeyHalo ${{ github.ref_name }}
+          releaseBody: |
+            See the [changelog and release notes](https://github.com/Brokenwatch24/keyhalo/blob/main/CHANGELOG.md) for what's new.
+
+            **Install:** download `KeyHalo_*_x64-setup.exe` (recommended) or the `.msi` below.
+            `keyhalo-cli.exe` is the optional command-line client for the local API.
+          releaseDraft: true
+          prerelease: false
+          args: --bundles nsis,msi
+
+      - name: Build and attach CLI
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if cargo metadata --no-deps --format-version 1 --manifest-path src-tauri/Cargo.toml | grep -q '"name":"keyhalo-cli"'; then
+            cargo build --release -p keyhalo-cli --manifest-path src-tauri/Cargo.toml
+            gh release upload "${{ github.ref_name }}" src-tauri/target/release/keyhalo-cli.exe --clobber
+          else
+            echo "No keyhalo-cli package yet"
+          fi

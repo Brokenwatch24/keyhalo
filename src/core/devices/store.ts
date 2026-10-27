@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import type { ConnectedDevice, DeviceDefinition, HardwareEffect, Layout, MouseSettings } from "../types";
+import { applyLocale } from "./templates";
+import type { ConnectedDevice, DeviceDefinition, DpiStage, HardwareEffect, Layout, MouseSettings } from "../types";
 
 /**
  * Device manager store — PUBLIC CONTRACT used by every other feature.
@@ -10,6 +11,14 @@ export interface DeviceLiveState {
   brightness?: number; // 0..1
   mouse?: MouseSettings;
   battery?: { percent: number; charging: boolean };
+  /** Current sensor DPI (may differ from the active stage while sniper / dpi:set is used). */
+  dpi?: DpiStage;
+  /**
+   * "software": the lighting engine streams frames to the device (default).
+   * "hardware": a hardware effect is showing; the engine leaves the device alone until a
+   * profile/scene is applied again.
+   */
+  mode?: "software" | "hardware";
 }
 
 export interface DevicesState {
@@ -61,8 +70,13 @@ export function primaryMouse(devices: ConnectedDevice[]): ConnectedDevice | unde
   return devices.find((d) => d.definition.type === "mouse");
 }
 
-/** The active layout of a keyboard. */
+/**
+ * The active layout of a keyboard. A layout id may carry printed-legend overlay as
+ * "<layoutId>@<locale>" (e.g. "iso-es@es-ES"), applied with `applyLocale`.
+ */
 export function layoutOf(device: ConnectedDevice): Layout | undefined {
   const layouts = device.definition.layouts ?? {};
-  return layouts[device.layoutId ?? device.definition.defaultLayout ?? ""] ?? Object.values(layouts)[0];
+  const [id, locale] = (device.layoutId ?? device.definition.defaultLayout ?? "").split("@");
+  const layout = layouts[id] ?? Object.values(layouts)[0];
+  return layout && locale ? applyLocale(layout, locale) : layout;
 }

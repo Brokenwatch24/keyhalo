@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Brokenwatch24/keyhalo/main/community/schemas/device.schema.json",
+  "title": "KeyHalo device definition",
+  "description": "Describes a keyboard, mouse or other lighting device: how to find it (HID match), which driver speaks to it, what it can do and where its keys/LEDs are. Mirrors DeviceDefinition in src/core/types.ts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "vendor", "type", "match", "driver", "capabilities", "size", "status"],
+  "properties": {
+    "$schema": { "$ref": "defs.schema.json#/$defs/schemaRef" },
+    "id": { "$ref": "defs.schema.json#/$defs/id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "vendor": { "type": "string", "minLength": 1, "maxLength": 40 },
+    "type": { "enum": ["keyboard", "mouse", "mousepad", "headset", "other"] },
+    "match": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/hidMatch" }
+    },
+    "driver": { "enum": ["razer", "lamparray", "openrgb"] },
+    "driverOptions": { "type": "object", "description": "Free-form options interpreted by the driver (e.g. Razer transaction id, matrix size)." },
+    "capabilities": { "$ref": "#/$defs/capabilities" },
+    "layouts": {
+      "type": "object",
+      "description": "Keyboard layouts keyed by layout id.",
+      "additionalProperties": { "$ref": "#/$defs/layout" }
+    },
+    "layoutDetection": {
+      "type": "object",
+      "description": "Maps a layout id reported by the hardware (e.g. \"0x01\") to a key of `layouts`.",
+      "propertyNames": { "pattern": "^0x[0-9a-fA-F]{1,4}$" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "defaultLayout": { "type": "string", "minLength": 1 },
+    "leds": { "type": "array", "items": { "$ref": "#/$defs/ledDef" } },
+    "size": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["w", "h"],
+      "properties": {
+        "w": { "type": "number", "exclusiveMinimum": 0 },
+        "h": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "status": { "$ref": "defs.schema.json#/$defs/supportStatus" },
+    "testedBy": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "notes": { "type": "string" },
+    "image": { "type": "string" }
+  },
+  "$defs": {
+    "hidMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vendorId", "productId"],
+      "properties": {
+        "vendorId": { "$ref": "defs.schema.json#/$defs/hex16" },
+        "productId": { "$ref": "defs.schema.json#/$defs/hex16" },
+        "interface": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "usagePage": { "$ref": "defs.schema.json#/$defs/hexShort" },
+        "usage": { "$ref": "defs.schema.json#/$defs/hexShort" }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "perKeyRgb": { "type": "boolean" },
+        "zones": { "type": "boolean" },
+        "hardwareEffects": { "type": "array", "items": { "$ref": "defs.schema.json#/$defs/hardwareEffectType" }, "uniqueItems": true },
+        "brightness": { "type": "boolean" },
+        "onboardMemory": { "type": "boolean" },
+        "dpi": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["min", "max", "step", "stages", "independentXY"],
+          "properties": {
+            "min": { "type": "integer", "minimum": 1 },
+            "max": { "type": "integer", "minimum": 1 },
+            "step": { "type": "integer", "minimum": 1 },
+            "stages": { "type": "integer", "minimum": 1, "maximum": 16 },
+            "independentXY": { "type": "boolean" }
+          }
+        },
+        "pollingRates": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "uniqueItems": true },
+        "battery": { "type": "boolean" },
+        "idleSleep": { "$ref": "#/$defs/range" },
+        "lowBatteryThreshold": { "$ref": "#/$defs/range" }
+      }
+    },
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": { "min": { "type": "number" }, "max": { "type": "number" } }
+    },
+    "keyDef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "label", "x", "y"],
+      "properties": {
+        "code": { "$ref": "defs.schema.json#/$defs/keyCode" },
+        "label": { "type": "string" },
+        "sublabel": { "type": "string" },
+        "x": { "$ref": "defs.schema.json#/$defs/unit" },
+        "y": { "$ref": "defs.schema.json#/$defs/unit" },
+        "w": { "type": "number", "exclusiveMinimum": 0 },
+        "h": { "type": "number", "exclusiveMinimum": 0 },
+        "led": { "$ref": "defs.schema.json#/$defs/ledAddress" },
+        "finger": { "type": "integer", "minimum": 0, "maximum": 9 }
+      }
+    },
+    "ledDef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "x", "y", "led"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "x": { "$ref": "defs.schema.json#/$defs/unit" },
+        "y": { "$ref": "defs.schema.json#/$defs/unit" },
+        "w": { "type": "number", "exclusiveMinimum": 0 },
+        "h": { "type": "number", "exclusiveMinimum": 0 },
+        "led": { "$ref": "defs.schema.json#/$defs/ledAddress" }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "standard", "keys"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "standard": { "type": "string", "description": "\"ansi\" | \"iso\" | \"jis\" | free text" },
+        "keys": { "type": "array", "items": { "$ref": "#/$defs/keyDef" } },
+        "fnLayer": {
+          "type": "object",
+          "description": "Keys reachable only through the Fn layer, mapped from the base key.",
+          "propertyNames": { "$ref": "defs.schema.json#/$defs/keyCode" },
+          "additionalProperties": { "$ref": "defs.schema.json#/$defs/keyCode" }
+        }
+      }
+    }
+  }
+}

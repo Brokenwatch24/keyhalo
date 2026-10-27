@@ -1,0 +1,95 @@
+{
+  "locale": "en-US",
+  "description": "Sensor, polling rate, battery and Windows pointer settings, plus sensitivity tools for your games.",
+  "device": "Mouse",
+  "unreachable": "Not responding",
+  "noMouse": {
+    "title": "No mouse connected",
+    "body": "Connect a supported mouse to tune DPI, polling rate and battery. The pointer settings and sensitivity tools below work with any mouse.",
+    "action": "Go to Devices"
+  },
+  "dpi": {
+    "title": "DPI",
+    "range": "{min}–{max} DPI · step {step}",
+    "addStage": "Add stage",
+    "stage": "Stage {n}",
+    "stageOf": "Stage {stage} of {count}",
+    "activeStage": "Active DPI stage",
+    "makeActive": "Make this the active stage",
+    "remove": "Remove stage",
+    "lockXY": "Lock X and Y",
+    "unlockXY": "Set X and Y separately",
+    "override": "Temporary DPI",
+    "vertical": "Vertical",
+    "hint": "Up to {count} stages. The DPI button on the mouse cycles through them. Changes are written when you release the slider.",
+    "unavailable": "The current DPI settings could not be read from the mouse."
+  },
+  "response": {
+    "title": "Response"
+  },
+  "polling": {
+    "title": "Polling rate",
+    "interval": "Reports every {ms} ms",
+    "hint": "Higher rates feel smoother but use a little more CPU and battery.",
+    "test": "Measure it in the Test bench"
+  },
+  "sniper": {
+    "title": "Sniper DPI",
+    "short": "Sniper",
+    "active": "Sniper active",
+    "hint": "Temporary DPI while a key or mouse button is held. Bind it with the DPI → Sniper action in",
+    "bind": "Keymaps"
+  },
+  "lighting": {
+    "title": "Lighting",
+    "brightness": "Brightness",
+    "hint": "Zones: {zones}. Colours and effects follow your lighting profile —",
+    "open": "open Lighting"
+  },
+  "battery": {
+    "title": "Battery",
+    "warnAt": "warns at {pct}%",
+    "noHistory": "Battery history will appear here after a few readings.",
+    "idle": "Sleep after idle",
+    "low": "Low-battery warning",
+    "minutes": "{m} min",
+    "minSec": "{m}:{s} min",
+    "lowest": "Lowest (7 d)",
+    "drain": "Avg. drain",
+    "perHour": "{v} %/h"
+  },
+  "pointer": {
+    "title": "Windows pointer",
+    "subtitle": "System-wide cursor settings",
+    "speed": "Pointer speed",
+    "slow": "Slow",
+    "fast": "Fast",
+    "oneToOne": "10 · 1:1",
+    "notOne": "At this speed Windows multiplies every mouse count by ×{mult}, so some counts are skipped or doubled. Keep 10 (the 6th of 11 notches in the old Control Panel) and change DPI instead.",
+    "enhance": "Enhance pointer precision",
+    "enhanceHint": "Windows mouse acceleration: fast movements travel farther than slow ones. Turn it off for consistent aim; games that use raw input ignore it.",
+    "effective": "Desktop feel: {dpi} DPI × pointer speed ≈ {eff} effective DPI."
+  },
+  "sens": {
+    "title": "Sensitivity tools",
+    "subtitle": "eDPI, cm/360 and the same feel across games (hip-fire)",
+    "useDevice": "Use mouse DPI ({dpi})",
+    "yours": "Your setup",
+    "game": "Game",
+    "sensitivity": "Sensitivity",
+    "r6Multiplier": "Siege multiplier",
+    "r6Hint": "MouseSensitivityMultiplierUnit in GameSettings.ini (default 0.02). Hip-fire only: ADS uses FOV-based multipliers that are not converted.",
+    "cm360": "cm / 360°",
+    "in360": "in / 360°",
+    "feelHigh": "High sensitivity: quick flicks, harder micro-adjustments.",
+    "feelMid": "Medium sensitivity: the range most tactical-shooter players use.",
+    "feelLow": "Low sensitivity: precise aim, needs a large mouse pad.",
+    "sameFeel": "Same feel in every game",
+    "atDpi": "at",
+    "apply": "Apply DPI",
+    "applyHint": "Set this DPI on the active stage of your mouse",
+    "applied": "Active DPI stage set to {dpi}",
+    "hipfire": "hip-fire",
+    "note": "Converted by matching the distance of a 360° turn. eDPI = DPI × sensitivity and is only comparable within the same game. Fortnite uses the X/Y slider percentage; Siege values are hip-fire with the multiplier set on the left."
+  }
+}

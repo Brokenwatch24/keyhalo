@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Brokenwatch24/keyhalo/main/community/schemas/profile.schema.json",
+  "title": "KeyHalo profile",
+  "description": "A shareable profile: a lighting scene plus optional mouse settings, onboard effects, keymap packs and app triggers. Mirrors Profile in src/core/types.ts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "lighting"],
+  "properties": {
+    "$schema": { "$ref": "defs.schema.json#/$defs/schemaRef" },
+    "id": { "$ref": "defs.schema.json#/$defs/id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": { "type": "string", "maxLength": 500 },
+    "author": { "type": "string" },
+    "version": { "type": "string" },
+    "tags": { "$ref": "defs.schema.json#/$defs/tags" },
+    "devices": {
+      "type": "array",
+      "description": "Device definition ids this profile was designed for (empty = any).",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "lighting": { "$ref": "#/$defs/lightingScene" },
+    "mouse": {
+      "type": "object",
+      "description": "Mouse settings keyed by device definition id.",
+      "additionalProperties": { "$ref": "defs.schema.json#/$defs/mouseSettings" }
+    },
+    "onboard": {
+      "type": "object",
+      "description": "Hardware effect saved to onboard memory, keyed by device definition id.",
+      "additionalProperties": { "$ref": "defs.schema.json#/$defs/hardwareEffect" }
+    },
+    "keymaps": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "apps": { "type": "array", "items": { "$ref": "defs.schema.json#/$defs/processName" } },
+    "preview": { "type": "string", "description": "Preview image (data URL or relative path) for the gallery." }
+  },
+  "$defs": {
+    "lightingLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "effect", "params", "blend", "opacity", "enabled"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "effect": { "type": "string", "minLength": 1, "description": "Effect id or widget id (widgets are prefixed \"widget:\")." },
+        "params": { "type": "object" },
+        "blend": { "enum": ["normal", "add", "multiply", "screen", "max"] },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "enabled": { "type": "boolean" },
+        "mask": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "devices": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "lightingScene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layers", "brightness", "fps"],
+      "properties": {
+        "layers": { "type": "array", "items": { "$ref": "#/$defs/lightingLayer" } },
+        "brightness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "fps": { "type": "number", "minimum": 1, "maximum": 240 }
+      }
+    }
+  }
+}

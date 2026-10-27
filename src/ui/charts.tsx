@@ -117,7 +117,7 @@ export function Gauge({ value, max, label, unit, size = 180, color = "var(--text
     const y0 = cy - r * Math.sin(a0);
     const x1 = cx + r * Math.cos(a1);
     const y1 = cy - r * Math.sin(a1);
-    return `M${x0},${y0} A${r},${r} 0 ${to - from > 0.5 ? 1 : 0} 1 ${x1},${y1}`;
+    return `M${x0},${y0} A${r},${r} 0 0 1 ${x1},${y1}`;
   };
   return (
     <svg viewBox="0 0 180 104" width={size} height={(size * 104) / 180} role="img" aria-label={`${label ?? ""} ${Math.round(value)} ${unit ?? ""}`}>

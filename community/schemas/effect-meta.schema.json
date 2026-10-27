@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Brokenwatch24/keyhalo/main/community/schemas/effect-meta.schema.json",
+  "title": "KeyHalo community effect metadata",
+  "description": "The `meta` export of a community lighting effect module (`export default { meta, create(params) { return { frame(ctx) { ... } } } }`). Mirrors EffectMeta in src/core/types.ts. Community effects always run sandboxed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "params"],
+  "properties": {
+    "id": { "$ref": "defs.schema.json#/$defs/id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": { "type": "string", "maxLength": 500 },
+    "author": { "type": "string" },
+    "tags": { "$ref": "defs.schema.json#/$defs/tags" },
+    "source": { "enum": ["builtin", "community"], "description": "Community files must use \"community\" (or omit it)." },
+    "reactive": { "type": "boolean" },
+    "params": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+      "additionalProperties": { "$ref": "#/$defs/paramDef" }
+    }
+  },
+  "$defs": {
+    "paramDef": {
+      "type": "object",
+      "required": ["type"],
+      "discriminator": { "propertyName": "type" },
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "label", "min", "max", "default"],
+          "properties": {
+            "type": { "const": "number" },
+            "label": { "type": "string", "minLength": 1 },
+            "min": { "type": "number" },
+            "max": { "type": "number" },
+            "step": { "type": "number", "exclusiveMinimum": 0 },
+            "default": { "type": "number" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "label", "default"],
+          "properties": {
+            "type": { "const": "color" },
+            "label": { "type": "string", "minLength": 1 },
+            "default": { "$ref": "defs.schema.json#/$defs/color" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "label", "default"],
+          "properties": {
+            "type": { "const": "colors" },
+            "label": { "type": "string", "minLength": 1 },
+            "default": { "type": "array", "items": { "$ref": "defs.schema.json#/$defs/color" } }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "label", "default"],
+          "properties": {
+            "type": { "const": "boolean" },
+            "label": { "type": "string", "minLength": 1 },
+            "default": { "type": "boolean" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "label", "options", "default"],
+          "properties": {
+            "type": { "const": "select" },
+            "label": { "type": "string", "minLength": 1 },
+            "options": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["value", "label"],
+                "properties": { "value": { "type": "string" }, "label": { "type": "string" } }
+              }
+            },
+            "default": { "type": "string" }
+          }
+        }
+      ]
+    }
+  }
+}

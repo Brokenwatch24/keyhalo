@@ -280,4 +280,6 @@ export interface HudPayload {
   color?: string;
   icon?: "dpi" | "profile" | "battery" | "mic" | "layer" | "info" | "keyboard";
   durationMs?: number;
+  /** Screen edge for the overlay (defaults to the user's HUD setting). */
+  position?: "top" | "bottom";
 }

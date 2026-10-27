@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Brokenwatch24/keyhalo/main/community/schemas/typing.schema.json",
+  "title": "KeyHalo typing pack",
+  "description": "Words, quotes, code snippets or lessons for the typing trainer. Mirrors TypingPack in src/core/types.ts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "language", "kind"],
+  "properties": {
+    "$schema": { "$ref": "defs.schema.json#/$defs/schemaRef" },
+    "id": { "$ref": "defs.schema.json#/$defs/id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "language": { "type": "string", "minLength": 2, "maxLength": 35, "description": "BCP 47 tag (\"en\", \"es\") or a programming language for code packs." },
+    "kind": { "enum": ["words", "quotes", "code", "lessons"] },
+    "author": { "type": "string" },
+    "description": { "type": "string", "maxLength": 500 },
+    "words": { "type": "array", "description": "For \"words\": a frequency-ordered word list.", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+    "texts": {
+      "type": "array",
+      "description": "For \"quotes\"/\"code\"/\"lessons\": passages.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "source": { "type": "string" }
+        }
+      }
+    }
+  },
+  "allOf": [
+    { "if": { "properties": { "kind": { "const": "words" } } }, "then": { "required": ["words"] }, "else": { "required": ["texts"] } }
+  ]
+}

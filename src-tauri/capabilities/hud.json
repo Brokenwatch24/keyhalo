@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "hud",
+  "description": "The click-through HUD overlay only listens to events.",
+  "windows": ["hud"],
+  "permissions": ["core:event:allow-listen", "core:event:allow-unlisten"]
+}

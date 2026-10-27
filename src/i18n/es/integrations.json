@@ -1,0 +1,240 @@
+{
+  "title": "Integraciones",
+  "test": "Probar",
+  "status": {
+    "idle": "Apagado",
+    "connecting": "Conectando…",
+    "connected": "Conectado",
+    "error": "Error"
+  },
+  "system": {
+    "name": "Monitor del sistema",
+    "description": "Carga de CPU, GPU y RAM para widgets de iluminación y automatizaciones."
+  },
+  "bambu": {
+    "name": "Impresora Bambu Lab",
+    "description": "Muestra el progreso de impresión en tu teclado a través de la red local.",
+    "host": "IP de la impresora",
+    "serial": "Número de serie",
+    "accessCode": "Código de acceso LAN",
+    "flashOnFinish": "Destellar cuando una impresión termine o falle",
+    "started": "Impresión iniciada",
+    "finished": "Impresión terminada",
+    "failed": "La impresión ha fallado"
+  },
+  "claude": {
+    "name": "Claude Code",
+    "description": "Ilumina tu teclado cuando Claude Code trabaja, te espera o termina.",
+    "waiting": "Claude Code te está esperando",
+    "done": "Claude Code ha terminado",
+    "error": "Claude Code ha tenido un error",
+    "hudOnWaiting": "Mostrar el HUD cuando Claude te necesite",
+    "flashOnWaiting": "Destellar el teclado cuando Claude te necesite"
+  },
+  "notifications": {
+    "name": "Notificaciones de apps",
+    "description": "Destella un color cuando Discord, WhatsApp, Telegram, Slack, Teams u Outlook muestran mensajes sin leer nuevos.",
+    "unread": "{count} sin leer",
+    "bestEffort": "Se detecta por el título de la ventana: funciona mientras la ventana exista (también minimizada o en segundo plano)."
+  },
+  "mic": {
+    "name": "Silenciar micrófono",
+    "description": "Indicador de silencio para widgets y un atajo global para alternarlo.",
+    "hotkey": "Atajo para alternar",
+    "hotkeyConflict": "Ctrl+Mayús+M también es el atajo de silencio de Discord; elige otra combinación si usas Discord.",
+    "muted": "Micrófono silenciado",
+    "live": "Micrófono activo"
+  },
+  "games": {
+    "name": "Juegos",
+    "description": "Vida, munición, bomba y estado de ronda desde las APIs oficiales de CS2, Dota 2 y League of Legends.",
+    "install": "Instalar para {game}",
+    "installed": "Instalado: reinicia el juego",
+    "notFound": "No se encontró el juego en tus bibliotecas de Steam",
+    "lowHealth": "Umbral de vida baja",
+    "antiCheat": "Solo usa integraciones oficiales; KeyHalo nunca lee la memoria del juego."
+  },
+  "homeAssistant": {
+    "name": "Home Assistant / MQTT",
+    "description": "Tu teclado como luz en Home Assistant, con sensores de PPM y batería.",
+    "host": "Servidor (broker)",
+    "port": "Puerto",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "tls": "Usar TLS",
+    "nodeId": "Nombre del equipo en los topics",
+    "discovery": "Descubrimiento de Home Assistant"
+  },
+  "api": {
+    "name": "API local",
+    "description": "API REST y WebSocket en 127.0.0.1 para scripts, Stream Deck y hooks."
+  },
+  "pomodoro": {
+    "name": "Pomodoro",
+    "description": "Temporizador de concentración y descansos en tu teclado.",
+    "focus": "Hora de concentrarse",
+    "break": "Tómate un descanso",
+    "longBreak": "Descanso largo",
+    "minutes": "{min} min",
+    "focusOver": "Sesión de concentración terminada",
+    "breakOver": "Se acabó el descanso",
+    "start": "Empezar",
+    "stop": "Parar",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "skip": "Saltar"
+  },
+  "ui": {
+    "description": "Lleva datos en vivo de tu PC, impresora, juegos y casa inteligente a la iluminación, el HUD y las automatizaciones.",
+    "all": "Todas las integraciones",
+    "status": {
+      "ready": "Lista"
+    },
+    "settings": "Ajustes",
+    "connection": "Conexión",
+    "setup": "Configuración",
+    "port": "Puerto",
+    "hud": "Mostrar el HUD",
+    "reveal": "Mostrar / ocultar",
+    "running": "En marcha",
+    "notConfigured": "Sin configurar",
+    "since": "desde las {time}",
+    "hm": "{h} h {m} min",
+    "m": "{m} min",
+    "demoNote": "Demo en el navegador: los valores son simulados.",
+    "demoPrinter": "Impresora de demo",
+    "system": {
+      "cpu": "Carga de CPU",
+      "gpu": "Carga de GPU",
+      "gpuTemp": "Temperatura de GPU",
+      "ram": "Memoria",
+      "noTemp": "Temperatura no disponible",
+      "noGpu": "Sin datos de GPU",
+      "vram": "VRAM {used} / {total} GB",
+      "ramOf": "{used} / {total} GB",
+      "interval": "Actualización",
+      "intervalHint": "Solo consulta mientras un widget, gráfico o regla necesita los datos.",
+      "note": "La temperatura de la CPU y los datos de GPU vienen del sistema y pueden faltar en algunos equipos."
+    },
+    "bambu": {
+      "remaining": "Restante",
+      "left": "quedan {time}",
+      "layer": "Capa",
+      "waiting": "Esperando a la impresora…",
+      "off": "Activa la integración e introduce los datos de la impresora para ver aquí el progreso.",
+      "step1": "En la impresora: Ajustes → Red — anota la IP y el código de acceso LAN (el modo LAN / desarrollador debe permitir el servidor MQTT local).",
+      "step2": "Ajustes → Dispositivo (o la pegatina / app Bambu Handy) — anota el número de serie.",
+      "step3": "Introduce los datos aquí, activa la integración y pulsa Probar. KeyHalo solo lee el estado: nunca envía órdenes de impresión.",
+      "states": {
+        "IDLE": "En reposo",
+        "PREPARE": "Preparando",
+        "RUNNING": "Imprimiendo",
+        "PAUSE": "En pausa",
+        "FINISH": "Terminada",
+        "FAILED": "Fallida",
+        "SLICING": "Laminando"
+      }
+    },
+    "claude": {
+      "states": {
+        "idle": "Inactivo",
+        "working": "Trabajando",
+        "waiting": "Te está esperando",
+        "done": "Terminado",
+        "error": "Error"
+      },
+      "noEvents": "Aún no hay eventos",
+      "simulate": "Probar un estado",
+      "flashColor": "Color del destello",
+      "hooks": "Hooks de Claude Code",
+      "hooksHint": "Añade estos hooks a ~/.claude/settings.json (o al .claude/settings.json de un proyecto). Llaman a la CLI keyhalo que instala la app de escritorio.",
+      "cli": "Sin la CLI",
+      "cliHint": "Cualquier script puede fijar el estado mediante la API local. Añade la cabecera del token si has configurado uno."
+    },
+    "notifications": {
+      "allKeys": "Todas las teclas",
+      "keysN": "{n} teclas",
+      "preview": "Probar destello",
+      "none": "Sin mensajes sin leer",
+      "detected": "Los contadores se leen de los títulos de ventana cada pocos segundos y se actualizan en vivo con esta página abierta.",
+      "detecting": "Buscando contadores sin leer…"
+    },
+    "mic": {
+      "unknown": "Desconocido",
+      "mute": "Silenciar",
+      "unmute": "Activar",
+      "noHotkey": "Sin atajo",
+      "hotkeyHint": "Atajo global que silencia o activa el micrófono predeterminado.",
+      "keymapHint": "Los packs de atajos también pueden asignar una tecla a «Silenciar micrófono» (acción Multimedia)."
+    },
+    "games": {
+      "gsi": "Game State Integration oficial: escribe un pequeño archivo de configuración en la carpeta del juego.",
+      "lol": "Live Client Data API: no hay nada que instalar.",
+      "automatic": "Automático mientras el juego está abierto",
+      "live": "Datos de la partida en vivo",
+      "none": "No hay ninguna partida. Empieza una y los datos aparecerán aquí en un segundo.",
+      "noneShort": "Ningún juego en marcha",
+      "demo": "Partida de CS2 simulada (demo en el navegador).",
+      "inGame": "En partida · {game}",
+      "dead": "Muerto",
+      "health": "Vida",
+      "armor": "Armadura",
+      "ammo": "Munición",
+      "mana": "Maná",
+      "phase": "Fase de la ronda",
+      "bomb": "Bomba",
+      "bombState": {
+        "planted": "Plantada",
+        "defused": "Desactivada",
+        "exploded": "Explotó"
+      },
+      "effects": "Efectos",
+      "flashed": "Cegado",
+      "burning": "Ardiendo"
+    },
+    "ha": {
+      "topics": "Temas",
+      "state": "Estado",
+      "set": "Órdenes de la luz",
+      "availability": "Disponibilidad",
+      "discovery": "Descubrimiento",
+      "step1": "En Home Assistant, instala el complemento Mosquitto broker y la integración MQTT, y crea un usuario para KeyHalo.",
+      "step2": "Introduce aquí el host, puerto, usuario y contraseña del bróker, elige un nombre para el equipo y activa la integración.",
+      "step3": "Con el descubrimiento activado aparece un dispositivo «KeyHalo» con el teclado como luz (efectos = tus perfiles) y sensores de PPM y batería."
+    },
+    "api": {
+      "token": "Token",
+      "tokenHint": "Envíalo como «Authorization: Bearer …» o ?token=…",
+      "noToken": "Sin token: cualquier programa de este equipo puede usar la API.",
+      "none": "ninguno",
+      "generate": "Generar",
+      "regenerate": "Nuevo token",
+      "remove": "Quitar",
+      "tokenOn": "requiere token",
+      "tokenOff": "sin token",
+      "endpoints": "Endpoints",
+      "actions": "Acciones:",
+      "custom": "cualquier otro nombre dispara reglas con un disparador de API",
+      "examples": "Ejemplos",
+      "wsHint": "Envía el JSON de estado cada vez que cambia.",
+      "ep": {
+        "status": "JSON de estado: perfil, dispositivos, PPM, Claude, impresora…",
+        "action": "Ejecuta una acción: perfil, destello, aviso, DPI, pomodoro…",
+        "notify": "Destello + mensaje en el HUD",
+        "ws": "Flujo de estado en vivo",
+        "gsi": "Game State Integration (CS2 / Dota 2)"
+      }
+    },
+    "pomodoro": {
+      "focusing": "Enfoque",
+      "onBreak": "Descanso",
+      "readyFor": "Listo · {min} min de enfoque",
+      "sessions": "Sesiones de enfoque",
+      "completed": "{n} completadas",
+      "cycles": "Sesiones antes del descanso largo",
+      "auto": "Empezar la siguiente fase automáticamente",
+      "flash": "Destello en cada cambio de fase",
+      "hint": "Se muestra en el teclado con el widget de temporizador. También se controla desde la API y el Stream Deck."
+    }
+  }
+}

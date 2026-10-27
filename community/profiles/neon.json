@@ -1,0 +1,58 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "neon",
+  "name": "Neon",
+  "description": "Magenta-to-cyan gradient that scrolls slowly, with rings rippling from every key.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "vivid",
+    "reactive"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "gradient",
+        "params": {
+          "colors": [
+            "#ff00c8",
+            "#7b2bff",
+            "#00e5ff"
+          ],
+          "angle": 20,
+          "speed": 0.15
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "ripple",
+        "effect": "ripple",
+        "params": {
+          "color": "#ffffff",
+          "speed": 16,
+          "width": 1,
+          "background": "#000000"
+        },
+        "blend": "screen",
+        "opacity": 0.9,
+        "enabled": true
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      }
+    ],
+    "brightness": 0.9,
+    "fps": 30
+  }
+}

@@ -1,0 +1,385 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "figma",
+  "name": "Figma",
+  "description": "Default Figma desktop shortcuts on Windows for tools, layers, alignment and zoom.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "Figma.exe"
+  ],
+  "categories": {
+    "Tools": "#c792ea",
+    "Edit": "#5aa9ff",
+    "Layers": "#7ee0a1",
+    "Align": "#ffb454",
+    "Text": "#f78fb3",
+    "View": "#4dd0e1"
+  },
+  "legends": [
+    {
+      "keys": [
+        "KeyV"
+      ],
+      "label": "Move tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyK"
+      ],
+      "label": "Scale tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyF"
+      ],
+      "label": "Frame tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyR"
+      ],
+      "label": "Rectangle",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyO"
+      ],
+      "label": "Ellipse",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyL"
+      ],
+      "label": "Line",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyL"
+      ],
+      "label": "Arrow",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyP"
+      ],
+      "label": "Pen",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyP"
+      ],
+      "label": "Pencil",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyT"
+      ],
+      "label": "Text",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyC"
+      ],
+      "label": "Comment",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyI"
+      ],
+      "label": "Color picker",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyH"
+      ],
+      "label": "Hand tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Slash"
+      ],
+      "label": "Quick actions",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyD"
+      ],
+      "label": "Duplicate",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyR"
+      ],
+      "label": "Rename layer",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyZ"
+      ],
+      "label": "Undo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyZ"
+      ],
+      "label": "Redo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "KeyC"
+      ],
+      "label": "Copy properties",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "KeyV"
+      ],
+      "label": "Paste properties",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyE"
+      ],
+      "label": "Export",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyG"
+      ],
+      "label": "Group selection",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyG"
+      ],
+      "label": "Ungroup",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "KeyG"
+      ],
+      "label": "Frame selection",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyA"
+      ],
+      "label": "Add auto layout",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "AltLeft",
+        "KeyK"
+      ],
+      "label": "Create component",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyH"
+      ],
+      "label": "Show / hide",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyL"
+      ],
+      "label": "Lock / unlock",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "BracketRight"
+      ],
+      "label": "Bring forward",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "BracketLeft"
+      ],
+      "label": "Send backward",
+      "category": "Layers"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyA"
+      ],
+      "label": "Align left",
+      "category": "Align"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyD"
+      ],
+      "label": "Align right",
+      "category": "Align"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyW"
+      ],
+      "label": "Align top",
+      "category": "Align"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyS"
+      ],
+      "label": "Align bottom",
+      "category": "Align"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyH"
+      ],
+      "label": "Align horizontal centers",
+      "category": "Align"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyV"
+      ],
+      "label": "Align vertical centers",
+      "category": "Align"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyB"
+      ],
+      "label": "Bold",
+      "category": "Text"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyI"
+      ],
+      "label": "Italic",
+      "category": "Text"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyU"
+      ],
+      "label": "Underline",
+      "category": "Text"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Digit1"
+      ],
+      "label": "Zoom to fit",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Digit2"
+      ],
+      "label": "Zoom to selection",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Digit0"
+      ],
+      "label": "Zoom to 100%",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Equal"
+      ],
+      "label": "Zoom in",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Minus"
+      ],
+      "label": "Zoom out",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Backslash"
+      ],
+      "label": "Show / hide UI",
+      "category": "View"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "design",
+    "ui",
+    "prototyping"
+  ]
+}

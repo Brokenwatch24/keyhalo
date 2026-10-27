@@ -1,0 +1,1234 @@
+{
+  "$schema": "../../schemas/device.schema.json",
+  "vendor": "Razer",
+  "driver": "razer",
+  "status": "experimental",
+  "id": "razer-blackwidow-v3",
+  "name": "Razer BlackWidow V3",
+  "type": "keyboard",
+  "match": [
+    {
+      "vendorId": "0x1532",
+      "productId": "0x024E",
+      "usagePage": "0x0001",
+      "usage": "0x0002"
+    }
+  ],
+  "driverOptions": {
+    "transactionId": "0x3F",
+    "matrix": {
+      "rows": 6,
+      "cols": 22
+    },
+    "led": "0x05"
+  },
+  "capabilities": {
+    "perKeyRgb": true,
+    "hardwareEffects": [
+      "off",
+      "static",
+      "breathing",
+      "spectrum",
+      "wave",
+      "reactive",
+      "starlight",
+      "custom"
+    ],
+    "brightness": true,
+    "onboardMemory": true
+  },
+  "layouts": {
+    "ansi-us": {
+      "id": "ansi-us",
+      "name": "US ANSI",
+      "standard": "ansi",
+      "keys": [
+        {
+          "code": "Escape",
+          "label": "Esc",
+          "x": 0,
+          "y": 0,
+          "led": [
+            0,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "F1",
+          "label": "F1",
+          "x": 2,
+          "y": 0,
+          "led": [
+            0,
+            3
+          ],
+          "finger": 1
+        },
+        {
+          "code": "F2",
+          "label": "F2",
+          "x": 3,
+          "y": 0,
+          "led": [
+            0,
+            4
+          ],
+          "finger": 2
+        },
+        {
+          "code": "F3",
+          "label": "F3",
+          "x": 4,
+          "y": 0,
+          "led": [
+            0,
+            5
+          ],
+          "finger": 2
+        },
+        {
+          "code": "F4",
+          "label": "F4",
+          "x": 5,
+          "y": 0,
+          "led": [
+            0,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "F5",
+          "label": "F5",
+          "x": 6.5,
+          "y": 0,
+          "led": [
+            0,
+            7
+          ],
+          "finger": 6
+        },
+        {
+          "code": "F6",
+          "label": "F6",
+          "x": 7.5,
+          "y": 0,
+          "led": [
+            0,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "F7",
+          "label": "F7",
+          "x": 8.5,
+          "y": 0,
+          "led": [
+            0,
+            9
+          ],
+          "finger": 7
+        },
+        {
+          "code": "F8",
+          "label": "F8",
+          "x": 9.5,
+          "y": 0,
+          "led": [
+            0,
+            10
+          ],
+          "finger": 7
+        },
+        {
+          "code": "F9",
+          "label": "F9",
+          "x": 11,
+          "y": 0,
+          "led": [
+            0,
+            11
+          ],
+          "finger": 8
+        },
+        {
+          "code": "F10",
+          "label": "F10",
+          "x": 12,
+          "y": 0,
+          "led": [
+            0,
+            12
+          ],
+          "finger": 8
+        },
+        {
+          "code": "F11",
+          "label": "F11",
+          "x": 13,
+          "y": 0,
+          "led": [
+            0,
+            13
+          ],
+          "finger": 9
+        },
+        {
+          "code": "F12",
+          "label": "F12",
+          "x": 14,
+          "y": 0,
+          "led": [
+            0,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Backquote",
+          "label": "`",
+          "x": 0,
+          "y": 1.25,
+          "led": [
+            1,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "Digit1",
+          "label": "1",
+          "x": 1,
+          "y": 1.25,
+          "led": [
+            1,
+            2
+          ],
+          "finger": 0
+        },
+        {
+          "code": "Digit2",
+          "label": "2",
+          "x": 2,
+          "y": 1.25,
+          "led": [
+            1,
+            3
+          ],
+          "finger": 1
+        },
+        {
+          "code": "Digit3",
+          "label": "3",
+          "x": 3,
+          "y": 1.25,
+          "led": [
+            1,
+            4
+          ],
+          "finger": 2
+        },
+        {
+          "code": "Digit4",
+          "label": "4",
+          "x": 4,
+          "y": 1.25,
+          "led": [
+            1,
+            5
+          ],
+          "finger": 3
+        },
+        {
+          "code": "Digit5",
+          "label": "5",
+          "x": 5,
+          "y": 1.25,
+          "led": [
+            1,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "Digit6",
+          "label": "6",
+          "x": 6,
+          "y": 1.25,
+          "led": [
+            1,
+            7
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Digit7",
+          "label": "7",
+          "x": 7,
+          "y": 1.25,
+          "led": [
+            1,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Digit8",
+          "label": "8",
+          "x": 8,
+          "y": 1.25,
+          "led": [
+            1,
+            9
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Digit9",
+          "label": "9",
+          "x": 9,
+          "y": 1.25,
+          "led": [
+            1,
+            10
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Digit0",
+          "label": "0",
+          "x": 10,
+          "y": 1.25,
+          "led": [
+            1,
+            11
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Minus",
+          "label": "-",
+          "x": 11,
+          "y": 1.25,
+          "led": [
+            1,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Equal",
+          "label": "=",
+          "x": 12,
+          "y": 1.25,
+          "led": [
+            1,
+            13
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Backspace",
+          "label": "Backspace",
+          "x": 13,
+          "y": 1.25,
+          "w": 2,
+          "led": [
+            1,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Tab",
+          "label": "Tab",
+          "x": 0,
+          "y": 2.25,
+          "w": 1.5,
+          "led": [
+            2,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyQ",
+          "label": "Q",
+          "x": 1.5,
+          "y": 2.25,
+          "led": [
+            2,
+            2
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyW",
+          "label": "W",
+          "x": 2.5,
+          "y": 2.25,
+          "led": [
+            2,
+            3
+          ],
+          "finger": 1
+        },
+        {
+          "code": "KeyE",
+          "label": "E",
+          "x": 3.5,
+          "y": 2.25,
+          "led": [
+            2,
+            4
+          ],
+          "finger": 2
+        },
+        {
+          "code": "KeyR",
+          "label": "R",
+          "x": 4.5,
+          "y": 2.25,
+          "led": [
+            2,
+            5
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyT",
+          "label": "T",
+          "x": 5.5,
+          "y": 2.25,
+          "led": [
+            2,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyY",
+          "label": "Y",
+          "x": 6.5,
+          "y": 2.25,
+          "led": [
+            2,
+            7
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyU",
+          "label": "U",
+          "x": 7.5,
+          "y": 2.25,
+          "led": [
+            2,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyI",
+          "label": "I",
+          "x": 8.5,
+          "y": 2.25,
+          "led": [
+            2,
+            9
+          ],
+          "finger": 7
+        },
+        {
+          "code": "KeyO",
+          "label": "O",
+          "x": 9.5,
+          "y": 2.25,
+          "led": [
+            2,
+            10
+          ],
+          "finger": 8
+        },
+        {
+          "code": "KeyP",
+          "label": "P",
+          "x": 10.5,
+          "y": 2.25,
+          "led": [
+            2,
+            11
+          ],
+          "finger": 9
+        },
+        {
+          "code": "BracketLeft",
+          "label": "[",
+          "x": 11.5,
+          "y": 2.25,
+          "led": [
+            2,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "BracketRight",
+          "label": "]",
+          "x": 12.5,
+          "y": 2.25,
+          "led": [
+            2,
+            13
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Backslash",
+          "label": "\\",
+          "x": 13.5,
+          "y": 2.25,
+          "w": 1.5,
+          "led": [
+            2,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "CapsLock",
+          "label": "Caps",
+          "x": 0,
+          "y": 3.25,
+          "w": 1.75,
+          "led": [
+            3,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyA",
+          "label": "A",
+          "x": 1.75,
+          "y": 3.25,
+          "led": [
+            3,
+            2
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyS",
+          "label": "S",
+          "x": 2.75,
+          "y": 3.25,
+          "led": [
+            3,
+            3
+          ],
+          "finger": 1
+        },
+        {
+          "code": "KeyD",
+          "label": "D",
+          "x": 3.75,
+          "y": 3.25,
+          "led": [
+            3,
+            4
+          ],
+          "finger": 2
+        },
+        {
+          "code": "KeyF",
+          "label": "F",
+          "x": 4.75,
+          "y": 3.25,
+          "led": [
+            3,
+            5
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyG",
+          "label": "G",
+          "x": 5.75,
+          "y": 3.25,
+          "led": [
+            3,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyH",
+          "label": "H",
+          "x": 6.75,
+          "y": 3.25,
+          "led": [
+            3,
+            7
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyJ",
+          "label": "J",
+          "x": 7.75,
+          "y": 3.25,
+          "led": [
+            3,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyK",
+          "label": "K",
+          "x": 8.75,
+          "y": 3.25,
+          "led": [
+            3,
+            9
+          ],
+          "finger": 7
+        },
+        {
+          "code": "KeyL",
+          "label": "L",
+          "x": 9.75,
+          "y": 3.25,
+          "led": [
+            3,
+            10
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Semicolon",
+          "label": ";",
+          "x": 10.75,
+          "y": 3.25,
+          "led": [
+            3,
+            11
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Quote",
+          "label": "'",
+          "x": 11.75,
+          "y": 3.25,
+          "led": [
+            3,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Enter",
+          "label": "Enter",
+          "x": 12.75,
+          "y": 3.25,
+          "w": 2.25,
+          "led": [
+            3,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ShiftLeft",
+          "label": "Shift",
+          "x": 0,
+          "y": 4.25,
+          "w": 2.25,
+          "led": [
+            4,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyZ",
+          "label": "Z",
+          "x": 2.25,
+          "y": 4.25,
+          "led": [
+            4,
+            3
+          ],
+          "finger": 0
+        },
+        {
+          "code": "KeyX",
+          "label": "X",
+          "x": 3.25,
+          "y": 4.25,
+          "led": [
+            4,
+            4
+          ],
+          "finger": 1
+        },
+        {
+          "code": "KeyC",
+          "label": "C",
+          "x": 4.25,
+          "y": 4.25,
+          "led": [
+            4,
+            5
+          ],
+          "finger": 2
+        },
+        {
+          "code": "KeyV",
+          "label": "V",
+          "x": 5.25,
+          "y": 4.25,
+          "led": [
+            4,
+            6
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyB",
+          "label": "B",
+          "x": 6.25,
+          "y": 4.25,
+          "led": [
+            4,
+            7
+          ],
+          "finger": 3
+        },
+        {
+          "code": "KeyN",
+          "label": "N",
+          "x": 7.25,
+          "y": 4.25,
+          "led": [
+            4,
+            8
+          ],
+          "finger": 6
+        },
+        {
+          "code": "KeyM",
+          "label": "M",
+          "x": 8.25,
+          "y": 4.25,
+          "led": [
+            4,
+            9
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Comma",
+          "label": ",",
+          "x": 9.25,
+          "y": 4.25,
+          "led": [
+            4,
+            10
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Period",
+          "label": ".",
+          "x": 10.25,
+          "y": 4.25,
+          "led": [
+            4,
+            11
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Slash",
+          "label": "/",
+          "x": 11.25,
+          "y": 4.25,
+          "led": [
+            4,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ShiftRight",
+          "label": "Shift",
+          "x": 12.25,
+          "y": 4.25,
+          "w": 2.75,
+          "led": [
+            4,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ControlLeft",
+          "label": "Ctrl",
+          "x": 0,
+          "y": 5.25,
+          "w": 1.25,
+          "led": [
+            5,
+            1
+          ],
+          "finger": 0
+        },
+        {
+          "code": "MetaLeft",
+          "label": "Win",
+          "x": 1.25,
+          "y": 5.25,
+          "w": 1.25,
+          "led": [
+            5,
+            2
+          ],
+          "finger": 4
+        },
+        {
+          "code": "AltLeft",
+          "label": "Alt",
+          "x": 2.5,
+          "y": 5.25,
+          "w": 1.25,
+          "led": [
+            5,
+            3
+          ],
+          "finger": 4
+        },
+        {
+          "code": "Space",
+          "label": "",
+          "x": 3.75,
+          "y": 5.25,
+          "w": 6.25,
+          "led": [
+            5,
+            6
+          ],
+          "finger": 5
+        },
+        {
+          "code": "AltRight",
+          "label": "Alt",
+          "x": 10,
+          "y": 5.25,
+          "w": 1.25,
+          "led": [
+            5,
+            10
+          ],
+          "finger": 5
+        },
+        {
+          "code": "Fn",
+          "label": "Fn",
+          "x": 11.25,
+          "y": 5.25,
+          "w": 1.25,
+          "led": [
+            5,
+            12
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ContextMenu",
+          "label": "Menu",
+          "x": 12.5,
+          "y": 5.25,
+          "w": 1.25,
+          "led": [
+            5,
+            13
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ControlRight",
+          "label": "Ctrl",
+          "x": 13.75,
+          "y": 5.25,
+          "w": 1.25,
+          "led": [
+            5,
+            14
+          ],
+          "finger": 9
+        },
+        {
+          "code": "PrintScreen",
+          "label": "PrtSc",
+          "x": 15.25,
+          "y": 0,
+          "led": [
+            0,
+            15
+          ],
+          "finger": 7
+        },
+        {
+          "code": "ScrollLock",
+          "label": "ScrLk",
+          "x": 16.25,
+          "y": 0,
+          "led": [
+            0,
+            16
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Pause",
+          "label": "Pause",
+          "x": 17.25,
+          "y": 0,
+          "led": [
+            0,
+            17
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Insert",
+          "label": "Ins",
+          "x": 15.25,
+          "y": 1.25,
+          "led": [
+            1,
+            15
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Home",
+          "label": "Home",
+          "x": 16.25,
+          "y": 1.25,
+          "led": [
+            1,
+            16
+          ],
+          "finger": 8
+        },
+        {
+          "code": "PageUp",
+          "label": "PgUp",
+          "x": 17.25,
+          "y": 1.25,
+          "led": [
+            1,
+            17
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Delete",
+          "label": "Del",
+          "x": 15.25,
+          "y": 2.25,
+          "led": [
+            2,
+            15
+          ],
+          "finger": 7
+        },
+        {
+          "code": "End",
+          "label": "End",
+          "x": 16.25,
+          "y": 2.25,
+          "led": [
+            2,
+            16
+          ],
+          "finger": 8
+        },
+        {
+          "code": "PageDown",
+          "label": "PgDn",
+          "x": 17.25,
+          "y": 2.25,
+          "led": [
+            2,
+            17
+          ],
+          "finger": 9
+        },
+        {
+          "code": "ArrowUp",
+          "label": "↑",
+          "x": 16.25,
+          "y": 4.25,
+          "led": [
+            4,
+            16
+          ],
+          "finger": 8
+        },
+        {
+          "code": "ArrowLeft",
+          "label": "←",
+          "x": 15.25,
+          "y": 5.25,
+          "led": [
+            5,
+            15
+          ],
+          "finger": 7
+        },
+        {
+          "code": "ArrowDown",
+          "label": "↓",
+          "x": 16.25,
+          "y": 5.25,
+          "led": [
+            5,
+            16
+          ],
+          "finger": 8
+        },
+        {
+          "code": "ArrowRight",
+          "label": "→",
+          "x": 17.25,
+          "y": 5.25,
+          "led": [
+            5,
+            17
+          ],
+          "finger": 9
+        },
+        {
+          "code": "NumLock",
+          "label": "Num",
+          "x": 18.5,
+          "y": 1.25,
+          "led": [
+            1,
+            18
+          ],
+          "finger": 6
+        },
+        {
+          "code": "NumpadDivide",
+          "label": "/",
+          "x": 19.5,
+          "y": 1.25,
+          "led": [
+            1,
+            19
+          ],
+          "finger": 7
+        },
+        {
+          "code": "NumpadMultiply",
+          "label": "*",
+          "x": 20.5,
+          "y": 1.25,
+          "led": [
+            1,
+            20
+          ],
+          "finger": 8
+        },
+        {
+          "code": "NumpadSubtract",
+          "label": "-",
+          "x": 21.5,
+          "y": 1.25,
+          "led": [
+            1,
+            21
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Numpad7",
+          "label": "7",
+          "x": 18.5,
+          "y": 2.25,
+          "led": [
+            2,
+            18
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Numpad8",
+          "label": "8",
+          "x": 19.5,
+          "y": 2.25,
+          "led": [
+            2,
+            19
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Numpad9",
+          "label": "9",
+          "x": 20.5,
+          "y": 2.25,
+          "led": [
+            2,
+            20
+          ],
+          "finger": 8
+        },
+        {
+          "code": "NumpadAdd",
+          "label": "+",
+          "x": 21.5,
+          "y": 2.25,
+          "h": 2,
+          "led": [
+            2,
+            21
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Numpad4",
+          "label": "4",
+          "x": 18.5,
+          "y": 3.25,
+          "led": [
+            3,
+            18
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Numpad5",
+          "label": "5",
+          "x": 19.5,
+          "y": 3.25,
+          "led": [
+            3,
+            19
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Numpad6",
+          "label": "6",
+          "x": 20.5,
+          "y": 3.25,
+          "led": [
+            3,
+            20
+          ],
+          "finger": 8
+        },
+        {
+          "code": "Numpad1",
+          "label": "1",
+          "x": 18.5,
+          "y": 4.25,
+          "led": [
+            4,
+            18
+          ],
+          "finger": 6
+        },
+        {
+          "code": "Numpad2",
+          "label": "2",
+          "x": 19.5,
+          "y": 4.25,
+          "led": [
+            4,
+            19
+          ],
+          "finger": 7
+        },
+        {
+          "code": "Numpad3",
+          "label": "3",
+          "x": 20.5,
+          "y": 4.25,
+          "led": [
+            4,
+            20
+          ],
+          "finger": 8
+        },
+        {
+          "code": "NumpadEnter",
+          "label": "Enter",
+          "x": 21.5,
+          "y": 4.25,
+          "h": 2,
+          "led": [
+            4,
+            21
+          ],
+          "finger": 9
+        },
+        {
+          "code": "Numpad0",
+          "label": "0",
+          "x": 18.5,
+          "y": 5.25,
+          "w": 2,
+          "led": [
+            5,
+            19
+          ],
+          "finger": 5
+        },
+        {
+          "code": "NumpadDecimal",
+          "label": ".",
+          "x": 20.5,
+          "y": 5.25,
+          "led": [
+            5,
+            20
+          ],
+          "finger": 8
+        }
+      ]
+    }
+  },
+  "layoutDetection": {
+    "0x01": "ansi-us"
+  },
+  "defaultLayout": "ansi-us",
+  "leds": [
+    {
+      "id": "logo",
+      "name": "Logo",
+      "x": 11.1,
+      "y": 6,
+      "w": 0.6,
+      "h": 0.2,
+      "led": [
+        5,
+        11
+      ]
+    }
+  ],
+  "size": {
+    "w": 22.5,
+    "h": 6.25
+  },
+  "notes": "PID 0x024E, 6×22 extended matrix and keymap from OpenRGB (row 5 has a logo LED at column 11). Media keys/roller are not lit and not mapped. Not tested on hardware."
+}

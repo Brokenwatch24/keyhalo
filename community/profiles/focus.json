@@ -1,0 +1,73 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "focus",
+  "name": "Focus",
+  "description": "Calm warm white with a pomodoro bar on the number row and a mic-mute key.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "work",
+    "calm"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "static",
+        "params": {
+          "color": "#ffcf9e"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "breath",
+        "effect": "breathing",
+        "params": {
+          "colors": [
+            "#ffffff"
+          ],
+          "period": 9,
+          "floor": 0.75
+        },
+        "blend": "multiply",
+        "opacity": 0.35,
+        "enabled": true
+      },
+      {
+        "id": "pomodoro",
+        "effect": "widget:pomodoro",
+        "params": {
+          "focusColor": "#ff7a45",
+          "breakColor": "#3ddc84",
+          "showEmpty": false
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "mic",
+        "effect": "widget:mic",
+        "params": {},
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      }
+    ],
+    "brightness": 0.55,
+    "fps": 30
+  }
+}

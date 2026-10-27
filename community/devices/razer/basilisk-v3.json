@@ -1,0 +1,191 @@
+{
+  "$schema": "../../schemas/device.schema.json",
+  "vendor": "Razer",
+  "driver": "razer",
+  "status": "experimental",
+  "id": "razer-basilisk-v3",
+  "name": "Razer Basilisk V3",
+  "type": "mouse",
+  "match": [
+    {
+      "vendorId": "0x1532",
+      "productId": "0x0099",
+      "interface": 0
+    }
+  ],
+  "driverOptions": {
+    "transactionId": "0x1F",
+    "led": "0x00",
+    "matrix": {
+      "rows": 1,
+      "cols": 11
+    },
+    "frameMode": "matrix"
+  },
+  "capabilities": {
+    "zones": true,
+    "hardwareEffects": [
+      "off",
+      "static",
+      "breathing",
+      "spectrum",
+      "wave",
+      "reactive",
+      "custom"
+    ],
+    "brightness": true,
+    "onboardMemory": true,
+    "dpi": {
+      "min": 100,
+      "max": 26000,
+      "step": 50,
+      "stages": 5,
+      "independentXY": true
+    },
+    "pollingRates": [
+      125,
+      500,
+      1000
+    ],
+    "perKeyRgb": false
+  },
+  "leds": [
+    {
+      "id": "logo",
+      "name": "Logo",
+      "x": 1,
+      "y": 2.55,
+      "w": 0.5,
+      "h": 0.5,
+      "led": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "scroll",
+      "name": "Scroll wheel",
+      "x": 1,
+      "y": 0.52,
+      "w": 0.2,
+      "h": 0.45,
+      "led": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "underglow-1",
+      "name": "Underglow 1",
+      "x": 0.084,
+      "y": 2.474,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "underglow-2",
+      "name": "Underglow 2",
+      "x": 0.195,
+      "y": 2.8,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        3
+      ]
+    },
+    {
+      "id": "underglow-3",
+      "name": "Underglow 3",
+      "x": 0.402,
+      "y": 3.066,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        4
+      ]
+    },
+    {
+      "id": "underglow-4",
+      "name": "Underglow 4",
+      "x": 0.682,
+      "y": 3.24,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        5
+      ]
+    },
+    {
+      "id": "underglow-5",
+      "name": "Underglow 5",
+      "x": 1,
+      "y": 3.3,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        6
+      ]
+    },
+    {
+      "id": "underglow-6",
+      "name": "Underglow 6",
+      "x": 1.318,
+      "y": 3.24,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        7
+      ]
+    },
+    {
+      "id": "underglow-7",
+      "name": "Underglow 7",
+      "x": 1.598,
+      "y": 3.066,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        8
+      ]
+    },
+    {
+      "id": "underglow-8",
+      "name": "Underglow 8",
+      "x": 1.805,
+      "y": 2.8,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        9
+      ]
+    },
+    {
+      "id": "underglow-9",
+      "name": "Underglow 9",
+      "x": 1.916,
+      "y": 2.474,
+      "w": 0.18,
+      "h": 0.18,
+      "led": [
+        0,
+        10
+      ]
+    }
+  ],
+  "size": {
+    "w": 2,
+    "h": 3.4
+  },
+  "notes": "PID 0x0099, transaction 0x1F (OpenRazer uses 0xFF for DPI stages; the driver falls back). Lighting is a 1×11 extended matrix: logo, scroll wheel and a 9-LED underglow strip (OpenRGB). Not tested on hardware."
+}

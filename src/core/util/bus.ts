@@ -9,6 +9,7 @@ import type { HudPayload } from "../backend/api";
  *  - devices/lighting: "profile:apply", "dpi:*", "lighting:*", "device:effect"
  *  - keymaps: "keymaps:*"
  *  - app shell: "hud"
+ *  - integrations: "notify" (flash + HUD)
  */
 export interface BusEvents {
   // Profiles & lighting

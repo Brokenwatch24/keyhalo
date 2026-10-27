@@ -1,0 +1,392 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "sixty-percent-nav",
+  "name": "60% Navigation",
+  "description": "Turns CapsLock into Esc on tap and a navigation layer on hold, with IJKL arrows, F-keys and media for compact keyboards.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [],
+  "categories": {
+    "Layer": "#c792ea",
+    "Arrows": "#7ee0a1",
+    "Navigation": "#4dd0e1",
+    "Editing": "#5aa9ff",
+    "Function": "#9aa5b1",
+    "Media": "#ffb454"
+  },
+  "legends": [
+    {
+      "keys": [
+        "CapsLock"
+      ],
+      "label": "Esc (tap) / Nav layer (hold)",
+      "category": "Layer"
+    }
+  ],
+  "bindings": [
+    {
+      "key": "CapsLock",
+      "action": {
+        "type": "tapHold",
+        "tap": {
+          "type": "key",
+          "keys": [
+            "Escape"
+          ]
+        },
+        "hold": {
+          "type": "layer",
+          "layer": "nav",
+          "mode": "hold"
+        },
+        "termMs": 200
+      },
+      "label": "Esc / Nav layer",
+      "category": "Layer"
+    }
+  ],
+  "layers": [
+    {
+      "id": "nav",
+      "name": "Navigation",
+      "bindings": [
+        {
+          "key": "KeyI",
+          "action": {
+            "type": "key",
+            "keys": [
+              "ArrowUp"
+            ]
+          },
+          "label": "Up",
+          "category": "Arrows"
+        },
+        {
+          "key": "KeyJ",
+          "action": {
+            "type": "key",
+            "keys": [
+              "ArrowLeft"
+            ]
+          },
+          "label": "Left",
+          "category": "Arrows"
+        },
+        {
+          "key": "KeyK",
+          "action": {
+            "type": "key",
+            "keys": [
+              "ArrowDown"
+            ]
+          },
+          "label": "Down",
+          "category": "Arrows"
+        },
+        {
+          "key": "KeyL",
+          "action": {
+            "type": "key",
+            "keys": [
+              "ArrowRight"
+            ]
+          },
+          "label": "Right",
+          "category": "Arrows"
+        },
+        {
+          "key": "KeyU",
+          "action": {
+            "type": "key",
+            "keys": [
+              "Home"
+            ]
+          },
+          "label": "Home",
+          "category": "Navigation"
+        },
+        {
+          "key": "KeyO",
+          "action": {
+            "type": "key",
+            "keys": [
+              "End"
+            ]
+          },
+          "label": "End",
+          "category": "Navigation"
+        },
+        {
+          "key": "KeyY",
+          "action": {
+            "type": "key",
+            "keys": [
+              "PageUp"
+            ]
+          },
+          "label": "Page Up",
+          "category": "Navigation"
+        },
+        {
+          "key": "KeyH",
+          "action": {
+            "type": "key",
+            "keys": [
+              "PageDown"
+            ]
+          },
+          "label": "Page Down",
+          "category": "Navigation"
+        },
+        {
+          "key": "Semicolon",
+          "action": {
+            "type": "key",
+            "keys": [
+              "Backspace"
+            ]
+          },
+          "label": "Backspace",
+          "category": "Editing"
+        },
+        {
+          "key": "KeyP",
+          "action": {
+            "type": "key",
+            "keys": [
+              "Delete"
+            ]
+          },
+          "label": "Delete",
+          "category": "Editing"
+        },
+        {
+          "key": "Quote",
+          "action": {
+            "type": "key",
+            "keys": [
+              "Enter"
+            ]
+          },
+          "label": "Enter",
+          "category": "Editing"
+        },
+        {
+          "key": "Backslash",
+          "action": {
+            "type": "key",
+            "keys": [
+              "Insert"
+            ]
+          },
+          "label": "Insert",
+          "category": "Editing"
+        },
+        {
+          "key": "Digit1",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F1"
+            ]
+          },
+          "label": "F1",
+          "category": "Function"
+        },
+        {
+          "key": "Digit2",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F2"
+            ]
+          },
+          "label": "F2",
+          "category": "Function"
+        },
+        {
+          "key": "Digit3",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F3"
+            ]
+          },
+          "label": "F3",
+          "category": "Function"
+        },
+        {
+          "key": "Digit4",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F4"
+            ]
+          },
+          "label": "F4",
+          "category": "Function"
+        },
+        {
+          "key": "Digit5",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F5"
+            ]
+          },
+          "label": "F5",
+          "category": "Function"
+        },
+        {
+          "key": "Digit6",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F6"
+            ]
+          },
+          "label": "F6",
+          "category": "Function"
+        },
+        {
+          "key": "Digit7",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F7"
+            ]
+          },
+          "label": "F7",
+          "category": "Function"
+        },
+        {
+          "key": "Digit8",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F8"
+            ]
+          },
+          "label": "F8",
+          "category": "Function"
+        },
+        {
+          "key": "Digit9",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F9"
+            ]
+          },
+          "label": "F9",
+          "category": "Function"
+        },
+        {
+          "key": "Digit0",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F10"
+            ]
+          },
+          "label": "F10",
+          "category": "Function"
+        },
+        {
+          "key": "Minus",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F11"
+            ]
+          },
+          "label": "F11",
+          "category": "Function"
+        },
+        {
+          "key": "Equal",
+          "action": {
+            "type": "key",
+            "keys": [
+              "F12"
+            ]
+          },
+          "label": "F12",
+          "category": "Function"
+        },
+        {
+          "key": "KeyN",
+          "action": {
+            "type": "key",
+            "keys": [
+              "MediaPlayPause"
+            ]
+          },
+          "label": "Play / Pause",
+          "category": "Media"
+        },
+        {
+          "key": "KeyM",
+          "action": {
+            "type": "key",
+            "keys": [
+              "AudioVolumeMute"
+            ]
+          },
+          "label": "Mute",
+          "category": "Media"
+        },
+        {
+          "key": "Comma",
+          "action": {
+            "type": "key",
+            "keys": [
+              "AudioVolumeDown"
+            ]
+          },
+          "label": "Volume down",
+          "category": "Media"
+        },
+        {
+          "key": "Period",
+          "action": {
+            "type": "key",
+            "keys": [
+              "AudioVolumeUp"
+            ]
+          },
+          "label": "Volume up",
+          "category": "Media"
+        },
+        {
+          "key": "BracketLeft",
+          "action": {
+            "type": "key",
+            "keys": [
+              "MediaTrackPrevious"
+            ]
+          },
+          "label": "Previous track",
+          "category": "Media"
+        },
+        {
+          "key": "BracketRight",
+          "action": {
+            "type": "key",
+            "keys": [
+              "MediaTrackNext"
+            ]
+          },
+          "label": "Next track",
+          "category": "Media"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "layout",
+    "layer",
+    "navigation",
+    "60%"
+  ]
+}

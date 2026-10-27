@@ -1,0 +1,376 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "premiere-pro",
+  "name": "Adobe Premiere Pro",
+  "description": "Default Adobe Premiere Pro shortcuts on Windows for the timeline, tools and playback.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "Adobe Premiere Pro.exe"
+  ],
+  "categories": {
+    "Playback": "#ffb454",
+    "Marks": "#7ee0a1",
+    "Tools": "#c792ea",
+    "Edit": "#5aa9ff",
+    "Timeline": "#4dd0e1",
+    "File": "#9aa5b1",
+    "Delete": "#ff6b6b"
+  },
+  "legends": [
+    {
+      "keys": [
+        "Space"
+      ],
+      "label": "Play / Stop",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "KeyJ"
+      ],
+      "label": "Shuttle left",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "KeyK"
+      ],
+      "label": "Shuttle stop",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "KeyL"
+      ],
+      "label": "Shuttle right",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "ArrowLeft"
+      ],
+      "label": "Step back one frame",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "ArrowRight"
+      ],
+      "label": "Step forward one frame",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "ArrowUp"
+      ],
+      "label": "Previous edit point",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "ArrowDown"
+      ],
+      "label": "Next edit point",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "Home"
+      ],
+      "label": "Go to sequence start",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "End"
+      ],
+      "label": "Go to sequence end",
+      "category": "Playback"
+    },
+    {
+      "keys": [
+        "KeyI"
+      ],
+      "label": "Mark In",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "KeyO"
+      ],
+      "label": "Mark Out",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "KeyX"
+      ],
+      "label": "Mark clip",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyI"
+      ],
+      "label": "Go to In",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyX"
+      ],
+      "label": "Clear In and Out",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "KeyM"
+      ],
+      "label": "Add marker",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyM"
+      ],
+      "label": "Go to next marker",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyM"
+      ],
+      "label": "Go to previous marker",
+      "category": "Marks"
+    },
+    {
+      "keys": [
+        "KeyV"
+      ],
+      "label": "Selection tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyA"
+      ],
+      "label": "Track Select Forward tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyB"
+      ],
+      "label": "Ripple Edit tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyN"
+      ],
+      "label": "Rolling Edit tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyR"
+      ],
+      "label": "Rate Stretch tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyC"
+      ],
+      "label": "Razor tool",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "KeyS"
+      ],
+      "label": "Toggle snap",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyK"
+      ],
+      "label": "Add edit",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyK"
+      ],
+      "label": "Add edit to all tracks",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "KeyQ"
+      ],
+      "label": "Ripple trim previous edit to playhead",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "KeyW"
+      ],
+      "label": "Ripple trim next edit to playhead",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "Comma"
+      ],
+      "label": "Insert",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "Period"
+      ],
+      "label": "Overwrite",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyD"
+      ],
+      "label": "Apply default video transition",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyR"
+      ],
+      "label": "Speed / Duration",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyL"
+      ],
+      "label": "Link / unlink",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyE"
+      ],
+      "label": "Enable / disable clip",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "KeyF"
+      ],
+      "label": "Match frame",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyZ"
+      ],
+      "label": "Undo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyZ"
+      ],
+      "label": "Redo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "Semicolon"
+      ],
+      "label": "Lift",
+      "category": "Delete"
+    },
+    {
+      "keys": [
+        "Quote"
+      ],
+      "label": "Extract",
+      "category": "Delete"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Delete"
+      ],
+      "label": "Ripple delete",
+      "category": "Delete"
+    },
+    {
+      "keys": [
+        "Equal"
+      ],
+      "label": "Zoom in",
+      "category": "Timeline"
+    },
+    {
+      "keys": [
+        "Minus"
+      ],
+      "label": "Zoom out",
+      "category": "Timeline"
+    },
+    {
+      "keys": [
+        "Backslash"
+      ],
+      "label": "Zoom to sequence",
+      "category": "Timeline"
+    },
+    {
+      "keys": [
+        "Backquote"
+      ],
+      "label": "Maximize panel",
+      "category": "Timeline"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Save project",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyM"
+      ],
+      "label": "Export media",
+      "category": "File"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "video",
+    "editing",
+    "adobe"
+  ]
+}

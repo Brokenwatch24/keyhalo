@@ -1,0 +1,359 @@
+{
+  "hud": {
+    "profile": "Perfil",
+    "brightness": "Brillo"
+  },
+  "profiles": {
+    "copyOf": "{name} (copia)",
+    "readOnly": "Los perfiles incluidos y los de la galería son de solo lectura. Duplícalo para editarlo.",
+    "invalid": "Este archivo no es un perfil de KeyHalo",
+    "notFound": "No se encontró el perfil \"{id}\"",
+    "unsaved": "Cambios sin guardar",
+    "saveAs": "Guardar como perfil nuevo",
+    "default": "Predeterminado"
+  },
+  "blend": {
+    "normal": "Normal",
+    "add": "Sumar",
+    "multiply": "Multiplicar",
+    "screen": "Trama",
+    "max": "Aclarar"
+  },
+  "categories": {
+    "basic": "Básicos",
+    "ambient": "Ambiente",
+    "reactive": "Reactivos",
+    "audio": "Audio",
+    "widget": "Widgets",
+    "community": "Comunidad"
+  },
+  "errors": {
+    "layerDisabled": "Capa desactivada: {reason}",
+    "unknownEffect": "Efecto desconocido \"{id}\"",
+    "sandbox": "Se detuvo este efecto de la comunidad: {reason}"
+  },
+  "preview": {
+    "virtual": "Vista previa (sin dispositivo conectado)"
+  },
+  "page": {
+    "description": "Apila efectos en capas, limítalos a teclas y mira cómo se ilumina tu escritorio en directo."
+  },
+  "stage": {
+    "live": "EN VIVO",
+    "hardware": "{names} muestra su efecto de la memoria interna.",
+    "useKeyHalo": "Usar la iluminación de KeyHalo",
+    "brightness": "Brillo",
+    "fps": "Fotogramas por segundo",
+    "flash": "Probar destello",
+    "flashHint": "Hace parpadear las teclas seleccionadas (o todo) para comprobar la conexión",
+    "reactive": "Reacciona al teclear",
+    "selectHint": "Clic, Mayús+clic o arrastra para seleccionar teclas"
+  },
+  "select": {
+    "title": "Seleccionar",
+    "all": "Todo",
+    "letters": "Letras",
+    "numbers": "Números",
+    "wasd": "WASD",
+    "modifiers": "Modificadores",
+    "arrows": "Flechas / Fn",
+    "count": "{n} seleccionadas",
+    "clear": "Limpiar"
+  },
+  "layers": {
+    "title": "Capas",
+    "add": "Añadir capa",
+    "emptyTitle": "Todavía no hay capas",
+    "empty": "Añade un efecto para empezar a iluminar tu escritorio.",
+    "hint": "Las capas de arriba se dibujan encima · arrastra para reordenar · Alt+↑/↓",
+    "keys": "{n} teclas",
+    "keys_one": "1 tecla",
+    "someDevices": "Algunos dispositivos",
+    "allKeys": "Todo el escritorio",
+    "hide": "Ocultar capa",
+    "show": "Mostrar capa",
+    "base": "Base",
+    "duplicate": "Duplicar (Ctrl+D)",
+    "delete": "Eliminar (Supr)"
+  },
+  "inspector": {
+    "layerTab": "Capa",
+    "profileTab": "Perfil",
+    "noLayer": "Ninguna capa seleccionada",
+    "noLayerHint": "Elige una capa a la izquierda para editar su efecto, fusión y máscara.",
+    "change": "Cambiar efecto",
+    "retry": "Reintentar",
+    "effect": "Efecto",
+    "noParams": "Este efecto no tiene ajustes.",
+    "reactiveNote": "Reacciona a tus pulsaciones. KeyHalo escucha las teclas globales solo para iluminarlas (no se guarda nada).",
+    "layer": "Capa",
+    "blend": "Modo de fusión",
+    "visible": "Visible",
+    "opacity": "Opacidad",
+    "appliesTo": "Se aplica a",
+    "selectFirst": "Primero selecciona teclas en la vista previa (clic, Mayús+clic o arrastrar).",
+    "wholeDesk": "Todo el escritorio",
+    "selectedKeys": "Teclas seleccionadas",
+    "showMask": "Ver en la vista previa",
+    "useSelection": "Usar selección ({n})",
+    "maskHint": "Selecciona teclas en la vista previa para limitar esta capa a ellas.",
+    "maskHintSel": "{n} teclas seleccionadas: elige «Teclas seleccionadas» para limitar esta capa a ellas.",
+    "devices": "Dispositivos",
+    "allDevices": "Todos",
+    "keyboard": "Teclado",
+    "mouse": "Ratón",
+    "custom": "Personalizado",
+    "addColor": "Añadir color"
+  },
+  "picker": {
+    "title": "Añadir una capa",
+    "changeTitle": "Cambiar efecto",
+    "search": "Buscar efectos…",
+    "by": "por {author}",
+    "none": "Ningún efecto coincide con la búsqueda.",
+    "communityHint": "Más efectos en Comunidad → Galería. Los efectos de la comunidad se ejecutan aislados: sin red ni archivos."
+  },
+  "widget": {
+    "reads": "Lee {signal}.",
+    "open": "Abrir",
+    "where": {
+      "integrations": "Configúralo en Integraciones.",
+      "devices": "Viene de tus dispositivos inalámbricos.",
+      "typing": "En directo mientras escribes en cualquier sitio.",
+      "keymaps": "Lo marcan las capas de atajos."
+    },
+    "signals": {
+      "cpu": "la carga de la CPU del monitor del sistema",
+      "gpu": "la temperatura de la GPU del monitor del sistema",
+      "ram": "el uso de memoria del monitor del sistema",
+      "bambu": "el progreso de tu impresora Bambu Lab",
+      "claude": "el estado de Claude Code",
+      "pomodoro": "el temporizador pomodoro",
+      "game": "datos del juego en directo (CS2, Dota 2, LoL)",
+      "notifications": "las notificaciones de apps y automatizaciones",
+      "mic": "si tu micrófono está silenciado",
+      "wpm": "tu velocidad de escritura en directo",
+      "battery": "el nivel de batería",
+      "caps": "el estado de Bloq Mayús",
+      "layer": "la capa de atajos activa"
+    }
+  },
+  "profile": {
+    "none": "Ningún perfil activo",
+    "about": "Perfil",
+    "layers": "{n} capas",
+    "layers_one": "1 capa",
+    "source": {
+      "bundled": "Incluido",
+      "installed": "De la galería",
+      "user": "Tuyo"
+    },
+    "descPlaceholder": "¿Para qué es este perfil?",
+    "apps": "Activación automática",
+    "appsHint": "Cambia a este perfil mientras una de estas apps está en primer plano.",
+    "noApps": "Aún no hay apps.",
+    "running": "En ejecución:",
+    "group": {
+      "user": "Tus perfiles",
+      "installed": "De la galería",
+      "bundled": "Incluidos"
+    }
+  },
+  "toolbar": {
+    "profile": "Perfil",
+    "saved": "Guardado",
+    "savedAs": "Guardado como «{name}»",
+    "imported": "Importado «{name}»",
+    "new": "Nuevo perfil",
+    "import": "Importar JSON…",
+    "export": "Exportar JSON",
+    "duplicateToEdit": "Duplicar para editar",
+    "more": "Más acciones",
+    "newTitle": "Nuevo perfil",
+    "newName": "Mi perfil",
+    "create": "Crear",
+    "deleteTitle": "¿Eliminar «{name}»?",
+    "deleteBody": "El perfil se borra de este ordenador. Expórtalo antes si quieres guardar una copia."
+  },
+  "share": {
+    "title": "Compartir «{name}»",
+    "gist": "Compartir un enlace",
+    "gistHint": "Crea un gist privado de GitHub y un enlace keyhalo:// que cualquiera puede importar.",
+    "createGist": "Crear enlace",
+    "signIn": "Iniciar sesión en GitHub",
+    "publish": "Publicar en la galería",
+    "publishHint": "Abre un pull request en el repositorio de la comunidad para que todos puedan instalarlo.",
+    "openCommunity": "Abrir Compartir y publicar",
+    "json": "Copiar o descargar JSON",
+    "jsonHint": "Archivo de perfil normal: impórtalo con Importar JSON en otro PC."
+  },
+  "fx": {
+    "off": {
+      "name": "Apagado",
+      "description": "Todas las luces apagadas."
+    },
+    "static": {
+      "name": "Estático",
+      "description": "Un único color sólido."
+    },
+    "gradient": {
+      "name": "Degradado",
+      "description": "Un degradado de color por el escritorio, opcionalmente en movimiento."
+    },
+    "spectrum": {
+      "name": "Ciclo de espectro",
+      "description": "Todas las luces recorren el arcoíris a la vez."
+    },
+    "wave": {
+      "name": "Ola",
+      "description": "Un arcoíris (o tus colores) barriendo el escritorio."
+    },
+    "breathing": {
+      "name": "Respiración",
+      "description": "Se enciende y apaga lentamente, alternando colores."
+    },
+    "starlight": {
+      "name": "Luz de estrellas",
+      "description": "Teclas al azar que titilan y se desvanecen."
+    },
+    "plasma": {
+      "name": "Plasma",
+      "description": "Los clásicos colores de plasma en movimiento."
+    },
+    "aurora": {
+      "name": "Aurora",
+      "description": "Cortinas de luz suaves que se deslizan por el escritorio."
+    },
+    "fire": {
+      "name": "Fuego",
+      "description": "Llamas que suben desde la fila inferior."
+    },
+    "rain": {
+      "name": "Lluvia",
+      "description": "Gotas que caen por el teclado."
+    },
+    "ripple": {
+      "name": "Ondas",
+      "description": "Anillos que se expanden desde cada tecla que pulsas."
+    },
+    "reactive": {
+      "name": "Reactivo",
+      "description": "Las teclas pulsadas se iluminan y se apagan poco a poco."
+    },
+    "typing-heat": {
+      "name": "Calor de escritura",
+      "description": "Las teclas se calientan cuanto más las usas y se enfrían despacio."
+    },
+    "audio-visualizer": {
+      "name": "Visualizador de audio",
+      "description": "Barras de espectro al ritmo de lo que suena en tu PC."
+    },
+    "widget_cpu": {
+      "name": "Barra de carga de CPU",
+      "description": "La carga de la CPU como barra (verde → rojo)."
+    },
+    "widget_gpu-temp": {
+      "name": "Barra de temperatura de GPU",
+      "description": "Temperatura de la GPU entre un límite frío y uno caliente."
+    },
+    "widget_ram": {
+      "name": "Barra de uso de RAM",
+      "description": "Memoria en uso."
+    },
+    "widget_bambu": {
+      "name": "Progreso de impresión 3D",
+      "description": "Progreso del trabajo de impresión actual."
+    },
+    "widget_wpm": {
+      "name": "Medidor de PPM",
+      "description": "Velocidad de escritura en directo."
+    },
+    "widget_pomodoro": {
+      "name": "Barra pomodoro",
+      "description": "Tiempo restante del bloque de foco o descanso."
+    },
+    "widget_game-health": {
+      "name": "Barra de vida (juegos)",
+      "description": "La vida en juegos compatibles (de verde a rojo al bajar)."
+    },
+    "widget_game-ammo": {
+      "name": "Barra de munición (juegos)",
+      "description": "Munición restante en el cargador."
+    },
+    "widget_battery": {
+      "name": "Tecla de batería",
+      "description": "Una tecla con la batería de un dispositivo inalámbrico (late mientras carga)."
+    },
+    "widget_claude": {
+      "name": "Estado de Claude Code",
+      "description": "Inactivo, trabajando (respira), esperándote (parpadeo lento), terminado o error."
+    },
+    "widget_mic": {
+      "name": "Tecla de micrófono",
+      "description": "En rojo mientras el micrófono está silenciado."
+    },
+    "widget_caps": {
+      "name": "Indicador de Bloq Mayús",
+      "description": "Ilumina Bloq Mayús mientras está activo."
+    },
+    "widget_layer": {
+      "name": "Indicador de capa activa",
+      "description": "Colorea una tecla mientras hay una capa de atajos activa (color según su nombre)."
+    },
+    "widget_notification": {
+      "name": "Destello de notificación",
+      "description": "Hace latir teclas cuando una app o regla envía una notificación."
+    }
+  },
+  "labels": {
+    "Speed": "Velocidad",
+    "Color": "Color",
+    "Colors": "Colores",
+    "Angle": "Ángulo",
+    "Scroll speed": "Velocidad de desplazamiento",
+    "Saturation": "Saturación",
+    "Wavelength (keys)": "Longitud de onda (teclas)",
+    "Direction": "Dirección",
+    "Left → right": "Izquierda → derecha",
+    "Right → left": "Derecha → izquierda",
+    "Top → bottom": "Arriba → abajo",
+    "Bottom → top": "Abajo → arriba",
+    "Centre outwards": "Del centro hacia fuera",
+    "Rainbow": "Arcoíris",
+    "Breath (s)": "Respiración (s)",
+    "Minimum": "Mínimo",
+    "Density": "Densidad",
+    "Fade (s)": "Desvanecer (s)",
+    "Background": "Fondo",
+    "Random hues": "Tonos al azar",
+    "Scale": "Escala",
+    "Height": "Altura",
+    "Trail (keys)": "Estela (teclas)",
+    "Rainbow rings": "Anillos arcoíris",
+    "Speed (keys/s)": "Velocidad (teclas/s)",
+    "Ring width": "Grosor del anillo",
+    "Cool-down (s)": "Enfriado (s)",
+    "Heat per press": "Calor por pulsación",
+    "Cold → hot": "Frío → caliente",
+    "Mode": "Modo",
+    "Bars": "Barras",
+    "Pulse": "Pulso",
+    "Centre bars": "Barras centradas",
+    "Low → high": "Graves → agudos",
+    "Sensitivity": "Sensibilidad",
+    "Dim unused keys": "Atenuar teclas sin uso",
+    "Cool (°C)": "Frío (°C)",
+    "Hot (°C)": "Caliente (°C)",
+    "Full bar at (WPM)": "Barra llena a (PPM)",
+    "Focus": "Foco",
+    "Break": "Descanso",
+    "Device": "Dispositivo",
+    "First wireless device": "Primer dispositivo inalámbrico",
+    "Warn below (%)": "Aviso por debajo de (%)",
+    "Critical below (%)": "Crítico por debajo de (%)",
+    "Show idle": "Mostrar inactivo",
+    "Green while live": "Verde mientras está activo",
+    "Default color": "Color por defecto",
+    "Pulses": "Pulsos"
+  }
+}

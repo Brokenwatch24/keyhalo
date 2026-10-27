@@ -1,0 +1,183 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "obs-studio",
+  "name": "OBS Studio",
+  "description": "Built-in OBS Studio editing shortcuts for the sources list and preview; streaming, recording and scene hotkeys are user-defined in Settings > Hotkeys and are not included.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "obs64.exe"
+  ],
+  "categories": {
+    "Edit": "#5aa9ff",
+    "Transform": "#c792ea",
+    "Order": "#7ee0a1",
+    "Nudge": "#4dd0e1",
+    "Delete": "#ff6b6b"
+  },
+  "legends": [
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyC"
+      ],
+      "label": "Copy source",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyV"
+      ],
+      "label": "Paste source (reference)",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyZ"
+      ],
+      "label": "Undo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyY"
+      ],
+      "label": "Redo",
+      "category": "Edit"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyE"
+      ],
+      "label": "Edit transform",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyC"
+      ],
+      "label": "Copy transform",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyV"
+      ],
+      "label": "Paste transform",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyR"
+      ],
+      "label": "Reset transform",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyF"
+      ],
+      "label": "Fit to screen",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Stretch to screen",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyD"
+      ],
+      "label": "Center to screen",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ArrowUp"
+      ],
+      "label": "Move source up",
+      "category": "Order"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ArrowDown"
+      ],
+      "label": "Move source down",
+      "category": "Order"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Home"
+      ],
+      "label": "Move source to top",
+      "category": "Order"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "End"
+      ],
+      "label": "Move source to bottom",
+      "category": "Order"
+    },
+    {
+      "keys": [
+        "ArrowUp"
+      ],
+      "label": "Nudge source up",
+      "category": "Nudge"
+    },
+    {
+      "keys": [
+        "ArrowDown"
+      ],
+      "label": "Nudge source down",
+      "category": "Nudge"
+    },
+    {
+      "keys": [
+        "ArrowLeft"
+      ],
+      "label": "Nudge source left",
+      "category": "Nudge"
+    },
+    {
+      "keys": [
+        "ArrowRight"
+      ],
+      "label": "Nudge source right",
+      "category": "Nudge"
+    },
+    {
+      "keys": [
+        "Delete"
+      ],
+      "label": "Remove source",
+      "category": "Delete"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "streaming",
+    "recording",
+    "video"
+  ]
+}

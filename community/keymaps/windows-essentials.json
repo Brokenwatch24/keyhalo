@@ -1,0 +1,395 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "windows-essentials",
+  "name": "Windows Essentials",
+  "description": "Everyday Windows 11 shortcuts for windows, desktops, capture and the clipboard, lit on every app.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [],
+  "categories": {
+    "Windows": "#5aa9ff",
+    "Desktops": "#7ee0a1",
+    "System": "#c792ea",
+    "Capture": "#ffb454",
+    "Clipboard": "#4dd0e1",
+    "File": "#9aa5b1",
+    "Danger": "#ff6b6b"
+  },
+  "legends": [
+    {
+      "keys": [
+        "AltLeft",
+        "Tab"
+      ],
+      "label": "Switch apps",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "Tab"
+      ],
+      "label": "Task View",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "ArrowUp"
+      ],
+      "label": "Maximize window",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "ArrowDown"
+      ],
+      "label": "Restore / minimize window",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "ArrowLeft"
+      ],
+      "label": "Snap window left",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "ArrowRight"
+      ],
+      "label": "Snap window right",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "MetaLeft",
+        "ArrowLeft"
+      ],
+      "label": "Move window to left monitor",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "MetaLeft",
+        "ArrowRight"
+      ],
+      "label": "Move window to right monitor",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyZ"
+      ],
+      "label": "Snap layouts",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyM"
+      ],
+      "label": "Minimize all windows",
+      "category": "Windows"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyD"
+      ],
+      "label": "Show desktop",
+      "category": "Desktops"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "MetaLeft",
+        "KeyD"
+      ],
+      "label": "New virtual desktop",
+      "category": "Desktops"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "MetaLeft",
+        "ArrowLeft"
+      ],
+      "label": "Previous virtual desktop",
+      "category": "Desktops"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "MetaLeft",
+        "ArrowRight"
+      ],
+      "label": "Next virtual desktop",
+      "category": "Desktops"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "MetaLeft",
+        "F4"
+      ],
+      "label": "Close virtual desktop",
+      "category": "Desktops"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyE"
+      ],
+      "label": "File Explorer",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyI"
+      ],
+      "label": "Settings",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyS"
+      ],
+      "label": "Search",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyR"
+      ],
+      "label": "Run",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyX"
+      ],
+      "label": "Quick Link menu",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyA"
+      ],
+      "label": "Quick Settings",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyN"
+      ],
+      "label": "Notifications",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyL"
+      ],
+      "label": "Lock PC",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "Period"
+      ],
+      "label": "Emoji panel",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyH"
+      ],
+      "label": "Voice typing",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyP"
+      ],
+      "label": "Project / display mode",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Escape"
+      ],
+      "label": "Task Manager",
+      "category": "System"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "MetaLeft",
+        "KeyS"
+      ],
+      "label": "Snipping Tool",
+      "category": "Capture"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "PrintScreen"
+      ],
+      "label": "Screenshot to file",
+      "category": "Capture"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyG"
+      ],
+      "label": "Game Bar",
+      "category": "Capture"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "MetaLeft",
+        "KeyR"
+      ],
+      "label": "Start / stop recording",
+      "category": "Capture"
+    },
+    {
+      "keys": [
+        "MetaLeft",
+        "KeyV"
+      ],
+      "label": "Clipboard history",
+      "category": "Clipboard"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyC"
+      ],
+      "label": "Copy",
+      "category": "Clipboard"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyX"
+      ],
+      "label": "Cut",
+      "category": "Clipboard"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyV"
+      ],
+      "label": "Paste",
+      "category": "Clipboard"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyZ"
+      ],
+      "label": "Undo",
+      "category": "Clipboard"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyY"
+      ],
+      "label": "Redo",
+      "category": "Clipboard"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyA"
+      ],
+      "label": "Select all",
+      "category": "Clipboard"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Save",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyF"
+      ],
+      "label": "Find",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "F2"
+      ],
+      "label": "Rename",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "Enter"
+      ],
+      "label": "Properties",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyN"
+      ],
+      "label": "New folder (Explorer)",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "F4"
+      ],
+      "label": "Close window",
+      "category": "Danger"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Delete"
+      ],
+      "label": "Delete permanently",
+      "category": "Danger"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "windows",
+    "system",
+    "productivity"
+  ]
+}

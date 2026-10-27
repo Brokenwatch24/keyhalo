@@ -1,0 +1,75 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "stealth",
+  "name": "Stealth",
+  "description": "Lights off. Only status keys glow: battery, mic mute, Caps Lock, Claude Code and notifications.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "minimal",
+    "status"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "off",
+        "params": {},
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "battery",
+        "effect": "widget:battery",
+        "params": {},
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true,
+        "mask": [
+          "Escape"
+        ]
+      },
+      {
+        "id": "mic",
+        "effect": "widget:mic",
+        "params": {},
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "claude",
+        "effect": "widget:claude",
+        "params": {},
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "notify",
+        "effect": "widget:notification",
+        "params": {
+          "color": "#00b3ff",
+          "pulses": 2
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      }
+    ],
+    "brightness": 0.7,
+    "fps": 30
+  }
+}

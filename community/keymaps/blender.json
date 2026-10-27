@@ -1,0 +1,389 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "blender",
+  "name": "Blender",
+  "description": "Default Blender (2.8+) shortcuts for transforming, modeling, viewport navigation and animation.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "blender.exe"
+  ],
+  "categories": {
+    "Transform": "#5aa9ff",
+    "Modeling": "#c792ea",
+    "Selection": "#7ee0a1",
+    "View": "#4dd0e1",
+    "Animation": "#ffb454",
+    "File": "#9aa5b1",
+    "Delete": "#ff6b6b"
+  },
+  "legends": [
+    {
+      "keys": [
+        "KeyG"
+      ],
+      "label": "Grab / move",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "KeyR"
+      ],
+      "label": "Rotate",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "KeyS"
+      ],
+      "label": "Scale",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyA"
+      ],
+      "label": "Apply menu",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyS"
+      ],
+      "label": "Snap menu",
+      "category": "Transform"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "label": "Toggle Edit mode",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyA"
+      ],
+      "label": "Add menu",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "KeyE"
+      ],
+      "label": "Extrude",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "KeyI"
+      ],
+      "label": "Inset faces (Edit) / Insert keyframe (Object)",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyR"
+      ],
+      "label": "Loop cut",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyB"
+      ],
+      "label": "Bevel",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "KeyK"
+      ],
+      "label": "Knife",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "KeyF"
+      ],
+      "label": "Fill / new face",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "KeyM"
+      ],
+      "label": "Merge (Edit) / Move to collection (Object)",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "KeyP"
+      ],
+      "label": "Separate",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyJ"
+      ],
+      "label": "Join objects",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "KeyD"
+      ],
+      "label": "Duplicate",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyP"
+      ],
+      "label": "Set parent",
+      "category": "Modeling"
+    },
+    {
+      "keys": [
+        "Digit1"
+      ],
+      "label": "Vertex select mode (Edit)",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "Digit2"
+      ],
+      "label": "Edge select mode (Edit)",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "Digit3"
+      ],
+      "label": "Face select mode (Edit)",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "KeyA"
+      ],
+      "label": "Select all",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyA"
+      ],
+      "label": "Deselect all",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyI"
+      ],
+      "label": "Invert selection",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "KeyB"
+      ],
+      "label": "Box select",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "KeyC"
+      ],
+      "label": "Circle select",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "KeyL"
+      ],
+      "label": "Select linked under cursor",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "KeyH"
+      ],
+      "label": "Hide selected",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyH"
+      ],
+      "label": "Reveal hidden",
+      "category": "Selection"
+    },
+    {
+      "keys": [
+        "Numpad1"
+      ],
+      "label": "Front view",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Numpad3"
+      ],
+      "label": "Right view",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Numpad7"
+      ],
+      "label": "Top view",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Numpad5"
+      ],
+      "label": "Toggle perspective / ortho",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Numpad0"
+      ],
+      "label": "Camera view",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "NumpadDecimal"
+      ],
+      "label": "Frame selected",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Home"
+      ],
+      "label": "Frame all",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Backquote"
+      ],
+      "label": "View pie menu",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "KeyZ"
+      ],
+      "label": "Shading pie menu",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "KeyZ"
+      ],
+      "label": "Toggle X-ray",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "KeyN"
+      ],
+      "label": "Toggle sidebar",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "F3"
+      ],
+      "label": "Search menu",
+      "category": "View"
+    },
+    {
+      "keys": [
+        "Space"
+      ],
+      "label": "Play animation",
+      "category": "Animation"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "ArrowLeft"
+      ],
+      "label": "Jump to start frame",
+      "category": "Animation"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "ArrowRight"
+      ],
+      "label": "Jump to end frame",
+      "category": "Animation"
+    },
+    {
+      "keys": [
+        "F12"
+      ],
+      "label": "Render image",
+      "category": "Animation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Save",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyZ"
+      ],
+      "label": "Undo",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyZ"
+      ],
+      "label": "Redo",
+      "category": "File"
+    },
+    {
+      "keys": [
+        "KeyX"
+      ],
+      "label": "Delete menu",
+      "category": "Delete"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "3d",
+    "modeling",
+    "animation"
+  ]
+}

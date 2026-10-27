@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    name: TypeScript, tests & community content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npx vitest run
+
+      - name: Validate community content
+        run: node scripts/validate-community.mjs
+
+  rust:
+    name: Rust (check, clippy, CLI)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The Rust crate may not exist yet on early branches: skip gracefully.
+      - name: Detect src-tauri
+        id: detect
+        shell: bash
+        run: |
+          if [ -f src-tauri/Cargo.toml ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; echo "src-tauri/Cargo.toml not found, skipping Rust checks"; fi
+
+      - uses: dtolnay/rust-toolchain@stable
+        if: steps.detect.outputs.present == 'true'
+        with:
+          components: clippy
+
+      - uses: Swatinem/rust-cache@v2
+        if: steps.detect.outputs.present == 'true'
+        with:
+          workspaces: src-tauri
+
+      # tauri-build checks that `frontendDist` exists; the frontend itself is not needed for cargo check.
+      - name: Create placeholder frontend dist
+        if: steps.detect.outputs.present == 'true'
+        shell: bash
+        run: mkdir -p dist
+
+      - name: cargo check
+        if: steps.detect.outputs.present == 'true'
+        run: cargo check --manifest-path src-tauri/Cargo.toml --all-targets
+
+      - name: cargo clippy
+        if: steps.detect.outputs.present == 'true'
+        run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+
+      - name: Build CLI
+        if: steps.detect.outputs.present == 'true'
+        shell: bash
+        run: |
+          if cargo metadata --no-deps --format-version 1 --manifest-path src-tauri/Cargo.toml | grep -q '"name":"keyhalo-cli"'; then
+            cargo build --release -p keyhalo-cli --manifest-path src-tauri/Cargo.toml
+          else
+            echo "No keyhalo-cli package yet"
+          fi

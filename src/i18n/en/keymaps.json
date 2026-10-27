@@ -1,0 +1,311 @@
+{
+  "title": "Keymaps",
+  "packs": "Packs",
+  "enabled": "Enabled",
+  "activeFor": "Active for {app}",
+  "global": "All apps",
+  "legendOnly": "Lights only (no remaps)",
+  "source": {
+    "bundled": "Built-in",
+    "user": "Mine",
+    "installed": "From the gallery"
+  },
+  "layers": "Layers",
+  "bindings": "Remaps",
+  "legends": "Shortcuts",
+  "categories": "Categories",
+  "cheatsheet": "Shortcut cheat-sheet",
+  "cheatsheetHint": "Hold Ctrl, Shift, Alt or Win to light the shortcuts of the focused app.",
+  "importVsCode": "Import VS Code keybindings.json",
+  "exportKanata": "Export for Kanata (.kbd)",
+  "exportAhk": "Export for AutoHotkey v2",
+  "exportWarnings": "Some things could not be exported:",
+  "paused": "Remapping paused",
+  "pause": "Pause remapping",
+  "resume": "Resume remapping",
+  "antiCheat": "Remapping is paused automatically in competitive games (Settings → Remapping). Light-only packs are always safe.",
+  "hud": {
+    "paused": "Remapping paused",
+    "resumed": "Remapping resumed",
+    "layer": "Layer",
+    "baseLayer": "Base"
+  },
+  "conflicts": {
+    "title": "Conflicts",
+    "none": "No conflicts",
+    "appShortcut": "{combo} replaces the app's own shortcut “{shortcut}”.",
+    "duplicate": "{combo} is bound more than once.",
+    "osReserved": "{combo} is reserved by Windows ({what}).",
+    "missingKey": "{key} does not exist on {keyboard}.",
+    "fnOnly": "{combo} is only reachable with Fn+{base} on {keyboard}.",
+    "invalidKey": "“{key}” is not a valid key.",
+    "unknownLayer": "Layer “{layer}” does not exist in this pack."
+  },
+  "suggestions": {
+    "useLayer": "Bind it on a layer (e.g. hold CapsLock with the 60% navigation pack) or on the Fn layer instead."
+  },
+  "risk": {
+    "title": "Review before enabling",
+    "intro": "This pack can do more than remap keys. Check every action below before enabling it.",
+    "launch": "Launches a program",
+    "macro": "Plays a macro",
+    "text": "Types text",
+    "http": "Sends a network request",
+    "confirm": "I trust this pack"
+  },
+  "ui": {
+    "description": "Per-app shortcut packs that light up what each key does, plus remaps, macros and layers.",
+    "newPack": "New pack",
+    "tabs": {
+      "keyboard": "Keyboard"
+    },
+    "nowIn": "Now in",
+    "noForeground": "No app focused",
+    "noActivePack": "No pack for this app",
+    "remapping": "Remapping",
+    "state": {
+      "on": "Active",
+      "off": "Off",
+      "paused": "Paused",
+      "game": "Paused in this game"
+    },
+    "cheatsheetShort": "Hold a modifier to light shortcuts",
+    "pauseApps": {
+      "title": "Anti-cheat pause list",
+      "button": "Games ({n})",
+      "reset": "Restore defaults"
+    },
+    "emergency": "Ctrl+Alt+Pause always toggles remapping on or off — even when a macro or layer gets stuck.",
+    "emergencyShort": "Stuck? Ctrl+Alt+Pause turns remapping on or off at any time.",
+    "searchPacks": "Search packs or apps",
+    "groups": {
+      "active": "Active now",
+      "enabled": "Enabled",
+      "library": "Library"
+    },
+    "edited": "Edited",
+    "noPacks": "No packs yet",
+    "noMatches": "Nothing matches",
+    "reset": "Reset to built-in",
+    "resetBody": "Your changes to “{name}” will be discarded and the built-in version restored.",
+    "deleteTitle": "Delete pack",
+    "deleteBody": "“{name}” will be removed from this computer. This can't be undone.",
+    "duplicated": "Created “{name}”",
+    "share": {
+      "gist": "Gist link copied to the clipboard",
+      "json": "Pack JSON copied — sign in to GitHub in Community to share it as a link"
+    },
+    "holding": "Holding",
+    "noModifier": "None",
+    "board": "Keyboard drawing",
+    "boards": {
+      "ansi-100": "Full size (ANSI)",
+      "ansi-tkl": "TKL (ANSI)",
+      "ansi-75": "75% (ANSI)",
+      "ansi-65": "65% (ANSI)",
+      "ansi-60": "60% (ANSI)",
+      "iso-100": "Full size (ISO)"
+    },
+    "manage": "Manage",
+    "noCategories": "No categories yet. Add one to colour shortcuts.",
+    "noCategory": "No category",
+    "newCategory": "New category…",
+    "newCategoryName": "Category {n}",
+    "categoryName": "Category name",
+    "categoryInUse": "In use — move its shortcuts first",
+    "uses": "{n} uses",
+    "allCategories": "All categories",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "inspector": {
+      "title": "Key details",
+      "empty": "Click a key to see its shortcuts and add a remap.",
+      "nothing": "No shortcuts or remaps on this key yet.",
+      "addLegend": "Shortcut",
+      "addRemap": "Remap",
+      "remap": "Remap"
+    },
+    "recorder": {
+      "listening": "Press keys…",
+      "placeholder": "Click, then press keys",
+      "pick": "Pick a key from the list",
+      "pickShort": "⋯",
+      "clear": "Clear"
+    },
+    "actions": {
+      "key": "Key / chord",
+      "text": "Type text",
+      "macro": "Macro",
+      "launch": "Launch app",
+      "layer": "Layer",
+      "tapHold": "Tap / hold",
+      "mouse": "Mouse button",
+      "dpi": "DPI",
+      "profile": "Profile",
+      "media": "Media",
+      "disabled": "Disabled"
+    },
+    "summary": {
+      "macro": "Macro · {n} steps",
+      "launch": "Open {app}",
+      "layerHold": "Hold layer {layer}",
+      "layerToggle": "Toggle layer {layer}",
+      "dpiSniper": "Sniper {dpi} DPI",
+      "dpiCycle": "Cycle DPI stages",
+      "dpiSet": "Set {dpi} DPI",
+      "profile": "Profile {profile}",
+      "macroOne": "Macro · 1 step"
+    },
+    "mouse": {
+      "left": "Left click",
+      "right": "Right click",
+      "middle": "Middle click",
+      "back": "Back",
+      "forward": "Forward"
+    },
+    "media": {
+      "playPause": "Play / pause",
+      "next": "Next track",
+      "prev": "Previous track",
+      "volumeUp": "Volume up",
+      "volumeDown": "Volume down",
+      "mute": "Mute",
+      "micMute": "Mute microphone"
+    },
+    "fields": {
+      "sendChord": "Send",
+      "sendChordHint": "Click and press the keys to send, e.g. Ctrl+Shift+Z.",
+      "text": "Text to type",
+      "textHint": "Typed character by character, in any language.",
+      "path": "Program",
+      "pathHint": "Full path of the .exe, a folder or a URL.",
+      "args": "Arguments",
+      "layer": "Layer",
+      "mode": "Mode",
+      "hold": "While held",
+      "toggle": "Toggle",
+      "noLayers": "This pack has no layers yet — create one in the Layers tab.",
+      "onTap": "On tap",
+      "onHold": "On hold",
+      "term": "Hold after",
+      "button": "Button",
+      "dpiSniper": "Sniper",
+      "dpiCycle": "Cycle",
+      "dpiSet": "Set",
+      "dpiSniperHint": "Lowers the mouse DPI while the key is held, then restores it.",
+      "dpiCycleHint": "Steps through the DPI stages of your mouse.",
+      "dpiSetHint": "Switches the mouse to this DPI.",
+      "profile": "Lighting profile",
+      "media": "Command",
+      "disabledHint": "The key does nothing while this pack is active."
+    },
+    "macro": {
+      "steps": "{n} steps",
+      "empty": "No steps yet.",
+      "addKey": "Key",
+      "addDelay": "Delay",
+      "addText": "Text",
+      "textPlaceholder": "Text to type",
+      "ops": {
+        "tap": "Tap",
+        "down": "Press",
+        "up": "Release",
+        "delay": "Wait",
+        "text": "Type"
+      },
+      "stepsOne": "1 step"
+    },
+    "binding": {
+      "addTitle": "Add remap",
+      "editTitle": "Edit remap",
+      "trigger": "Trigger",
+      "whenPressed": "When I press",
+      "triggerHint": "Modifiers you hold while recording become part of the trigger.",
+      "holding": "While holding",
+      "mouseTrigger": "Mouse button…",
+      "layer": "Layer",
+      "action": "Action",
+      "display": "Display",
+      "label": "Label",
+      "labelHint": "Shown on the key and in the cheat-sheet.",
+      "labelPlaceholder": "e.g. Undo",
+      "category": "Category",
+      "reviewNote": "Packs with macros, typed text or programs are reviewed before anyone else can enable them."
+    },
+    "legend": {
+      "addTitle": "Add shortcut",
+      "editTitle": "Edit shortcut",
+      "keys": "Keys",
+      "intro": "Shortcuts describe what the app already does — they only light keys and never change what they do.",
+      "labelPlaceholder": "e.g. Command palette"
+    },
+    "bindingsTab": {
+      "emptyTitle": "No remaps",
+      "emptyText": "This pack only lights the app's own shortcuts. Add a remap to change what a key does — a chord, a macro, a layer…",
+      "layerEmpty": "No bindings on this layer yet."
+    },
+    "legendsTab": {
+      "emptyTitle": "No shortcuts yet",
+      "emptyText": "Add the app's shortcuts so KeyHalo can light them by category."
+    },
+    "layersTab": {
+      "intro": "Layers change what keys do while a layer key is held or toggled.",
+      "namePlaceholder": "Layer name, e.g. Navigation",
+      "add": "Add layer",
+      "emptyTitle": "No layers",
+      "emptyText": "Create a layer, then bind a key to it (e.g. hold CapsLock = navigation layer, tap = Esc).",
+      "bindings": "Bindings",
+      "activatedBy": "Activated by",
+      "unreachable": "No key activates it",
+      "show": "Show on keyboard"
+    },
+    "conflictsTab": {
+      "clean": "Nothing overrides the app's shortcuts or Windows, and every key exists on {keyboard}.",
+      "checked": "Checked against {keyboard}"
+    },
+    "severity": {
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info"
+    },
+    "exportTab": {
+      "jsonHint": "The KeyHalo pack format — share it or publish it to the gallery.",
+      "kanataHint": "A Kanata .kbd config with the remaps and layers of this pack.",
+      "ahkHint": "An AutoHotkey v2 script. Review it before running it."
+    },
+    "import": {
+      "title": "Import keymap pack",
+      "reviewTitle": "Review import",
+      "file": "JSON file",
+      "paste": "Paste JSON",
+      "choose": "Choose file…",
+      "noFile": "No file selected",
+      "vscodeHint": "Choose or paste your VS Code keybindings file:",
+      "vscodeResult": "{imported} shortcuts imported, {removed} defaults removed, {skipped} skipped.",
+      "skip": {
+        "chord": "multi-stroke chord",
+        "unknownKey": "unknown key",
+        "invalid": "invalid"
+      },
+      "replaces": "A pack with the id “{id}” already exists — importing replaces it.",
+      "safe": "This pack only lights keys and remaps them — nothing runs programs or types text.",
+      "importDisabled": "Import (disabled)",
+      "importEnable": "Import and enable"
+    },
+    "risk": {
+      "enable": "Enable pack"
+    },
+    "details": {
+      "newTitle": "New keymap pack",
+      "editTitle": "Pack details",
+      "create": "Create pack",
+      "idHint": "Used as the file name. Letters, digits, - _ .",
+      "idTaken": "This id is already used.",
+      "apps": "Apps",
+      "appsHint": "Process names the pack activates for. Leave empty for all apps.",
+      "version": "Version",
+      "defaultName": "My pack",
+      "defaultCategory": "General"
+    }
+  }
+}

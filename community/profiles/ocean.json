@@ -1,0 +1,61 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "id": "ocean",
+  "name": "Ocean",
+  "description": "Deep blues and teals drifting like light under water.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "tags": [
+    "ambient",
+    "calm"
+  ],
+  "devices": [],
+  "lighting": {
+    "layers": [
+      {
+        "id": "base",
+        "effect": "aurora",
+        "params": {
+          "colors": [
+            "#001a33",
+            "#004e7a",
+            "#00a6c8",
+            "#00e5c0",
+            "#2b6cff"
+          ],
+          "speed": 0.4
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      },
+      {
+        "id": "glints",
+        "effect": "starlight",
+        "params": {
+          "colors": [
+            "#bff6ff"
+          ],
+          "density": 0.25,
+          "fade": 2.2,
+          "background": "#000000"
+        },
+        "blend": "screen",
+        "opacity": 0.7,
+        "enabled": true
+      },
+      {
+        "id": "caps",
+        "effect": "widget:caps",
+        "params": {
+          "color": "#ffffff"
+        },
+        "blend": "normal",
+        "opacity": 1,
+        "enabled": true
+      }
+    ],
+    "brightness": 0.8,
+    "fps": 30
+  }
+}

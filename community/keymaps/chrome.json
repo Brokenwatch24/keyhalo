@@ -1,0 +1,339 @@
+{
+  "$schema": "../schemas/keymap.schema.json",
+  "id": "chrome",
+  "name": "Google Chrome",
+  "description": "Default Google Chrome shortcuts on Windows for tabs, navigation, page tools and DevTools.",
+  "author": "KeyHalo",
+  "version": "1.0.0",
+  "apps": [
+    "chrome.exe"
+  ],
+  "categories": {
+    "Tabs": "#5aa9ff",
+    "Navigation": "#7ee0a1",
+    "Page": "#ffb454",
+    "Bookmarks": "#c792ea",
+    "Tools": "#4dd0e1",
+    "Danger": "#ff6b6b"
+  },
+  "legends": [
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyT"
+      ],
+      "label": "New tab",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyN"
+      ],
+      "label": "New window",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyN"
+      ],
+      "label": "New incognito window",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyW"
+      ],
+      "label": "Close tab",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyT"
+      ],
+      "label": "Reopen closed tab",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Tab"
+      ],
+      "label": "Next tab",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Tab"
+      ],
+      "label": "Previous tab",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Digit1"
+      ],
+      "label": "Go to first tab",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Digit9"
+      ],
+      "label": "Go to last tab",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyA"
+      ],
+      "label": "Search tabs",
+      "category": "Tabs"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowLeft"
+      ],
+      "label": "Back",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "ArrowRight"
+      ],
+      "label": "Forward",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "F5"
+      ],
+      "label": "Reload",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "F5"
+      ],
+      "label": "Hard reload",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "AltLeft",
+        "Home"
+      ],
+      "label": "Home page",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyL"
+      ],
+      "label": "Focus address bar",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyK"
+      ],
+      "label": "Search from address bar",
+      "category": "Navigation"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyF"
+      ],
+      "label": "Find in page",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyG"
+      ],
+      "label": "Find next",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyP"
+      ],
+      "label": "Print",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyS"
+      ],
+      "label": "Save page",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Equal"
+      ],
+      "label": "Zoom in",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Minus"
+      ],
+      "label": "Zoom out",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "Digit0"
+      ],
+      "label": "Reset zoom",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "F11"
+      ],
+      "label": "Full screen",
+      "category": "Page"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyD"
+      ],
+      "label": "Bookmark this page",
+      "category": "Bookmarks"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyB"
+      ],
+      "label": "Toggle bookmarks bar",
+      "category": "Bookmarks"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyO"
+      ],
+      "label": "Bookmark manager",
+      "category": "Bookmarks"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyH"
+      ],
+      "label": "History",
+      "category": "Bookmarks"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyJ"
+      ],
+      "label": "Downloads",
+      "category": "Bookmarks"
+    },
+    {
+      "keys": [
+        "F12"
+      ],
+      "label": "Developer tools",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyI"
+      ],
+      "label": "Developer tools",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyJ"
+      ],
+      "label": "DevTools console",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyC"
+      ],
+      "label": "Inspect element",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "KeyU"
+      ],
+      "label": "View page source",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ShiftLeft",
+        "Escape"
+      ],
+      "label": "Chrome Task Manager",
+      "category": "Tools"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "KeyW"
+      ],
+      "label": "Close window",
+      "category": "Danger"
+    },
+    {
+      "keys": [
+        "ControlLeft",
+        "ShiftLeft",
+        "Delete"
+      ],
+      "label": "Clear browsing data",
+      "category": "Danger"
+    }
+  ],
+  "bindings": [],
+  "tags": [
+    "browser",
+    "web",
+    "productivity"
+  ]
+}

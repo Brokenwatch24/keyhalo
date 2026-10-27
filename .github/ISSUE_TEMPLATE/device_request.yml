@@ -1,0 +1,57 @@
+name: Device support request
+description: Ask for a keyboard, mouse or other device to be supported.
+title: "[Device] "
+labels: ["device-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        KeyHalo describes devices with JSON definitions in [`community/devices`](https://github.com/Brokenwatch24/keyhalo/tree/main/community/devices).
+        Windows **Dynamic Lighting** (LampArray) devices already work generically. The fastest route for other devices is the
+        in-app **Device Wizard** (Devices → Add device), which can publish a definition for you.
+        The app pre-fills this form when you click "Request support" on an unrecognised device.
+  - type: input
+    id: model
+    attributes:
+      label: Device model
+      placeholder: "Razer BlackWidow V4 Pro"
+    validations:
+      required: true
+  - type: input
+    id: vid-pid
+    attributes:
+      label: USB VID:PID
+      description: "VID:PID, e.g. 1532:0257 (KeyHalo's Devices page, or Device Manager → Details → Hardware Ids)."
+      placeholder: "1532:0257"
+    validations:
+      required: true
+  - type: textarea
+    id: interfaces
+    attributes:
+      label: HID interfaces
+      description: The HID interfaces as listed by KeyHalo (interface number, usage page, usage).
+      render: text
+  - type: input
+    id: app-version
+    attributes:
+      label: KeyHalo version
+      placeholder: "1.0.0"
+  - type: textarea
+    id: what-works
+    attributes:
+      label: What works today / what you'd like supported
+      description: Lighting (per-key, zones), DPI, polling rate, battery, onboard memory…
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else, such as links to OpenRazer/OpenRGB support, photos of the layout or the firmware version.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and this device hasn't been requested yet.
+          required: true
+        - label: I understand KeyHalo never flashes firmware and only uses documented runtime commands.
+          required: true
