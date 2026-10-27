@@ -33,6 +33,8 @@ export async function initApp() {
   const forcedTheme = themeOverride();
   applyTheme(forcedTheme ?? useSettings.getState().settings.theme);
   useSettings.subscribe((s, prev) => s.settings.theme !== prev.settings.theme && applyTheme(s.settings.theme));
+  // Shell wiring (HUD, tray, close-to-tray, quit hand-back) first, so it works while features load.
+  await initShell().catch((e) => console.error("[init] shell failed", e));
 
   for (const [name, fn] of [
     ["devices", devices],
@@ -50,5 +52,4 @@ export async function initApp() {
       console.error(`[init] ${name} failed`, e);
     }
   }
-  await initShell().catch((e) => console.error("[init] shell failed", e));
 }
