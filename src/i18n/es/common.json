@@ -1,0 +1,9 @@
+{
+  "save": "Guardar", "cancel": "Cancelar", "apply": "Aplicar", "reset": "Restablecer", "delete": "Eliminar", "edit": "Editar", "add": "Añadir",
+  "close": "Cerrar", "import": "Importar", "export": "Exportar", "share": "Compartir", "install": "Instalar", "installed": "Instalado",
+  "enabled": "Activado", "disabled": "Desactivado", "on": "Encendido", "off": "Apagado", "search": "Buscar", "loading": "Cargando…",
+  "none": "Ninguno", "all": "Todos", "copy": "Copiar", "copied": "Copiado", "learnMore": "Más información", "back": "Atrás", "next": "Siguiente",
+  "done": "Listo", "retry": "Reintentar", "error": "Algo salió mal", "name": "Nombre", "description": "Descripción",
+  "author": "Autor", "tags": "Etiquetas", "color": "Color", "speed": "Velocidad", "brightness": "Brillo", "new": "Nuevo",
+  "duplicate": "Duplicar", "rename": "Renombrar", "open": "Abrir", "connected": "Conectado", "disconnected": "Desconectado"
+}

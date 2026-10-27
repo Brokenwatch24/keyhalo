@@ -1,0 +1,9 @@
+{
+  "save": "Save", "cancel": "Cancel", "apply": "Apply", "reset": "Reset", "delete": "Delete", "edit": "Edit", "add": "Add",
+  "close": "Close", "import": "Import", "export": "Export", "share": "Share", "install": "Install", "installed": "Installed",
+  "enabled": "Enabled", "disabled": "Disabled", "on": "On", "off": "Off", "search": "Search", "loading": "Loading…",
+  "none": "None", "all": "All", "copy": "Copy", "copied": "Copied", "learnMore": "Learn more", "back": "Back", "next": "Next",
+  "done": "Done", "retry": "Retry", "error": "Something went wrong", "name": "Name", "description": "Description",
+  "author": "Author", "tags": "Tags", "color": "Color", "speed": "Speed", "brightness": "Brightness", "new": "New",
+  "duplicate": "Duplicate", "rename": "Rename", "open": "Open", "connected": "Connected", "disconnected": "Disconnected"
+}

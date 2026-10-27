@@ -1,0 +1,16 @@
+{
+  "dashboard": "Dashboard",
+  "devices": "Devices",
+  "lighting": "Lighting",
+  "performance": "Performance",
+  "keymaps": "Keymaps",
+  "typing": "Typing",
+  "testbench": "Test bench",
+  "automations": "Automations",
+  "integrations": "Integrations",
+  "community": "Community",
+  "settings": "Settings",
+  "groups": { "overview": "Overview", "customize": "Customize", "practice": "Practice", "connect": "Connect", "system": "System" },
+  "demo": "Demo mode",
+  "demoHint": "Running in the browser with simulated devices. Install the desktop app to control real hardware."
+}

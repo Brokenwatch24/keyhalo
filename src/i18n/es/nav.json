@@ -1,0 +1,16 @@
+{
+  "dashboard": "Panel",
+  "devices": "Dispositivos",
+  "lighting": "Iluminación",
+  "performance": "Rendimiento",
+  "keymaps": "Atajos",
+  "typing": "Mecanografía",
+  "testbench": "Banco de pruebas",
+  "automations": "Automatizaciones",
+  "integrations": "Integraciones",
+  "community": "Comunidad",
+  "settings": "Ajustes",
+  "groups": { "overview": "General", "customize": "Personalizar", "practice": "Práctica", "connect": "Conectar", "system": "Sistema" },
+  "demo": "Modo demo",
+  "demoHint": "Ejecutándose en el navegador con dispositivos simulados. Instala la app de escritorio para controlar hardware real."
+}

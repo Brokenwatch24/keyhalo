@@ -1,0 +1,59 @@
+.kh-hud {
+  position: fixed;
+  left: 50%;
+  bottom: 48px;
+  transform: translate(-50%, 12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms var(--ease), transform 200ms var(--ease);
+  z-index: 300;
+}
+.kh-hud--overlay {
+  bottom: 24px;
+}
+.kh-hud.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.kh-hud__card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 10px;
+  min-width: 240px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgb(15 15 18 / 0.86);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  color: #fafafa;
+  box-shadow: 0 20px 50px -20px rgb(0 0 0 / 0.7);
+}
+.kh-hud__icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+}
+.kh-hud__title {
+  font-size: 12px;
+  color: rgb(255 255 255 / 0.6);
+}
+.kh-hud__value {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.kh-hud__bar {
+  grid-column: 1 / -1;
+  height: 4px;
+  border-radius: 4px;
+  background: rgb(255 255 255 / 0.12);
+  overflow: hidden;
+}
+.kh-hud__bar > div {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 200ms var(--ease);
+}

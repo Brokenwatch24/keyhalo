@@ -1,0 +1,132 @@
+/*
+ * KeyHalo design tokens — minimal "pro tool" look.
+ * The interface stays neutral: the only saturated colour on screen should come from
+ * the user's lighting, their data, or a status (success / warning / danger).
+ */
+:root {
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-md: 13px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-2xl: 28px;
+  --text-3xl: 40px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+
+  --sidebar-w: 224px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 140ms;
+
+  /* Light */
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --surface-3: #ececee;
+  --border: #e6e6e9;
+  --border-strong: #d4d4d8;
+  --text: #18181b;
+  --text-2: #52525b;
+  --text-3: #a1a1aa;
+  --primary: #18181b;
+  --primary-text: #fafafa;
+  --primary-hover: #27272a;
+  --focus: #6366f1;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #2563eb;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.12);
+  --shadow-lg: 0 24px 64px -24px rgb(0 0 0 / 0.35);
+  --overlay: rgb(9 9 11 / 0.4);
+
+  /* The physical device plate is always dark: lighting reads best on black keycaps. */
+  --plate: #111113;
+  --plate-edge: #1d1d21;
+  --keycap: #1c1c20;
+  --keycap-top: #232328;
+  --keycap-text: #d4d4d8;
+
+  --chart-1: #18181b;
+  --chart-2: #71717a;
+  --chart-grid: #ececee;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #09090b;
+    --surface: #111113;
+    --surface-2: #18181b;
+    --surface-3: #212125;
+    --border: #232327;
+    --border-strong: #2e2e33;
+    --text: #ededef;
+    --text-2: #a1a1aa;
+    --text-3: #62626b;
+    --primary: #ededef;
+    --primary-text: #09090b;
+    --primary-hover: #ffffff;
+    --focus: #818cf8;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #60a5fa;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow: 0 1px 3px rgb(0 0 0 / 0.5), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    --overlay: rgb(0 0 0 / 0.6);
+    --plate: #0c0c0e;
+    --plate-edge: #1a1a1e;
+    --chart-1: #ededef;
+    --chart-2: #71717a;
+    --chart-grid: #212125;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #09090b;
+  --surface: #111113;
+  --surface-2: #18181b;
+  --surface-3: #212125;
+  --border: #232327;
+  --border-strong: #2e2e33;
+  --text: #ededef;
+  --text-2: #a1a1aa;
+  --text-3: #62626b;
+  --primary: #ededef;
+  --primary-text: #09090b;
+  --primary-hover: #ffffff;
+  --focus: #818cf8;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #60a5fa;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.5), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  --overlay: rgb(0 0 0 / 0.6);
+  --plate: #0c0c0e;
+  --plate-edge: #1a1a1e;
+  --chart-1: #ededef;
+  --chart-2: #71717a;
+  --chart-grid: #212125;
+  color-scheme: dark;
+}
