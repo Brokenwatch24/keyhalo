@@ -88,10 +88,7 @@ fn on_menu(app: &AppHandle, event: MenuEvent) {
     let id = event.id().as_ref().to_string();
     match id.as_str() {
         "show" => show_main(app),
-        "quit" => {
-            crate::input::shutdown();
-            app.exit(0);
-        }
+        "quit" => request_exit(app),
         "pause" => {
             let paused = !crate::input::is_paused();
             crate::input::set_paused(paused);
@@ -162,6 +159,18 @@ pub fn setup_tray(app: &AppHandle) -> tauri::Result<()> {
     Ok(())
 }
 
+/// Quit gracefully: tell the frontend so it can hand devices back to their onboard lighting,
+/// give it a moment, then stop the input engine and exit.
+pub fn request_exit(app: &AppHandle) {
+    let _ = app.emit("app-quitting", ());
+    let app = app.clone();
+    std::thread::spawn(move || {
+        std::thread::sleep(std::time::Duration::from_millis(900));
+        crate::input::shutdown();
+        app.exit(0);
+    });
+}
+
 /// Main-window close: hide to tray when enabled, otherwise quit (the hidden HUD window would
 /// otherwise keep the process alive).
 pub fn on_window_event(window: &tauri::Window, event: &tauri::WindowEvent) {
@@ -173,8 +182,8 @@ pub fn on_window_event(window: &tauri::Window, event: &tauri::WindowEvent) {
             api.prevent_close();
             let _ = window.hide();
         } else {
-            crate::input::shutdown();
-            window.app_handle().exit(0);
+            api.prevent_close();
+            request_exit(window.app_handle());
         }
     }
 }

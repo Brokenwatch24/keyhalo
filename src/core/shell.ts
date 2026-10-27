@@ -3,6 +3,7 @@ import { bus } from "./util/bus";
 import { useSettings } from "./state/settings";
 import { useProfiles } from "./lighting/profiles";
 import { registerProfiles } from "./integrations/profiles";
+import { handBackToHardware } from "./devices/manager";
 
 /**
  * App-shell wiring that spans features: the on-screen HUD, the tray profile menu,
@@ -28,6 +29,8 @@ export async function initShell() {
   await backend.on("tray-action", ({ action, value }) => {
     if (action === "profile" && value) bus.emit("profile:apply", { id: value, reason: "tray" });
   });
+
+  await backend.on("app-quitting", () => void handBackToHardware());
 
   const syncTray = () => void backend.appSetCloseToTray(useSettings.getState().settings.minimizeToTray).catch(() => {});
   syncTray();

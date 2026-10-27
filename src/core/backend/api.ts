@@ -158,6 +158,8 @@ export interface BackendEvents {
   "tray-action": { action: string; value?: string };
   "deep-link": { url: string };
   "hid-changed": Record<string, never>;
+  /** The app is about to exit (~900 ms grace period). */
+  "app-quitting": null;
 }
 
 export type Unlisten = () => void;

@@ -1,6 +1,7 @@
 import type { Profile } from "@/core/types";
 import { bus } from "@/core/util/bus";
 import { useSettings } from "@/core/state/settings";
+import { useProfiles } from "@/core/lighting/profiles";
 
 /**
  * Lightweight profile directory (id → name) for Home Assistant's effect list and the API
@@ -50,7 +51,9 @@ export function profileName(id?: string | null): string | null {
 }
 
 export function activeProfile(): { id: string; name: string } | null {
-  const id = useSettings.getState().settings.activeProfileId;
+  // The lighting profiles store knows the profile that is really active (incl. app auto-switches
+  // and the default profile on first launch); settings only remember the user's last choice.
+  const id = useProfiles.getState().activeId ?? useSettings.getState().settings.activeProfileId;
   return id ? { id, name: profileName(id)! } : null;
 }
 

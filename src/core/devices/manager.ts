@@ -376,6 +376,26 @@ export async function restoreSnapshot(uid: string) {
   });
 }
 
+/**
+ * Hand every device back to its own onboard lighting (the effect captured in its snapshot),
+ * so nothing stays frozen on KeyHalo's last frame after the app quits.
+ */
+export async function handBackToHardware() {
+  await Promise.all(
+    [...entries.keys()].map(async (uid) => {
+      if (!entries.get(uid)?.handle.setEffect) return;
+      const snap = await loadJson<DeviceSnapshot>(snapshotFile(uid));
+      const effect: HardwareEffect = snap?.effect && snap.effect.type !== "custom" ? snap.effect : { type: "spectrum" };
+      try {
+        await setEffect(uid, effect, false);
+        if (snap?.brightness !== undefined) await setBrightness(uid, snap.brightness, false);
+      } catch (e) {
+        console.warn("[devices] could not hand back lighting", uid, e);
+      }
+    }),
+  );
+}
+
 export async function saveToOnboard(uid: string, effect: HardwareEffect) {
   await setEffect(uid, effect, true);
 }
