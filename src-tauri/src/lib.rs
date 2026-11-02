@@ -8,6 +8,7 @@ pub mod claude_hooks;
 pub mod codex_notify;
 pub mod hid;
 pub mod http;
+pub mod hub;
 pub mod input;
 pub mod lamparray;
 pub mod midi;
@@ -156,6 +157,7 @@ pub fn run() {
             claude_hooks::claude_hooks,
             codex_notify::codex_notify,
             agents_live::agents_live,
+            hub::hub_config,
             agents_live::agents_recent,
             agents_live::agents_end,
             agents_live::agents_title,

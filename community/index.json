@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-27T07:54:21.000Z",
+  "generated": "2026-11-02T23:34:39.507Z",
   "repo": "Brokenwatch24/keyhalo",
   "entries": [
     {
@@ -369,6 +369,23 @@
       ],
       "path": "community/keymaps/obs-studio.json",
       "updated": "2026-10-27T06:26:03.000Z"
+    },
+    {
+      "kind": "keymap",
+      "id": "obsidian",
+      "name": "Obsidian",
+      "description": "Default Obsidian hotkeys on Windows: navigation, tabs, search and editing. If you changed a hotkey in Obsidian, change it here too.",
+      "author": "KeyHalo",
+      "apps": [
+        "Obsidian.exe"
+      ],
+      "tags": [
+        "notes",
+        "writing",
+        "productivity"
+      ],
+      "path": "community/keymaps/obsidian.json",
+      "updated": "2026-11-02T23:34:39.507Z"
     },
     {
       "kind": "keymap",

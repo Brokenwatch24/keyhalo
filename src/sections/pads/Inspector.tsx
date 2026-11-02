@@ -1,4 +1,5 @@
 import { useEffect, useId, useState, type ReactNode } from "react";
+import { AppEditor } from "./AppEditor";
 import { TasksEditor } from "./TasksEditor";
 import { WindowsEditor } from "./WindowsEditor";
 import { AgentsEditor } from "./AgentsEditor";
@@ -113,6 +114,7 @@ export function Inspector({ selected, onSelect }: { selected: string; onSelect: 
     } else if (page.kind === "mixer") body = <MixerEditor page={page} column={b.x} onSelect={onSelect} />;
     else if (page.kind === "agents") body = <AgentsEditor selected={selected} />;
     else if (page.kind === "windows") body = <WindowsEditor selected={selected} />;
+    else if (page.kind === "app") body = <AppEditor />;
     else if (page.kind === "tasks") body = <TasksEditor key={`${page.id}/${selected}`} page={page} selected={selected} />;
     else body = <PadEditor key={`${page.id}/${selected}`} page={page} id={selected} />;
   }
@@ -246,7 +248,7 @@ function ColorField({ value, onChange }: { value: string; onChange: (hex: string
 
 type ActionType = PadAction["type"];
 
-const ACTION_TYPES: ActionType[] = ["app", "url", "terminal", "claude", "focus", "keys", "appKeys", "text", "media", "mic", "volume", "notificationsSeen", "map", "page", "profile"];
+const ACTION_TYPES: ActionType[] = ["app", "url", "terminal", "claude", "broken", "focus", "keys", "appKeys", "text", "media", "mic", "volume", "notificationsSeen", "map", "page", "profile"];
 
 function defaultAction(type: ActionType): PadAction {
   switch (type) {
@@ -273,6 +275,7 @@ function defaultAction(type: ActionType): PadAction {
     case "profile":
       return { type, profileId: useProfiles.getState().profiles[0]?.id ?? "" };
     case "claude":
+    case "broken":
     case "mic":
     case "notificationsSeen":
     case "map":
@@ -570,6 +573,7 @@ function PageEditor({ page, index }: { page: PadPage; index: number }) {
               { value: "agents", label: t("pads.page.kinds.agents") },
               { value: "windows", label: t("pads.page.kinds.windows") },
               { value: "tasks", label: t("pads.page.kinds.tasks") },
+              { value: "app", label: t("pads.page.kinds.app") },
             ]}
           />
         </Group>

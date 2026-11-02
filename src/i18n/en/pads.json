@@ -74,7 +74,8 @@
       "notificationsSeen": "Mark notifications as seen",
       "map": "Show / hide pad map",
       "page": "Go to page",
-      "profile": "Lighting profile"
+      "profile": "Lighting profile",
+      "broken": "Talk to Broken"
     },
     "path": "Program",
     "pathHint": "An .exe path, or shell:AppsFolder\\<AppID>",
@@ -147,14 +148,16 @@
       "mixer": "Mixer",
       "agents": "Agents",
       "windows": "Windows",
-      "tasks": "Tasks"
+      "tasks": "Tasks",
+      "app": "App"
     },
     "kindHint": {
       "grid": "Every pad runs its own action.",
       "mixer": "Each column is one app's volume. The top buttons mute it.",
       "agents": "Each pad is a live Claude Code or Codex session. Tap an empty pad for Claude, double-tap it for Codex.",
       "windows": "Each pad is an open window in its app's colour (Chrome red, Terminal green, Cursor amber, Explorer yellow); the one in front is brightest and a window with tabs breathes. Tap: front / minimise, hold: its tabs.",
-      "tasks": "A checklist: each pad is a task. Tap marks it done, hold edits it, an empty pad asks for a new one. The list shows on screen while you are on this page."
+      "tasks": "A checklist: each pad is a task. Tap marks it done, hold edits it, an empty pad asks for a new one. The list shows on screen while you are on this page.",
+      "app": "The shortcuts of the app you are working in (Obsidian, DaVinci Resolve, Photoshop…), from your shortcut packs. Each pad is one shortcut in its category's colour; the top buttons show one category at a time."
     },
     "apps": "Switch here automatically",
     "appsHint": "While one of these apps is in front. Process names, * matches anything.",
@@ -295,5 +298,39 @@
     "delete": "Delete",
     "addHere": "Add",
     "hint": "On the Launchpad: tap to mark it done (or to do again), hold to edit it."
+  },
+  "hub": {
+    "missing": "BrokenWatchHub isn't installed on this PC",
+    "keyOff": "Broken's key is off in the Puente (Panel › Ajustes)",
+    "placeholder": "e.g. call Andrés tomorrow at 3",
+    "captureHint": "Enter ✓  ·  Esc ✕  ·  HILO reads the date from the text",
+    "mapHint": "Tap: done (tap again to undo)  ·  Hold: details  ·  Empty pad: new  ·  Broken: dictate",
+    "mapEmpty": "No to-dos in HILO. Tap a pad to write one, or hold Broken and dictate it",
+    "error": "Couldn't read your to-dos: {error}",
+    "undone": "Undone",
+    "undoHint": "Tap again to undo",
+    "failed": "BrokenWatchHub didn't take it",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing…",
+    "source": "Tasks from",
+    "sourceHub": "HILO (BrokenWatchHub)",
+    "sourceLocal": "Only this page",
+    "sourceHint": "HILO: the same to-dos as on your glasses and with Broken. Only this page: a list kept in KeyHalo.",
+    "status": "Status",
+    "connected": "Connected · {n} to-dos",
+    "notInstalled": "BrokenWatchHub isn't installed (or its Puente has no token yet).",
+    "markDone": "Done",
+    "capture": "Add to HILO"
+  },
+  "app": {
+    "title": "App",
+    "waiting": "Switch to an app to see its shortcuts",
+    "none": "No shortcut pack for {app} yet (Keymaps › add one)",
+    "hint": "Tap a pad: press that shortcut in the app  ·  Top buttons: one category",
+    "current": "App in front",
+    "pack": "Shortcut pack",
+    "count": "{n} shortcuts on the pads",
+    "noneHint": "Make one in Keymaps (or get one from Community): every pack with the app's .exe shows up here.",
+    "openKeymaps": "Open Keymaps"
   }
 }

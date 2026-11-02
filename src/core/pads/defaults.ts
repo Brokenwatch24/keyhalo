@@ -30,6 +30,7 @@ function homePage(): PadPage {
     [grid(3, 0)]: pad("Cursor", PAD_COLORS.app, { type: "focus", process: "Cursor.exe", fallback: store("com.todesktop.230313mzl4w4u92") }, { state: { type: "running", process: "Cursor.exe" } }),
     [grid(4, 0)]: pad("Terminal", PAD_COLORS.app, app("wt.exe")),
     [grid(5, 0)]: pad("Chrome", PAD_COLORS.app, { type: "focus", process: "chrome.exe", fallback: store("Chrome") }, { state: { type: "running", process: "chrome.exe" } }),
+    [grid(6, 0)]: brokenPad(),
     [grid(7, 0)]: pad("KeyHalo", PAD_COLORS.app, { type: "focus", process: "keyhalo.exe" }),
     // Row 1 — web
     [grid(0, 1)]: pad("Gmail", PAD_COLORS.web, url("https://mail.google.com")),
@@ -71,6 +72,16 @@ function mixerPage(): PadPage {
   return { id: "mixer", name: "Mixer", color: "#3ccf4e", kind: "mixer", pads: {}, mixer: ["master", "Spotify.exe", "Discord.exe", "chrome.exe", "", "", "", ""] };
 }
 
+/** The shortcuts of the app in front (Obsidian, DaVinci Resolve, Photoshop…). */
+export function appPage(): PadPage {
+  return { id: "app", name: "App", color: "#ff3b30", kind: "app", pads: {} };
+}
+
+/** Talk to Broken (BrokenWatchHub): hold, speak, let go. */
+export function brokenPad(): PadDef {
+  return pad("Broken", "#a8e04d", { type: "broken" });
+}
+
 export function tasksPage(): PadPage {
   return { id: "tasks", name: "Tasks", color: "#3ccf4e", kind: "tasks", pads: {}, tasks: [] };
 }
@@ -87,5 +98,5 @@ export function agentsPage(): PadPage {
 export const DEFAULT_RELEASE_FOR = ["Ableton Live*", "FL64.exe", "FL.exe", "Bitwig Studio.exe", "reaper.exe", "Studio One.exe", "Cubase*.exe", "Reason.exe", "Maschine 2.exe"];
 
 export function defaultBoard(): PadBoard {
-  return { version: 3, pages: [homePage(), mixerPage(), agentsPage(), windowsPage(), tasksPage()], port: "", releaseFor: DEFAULT_RELEASE_FOR, mapHotkey: "", hud: true, agentFolder: "" };
+  return { version: 5, pages: [homePage(), mixerPage(), agentsPage(), windowsPage(), tasksPage(), appPage()], port: "", releaseFor: DEFAULT_RELEASE_FOR, mapHotkey: "", hud: true, agentFolder: "" };
 }

@@ -29,6 +29,7 @@ No driver is needed: the Launchpad S is class-compliant.
 
 | Action | Example |
 |---|---|
+| Talk to Broken | BrokenWatchHub's assistant: holds Broken's key (Ctrl+Alt+Space by default, read from the Puente) while you hold the pad |
 | Open an app | an `.exe`, or a Start-menu app as `shell:AppsFolder\<AppID>` (Claude, Cursor, Discord…) |
 | Open a website | `https://mail.google.com` |
 | Terminal command | `claude`, `codex`, `npm run dev` in a folder (opens Windows Terminal) |
@@ -97,12 +98,30 @@ Each pad is one coding-agent session: **orange = Claude Code**, **green = Codex*
 
 ## Tasks page
 
-A checklist on the pads: amber = to do, dim green = done. While you are on this page the list shows
-on screen (each row marks where its pad is).
+A checklist on the pads. While you are on this page the list shows on screen (each row marks where
+its pad is). Top button 8 is **Broken** (see below): hold it and dictate a to-do.
+
+**With BrokenWatchHub** (detected on its own, or pick it in the page's settings), the page shows
+your HILO to-dos, the same list as on your glasses: red = overdue, amber = has a date, lime = the
+rest. Tap one to mark it done (it blinks green for 4 s: tap again to undo), hold it to read it in
+full (who asked, when), tap an empty pad to write a new one (HILO reads the date from the text:
+"llamar a Andrés mañana a las 3"). ▲ writes one, ▼ refreshes. The list refreshes every 15 s.
+
+**Without it** (or set to *Only this page*), the page keeps its own list: amber = to do, dim
+green = done.
 
 - **Tap an empty pad** to write a task: a small box opens (Enter saves, Esc cancels).
 - **Tap a task** to mark it done (or to do again); **hold** it to edit it (an empty text deletes it).
 - ▲ writes a new task in the next free pad, ▼ clears the done ones.
+
+## App page
+
+The shortcuts of the app you are working in, from KeyHalo's shortcut packs (Keymaps): DaVinci
+Resolve, Premiere, Photoshop, Blender, Figma, OBS, VS Code, Obsidian, Chrome, Excel, Discord…
+Each pad is one shortcut in its category's colour; tap it and KeyHalo presses that shortcut in the
+app. The top buttons are the pack's categories: tap one to see only those, again to see all. The
+page follows the app in front (KeyHalo's own window doesn't count). An app without a pack shows
+nothing: make one in Keymaps or get one from the community.
 
 ## Windows page
 

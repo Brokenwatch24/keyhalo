@@ -74,7 +74,8 @@
       "notificationsSeen": "Marcar notificaciones como vistas",
       "map": "Mostrar / ocultar mapa de pads",
       "page": "Ir a página",
-      "profile": "Perfil de iluminación"
+      "profile": "Perfil de iluminación",
+      "broken": "Hablar con Broken"
     },
     "path": "Programa",
     "pathHint": "Ruta de un .exe, o shell:AppsFolder\\<AppID>",
@@ -147,14 +148,16 @@
       "mixer": "Mezclador",
       "agents": "Agentes",
       "windows": "Ventanas",
-      "tasks": "Tareas"
+      "tasks": "Tareas",
+      "app": "App"
     },
     "kindHint": {
       "grid": "Cada pad ejecuta su propia acción.",
       "mixer": "Cada columna es el volumen de una app. Los botones de arriba la silencian.",
       "agents": "Cada pad es una sesión viva de Claude Code o Codex. Toca un pad vacío para Claude y dale doble toque para Codex.",
       "windows": "Cada pad es una ventana abierta con el color de su app (Chrome rojo, Terminal verde, Cursor ámbar, Explorador amarillo); la del frente brilla más y la que tiene pestañas respira. Toque: al frente / minimizar; mantener: sus pestañas.",
-      "tasks": "Un checklist: cada pad es una tarea. Un toque la marca como hecha, mantenerlo la edita y un pad vacío te pide una nueva. La lista sale en pantalla mientras estás en esta página."
+      "tasks": "Un checklist: cada pad es una tarea. Un toque la marca como hecha, mantenerlo la edita y un pad vacío te pide una nueva. La lista sale en pantalla mientras estás en esta página.",
+      "app": "Los atajos de la app en la que trabajas (Obsidian, DaVinci Resolve, Photoshop…), de tus paquetes de atajos. Cada pad es un atajo con el color de su categoría; los botones de arriba muestran una categoría a la vez."
     },
     "apps": "Cambiar aquí automáticamente",
     "appsHint": "Mientras una de estas apps esté al frente. Nombres de proceso; * coincide con cualquier cosa.",
@@ -295,5 +298,39 @@
     "delete": "Borrar",
     "addHere": "Añadir",
     "hint": "En el Launchpad: tócalo para marcarla hecha (o pendiente otra vez) y mantenlo para editarla."
+  },
+  "hub": {
+    "missing": "BrokenWatchHub no está instalado en este PC",
+    "keyOff": "La tecla de Broken está apagada en el Puente (Panel › Ajustes)",
+    "placeholder": "p. ej. llamar a Andrés mañana a las 3",
+    "captureHint": "Enter ✓  ·  Esc ✕  ·  HILO lee la fecha del texto",
+    "mapHint": "Toca: hecha (otro toque deshace)  ·  Mantén: detalles  ·  Pad vacío: nueva  ·  Broken: dictar",
+    "mapEmpty": "No hay pendientes en HILO. Toca un pad para escribir uno, o mantén Broken y díctalo",
+    "error": "No pude leer tus pendientes: {error}",
+    "undone": "Deshecho",
+    "undoHint": "Toca otra vez para deshacer",
+    "failed": "BrokenWatchHub no lo recibió",
+    "refresh": "Actualizar",
+    "refreshing": "Actualizando…",
+    "source": "Tareas de",
+    "sourceHub": "HILO (BrokenWatchHub)",
+    "sourceLocal": "Solo esta página",
+    "sourceHint": "HILO: los mismos pendientes de tus gafas y de Broken. Solo esta página: una lista guardada en KeyHalo.",
+    "status": "Estado",
+    "connected": "Conectado · {n} pendientes",
+    "notInstalled": "BrokenWatchHub no está instalado (o su Puente aún no tiene token).",
+    "markDone": "Hecha",
+    "capture": "Añadir a HILO"
+  },
+  "app": {
+    "title": "App",
+    "waiting": "Cambia a una app para ver sus atajos",
+    "none": "Aún no hay atajos para {app} (Atajos › añade uno)",
+    "hint": "Toca un pad: ese atajo en la app  ·  Botones de arriba: una categoría",
+    "current": "App al frente",
+    "pack": "Paquete de atajos",
+    "count": "{n} atajos en los pads",
+    "noneHint": "Crea uno en Atajos (o bájalo de Comunidad): cualquier paquete con el .exe de la app sale aquí.",
+    "openKeymaps": "Abrir Atajos"
   }
 }

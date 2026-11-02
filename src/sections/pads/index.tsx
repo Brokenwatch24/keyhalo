@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { appMap } from "@/core/pads/appPage";
+import { isHubPage, useHubTasks } from "@/core/pads/hubTasks";
 import { attention } from "@/core/util/attention";
 import { toolName, useOpenWindows, windowLabel, WINDOW_TOOLS } from "@/core/pads/windows";
 import { agentName, folderName, useAgents } from "@/core/agents";
@@ -194,9 +196,17 @@ function boardLabels(page: PadPage | undefined, pages: PadPage[], audio: { proce
     out[top(2)] = t("pads.agents.resume");
     out[top(7)] = t("pads.agents.close");
     for (const s of useAgents.getState().sessions) out[grid(s.slot % 8, Math.floor(s.slot / 8))] = s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`;
+  } else if (page?.kind === "app") {
+    for (const [id, b] of Object.entries(appMap().buttons)) if (b.label) out[id] = b.label;
+  } else if (page?.kind === "tasks" && isHubPage(page)) {
+    out[top(0)] = t("pads.tasks.add");
+    out[top(1)] = t("pads.hub.refresh");
+    out[top(7)] = "Broken";
+    for (const task of useHubTasks.getState().items) out[grid(task.slot % 8, Math.floor(task.slot / 8))] = task.title;
   } else if (page?.kind === "tasks") {
     out[top(0)] = t("pads.tasks.add");
     out[top(1)] = t("pads.tasks.clearDone");
+    out[top(7)] = "Broken";
     for (const task of page.tasks ?? []) out[grid(task.slot % 8, Math.floor(task.slot / 8))] = (task.done ? "✓ " : "") + task.text;
   } else if (page?.kind === "windows") {
     WINDOW_TOOLS.forEach((tool, i) => (out[top(i)] = toolName(tool.key)));

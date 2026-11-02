@@ -1,4 +1,7 @@
 import { backend, isTauri } from "@/core/backend";
+import { appForeground, appInput, appLeds, appMap, useAppPage } from "./appPage";
+import { hubInput, hubLeds, hubMap, isHubPage, refreshHubTasks, useHubTasks } from "./hubTasks";
+import { brokenPad, hubConfig } from "@/core/integrations/hub";
 import { registerHotkey } from "@/core/integrations/hotkeys";
 import { clearNotifications, useNotifications } from "@/core/integrations/notifications";
 import { useSignals } from "@/core/lighting/signals";
@@ -306,8 +309,11 @@ export function computeLeds(t = performance.now()): Map<PadButtonId, Led> {
 
   if (page.kind === "agents") {
     for (const [id, led] of agentLeds(t)) out.set(id, led);
+  } else if (page.kind === "app") {
+    for (const [id, led] of appLeds(DIM)) out.set(id, led);
   } else if (page.kind === "tasks") {
-    for (const [id, led] of taskLeds(page, DIM)) out.set(id, led);
+    for (const [id, led] of isHubPage(page) ? hubLeds(DIM, t) : taskLeds(page, DIM)) out.set(id, led);
+    out.set(BROKEN_TOP, { hex: "#a8e04d", b: st.pressed[BROKEN_TOP] ? 1 : DIM });
   } else if (page.kind === "windows" && useOpenWindows.getState().tabs) {
     for (const [id, led] of tabsLeds(DIM) ?? []) out.set(id, led);
   } else if (page.kind === "windows") {
@@ -363,6 +369,7 @@ export function mapPayload(): PadMapPayload {
   const page = activePage(st);
   let buttons: PadMapPayload["buttons"] = {};
   let extra: Partial<PadMapPayload> = {};
+  let pageTitle: string | undefined;
   if (page?.kind === "agents") {
     buttons[AGENT_NEW.claude] = { label: "+ Claude", color: AGENT_COLORS.claude };
     buttons[AGENT_NEW.codex] = { label: "+ Codex", color: AGENT_COLORS.codex };
@@ -371,8 +378,14 @@ export function mapPayload(): PadMapPayload {
     for (const s of useAgents.getState().sessions) buttons[slotButton(s.slot)] = { label: s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`, color: AGENT_COLORS[s.kind] };
     const picking = resumeMap(buttons);
     if (picking) ({ buttons, ...extra } = picking);
+  } else if (page?.kind === "app") {
+    const m = appMap();
+    buttons = m.buttons;
+    extra = { hint: m.hint };
+    pageTitle = m.page;
   } else if (page?.kind === "tasks") {
-    ({ buttons, ...extra } = taskMap(page));
+    ({ buttons, ...extra } = isHubPage(page) ? hubMap() : taskMap(page));
+    buttons[BROKEN_TOP] = { label: "Broken", color: "#a8e04d" };
   } else if (page?.kind === "windows" && useOpenWindows.getState().tabs) {
     ({ buttons, ...extra } = tabsMap()!);
   } else if (page?.kind === "windows") {
@@ -397,7 +410,7 @@ export function mapPayload(): PadMapPayload {
   }
   st.board.pages.slice(0, 7).forEach((p, i) => (buttons[right(i)] = { label: p.name, color: p.color }));
   buttons[MAP_BUTTON] = { label: "Map", color: "#ffe14d" };
-  return { page: page?.name ?? "", pages: st.board.pages.map((p) => ({ name: p.name, color: p.color, active: p.id === page?.id })), buttons, ...extra };
+  return { page: pageTitle ?? page?.name ?? "", pages: st.board.pages.map((p) => ({ name: p.name, color: p.color, active: p.id === page?.id })), buttons, ...extra };
 }
 
 function syncMap() {
@@ -464,8 +477,15 @@ export function padInput(id: PadButtonId, down: boolean) {
     return;
   }
 
+  if (page.kind === "app") {
+    appInput(id, down);
+    return;
+  }
+
   if (page.kind === "tasks") {
-    taskInput(page, id, down);
+    if (id === BROKEN_TOP) brokenPad(down);
+    else if (isHubPage(page)) hubInput(id, down);
+    else taskInput(page, id, down);
     return;
   }
 
@@ -483,6 +503,12 @@ export function padInput(id: PadButtonId, down: boolean) {
 
   const def = page.pads[id];
   if (!def) return;
+  // Broken: hold to talk, like its key (the pad holds the key).
+  if (def.action?.type === "broken" && !def.hold) {
+    if (down) hud(def.label || "Broken");
+    brokenPad(down);
+    return;
+  }
   if (down) {
     if (def.hold) {
       holdFired.delete(id);
@@ -557,6 +583,9 @@ async function connectTick() {
 
 let started = false;
 
+/** Top button 8 on a Tasks page: talk to Broken (dictate a to-do, ask anything). */
+const BROKEN_TOP = top(7);
+
 export async function startPads() {
   if (started) return;
   started = true;
@@ -575,7 +604,9 @@ export async function startPads() {
   await backend.on("app-quitting", () => void disconnect());
 
   // App-specific pages.
+  void backend.foregroundApp().then((fg) => fg && appForeground(fg.process, fg.hwnd ?? 0), () => {});
   await backend.on("foreground-changed", (fg) => {
+    appForeground(fg.process, fg.hwnd ?? 0);
     const st = usePads.getState();
     const match = st.board.pages.find((p) => p.apps?.some((a) => globMatch(a, fg.process)));
     if (match) {
@@ -597,6 +628,8 @@ export async function startPads() {
     if (port && needAudio && tick % 5 === 0)
       void backend.audioApps().then((audio) => JSON.stringify(audio) !== JSON.stringify(usePads.getState().audio) && usePads.setState({ audio }), () => {});
     if (page?.kind === "windows" && tick % 10 === 0) void refreshWindows();
+    // HILO's to-dos change rarely (and on the glasses): every 15 s while you are on the page.
+    if (isHubPage(page) && tick % 150 === 0) void refreshHubTasks();
     if (port && needMedia && tick % 10 === 0) void backend.mediaState().then((media) => usePads.setState({ media }), () => {});
     void flush();
   }, TICK_MS);
@@ -612,6 +645,11 @@ export async function startPads() {
   useAgents.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "agents" && syncMap());
   useOpenWindows.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "windows" && syncMap());
   useResume.subscribe(() => usePads.getState().mapVisible && syncMap());
+  useHubTasks.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "tasks" && syncMap());
+  useAppPage.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "app" && syncMap());
+  void hubConfig().then(() => {
+    if (isHubPage(activePage())) void refreshHubTasks();
+  });
 
   // The Tasks page shows its checklist on screen while you are on it; leaving a page ends a resume pick.
   let autoMap = false;
@@ -623,6 +661,7 @@ export async function startPads() {
     endResume();
     closeTabs();
     const kind = activePage(s)?.kind;
+    if (kind === "tasks") void refreshHubTasks();
     if (kind === "tasks" && !s.mapVisible) {
       usePads.setState({ mapVisible: true });
       autoMap = true; // after: that change resets it

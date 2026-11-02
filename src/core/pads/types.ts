@@ -27,6 +27,8 @@ export type PadAction =
   | { type: "volume"; process: string; step?: number; mute?: boolean }
   /** Mark waiting notifications as seen (one rule, or all). */
   | { type: "notificationsSeen"; ruleId?: string }
+  /** Talk to Broken (BrokenWatchHub): holds its key while the pad is held. */
+  | { type: "broken" }
   /** Show / hide the on-screen pad map. */
   | { type: "map" }
   | { type: "page"; page: string }
@@ -62,8 +64,9 @@ export interface PadPage {
    * or Codex (double tap) in the folder you are browsing.
    * "windows": each pad is an open window (tap: front / minimise, hold: close); top buttons arrange.
    * "tasks": a checklist, one task per pad (tap: done / not done, hold: edit, empty pad: new task).
+   * "app": the shortcuts of the app in front, from KeyHalo's shortcut packs.
    */
-  kind: "grid" | "mixer" | "agents" | "windows" | "tasks";
+  kind: "grid" | "mixer" | "agents" | "windows" | "tasks" | "app";
   /** Switch to this page automatically while one of these processes is in front. */
   apps?: string[];
   pads: Record<PadButtonId, PadDef>;
@@ -71,6 +74,8 @@ export interface PadPage {
   mixer?: string[];
   /** Tasks page: the checklist. */
   tasks?: PadTask[];
+  /** Tasks page: "hub" = your BrokenWatchHub / HILO to-dos, "local" = this page's own list (default: hub when installed). */
+  source?: "hub" | "local";
 }
 
 export interface PadTask {
@@ -82,7 +87,7 @@ export interface PadTask {
 }
 
 export interface PadBoard {
-  /** 2: Windows page, 3: Tasks page (each added once to older boards). */
+  /** 2: Windows page, 3: Tasks page, 4: Broken pad, 5: App page (each added once to older boards). */
   version: number;
   /** Up to 7 pages (right round buttons 1–7); the 8th shows the pad map. */
   pages: PadPage[];

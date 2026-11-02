@@ -96,6 +96,9 @@ export class TauriBackend implements Backend {
   tile(hwnds: number[]) {
     return invoke<number>("system_tile", { hwnds });
   }
+  hubConfig() {
+    return invoke<Awaited<ReturnType<Backend["hubConfig"]>>>("hub_config");
+  }
   agentsEnd(pid: number) {
     return invoke<boolean>("agents_end", { pid });
   }

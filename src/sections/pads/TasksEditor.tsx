@@ -1,12 +1,108 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Trash2 } from "lucide-react";
-import { Button, Input } from "@/ui";
+import { Badge, Button, Input, Segmented } from "@/ui";
 import { useT } from "@/i18n";
-import { addTask, GRID, parseButton, setTasks, TASK_CLEAR, TASK_NEW, type PadPage } from "@/core/pads";
-import { Head } from "./Inspector";
+import { addTask, GRID, parseButton, setTasks, TASK_CLEAR, TASK_NEW, usePads, type PadPage } from "@/core/pads";
+import { hub, useHub } from "@/core/integrations/hub";
+import { hubColor, isHubPage, refreshHubTasks, toggleHubTask, useHubTasks } from "@/core/pads/hubTasks";
+import { Group, Head } from "./Inspector";
 
-/** Inspector for a Tasks page: edit the selected pad's task, or write one on an empty pad. */
+/** Inspector for a Tasks page: where its tasks come from, then the selected pad. */
 export function TasksEditor({ page, selected }: { page: PadPage; selected: string }) {
+  const t = useT();
+  const installed = useHub((s) => s.installed);
+  const updatePage = usePads((s) => s.updatePage);
+  const hubMode = isHubPage(page);
+  return (
+    <>
+      {hubMode ? <HubTaskEditor selected={selected} /> : <LocalTaskEditor page={page} selected={selected} />}
+      <div className="pads-insp__section">
+        <Group label={t("pads.hub.source")} hint={t("pads.hub.sourceHint")}>
+          <Segmented
+            value={hubMode ? "hub" : "local"}
+            onChange={(source) => updatePage(page.id, { source: source as "hub" | "local" })}
+            options={[
+              { value: "hub", label: t("pads.hub.sourceHub") },
+              { value: "local", label: t("pads.hub.sourceLocal") },
+            ]}
+          />
+        </Group>
+        {hubMode && installed === false && <p className="pads-note">{t("pads.hub.notInstalled")}</p>}
+      </div>
+    </>
+  );
+}
+
+/** HILO's to-dos (BrokenWatchHub): the selected one, or add one. */
+function HubTaskEditor({ selected }: { selected: string }) {
+  const t = useT();
+  const b = parseButton(selected);
+  const slot = b && b.kind === "g" ? b.y * GRID + b.x : -1;
+  const { items, status, error, closing } = useHubTasks();
+  const task = items.find((x) => x.slot === slot);
+  const [text, setText] = useState("");
+  useEffect(() => {
+    void refreshHubTasks();
+  }, []);
+  const state =
+    status === "error" ? <p className="pads-note">{t("pads.hub.error", { error: error ?? "" })}</p> : status === "ok" ? <p className="pads-note">{t("pads.hub.connected", { n: items.length })}</p> : null;
+  if (task)
+    return (
+      <>
+        <Head kicker={[task.kind, task.who].filter(Boolean).join(" · ")} title={task.title}>
+          {task.due && (
+            <Badge tone={task.overdue ? "danger" : "warning"} dot>
+              {task.due}
+            </Badge>
+          )}
+        </Head>
+        <div className="pads-insp__section">
+          {task.full !== task.title && <p className="pads-agent-msg">{task.full}</p>}
+          <div className="row" style={{ gap: 8, alignItems: "center" }}>
+            <span className="pads-agent-dot" style={{ ["--c" as string]: hubColor(task) }} />
+            <Button size="sm" variant={closing[task.id] ? "ghost" : "primary"} icon={<Check />} onClick={() => toggleHubTask(task)}>
+              {closing[task.id] ? t("pads.hub.undone") : t("pads.hub.markDone")}
+            </Button>
+          </div>
+          <p className="pads-note">{t("pads.hub.mapHint")}</p>
+          {state}
+        </div>
+      </>
+    );
+  return (
+    <>
+      <Head kicker={t("pads.hub.sourceHub")} title={t("pads.hub.capture")} />
+      <div className="pads-insp__section">
+        <form
+          className="row"
+          style={{ gap: 8 }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const v = text.trim();
+            if (!v) return;
+            void hub
+              .capture(v)
+              .then(() => {
+                setText("");
+                return refreshHubTasks();
+              })
+              .catch(() => {});
+          }}
+        >
+          <Input className="grow" value={text} placeholder={t("pads.hub.placeholder")} onChange={(e) => setText(e.target.value)} />
+          <Button size="sm" type="submit" disabled={!text.trim()}>
+            {t("pads.tasks.addHere")}
+          </Button>
+        </form>
+        <p className="pads-note">{t("pads.hub.mapHint")}</p>
+        {state}
+      </div>
+    </>
+  );
+}
+
+/** This page's own checklist: edit the selected pad's task, or write one on an empty pad. */
+function LocalTaskEditor({ page, selected }: { page: PadPage; selected: string }) {
   const t = useT();
   const b = parseButton(selected);
   const slot = b && b.kind === "g" ? b.y * GRID + b.x : -1;

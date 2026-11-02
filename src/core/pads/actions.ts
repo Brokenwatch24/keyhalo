@@ -1,4 +1,5 @@
 import { backend, type WindowInfo } from "@/core/backend";
+import { brokenPad } from "@/core/integrations/hub";
 import type { MacroStep } from "@/core/types";
 import { toggleMic } from "@/core/integrations/mic";
 import { clearNotifications } from "@/core/integrations/notifications";
@@ -83,6 +84,11 @@ export async function runPadAction(action: PadAction): Promise<void> {
     case "notificationsSeen":
       clearNotifications(action.ruleId);
       return;
+    case "broken":
+      // Run as a tap (e.g. from a hold action): Broken keeps the mic open until the next tap.
+      brokenPad(true);
+      setTimeout(() => brokenPad(false), 120);
+      return;
     case "map":
       usePads.setState((s) => ({ mapVisible: !s.mapVisible }));
       return;
@@ -122,6 +128,8 @@ export function describePadAction(a: PadAction | undefined): string {
       return a.mute ? "Mute" : `Vol ${a.step && a.step > 0 ? "+" : "−"}`;
     case "notificationsSeen":
       return "Seen";
+    case "broken":
+      return "Broken";
     case "map":
       return "Map";
     case "page":

@@ -26,6 +26,11 @@ All notable changes to KeyHalo are documented here. The format follows
 - **Resume** on the Agents page: pick one of your recent Claude Code sessions on the pads, then the
   pad to open it on; it reopens in its own folder with `claude --resume`. Hold the Agents page's close
   button and tap sessions to close them.
+- **BrokenWatchHub**: the Tasks page shows your HILO to-dos (the same as on your glasses): tap to
+  tick (4 s to undo), hold for details, an empty pad writes a new one. A **Broken** pad (Home, and
+  the Tasks page's top button 8) talks to Broken: hold, speak, let go, like its key.
+- **App page**: the shortcuts of the app in front (Obsidian, DaVinci Resolve, Photoshop…) on the
+  pads, from the shortcut packs, in their category colours. New Obsidian pack.
 - **Windows page**: every open window is a pad. Tap to bring it forward (again to minimise), hold
   to close it; the top buttons arrange windows in a grid, snap left / right, maximise, minimise,
   show the desktop and open Task view. Hold a window's pad to see its tabs (Chrome, Edge, Terminal)
