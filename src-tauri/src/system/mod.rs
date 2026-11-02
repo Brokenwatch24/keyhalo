@@ -119,6 +119,18 @@ pub async fn system_focus_hwnd(hwnd: isize) -> CmdResult<bool> {
     blocking(move || Ok(foreground::focus_hwnd(hwnd))).await
 }
 
+/// Minimise / maximise / restore / close a window by handle.
+#[tauri::command]
+pub async fn system_window_cmd(hwnd: isize, action: String) -> CmdResult<bool> {
+    blocking(move || Ok(foreground::window_cmd(hwnd, &action))).await
+}
+
+/// Arrange windows (front to back) in a grid on the monitor in front; returns how many moved.
+#[tauri::command]
+pub async fn system_tile(hwnds: Vec<isize>) -> CmdResult<usize> {
+    blocking(move || Ok(foreground::tile(&hwnds))).await
+}
+
 /// The folder a File Explorer window shows (None for other windows or virtual folders).
 #[tauri::command]
 pub async fn system_explorer_folder(hwnd: isize) -> CmdResult<Option<String>> {

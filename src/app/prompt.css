@@ -1,0 +1,45 @@
+/* Small text box (src/app/Prompt.tsx) — always dark, like the other overlays. */
+.kh-prompt-window {
+  width: 100vw;
+  height: 100vh;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.kh-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px 10px;
+  border-radius: 16px;
+  background: rgba(10, 10, 12, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  color: #f2f2f4;
+  font-family: var(--font-sans, Inter, system-ui, sans-serif);
+}
+.kh-prompt__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #c8c8d0;
+}
+.kh-prompt input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f2f2f4;
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+}
+.kh-prompt input:focus {
+  border-color: #3ccf4e;
+}
+.kh-prompt__hint {
+  font-size: 11px;
+  color: #8b8b94;
+}

@@ -8,8 +8,10 @@ import "./styles/base.css";
 import { App } from "./app/App";
 import { HudWindow } from "./app/Hud";
 import { PadMapWindow } from "./app/PadMap";
+import { PromptWindow } from "./app/Prompt";
 
 const isHud = window.location.hash.startsWith("#/hud");
 const isPadMap = window.location.hash.startsWith("#/padmap");
+const isPrompt = window.location.hash.startsWith("#/prompt");
 
-createRoot(document.getElementById("root")!).render(<StrictMode>{isHud ? <HudWindow /> : isPadMap ? <PadMapWindow /> : <App />}</StrictMode>);
+createRoot(document.getElementById("root")!).render(<StrictMode>{isHud ? <HudWindow /> : isPadMap ? <PadMapWindow /> : isPrompt ? <PromptWindow /> : <App />}</StrictMode>);

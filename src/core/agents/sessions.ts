@@ -21,6 +21,12 @@ export interface AgentSession {
   cwd: string;
   /** Terminal window handle, when known. */
   hwnd?: number;
+  /** Claude Code's process, once seen in its session list. */
+  pid?: number;
+  /** App hosting the terminal (WindowsTerminal.exe, Cursor.exe…), when known. */
+  host?: string;
+  /** Its name (/rename) or Claude's automatic title. */
+  title?: string;
   state: AgentState;
   /** What it needs or its last message. */
   message?: string;
@@ -39,6 +45,9 @@ const ADOPT_MS = 5 * 60_000;
 export const normPath = (p: string) => p.replace(/\//g, "\\").replace(/\\+$/, "").toLowerCase();
 
 export const folderName = (p: string) => p.replace(/[\\/]+$/, "").split(/[\\/]/).pop() || p;
+
+/** What a session is called: its title, else its folder. */
+export const sessionName = (s: Pick<AgentSession, "title" | "cwd">) => s.title || folderName(s.cwd || "~");
 
 export function freeSlot(sessions: AgentSession[]): number {
   const used = new Set(sessions.map((s) => s.slot));
@@ -125,6 +134,53 @@ export function applyHook(
   if (upd.message !== undefined) next.message = upd.message || undefined;
   if (!next.hwnd && foreground?.hwnd && isTerminal(foreground.process) && (event === "UserPromptSubmit" || event === "SessionStart")) next.hwnd = foreground.hwnd;
   return sessions.map((x) => (x === s ? next : x));
+}
+
+/** One running Claude Code session, from its own list in ~/.claude/sessions. */
+export interface LiveClaude {
+  pid: number;
+  sessionId: string;
+  cwd: string;
+  status: string;
+  startedAt: number;
+  statusUpdatedAt: number;
+  host: string | null;
+  hwnd: number | null;
+  title: string | null;
+}
+
+/**
+ * Merge Claude Code's list of running sessions: adds sessions no hook has reported yet (started
+ * before KeyHalo, in Cursor, with old hooks…), follows busy → idle, and drops sessions that ended.
+ * Hooks stay the finer source: a status only applies when it is newer than the last hook.
+ */
+export function syncLive(sessions: AgentSession[], live: LiveClaude[], now: number): AgentSession[] {
+  const pids = new Set(live.map((l) => l.pid));
+  let out = sessions.filter((s) => !(s.kind === "claude" && s.pid && !pids.has(s.pid)));
+  for (const l of live) {
+    let s =
+      out.find((x) => x.kind === "claude" && x.id === l.sessionId) ??
+      out.find((x) => x.kind === "claude" && x.pid === l.pid) ??
+      out
+        .filter((x) => x.kind === "claude" && !x.id && now - x.startedAt < ADOPT_MS && (!x.cwd || normPath(x.cwd) === normPath(l.cwd)))
+        .sort((a, b) => a.startedAt - b.startedAt)[0];
+    if (!s) {
+      const slot = freeSlot(out);
+      if (slot < 0) break;
+      const state: AgentState = l.status === "busy" ? "working" : "idle";
+      out = [...out, { key: `claude-${l.sessionId}`, id: l.sessionId, pid: l.pid, kind: "claude", cwd: l.cwd, state, seen: true, slot, startedAt: l.startedAt || now, updatedAt: l.statusUpdatedAt || now, ...(l.hwnd ? { hwnd: l.hwnd } : {}), ...(l.host ? { host: l.host } : {}), ...(l.title ? { title: l.title } : {}) }];
+      continue;
+    }
+    const next: AgentSession = { ...s, id: l.sessionId, pid: l.pid, cwd: s.cwd || l.cwd, hwnd: s.hwnd ?? l.hwnd ?? undefined, host: s.host ?? l.host ?? undefined, title: l.title ?? s.title };
+    if (l.statusUpdatedAt > s.updatedAt) {
+      if (l.status === "busy" && s.state !== "working" && s.state !== "waiting") Object.assign(next, { state: "working", seen: true, message: undefined });
+      else if (l.status === "idle" && s.state === "working") Object.assign(next, { state: "done", seen: false });
+      else if (l.status === "idle" && s.state === "starting") next.state = "idle";
+      next.updatedAt = l.statusUpdatedAt;
+    }
+    out = out.map((x) => (x === s ? next : x));
+  }
+  return out;
 }
 
 /** The most urgent Claude state across sessions (for the single-key Claude widgets). */

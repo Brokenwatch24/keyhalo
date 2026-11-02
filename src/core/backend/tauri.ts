@@ -84,6 +84,21 @@ export class TauriBackend implements Backend {
   explorerFolder(hwnd: number) {
     return invoke<string | null>("system_explorer_folder", { hwnd });
   }
+  windowCmd(hwnd: number, action: "minimize" | "maximize" | "restore" | "close") {
+    return invoke<boolean>("system_window_cmd", { hwnd, action });
+  }
+  tile(hwnds: number[]) {
+    return invoke<number>("system_tile", { hwnds });
+  }
+  agentsRecent(limit?: number) {
+    return invoke<Awaited<ReturnType<Backend["agentsRecent"]>>>("agents_recent", { limit: limit ?? null });
+  }
+  promptOpen(payload: { id: string; title: string; value?: string; placeholder?: string; hint?: string }) {
+    return invoke<void>("prompt_open", { payload });
+  }
+  agentsLive() {
+    return invoke<Awaited<ReturnType<Backend["agentsLive"]>>>("agents_live");
+  }
   codexNotify(action: "status" | "install" | "remove", port: number, token?: string) {
     return invoke<Awaited<ReturnType<Backend["codexNotify"]>>>("codex_notify", { action, port, token: token || null });
   }

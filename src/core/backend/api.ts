@@ -35,6 +35,27 @@ export interface ForegroundApp {
   hwnd?: number;
 }
 
+export interface RecentSession {
+  sessionId: string;
+  cwd: string;
+  title: string | null;
+  updatedAt: number;
+}
+
+export interface LiveAgent {
+  pid: number;
+  sessionId: string;
+  cwd: string;
+  /** "busy" or "idle". */
+  status: string;
+  startedAt: number;
+  statusUpdatedAt: number;
+  /** Its name (/rename) or Claude's automatic title, as /resume shows it. */
+  title: string | null;
+  host: string | null;
+  hwnd: number | null;
+}
+
 export interface WindowInfo {
   process: string;
   title: string;
@@ -195,6 +216,8 @@ export interface BackendEvents {
   "app-quitting": null;
   /** A coding agent's hook payload (Claude Code hooks, Codex notify) posted to the local API. */
   "agent-hook": { agent: "claude" | "codex"; payload: Record<string, unknown> };
+  /** The answer from the small text box (prompt_open); value null when cancelled. */
+  "prompt-result": { id: string; value: string | null };
   /** Raw bytes from an open MIDI input port. */
   "midi-message": { port: string; data: number[] };
   /** A MIDI port failed (unplugged / taken by another app) and was closed. */
@@ -270,6 +293,16 @@ export interface Backend {
   /** system_explorer_folder({ hwnd }) — the folder a File Explorer window shows. */
   explorerFolder(hwnd: number): Promise<string | null>;
   /** codex_notify({ action, port, token }) — set/remove KeyHalo as Codex's `notify` in ~/.codex/config.toml. */
+  /** system_window_cmd({ hwnd, action }) — minimise / maximise / restore / close (like its X button). */
+  windowCmd(hwnd: number, action: "minimize" | "maximize" | "restore" | "close"): Promise<boolean>;
+  /** system_tile({ hwnds }) — arrange these windows (front to back) in a grid on the monitor in front. */
+  tile(hwnds: number[]): Promise<number>;
+  /** agents_recent({ limit }) — recent Claude Code sessions (newest first), as /resume lists them. */
+  agentsRecent(limit?: number): Promise<RecentSession[]>;
+  /** prompt_open({ payload }) — show the small text box; the answer arrives as "prompt-result". */
+  promptOpen(payload: { id: string; title: string; value?: string; placeholder?: string; hint?: string }): Promise<void>;
+  /** agents_live() — running Claude Code sessions from ~/.claude/sessions, oldest first. */
+  agentsLive(): Promise<LiveAgent[]>;
   codexNotify(action: "status" | "install" | "remove", port: number, token?: string): Promise<{ installed: boolean; other?: string | null; path: string; backup?: string }>;
   /** audio_apps() — master volume first, then each process playing audio. */
   audioApps(): Promise<AudioApp[]>;

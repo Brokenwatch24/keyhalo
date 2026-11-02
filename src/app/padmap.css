@@ -68,3 +68,69 @@
   z-index: 60;
   pointer-events: none;
 }
+
+/* List mode (tasks, sessions to resume). */
+.kh-padmap__hint {
+  padding: 0 4px;
+  font-size: 11px;
+  color: #8b8b94;
+}
+.kh-padlist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 440px;
+  max-height: 440px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+.kh-padlist > li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.kh-padlist__where {
+  display: grid;
+  grid-template-columns: repeat(8, 3px);
+  gap: 1px;
+  flex: none;
+}
+.kh-padlist__where > i {
+  width: 3px;
+  height: 3px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.kh-padlist__where > i.is-here {
+  background: var(--c);
+  box-shadow: 0 0 4px var(--c);
+}
+.kh-padlist__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.kh-padlist__label {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kh-padlist__sub {
+  font-size: 11px;
+  color: #8b8b94;
+}
+.kh-padlist > li.is-done .kh-padlist__label {
+  color: #8b8b94;
+  text-decoration: line-through;
+}
+.kh-padlist__more {
+  justify-content: center;
+  font-size: 11px;
+  color: #8b8b94;
+}

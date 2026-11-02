@@ -17,6 +17,17 @@ All notable changes to KeyHalo are documented here. The format follows
   needs. Tap an empty pad to open Claude Code, double-tap for Codex, in the folder of the File
   Explorer window in front. Codex connects in one click (its `notify` command), and Claude Code
   hooks now report each session separately (hooks from 1.1 are upgraded automatically).
+  Every running Claude Code session appears on its own, also in Cursor / VS Code terminals and
+  ones started before KeyHalo, named like `/resume` shows it. Tap a session pad again (or hold it) to dictate
+  (KeyHalo holds Space for Claude Code's voice mode).
+- **Tasks page**: a checklist on the pads, shown on screen while you are on it. Tap an empty pad
+  to type a task, tap a task to tick it, hold to edit.
+- **Resume** on the Agents page: pick one of your recent Claude Code sessions on the pads, then the
+  pad to open it on; it reopens in its own folder with `claude --resume`.
+- **Windows page**: every open window is a pad. Tap to bring it forward (again to minimise), hold
+  to close it; the top buttons arrange windows in a grid, snap left / right, maximise, minimise,
+  show the desktop and open Task view. The close button closes the tab in front, or (held) every
+  window pad you tap.
 - **Pad map overlay**: hold or tap the Arm button (or a hotkey) to see every pad's name on screen
   while you learn the layout.
 - KeyHalo lets go of the Launchpad while Ableton Live, FL Studio and other DAWs run (Windows MIDI

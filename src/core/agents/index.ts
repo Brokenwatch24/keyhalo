@@ -3,7 +3,7 @@ import { backend } from "@/core/backend";
 import { setClaudeState } from "@/core/integrations/claude";
 import { useSettings } from "@/core/state/settings";
 import { bus } from "@/core/util/bus";
-import { applyHook, claudeSummary, folderName, freeSlot, isTerminal, type AgentKind, type AgentSession } from "./sessions";
+import { applyHook, claudeSummary, folderName, freeSlot, isTerminal, sessionName, syncLive, type AgentKind, type AgentSession } from "./sessions";
 
 export * from "./sessions";
 
@@ -30,12 +30,13 @@ export async function currentFolder(fallback: string): Promise<string> {
 }
 
 /** Open Claude Code or Codex in a new Windows Terminal window and give it a pad. */
-export async function launchAgent(kind: AgentKind, cwd: string, slot?: number): Promise<void> {
+export async function launchAgent(kind: AgentKind, cwd: string, slot?: number, resume?: { id: string; title?: string | null }): Promise<void> {
   const before = new Set((await backend.windows().catch(() => [])).map((w) => w.hwnd));
   const now = Date.now();
   const sessions = useAgents.getState().sessions;
   const s: AgentSession = {
     key: `${kind}-new-${now.toString(36)}`,
+    ...(resume ? { id: resume.id, ...(resume.title ? { title: resume.title } : {}) } : {}),
     kind,
     cwd,
     state: "starting",
@@ -47,7 +48,7 @@ export async function launchAgent(kind: AgentKind, cwd: string, slot?: number): 
   if (s.slot < 0) throw new Error("All 64 pads are in use");
   set([...sessions, s]);
   // A new window (-w new) so each session has its own window to come back to.
-  await backend.launch("wt.exe", ["-w", "new", ...(cwd ? ["-d", cwd] : []), "powershell", "-NoExit", "-Command", kind]);
+  await backend.launch("wt.exe", ["-w", "new", ...(cwd ? ["-d", cwd] : []), "powershell", "-NoExit", "-Command", resume ? `${kind} --resume ${resume.id}` : kind]);
   for (let i = 0; i < 20; i++) {
     await sleep(300);
     const w = (await backend.windows().catch(() => [])).find((x) => x.hwnd && !before.has(x.hwnd) && isTerminal(x.process));
@@ -59,20 +60,25 @@ export async function launchAgent(kind: AgentKind, cwd: string, slot?: number): 
 }
 
 /** Bring a session's window to the front and show what it needs. */
-export async function openAgent(key: string): Promise<void> {
+export async function openAgent(key: string, showHud = true): Promise<void> {
   const s = useAgents.getState().sessions.find((x) => x.key === key);
   if (!s) return;
   let ok = s.hwnd ? await backend.focusHwnd(s.hwnd).catch(() => false) : false;
   if (!ok) {
-    // No handle yet (session started outside KeyHalo): any terminal whose title names the agent.
+    // No handle yet (session started outside KeyHalo): a window of the app hosting it that names
+    // its folder (editors), else any terminal whose title names the agent.
     const wins = await backend.windows().catch(() => []);
     const re = s.kind === "claude" ? /^[✳✶✻✽✢·◐-◓⠀-⣿*]\s|claude/i : /codex/i;
-    const w = wins.find((x) => isTerminal(x.process) && re.test(x.title));
+    const host = s.host?.toLowerCase();
+    const folder = folderName(s.cwd || "").toLowerCase();
+    const w =
+      (host && (wins.find((x) => x.process.toLowerCase() === host && folder && x.title.toLowerCase().includes(folder)) ?? wins.find((x) => x.process.toLowerCase() === host))) ||
+      wins.find((x) => isTerminal(x.process) && re.test(x.title));
     if (w) ok = await backend.focusWindow(w.pid, w.title).catch(() => false);
   }
   set(useAgents.getState().sessions.map((x) => (x.key === key ? { ...x, seen: true } : x)));
-  const title = `${agentName(s.kind)} · ${folderName(s.cwd || "~")}`;
-  bus.emit("hud", { title, value: s.message || (ok ? undefined : "Window not found"), icon: "info", color: AGENT_COLORS[s.kind], durationMs: s.message ? 4000 : 1400 });
+  const title = `${agentName(s.kind)} · ${sessionName(s)}`;
+  if (showHud || s.message) bus.emit("hud", { title, value: s.message || (ok ? undefined : "Window not found"), icon: "info", color: AGENT_COLORS[s.kind], durationMs: s.message ? 4000 : 1400 });
 }
 
 export function forgetAgent(key: string) {
@@ -96,6 +102,15 @@ export async function startAgents() {
     if (sum && sum !== last) setClaudeState(sum);
     last = sum;
   });
+
+  // Claude Code's own list of running sessions: finds the ones no hook reported (Cursor, VS Code,
+  // sessions older than KeyHalo) and drops the ones that ended.
+  const sync = async () => {
+    const live = await backend.agentsLive().catch(() => null);
+    if (live) set(syncLive(useAgents.getState().sessions, live, Date.now()));
+  };
+  void sync();
+  setInterval(sync, 2000);
 
   // Drop sessions whose window was closed.
   setInterval(async () => {

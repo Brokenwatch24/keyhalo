@@ -145,12 +145,16 @@
     "kinds": {
       "grid": "Pads",
       "mixer": "Mezclador",
-      "agents": "Agentes"
+      "agents": "Agentes",
+      "windows": "Ventanas",
+      "tasks": "Tareas"
     },
     "kindHint": {
       "grid": "Cada pad ejecuta su propia acción.",
       "mixer": "Cada columna es el volumen de una app. Los botones de arriba la silencian.",
-      "agents": "Cada pad es una sesión viva de Claude Code o Codex. Toca un pad vacío para Claude y dale doble toque para Codex."
+      "agents": "Cada pad es una sesión viva de Claude Code o Codex. Toca un pad vacío para Claude y dale doble toque para Codex.",
+      "windows": "Cada pad es una ventana abierta. Un toque la trae al frente (o la minimiza) y mantenerlo la cierra. Los botones de arriba organizan las ventanas.",
+      "tasks": "Un checklist: cada pad es una tarea. Un toque la marca como hecha, mantenerlo la edita y un pad vacío te pide una nueva. La lista sale en pantalla mientras estás en esta página."
     },
     "apps": "Cambiar aquí automáticamente",
     "appsHint": "Mientras una de estas apps esté al frente. Nombres de proceso; * coincide con cualquier cosa.",
@@ -199,7 +203,7 @@
     },
     "open": "Ir a la ventana",
     "forget": "Quitar del pad",
-    "sessionHint": "En el Launchpad: tócalo para ir a su ventana y ver qué necesita; mantenlo para quitarlo del pad (la sesión sigue abierta).",
+    "sessionHint": "En el Launchpad: tócalo para ir a su ventana y ver qué necesita. Ya allí, tócalo otra vez para dictar y otra más para parar, o mantenlo pulsado para dictar mientras lo sostienes (KeyHalo mantiene el espacio para el modo de voz de Claude Code; actívalo con /voice). Se detiene si sales de la ventana. En Cursor o VS Code, haz clic primero en la terminal.",
     "emptyKicker": "Pad vacío {n}",
     "emptyTitle": "Pad libre",
     "emptyHint": "En el Launchpad: un toque abre Claude Code aquí, dos toques abren Codex. Se abre en la carpeta del Explorador de archivos que tengas al frente o, si no, en la carpeta por defecto de abajo. ▲ y ▼ arriba hacen lo mismo en el siguiente pad libre.",
@@ -214,6 +218,69 @@
     "claudeHint": "Añade los hooks de KeyHalo a Claude Code (el resto de tu configuración se queda igual).",
     "codexHint": "Pone a KeyHalo como comando notify de Codex en ~/.codex/config.toml.",
     "codexOther": "Codex ya ejecuta otro programa en notify; KeyHalo no lo toca.",
-    "apiOff": "Activa la API local (Ajustes) para que los agentes lleguen a KeyHalo."
+    "apiOff": "Activa la API local (Ajustes) para que los agentes lleguen a KeyHalo.",
+    "dictateClick": "Haz clic en su terminal y vuelve a tocar el pad para dictar",
+    "dictateTap": "Dictando · toca otra vez para parar",
+    "dictateLeft": "Dictado detenido: saliste de la ventana",
+    "resume": "Reanudar",
+    "resumeNone": "No hay sesiones recientes para reanudar",
+    "resumePick": "Reanudar: elige una sesión",
+    "resumeHint": "Toca el pad de la sesión  ·  ◀ cancela",
+    "resumeWhere": "Ahora toca el pad donde abrirla",
+    "resumePad": "¿En qué pad abro «{title}»?",
+    "resumePadHint": "Toca un pad verde  ·  ◀ cancela",
+    "recent": "Sesiones recientes",
+    "resumeIt": "Reanudar"
+  },
+  "windows": {
+    "empty": "Pad libre",
+    "emptyHint": "Las ventanas nuevas ocupan los pads libres. Cada ventana conserva su pad mientras esté abierta.",
+    "hint": "En el Launchpad: tócalo para traerla al frente (otro toque la minimiza) y mantenlo para cerrarla, como su botón X (la app pregunta antes de perder nada).",
+    "front": "Al frente",
+    "focus": "Traer al frente",
+    "minimize": "Minimizar",
+    "close": "Cerrar",
+    "closed": "Cerrada",
+    "tool": "Botón de arriba",
+    "tools": {
+      "tile": "Organizar",
+      "desktop": "Escritorio",
+      "left": "A la izquierda",
+      "right": "A la derecha",
+      "maximize": "Maximizar",
+      "minimize": "Minimizar",
+      "taskView": "Vista de tareas",
+      "close": "Cerrar"
+    },
+    "toolHints": {
+      "tile": "Pone las ventanas abiertas (hasta 9) en cuadrícula en la pantalla del frente.",
+      "desktop": "Muestra el escritorio (Win+D); otra vez para volver.",
+      "left": "Pega la ventana del frente a la mitad izquierda (Win+Izquierda).",
+      "right": "Pega la ventana del frente a la mitad derecha (Win+Derecha).",
+      "maximize": "Maximiza la ventana del frente (Win+Arriba).",
+      "minimize": "Minimiza la ventana del frente.",
+      "taskView": "Abre la Vista de tareas (Win+Tab).",
+      "close": "Toque: cierra la pestaña del frente (Ctrl+W). Mantenlo y toca pads de ventanas: cierra esas ventanas (los pads parpadean en rojo)."
+    },
+    "closedTab": "Pestaña cerrada"
+  },
+  "tasks": {
+    "new": "Nueva tarea",
+    "edit": "Editar tarea",
+    "editHint": "Enter ✓  ·  Esc ✕  ·  vacía = borrar",
+    "placeholder": "¿Qué hay que hacer?",
+    "add": "+ Tarea",
+    "clearDone": "Quitar hechas",
+    "cleared": "{n} hechas quitadas",
+    "done": "Hecha",
+    "pending": "Pendiente",
+    "mapHint": "Toca: hecha / pendiente  ·  Mantén: editar  ·  Pad vacío: nueva",
+    "mapEmpty": "Toca cualquier pad para escribir tu primera tarea",
+    "empty": "Pad libre",
+    "emptyHint": "En el Launchpad, toca este pad para escribir una tarea en él (se abre una cajita; Enter guarda).",
+    "text": "Tarea",
+    "delete": "Borrar",
+    "addHere": "Añadir",
+    "hint": "En el Launchpad: tócalo para marcarla hecha (o pendiente otra vez) y mantenlo para editarla."
   }
 }

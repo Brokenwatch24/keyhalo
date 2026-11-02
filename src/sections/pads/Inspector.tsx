@@ -1,4 +1,6 @@
 import { useEffect, useId, useState, type ReactNode } from "react";
+import { TasksEditor } from "./TasksEditor";
+import { WindowsEditor } from "./WindowsEditor";
 import { AgentsEditor } from "./AgentsEditor";
 import { FolderOpen, Play, Plus, Trash2 } from "lucide-react";
 import { Button, ColorInput, Field, Input, Modal, Segmented, Select, TextArea } from "@/ui";
@@ -110,6 +112,8 @@ export function Inspector({ selected, onSelect }: { selected: string; onSelect: 
         );
     } else if (page.kind === "mixer") body = <MixerEditor page={page} column={b.x} onSelect={onSelect} />;
     else if (page.kind === "agents") body = <AgentsEditor selected={selected} />;
+    else if (page.kind === "windows") body = <WindowsEditor selected={selected} />;
+    else if (page.kind === "tasks") body = <TasksEditor key={`${page.id}/${selected}`} page={page} selected={selected} />;
     else body = <PadEditor key={`${page.id}/${selected}`} page={page} id={selected} />;
   }
   return <aside className="pads-inspector">{body}</aside>;
@@ -564,6 +568,8 @@ function PageEditor({ page, index }: { page: PadPage; index: number }) {
               { value: "grid", label: t("pads.page.kinds.grid") },
               { value: "mixer", label: t("pads.page.kinds.mixer") },
               { value: "agents", label: t("pads.page.kinds.agents") },
+              { value: "windows", label: t("pads.page.kinds.windows") },
+              { value: "tasks", label: t("pads.page.kinds.tasks") },
             ]}
           />
         </Group>

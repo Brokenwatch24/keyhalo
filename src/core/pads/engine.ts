@@ -3,11 +3,16 @@ import { registerHotkey } from "@/core/integrations/hotkeys";
 import { clearNotifications, useNotifications } from "@/core/integrations/notifications";
 import { useSignals } from "@/core/lighting/signals";
 import { bus } from "@/core/util/bus";
-import { AGENT_COLORS, agentName, currentFolder, folderName, forgetAgent, launchAgent, openAgent, useAgents } from "@/core/agents";
+import { t as tr } from "@/i18n";
+import { AGENT_COLORS, agentName, currentFolder, folderName, launchAgent, openAgent, sessionName, useAgents } from "@/core/agents";
 import { describePadAction, runPadAction } from "./actions";
 import { ALL_BUTTONS, decode, grid, GRID, isLaunchpadPort, ledMessage, parseButton, RESET, right, top } from "./launchpad";
 import { activePage, usePads } from "./store";
+import { endResume, RESUME_BUTTON, resumeInput, resumeLeds, resumeMap, useResume } from "./resume";
+import { taskInput, taskLeds, taskMap } from "./tasks";
+import { appColor, closeHeld, refreshWindows, toolName, useOpenWindows, windowInput, windowLabel, WINDOW_TOOLS } from "./windows";
 import type { PadButtonId, PadDef, PadMapPayload, PadPage } from "./types";
+import type { AgentSession } from "@/core/agents";
 
 /**
  * Runs the pad controller: keeps the MIDI port open (and lets go while a DAW runs), turns
@@ -97,11 +102,12 @@ function agentLeds(t: number): Map<PadButtonId, Led> {
     else if (s.state === "working") b = breathe;
     else if (s.state === "waiting") b = s.seen ? 1 : Math.floor(t / 250) % 2 ? 1 : 0.15;
     else if (s.state === "done") b = s.seen ? MID : Math.floor(t / 600) % 2 ? 1 : 0.15;
-    out.set(slotButton(s.slot), { hex, b });
+    out.set(slotButton(s.slot), talking?.slot === s.slot ? { hex: "#ff3b30", b: Math.floor(t / 300) % 2 ? 1 : MID } : { hex, b });
   }
   out.set(AGENT_NEW.claude, { hex: AGENT_COLORS.claude, b: DIM });
   out.set(AGENT_NEW.codex, { hex: AGENT_COLORS.codex, b: DIM });
-  return out;
+  out.set(RESUME_BUTTON, { hex: AGENT_COLORS.claude, b: DIM });
+  return resumeLeds(t, out, DIM) ?? out;
 }
 
 const DOUBLE_TAP_MS = 320;
@@ -118,10 +124,101 @@ async function newAgent(kind: "claude" | "codex", slot?: number) {
   await launchAgent(kind, cwd, slot);
 }
 
-/** Agents page input: a session pad opens it (hold forgets it); an empty pad opens Claude, double tap Codex. */
+/** Editors keep the terminal in a panel that may not have focus: there you dictate only if you were already in that window. */
+const EDITORS = ["cursor.exe", "code.exe", "windsurf.exe"];
+const TALK_MS = 300;
+/** A tapped (toggle) dictation stops by itself after this long. */
+const TALK_MAX_MS = 5 * 60_000;
+/** Dictation in progress: KeyHalo holds Space (with key repeat) in the session's window. */
+let talking: { timer: ReturnType<typeof setInterval>; slot: number; hwnd: number; since: number; toggle: boolean } | undefined;
+/** Session pads held right now (a fast tap may be released before the window check returns). */
+const sessionDown = new Set<PadButtonId>();
+type PressInfo = { wasThere: boolean; host: string };
+const presses = new Map<PadButtonId, Promise<PressInfo>>();
+
+/**
+ * Session pad. Not in its window: a tap jumps there (and shows what it needs). Already there: a
+ * tap starts dictating and the next tap stops it. Holding dictates while held (push to talk).
+ * Dictating = holding Space, like Claude Code's voice mode.
+ */
+function sessionPress(id: PadButtonId, session: AgentSession) {
+  holdFired.delete(id);
+  if (talking) {
+    // Any press stops a dictation.
+    stopTalk();
+    holdFired.add(id);
+    return;
+  }
+  sessionDown.add(id);
+  const info = (async (): Promise<PressInfo> => {
+    const fg = await backend.foregroundApp().catch(() => null);
+    const host = (session.host ?? fg?.process ?? "").toLowerCase();
+    const wasThere = !!fg && (session.hwnd ? fg.hwnd === session.hwnd : fg.process.toLowerCase() === host && fg.title.toLowerCase().includes(folderName(session.cwd || "").toLowerCase()));
+    await openAgent(session.key, !wasThere).catch(agentError);
+    return { wasThere, host };
+  })();
+  presses.set(id, info);
+  holdTimers.set(
+    id,
+    setTimeout(async () => {
+      holdFired.add(id);
+      const i = await info;
+      if (sessionDown.has(id)) void tryTalk(session, i, false);
+    }, TALK_MS),
+  );
+}
+
+async function sessionRelease(id: PadButtonId, session: AgentSession) {
+  const fired = holdFired.has(id);
+  sessionDown.delete(id);
+  clearTimeout(holdTimers.get(id));
+  holdTimers.delete(id);
+  holdFired.delete(id);
+  const info = presses.get(id);
+  presses.delete(id);
+  if (fired) {
+    if (talking && !talking.toggle) stopTalk();
+    return;
+  }
+  if (info && (await info).wasThere) void tryTalk(session, await info, true);
+}
+
+async function tryTalk(session: AgentSession, info: PressInfo, toggle: boolean) {
+  if (session.kind !== "claude") return;
+  if (EDITORS.includes(info.host) && !info.wasThere) {
+    bus.emit("hud", { title: sessionName(session), value: tr("pads.agents.dictateClick"), icon: "info", color: AGENT_COLORS.claude, durationMs: 2500 });
+    return;
+  }
+  const fg = await backend.foregroundApp().catch(() => null);
+  if (!fg?.hwnd) return;
+  stopTalk();
+  let n = 0;
+  const repeat = () => {
+    void backend.inputSend([{ op: "down", key: "Space" }]).catch(() => {});
+    if (++n % 6 || !talking) return;
+    // Stop when you leave that window (Space must not land elsewhere) or after the time limit.
+    const target = talking.hwnd;
+    if (Date.now() - talking.since > TALK_MAX_MS) stopTalk();
+    else void backend.foregroundApp().then((f) => talking && f?.hwnd !== target && stopTalk(tr("pads.agents.dictateLeft")), () => {});
+  };
+  talking = { timer: setInterval(repeat, 40), slot: session.slot, hwnd: fg.hwnd, since: Date.now(), toggle };
+  repeat();
+  bus.emit("hud", { title: `🎙 ${sessionName(session)}`, value: toggle ? tr("pads.agents.dictateTap") : undefined, icon: "info", color: "#ff3b30", durationMs: 1500 });
+}
+
+function stopTalk(why?: string) {
+  if (!talking) return;
+  clearInterval(talking.timer);
+  talking = undefined;
+  void backend.inputSend([{ op: "up", key: "Space" }]).catch(() => {});
+  if (why) bus.emit("hud", { title: "🎙", value: why, icon: "info", color: "#ff3b30", durationMs: 1500 });
+}
+
+/** Agents page input: a session pad opens it (hold dictates); an empty pad opens Claude, double tap Codex. */
 function agentInput(id: PadButtonId, down: boolean) {
   const b = parseButton(id);
   if (!b) return;
+  if (resumeInput(id, down)) return;
   if (b.kind === "t") {
     if (down && id === AGENT_NEW.claude) newAgent("claude").catch(agentError);
     if (down && id === AGENT_NEW.codex) newAgent("codex").catch(agentError);
@@ -130,22 +227,8 @@ function agentInput(id: PadButtonId, down: boolean) {
   const slot = b.y * GRID + b.x;
   const session = useAgents.getState().sessions.find((s) => s.slot === slot);
   if (session) {
-    if (down) {
-      holdFired.delete(id);
-      holdTimers.set(
-        id,
-        setTimeout(() => {
-          holdFired.add(id);
-          forgetAgent(session.key);
-          hud(`${agentName(session.kind)} · ${folderName(session.cwd || "~")} ✕`);
-        }, HOLD_MS),
-      );
-    } else {
-      clearTimeout(holdTimers.get(id));
-      holdTimers.delete(id);
-      if (!holdFired.has(id)) openAgent(session.key).catch(agentError);
-      holdFired.delete(id);
-    }
+    if (down) sessionPress(id, session);
+    else void sessionRelease(id, session);
     return;
   }
   if (!down) return;
@@ -178,6 +261,13 @@ export function computeLeds(t = performance.now()): Map<PadButtonId, Led> {
 
   if (page.kind === "agents") {
     for (const [id, led] of agentLeds(t)) out.set(id, led);
+  } else if (page.kind === "tasks") {
+    for (const [id, led] of taskLeds(page, DIM)) out.set(id, led);
+  } else if (page.kind === "windows") {
+    const { windows, front } = useOpenWindows.getState();
+    const closing = closeHeld();
+    for (const w of windows) out.set(slotButton(w.slot), closing ? { hex: "#ff3b30", b: Math.floor(t / 250) % 2 ? 1 : MID } : { hex: appColor(w.process), b: w.hwnd === front ? 1 : DIM });
+    WINDOW_TOOLS.forEach((tool, i) => out.set(top(i), { hex: tool.color, b: st.pressed[top(i)] ? 1 : DIM }));
   } else if (page.kind === "mixer") {
     const cols = mixerColumns(page, st.audio);
     cols.forEach((proc, x) => {
@@ -224,11 +314,20 @@ async function flush(force = false) {
 export function mapPayload(): PadMapPayload {
   const st = usePads.getState();
   const page = activePage(st);
-  const buttons: PadMapPayload["buttons"] = {};
+  let buttons: PadMapPayload["buttons"] = {};
+  let extra: Partial<PadMapPayload> = {};
   if (page?.kind === "agents") {
     buttons[AGENT_NEW.claude] = { label: "+ Claude", color: AGENT_COLORS.claude };
     buttons[AGENT_NEW.codex] = { label: "+ Codex", color: AGENT_COLORS.codex };
-    for (const s of useAgents.getState().sessions) buttons[slotButton(s.slot)] = { label: `${agentName(s.kind)} ${folderName(s.cwd || "~")}`, color: AGENT_COLORS[s.kind] };
+    buttons[RESUME_BUTTON] = { label: tr("pads.agents.resume"), color: AGENT_COLORS.claude };
+    for (const s of useAgents.getState().sessions) buttons[slotButton(s.slot)] = { label: s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`, color: AGENT_COLORS[s.kind] };
+    const picking = resumeMap(buttons);
+    if (picking) ({ buttons, ...extra } = picking);
+  } else if (page?.kind === "tasks") {
+    ({ buttons, ...extra } = taskMap(page));
+  } else if (page?.kind === "windows") {
+    WINDOW_TOOLS.forEach((tool, i) => (buttons[top(i)] = { label: toolName(tool.key), color: tool.color }));
+    for (const w of useOpenWindows.getState().windows) buttons[slotButton(w.slot)] = { label: windowLabel(w), color: appColor(w.process) };
   } else if (page?.kind === "mixer") {
     mixerColumns(page, st.audio).forEach((proc, x) => {
       if (proc) buttons[top(x)] = { label: proc === "master" ? "Master" : proc.replace(/\.exe$/i, ""), color: "#3ccf4e" };
@@ -238,7 +337,7 @@ export function mapPayload(): PadMapPayload {
   }
   st.board.pages.slice(0, 7).forEach((p, i) => (buttons[right(i)] = { label: p.name, color: p.color }));
   buttons[MAP_BUTTON] = { label: "Map", color: "#ffe14d" };
-  return { page: page?.name ?? "", pages: st.board.pages.map((p) => ({ name: p.name, color: p.color, active: p.id === page?.id })), buttons };
+  return { page: page?.name ?? "", pages: st.board.pages.map((p) => ({ name: p.name, color: p.color, active: p.id === page?.id })), buttons, ...extra };
 }
 
 function syncMap() {
@@ -296,6 +395,16 @@ export function padInput(id: PadButtonId, down: boolean) {
 
   if (page.kind === "agents") {
     agentInput(id, down);
+    return;
+  }
+
+  if (page.kind === "windows") {
+    windowInput(id, down);
+    return;
+  }
+
+  if (page.kind === "tasks") {
+    taskInput(page, id, down);
     return;
   }
 
@@ -425,6 +534,7 @@ export async function startPads() {
     const needAudio = page?.kind === "mixer" || st.mapVisible;
     const needMedia = page?.kind === "grid" && Object.values(page.pads).some((d) => d.state?.type === "media");
     if (port && needAudio && tick % 5 === 0) void backend.audioApps().then((audio) => usePads.setState({ audio }), () => {});
+    if (page?.kind === "windows" && tick % 5 === 0) void refreshWindows();
     if (port && needMedia && tick % 10 === 0) void backend.mediaState().then((media) => usePads.setState({ media }), () => {});
     void flush();
   }, TICK_MS);
@@ -438,6 +548,26 @@ export async function startPads() {
   });
 
   useAgents.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "agents" && syncMap());
+  useOpenWindows.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "windows" && syncMap());
+  useResume.subscribe(() => usePads.getState().mapVisible && syncMap());
+
+  // The Tasks page shows its checklist on screen while you are on it; leaving a page ends a resume pick.
+  let autoMap = false;
+  usePads.subscribe((s, p) => {
+    if (s.pageId === p.pageId) {
+      if (s.mapVisible !== p.mapVisible) autoMap = false;
+      return;
+    }
+    endResume();
+    const kind = activePage(s)?.kind;
+    if (kind === "tasks" && !s.mapVisible) {
+      usePads.setState({ mapVisible: true });
+      autoMap = true; // after: that change resets it
+    } else if (kind !== "tasks" && autoMap) {
+      autoMap = false;
+      usePads.setState({ mapVisible: false });
+    }
+  });
 
   // Map hotkey.
   let unregister: (() => void) | null = null;

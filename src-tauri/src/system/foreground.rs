@@ -29,7 +29,7 @@ mod imp {
     use super::*;
     use crate::util::from_wide;
     use windows::core::{BOOL, PWSTR};
-    use windows::Win32::Foundation::{CloseHandle, HWND, LPARAM};
+    use windows::Win32::Foundation::{CloseHandle, HWND, LPARAM, WPARAM};
     use windows::Win32::Graphics::Dwm::{DwmGetWindowAttribute, DWMWA_CLOAKED};
     use windows::Win32::System::Diagnostics::ToolHelp::{
         CreateToolhelp32Snapshot, Process32FirstW, Process32NextW, PROCESSENTRY32W,
@@ -84,6 +84,30 @@ mod imp {
             let _ = CloseHandle(snap);
             found
         }
+    }
+
+    /// Every process: pid -> (parent pid, image name).
+    pub fn process_table() -> std::collections::HashMap<u32, (u32, String)> {
+        let mut out = std::collections::HashMap::new();
+        unsafe {
+            let Ok(snap) = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0) else {
+                return out;
+            };
+            let mut entry = PROCESSENTRY32W {
+                dwSize: std::mem::size_of::<PROCESSENTRY32W>() as u32,
+                ..Default::default()
+            };
+            if Process32FirstW(snap, &mut entry).is_ok() {
+                loop {
+                    out.insert(entry.th32ProcessID, (entry.th32ParentProcessID, from_wide(&entry.szExeFile)));
+                    if Process32NextW(snap, &mut entry).is_err() {
+                        break;
+                    }
+                }
+            }
+            let _ = CloseHandle(snap);
+        }
+        out
     }
 
     pub fn process_name(pid: u32) -> (String, Option<String>) {
@@ -191,6 +215,87 @@ mod imp {
         unsafe { IsWindow(Some(hwnd)).as_bool() && bring(hwnd) }
     }
 
+    /// Minimise, maximise, restore or close (asks the app to close, like its X button) a window.
+    pub fn window_cmd(hwnd: isize, action: &str) -> bool {
+        let hwnd = HWND(hwnd as *mut _);
+        unsafe {
+            if !IsWindow(Some(hwnd)).as_bool() {
+                return false;
+            }
+            match action {
+                "minimize" => { let _ = ShowWindow(hwnd, SW_MINIMIZE); true }
+                "maximize" => { let _ = ShowWindow(hwnd, SW_MAXIMIZE); true }
+                "restore" => { let _ = ShowWindow(hwnd, SW_RESTORE); true }
+                "close" => PostMessageW(Some(hwnd), WM_CLOSE, WPARAM(0), LPARAM(0)).is_ok(),
+                _ => false,
+            }
+        }
+    }
+
+    /// Cells of a `n`-window grid over `area` (left, top, right, bottom): as square as possible,
+    /// rows filled left to right, the last row stretched.
+    pub fn grid_cells(n: usize, area: (i32, i32, i32, i32)) -> Vec<(i32, i32, i32, i32)> {
+        if n == 0 {
+            return Vec::new();
+        }
+        let cols = (n as f64).sqrt().ceil() as usize;
+        let rows = n.div_ceil(cols);
+        let (l, t, r, b) = area;
+        let h = (b - t) / rows as i32;
+        let mut out = Vec::new();
+        for row in 0..rows {
+            let in_row = if row == rows - 1 { n - cols * (rows - 1) } else { cols };
+            let w = (r - l) / in_row as i32;
+            for c in 0..in_row {
+                out.push((l + w * c as i32, t + h * row as i32, w, h));
+            }
+        }
+        out
+    }
+
+    /// Arrange windows (front to back) in a grid on the monitor of the window in front. Minimised
+    /// windows stay minimised; at most 9 are arranged.
+    pub fn tile(hwnds: &[isize]) -> usize {
+        use windows::Win32::Graphics::Dwm::DWMWA_EXTENDED_FRAME_BOUNDS;
+        use windows::Win32::Graphics::Gdi::{GetMonitorInfoW, MonitorFromWindow, MONITORINFO, MONITOR_DEFAULTTOPRIMARY};
+        use windows::Win32::Foundation::RECT;
+        unsafe {
+            let mon = MonitorFromWindow(GetForegroundWindow(), MONITOR_DEFAULTTOPRIMARY);
+            let mut info = MONITORINFO { cbSize: std::mem::size_of::<MONITORINFO>() as u32, ..Default::default() };
+            if !GetMonitorInfoW(mon, &mut info).as_bool() {
+                return 0;
+            }
+            let wa = info.rcWork;
+            let list: Vec<HWND> = hwnds
+                .iter()
+                .map(|h| HWND(*h as *mut _))
+                .filter(|h| IsWindow(Some(*h)).as_bool() && !IsIconic(*h).as_bool())
+                .filter(|h| MonitorFromWindow(*h, MONITOR_DEFAULTTOPRIMARY) == mon)
+                .take(9)
+                .collect();
+            let cells = grid_cells(list.len(), (wa.left, wa.top, wa.right, wa.bottom));
+            for (hwnd, (x, y, w, h)) in list.iter().zip(cells) {
+                if IsZoomed(*hwnd).as_bool() {
+                    let _ = ShowWindow(*hwnd, SW_RESTORE);
+                }
+                // Windows 10/11 frames have invisible resize borders: size the visible frame.
+                let mut outer = RECT::default();
+                let mut frame = RECT::default();
+                let (mut dl, mut dt, mut dr, mut db) = (0, 0, 0, 0);
+                if GetWindowRect(*hwnd, &mut outer).is_ok()
+                    && DwmGetWindowAttribute(*hwnd, DWMWA_EXTENDED_FRAME_BOUNDS, &mut frame as *mut RECT as *mut _, std::mem::size_of::<RECT>() as u32).is_ok()
+                {
+                    dl = frame.left - outer.left;
+                    dt = frame.top - outer.top;
+                    dr = outer.right - frame.right;
+                    db = outer.bottom - frame.bottom;
+                }
+                let _ = SetWindowPos(*hwnd, None, x - dl, y - dt, w + dl + dr, h + dt + db, SWP_NOZORDER | SWP_NOACTIVATE);
+            }
+            list.len()
+        }
+    }
+
     fn bring(hwnd: HWND) -> bool {
         use windows::Win32::System::Threading::{AttachThreadInput, GetCurrentThreadId};
         use windows::Win32::UI::Input::KeyboardAndMouse::{SendInput, INPUT, INPUT_MOUSE};
@@ -264,7 +369,7 @@ mod imp {
 }
 
 #[cfg(windows)]
-pub use imp::{focus, focus_hwnd, process_for_hwnd, process_name, windows};
+pub use imp::{focus, focus_hwnd, process_for_hwnd, process_name, process_table, tile, window_cmd, windows};
 
 #[cfg(windows)]
 pub fn foreground() -> Option<ForegroundApp> {
@@ -290,6 +395,18 @@ pub fn focus(_pid: u32, _title: &str) -> bool {
 #[cfg(not(windows))]
 pub fn focus_hwnd(_hwnd: isize) -> bool {
     false
+}
+#[cfg(not(windows))]
+pub fn window_cmd(_hwnd: isize, _action: &str) -> bool {
+    false
+}
+#[cfg(not(windows))]
+pub fn tile(_hwnds: &[isize]) -> usize {
+    0
+}
+#[cfg(not(windows))]
+pub fn process_table() -> std::collections::HashMap<u32, (u32, String)> {
+    Default::default()
 }
 
 /// Polls the foreground window every 250 ms and emits `foreground-changed` when the focused
@@ -326,4 +443,15 @@ pub fn start_watcher() {
                 let _ = (Instant::now(), Duration::from_secs(1));
             }
         });
+}
+
+#[cfg(all(test, windows))]
+mod tests {
+    #[test]
+    fn grid_is_as_square_as_possible() {
+        let g = super::imp::grid_cells(3, (0, 0, 1200, 800));
+        assert_eq!(g, vec![(0, 0, 600, 400), (600, 0, 600, 400), (0, 400, 1200, 400)]);
+        assert_eq!(super::imp::grid_cells(1, (0, 0, 100, 100)), vec![(0, 0, 100, 100)]);
+        assert_eq!(super::imp::grid_cells(4, (0, 0, 100, 100)).len(), 4);
+    }
 }

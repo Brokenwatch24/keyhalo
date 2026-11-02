@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { AudioApp, MediaState } from "@/core/backend";
 import { loadJson, saveJsonDebounced } from "@/core/state/persist";
-import { agentsPage, defaultBoard, DEFAULT_RELEASE_FOR } from "./defaults";
+import { agentsPage, defaultBoard, DEFAULT_RELEASE_FOR, tasksPage, windowsPage } from "./defaults";
 import type { PadBoard, PadButtonId, PadConnection, PadDef, PadPage } from "./types";
 
 const FILE = "pads.json";
@@ -48,8 +48,11 @@ function normalise(saved: Partial<PadBoard> | null): PadBoard {
     }
     return p;
   });
+  // Boards from before the Windows page get it once (if there is room); deleting it sticks.
+  if ((saved.version ?? 1) < 2 && pages.length < 7 && !pages.some((p) => p.kind === "windows" || p.id === "windows")) pages.push(windowsPage());
+  if ((saved.version ?? 1) < 3 && pages.length < 7 && !pages.some((p) => p.kind === "tasks" || p.id === "tasks")) pages.push(tasksPage());
   return {
-    version: 1,
+    version: 3,
     pages,
     port: typeof saved.port === "string" ? saved.port : "",
     releaseFor: Array.isArray(saved.releaseFor) ? saved.releaseFor : DEFAULT_RELEASE_FOR,

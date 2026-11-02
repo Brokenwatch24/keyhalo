@@ -350,3 +350,38 @@ pub async fn app_set_close_to_tray(enabled: bool) -> CmdResult<()> {
     CLOSE_TO_TRAY.store(enabled, Ordering::SeqCst);
     Ok(())
 }
+
+/// Shows the small text box (window "prompt") centred on the screen under the cursor and gives
+/// it the keyboard. `payload` is `{ id, title, value, placeholder }`; the answer comes back as the
+/// `prompt-result` event `{ id, value }` (value null when cancelled).
+#[tauri::command]
+pub async fn prompt_open(app: AppHandle, payload: Value) -> CmdResult<()> {
+    let w = app.get_webview_window("prompt").ok_or("prompt window missing")?;
+    app.emit_to("prompt", "prompt-open", payload).map_err(err)?;
+    if let Ok(cursor) = app.cursor_position() {
+        if let Some(m) = app.monitor_from_point(cursor.x, cursor.y).ok().flatten().or_else(|| w.primary_monitor().ok().flatten()) {
+            let area = m.work_area();
+            let size = w.outer_size().map_err(err)?;
+            let x = area.position.x + (area.size.width as i32 - size.width as i32) / 2;
+            let y = area.position.y + area.size.height as i32 / 3 - size.height as i32 / 2;
+            let _ = w.set_position(PhysicalPosition::new(x, y));
+        }
+    }
+    let _ = w.show();
+    let _ = w.set_focus();
+    // KeyHalo isn't the foreground app when a pad asks: take the focus the way pads bring windows up.
+    #[cfg(windows)]
+    if let Some(hwnd) = w.hwnd().ok().map(|h| h.0 as isize) {
+        let _ = tauri::async_runtime::spawn_blocking(move || crate::system::foreground::focus_hwnd(hwnd)).await;
+    }
+    Ok(())
+}
+
+/// The text box's answer: hides it and hands the text to the main window.
+#[tauri::command]
+pub async fn prompt_submit(app: AppHandle, id: String, value: Option<String>) -> CmdResult<()> {
+    if let Some(w) = app.get_webview_window("prompt") {
+        let _ = w.hide();
+    }
+    app.emit_to("main", "prompt-result", json!({ "id": id, "value": value })).map_err(err)
+}

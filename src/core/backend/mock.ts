@@ -198,6 +198,19 @@ export class MockBackend implements Backend {
     return null;
   }
   private codexHooked = false;
+  async windowCmd() {
+    return true;
+  }
+  async tile(hwnds: number[]) {
+    return hwnds.length;
+  }
+  async agentsRecent() {
+    return [];
+  }
+  async promptOpen() {}
+  async agentsLive() {
+    return [];
+  }
   async codexNotify(action: "status" | "install" | "remove") {
     if (action !== "status") this.codexHooked = action === "install";
     return { installed: this.codexHooked, path: "~/.codex/config.toml" };

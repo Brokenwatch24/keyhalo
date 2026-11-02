@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toolName, useOpenWindows, windowLabel, WINDOW_TOOLS } from "@/core/pads/windows";
 import { agentName, folderName, useAgents } from "@/core/agents";
 import { Map as MapIcon, Plus, RotateCcw } from "lucide-react";
 import { Badge, Button, Card, Field, Input, Modal, Page, Toggle } from "@/ui";
@@ -189,7 +190,15 @@ function boardLabels(page: PadPage | undefined, pages: PadPage[], audio: { proce
   if (page?.kind === "agents") {
     out[top(0)] = "+ Claude";
     out[top(1)] = "+ Codex";
-    for (const s of useAgents.getState().sessions) out[grid(s.slot % 8, Math.floor(s.slot / 8))] = `${agentName(s.kind)} ${folderName(s.cwd || "~")}`;
+    out[top(2)] = t("pads.agents.resume");
+    for (const s of useAgents.getState().sessions) out[grid(s.slot % 8, Math.floor(s.slot / 8))] = s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`;
+  } else if (page?.kind === "tasks") {
+    out[top(0)] = t("pads.tasks.add");
+    out[top(1)] = t("pads.tasks.clearDone");
+    for (const task of page.tasks ?? []) out[grid(task.slot % 8, Math.floor(task.slot / 8))] = (task.done ? "✓ " : "") + task.text;
+  } else if (page?.kind === "windows") {
+    WINDOW_TOOLS.forEach((tool, i) => (out[top(i)] = toolName(tool.key)));
+    for (const w of useOpenWindows.getState().windows) out[grid(w.slot % 8, Math.floor(w.slot / 8))] = windowLabel(w);
   } else if (page?.kind === "mixer") mixerColumns(page, audio).forEach((proc, x) => proc && (out[top(x)] = appName(proc, t)));
   else if (page) for (const [id, def] of Object.entries(page.pads)) out[id] = def.label || describePadAction(def.action);
   return out;

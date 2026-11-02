@@ -52,6 +52,21 @@
         "focus": false,
         "shadow": false,
         "resizable": false
+      },
+      {
+        "label": "prompt",
+        "title": "KeyHalo",
+        "url": "index.html#/prompt",
+        "width": 520,
+        "height": 132,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "visible": false,
+        "focus": true,
+        "shadow": false,
+        "resizable": false
       }
     ],
     "security": {

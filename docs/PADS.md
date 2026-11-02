@@ -68,17 +68,48 @@ Each pad is one coding-agent session: **orange = Claude Code**, **green = Codex*
 | slow blink, full | finished its turn: your move |
 
 - **Tap a session pad** to bring its terminal window to the front; the HUD shows what it needs
-  (e.g. "Permission: Bash"). **Hold** it to remove it from the pad (the session keeps running).
+  (e.g. "Permission: Bash"). Once there, **tap again** to dictate and once more to stop, or **hold** it
+  to dictate while held: KeyHalo holds Space (with key repeat) while you
+  dictate, like Claude Code's hold-to-talk voice mode (`/voice`), and stops if you leave the window. In Cursor / VS Code the
+  terminal is a panel, so dictation starts only if you were already in that window.
 - **Tap an empty pad** to open Claude Code there, **double-tap** for Codex. It opens in the folder
   of the File Explorer window in front, otherwise in the page's default folder. ▲ and ▼ on top
   open Claude / Codex in the next free pad.
-- Sessions you start yourself appear on their own once their hooks report in.
+- **Every running Claude Code session shows up**, wherever it runs (Windows Terminal, Cursor,
+  VS Code), even ones started before KeyHalo: KeyHalo reads Claude Code's own list in
+  `~/.claude/sessions`. A pad is named after the session (its `/rename` name, or the title Claude
+  gives it, as `/resume` shows it) and goes away when the session ends. Remove one by hand in
+  Pads → Agents.
+- **◀ Resume**: lists your recent Claude Code sessions on the pads and on screen (title, folder,
+  how long ago). Tap one, then tap the (green) pad to open it on: it opens in that session's
+  folder with `claude --resume`. ◀ again cancels. Pads → Agents lists them too.
 - Connect both in Pads → Agents: Claude Code gets KeyHalo's hooks (each posts Claude's own JSON:
   session, folder, event, message); Codex gets a `notify` command in `~/.codex/config.toml`
   (thread id, folder, last message after each turn). Codex only reports finished turns, so its pads
   never breathe.
 - Each session opens in its own Windows Terminal window, so KeyHalo can bring back exactly that
   one. Sessions in tabs of one window share the window.
+
+## Tasks page
+
+A checklist on the pads: amber = to do, dim green = done. While you are on this page the list shows
+on screen (each row marks where its pad is).
+
+- **Tap an empty pad** to write a task: a small box opens (Enter saves, Esc cancels).
+- **Tap a task** to mark it done (or to do again); **hold** it to edit it (an empty text deletes it).
+- ▲ writes a new task in the next free pad, ▼ clears the done ones.
+
+## Windows page
+
+Each pad is one open window, in the app's colour (full brightness = the window in front). A
+window keeps its pad while it is open; new windows take the free pads.
+
+- **Tap** brings it to the front; tap it again (when it is already in front) to minimise it.
+- **Hold** closes it, like its X button: the app still asks before losing unsaved work.
+- **Top buttons**: ▲ arrange (up to 9 open windows in a grid on the screen in front), ▼ desktop
+  (Win+D), ◀ / ▶ snap the window in front to the left / right half, Ses maximise, U1 minimise,
+  U2 Task view, Mix **close**: tap it to close the tab in front (Ctrl+W), or hold it and tap window
+  pads (they blink red) to close those windows.
 
 ## Mixer page
 

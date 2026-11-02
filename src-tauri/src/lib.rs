@@ -1,6 +1,7 @@
 //! KeyHalo's Rust side: a thin, generic bridge to hardware and the OS.
 //! Device protocols live in TypeScript; see src/core/backend/api.ts for the contract.
 
+pub mod agents_live;
 pub mod api_server;
 pub mod audio;
 pub mod claude_hooks;
@@ -124,6 +125,8 @@ pub fn run() {
             system::system_notifications,
             system::system_focus_window,
             system::system_focus_hwnd,
+            system::system_window_cmd,
+            system::system_tile,
             system::system_explorer_folder,
             system::audio_apps,
             system::audio_app_set,
@@ -150,9 +153,13 @@ pub fn run() {
             storage::storage_delete,
             claude_hooks::claude_hooks,
             codex_notify::codex_notify,
+            agents_live::agents_live,
+            agents_live::agents_recent,
             shell::tray_set_profiles,
             shell::hud_show,
             shell::padmap_set,
+            shell::prompt_open,
+            shell::prompt_submit,
             shell::app_version,
             shell::app_set_close_to_tray,
         ])

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listen } from "@tauri-apps/api/event";
 import { isTauri } from "@/core/backend";
-import { mapPayload, usePads, type PadMapPayload } from "@/core/pads";
+import { mapPayload, parseButton, usePads, type PadMapItem, type PadMapPayload } from "@/core/pads";
 import { PadGrid } from "@/ui/PadGrid";
 import "./padmap.css";
 
@@ -19,8 +19,35 @@ export function PadMapView({ payload }: { payload: PadMapPayload }) {
           ))}
         </span>
       </div>
-      <PadGrid cells={payload.buttons} compact />
+      {payload.list ? <PadList items={payload.list} /> : <PadGrid cells={payload.buttons} compact />}
+      {payload.hint && <div className="kh-padmap__hint">{payload.hint}</div>}
     </div>
+  );
+}
+
+/** A list (tasks, sessions) where each row shows where its pad is on the 8×8 grid. */
+function PadList({ items }: { items: PadMapItem[] }) {
+  return (
+    <ol className="kh-padlist">
+      {items.slice(0, 16).map((it) => {
+        const b = parseButton(it.button);
+        const at = b && b.kind === "g" ? b.y * 8 + b.x : -1;
+        return (
+          <li key={it.button} className={it.done ? "is-done" : ""} style={{ ["--c" as string]: it.color }}>
+            <span className="kh-padlist__where" aria-hidden>
+              {Array.from({ length: 64 }, (_, i) => (
+                <i key={i} className={i === at ? "is-here" : ""} />
+              ))}
+            </span>
+            <span className="kh-padlist__text">
+              <span className="kh-padlist__label">{it.label}</span>
+              {it.sub && <span className="kh-padlist__sub">{it.sub}</span>}
+            </span>
+          </li>
+        );
+      })}
+      {items.length > 16 && <li className="kh-padlist__more">+{items.length - 16}</li>}
+    </ol>
   );
 }
 

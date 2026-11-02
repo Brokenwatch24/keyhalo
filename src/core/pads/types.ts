@@ -60,17 +60,30 @@ export interface PadPage {
    * "mixer": the grid is a per-app volume mixer (columns = `mixer`), top buttons mute.
    * "agents": each pad is a live Claude Code / Codex session; an empty pad opens Claude (tap)
    * or Codex (double tap) in the folder you are browsing.
+   * "windows": each pad is an open window (tap: front / minimise, hold: close); top buttons arrange.
+   * "tasks": a checklist, one task per pad (tap: done / not done, hold: edit, empty pad: new task).
    */
-  kind: "grid" | "mixer" | "agents";
+  kind: "grid" | "mixer" | "agents" | "windows" | "tasks";
   /** Switch to this page automatically while one of these processes is in front. */
   apps?: string[];
   pads: Record<PadButtonId, PadDef>;
   /** Mixer columns: process names, "master", or "" (auto: next app playing audio). */
   mixer?: string[];
+  /** Tasks page: the checklist. */
+  tasks?: PadTask[];
+}
+
+export interface PadTask {
+  id: string;
+  text: string;
+  done: boolean;
+  /** Pad 0..63, row by row. */
+  slot: number;
 }
 
 export interface PadBoard {
-  version: 1;
+  /** 2: Windows page, 3: Tasks page (each added once to older boards). */
+  version: number;
   /** Up to 7 pages (right round buttons 1–7); the 8th shows the pad map. */
   pages: PadPage[];
   /** MIDI port name; empty = the first port whose name contains "Launchpad". */
@@ -97,4 +110,16 @@ export interface PadMapPayload {
   page: string;
   pages: { name: string; color: string; active: boolean }[];
   buttons: Record<PadButtonId, { label?: string; color: string }>;
+  /** Shown as a list instead of the grid (tasks, sessions to resume): each row marks its pad. */
+  list?: PadMapItem[];
+  /** One line under the map (what the buttons do right now). */
+  hint?: string;
+}
+
+export interface PadMapItem {
+  button: PadButtonId;
+  label: string;
+  sub?: string;
+  color: string;
+  done?: boolean;
 }

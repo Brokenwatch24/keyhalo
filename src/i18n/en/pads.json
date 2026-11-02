@@ -145,12 +145,16 @@
     "kinds": {
       "grid": "Pads",
       "mixer": "Mixer",
-      "agents": "Agents"
+      "agents": "Agents",
+      "windows": "Windows",
+      "tasks": "Tasks"
     },
     "kindHint": {
       "grid": "Every pad runs its own action.",
       "mixer": "Each column is one app's volume. The top buttons mute it.",
-      "agents": "Each pad is a live Claude Code or Codex session. Tap an empty pad for Claude, double-tap it for Codex."
+      "agents": "Each pad is a live Claude Code or Codex session. Tap an empty pad for Claude, double-tap it for Codex.",
+      "windows": "Each pad is an open window. Tap brings it to the front (or minimises it), hold closes it. The top buttons arrange windows.",
+      "tasks": "A checklist: each pad is a task. Tap marks it done, hold edits it, an empty pad asks for a new one. The list shows on screen while you are on this page."
     },
     "apps": "Switch here automatically",
     "appsHint": "While one of these apps is in front. Process names, * matches anything.",
@@ -199,7 +203,7 @@
     },
     "open": "Go to window",
     "forget": "Remove from the pad",
-    "sessionHint": "On the Launchpad: tap to jump to its window and see what it needs, hold to remove it from the pad (the session keeps running).",
+    "sessionHint": "On the Launchpad: tap to jump to its window and see what it needs. Once there, tap again to dictate and once more to stop, or hold it to dictate while held (KeyHalo holds Space for Claude Code's voice mode; turn it on with /voice). It stops if you leave the window. In Cursor or VS Code, click the terminal first.",
     "emptyKicker": "Empty pad {n}",
     "emptyTitle": "Free pad",
     "emptyHint": "On the Launchpad: tap once to open Claude Code here, twice for Codex. It opens in the folder of the File Explorer window in front, or in the default folder below. ▲ and ▼ on top do the same in the next free pad.",
@@ -214,6 +218,69 @@
     "claudeHint": "Adds KeyHalo's hooks to Claude Code (your other settings stay).",
     "codexHint": "Sets KeyHalo as Codex's notify command in ~/.codex/config.toml.",
     "codexOther": "Codex already runs another program on notify; KeyHalo leaves it alone.",
-    "apiOff": "Turn on the local API (Settings) so agents can reach KeyHalo."
+    "apiOff": "Turn on the local API (Settings) so agents can reach KeyHalo.",
+    "dictateClick": "Click its terminal, then press the pad again to dictate",
+    "dictateTap": "Dictating · tap again to stop",
+    "dictateLeft": "Dictation stopped: you left the window",
+    "resume": "Resume",
+    "resumeNone": "No recent sessions to resume",
+    "resumePick": "Resume: pick a session",
+    "resumeHint": "Tap the session's pad  ·  ◀ cancels",
+    "resumeWhere": "Now tap the pad to open it on",
+    "resumePad": "Open “{title}” on which pad?",
+    "resumePadHint": "Tap a green pad  ·  ◀ cancels",
+    "recent": "Recent sessions",
+    "resumeIt": "Resume"
+  },
+  "windows": {
+    "empty": "Free pad",
+    "emptyHint": "New windows take the free pads. Each window keeps its pad while it is open.",
+    "hint": "On the Launchpad: tap to bring it to the front (tap again to minimise), hold to close it, like its X button (the app asks before losing anything).",
+    "front": "In front",
+    "focus": "Bring to front",
+    "minimize": "Minimise",
+    "close": "Close",
+    "closed": "Closed",
+    "tool": "Top button",
+    "tools": {
+      "tile": "Arrange",
+      "desktop": "Desktop",
+      "left": "Snap left",
+      "right": "Snap right",
+      "maximize": "Maximise",
+      "minimize": "Minimise",
+      "taskView": "Task view",
+      "close": "Close"
+    },
+    "toolHints": {
+      "tile": "Puts the open windows (up to 9) in a grid on the screen in front.",
+      "desktop": "Shows the desktop (Win+D); again to bring everything back.",
+      "left": "Snaps the window in front to the left half (Win+Left).",
+      "right": "Snaps the window in front to the right half (Win+Right).",
+      "maximize": "Maximises the window in front (Win+Up).",
+      "minimize": "Minimises the window in front.",
+      "taskView": "Opens Task view (Win+Tab).",
+      "close": "Tap: closes the tab in front (Ctrl+W). Hold it and tap window pads: closes those windows (the pads blink red)."
+    },
+    "closedTab": "Tab closed"
+  },
+  "tasks": {
+    "new": "New task",
+    "edit": "Edit task",
+    "editHint": "Enter ✓  ·  Esc ✕  ·  empty = delete",
+    "placeholder": "What needs doing?",
+    "add": "+ Task",
+    "clearDone": "Clear done",
+    "cleared": "{n} done cleared",
+    "done": "Done",
+    "pending": "To do",
+    "mapHint": "Tap: done / to do  ·  Hold: edit  ·  Empty pad: new task",
+    "mapEmpty": "Tap any pad to write your first task",
+    "empty": "Free pad",
+    "emptyHint": "On the Launchpad, tap this pad to write a task in it (a small box opens; Enter saves).",
+    "text": "Task",
+    "delete": "Delete",
+    "addHere": "Add",
+    "hint": "On the Launchpad: tap to mark it done (or to do again), hold to edit it."
   }
 }

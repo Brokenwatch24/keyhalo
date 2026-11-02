@@ -71,6 +71,14 @@ function mixerPage(): PadPage {
   return { id: "mixer", name: "Mixer", color: "#3ccf4e", kind: "mixer", pads: {}, mixer: ["master", "Spotify.exe", "Discord.exe", "chrome.exe", "", "", "", ""] };
 }
 
+export function tasksPage(): PadPage {
+  return { id: "tasks", name: "Tasks", color: "#3ccf4e", kind: "tasks", pads: {}, tasks: [] };
+}
+
+export function windowsPage(): PadPage {
+  return { id: "windows", name: "Windows", color: "#ffb000", kind: "windows", pads: {} };
+}
+
 export function agentsPage(): PadPage {
   return { id: "agents", name: "Agents", color: "#ff7a00", kind: "agents", pads: {} };
 }
@@ -79,5 +87,5 @@ export function agentsPage(): PadPage {
 export const DEFAULT_RELEASE_FOR = ["Ableton Live*", "FL64.exe", "FL.exe", "Bitwig Studio.exe", "reaper.exe", "Studio One.exe", "Cubase*.exe", "Reason.exe", "Maschine 2.exe"];
 
 export function defaultBoard(): PadBoard {
-  return { version: 1, pages: [homePage(), mixerPage(), agentsPage()], port: "", releaseFor: DEFAULT_RELEASE_FOR, mapHotkey: "", hud: true, agentFolder: "" };
+  return { version: 3, pages: [homePage(), mixerPage(), agentsPage(), windowsPage(), tasksPage()], port: "", releaseFor: DEFAULT_RELEASE_FOR, mapHotkey: "", hud: true, agentFolder: "" };
 }
