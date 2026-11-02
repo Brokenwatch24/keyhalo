@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { placeWindows, windowLabel } from "./windows";
+import { appColor, placeWindows, windowLabel } from "./windows";
 
 const w = (hwnd: number, process = "chrome.exe", title = `Tab ${hwnd} - Google Chrome`) => ({ hwnd, process, title, pid: hwnd });
 
@@ -19,5 +19,12 @@ describe("windows page", () => {
   it("labels a window without its app name", () => {
     expect(windowLabel({ title: "Inbox - Gmail - Google Chrome", process: "chrome.exe" })).toBe("Inbox - Gmail");
     expect(windowLabel({ title: "Spotify Premium", process: "Spotify.exe" })).toBe("Spotify Premium");
+  });
+
+  it("gives the common apps fixed colours", () => {
+    expect(appColor("chrome.exe")).toBe("#ff3b30");
+    expect(appColor("WindowsTerminal.exe")).toBe("#3ccf4e");
+    expect(appColor("Cursor.exe")).toBe("#ffb000");
+    expect(appColor("Spotify.exe")).toBe(appColor("spotify.exe"));
   });
 });

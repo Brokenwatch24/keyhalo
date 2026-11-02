@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { decode, ledMessage, levels, parseButton } from "./launchpad";
 import { findClaudeWindow, terminalArgs } from "./actions";
-import { mixerColumns } from "./engine";
+import { mapPayload, mixerColumns } from "./engine";
+import { usePads } from "./store";
 import { defaultBoard } from "./defaults";
 
 describe("Launchpad S protocol", () => {
@@ -60,6 +61,17 @@ describe("pads", () => {
 
   it("opens terminal commands in a folder", () => {
     expect(terminalArgs("codex", "D:\dev")).toEqual(["-d", "D:\dev", "powershell", "-NoExit", "-Command", "codex"]);
+  });
+
+  it("shows each mixer column's volume on the pad map", () => {
+    const board = defaultBoard();
+    usePads.setState({ board, pageId: "mixer", audio: [{ process: "Spotify.exe", volume: 0.5, muted: false }] });
+    const map = mapPayload();
+    expect(map.buttons["t:1"]).toMatchObject({ label: "Spotify 50%" });
+    // Half volume: the 4 bottom pads of the column are lit, the 4 top ones aren't.
+    expect(map.buttons["g:1,7"]).toBeDefined();
+    expect(map.buttons["g:1,4"]).toBeDefined();
+    expect(map.buttons["g:1,3"]).toBeUndefined();
   });
 
   it("ships a board that fits the Launchpad", () => {

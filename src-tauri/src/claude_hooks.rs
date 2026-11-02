@@ -17,6 +17,11 @@ const EVENTS: [&str; 7] = ["SessionStart", "UserPromptSubmit", "PreToolUse", "Pe
 /// Path the hooks post to (1.1 hooks posted `{"action":"claude"}` to /api/v1/action).
 const ENDPOINT: &str = "/api/v1/hook/claude";
 
+/// curl doesn't know the size of a body read from stdin, so it sends `Expect: 100-continue` and
+/// waits a full second for an answer before sending it, and Claude Code waits for the hook. An
+/// empty `Expect:` header turns that off (~1 s → ~80 ms per hook). Hooks without it get upgraded.
+const NO_EXPECT: &str = "-H \"Expect:\"";
+
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct HooksStatus {
@@ -43,7 +48,7 @@ fn hook_command(port: u16, token: &str) -> String {
     };
     // Claude Code passes the hook JSON on stdin and curl forwards it as is. Works in cmd and
     // bash; `|| exit 0` keeps Claude Code quiet when KeyHalo is closed.
-    format!("curl -s -m 2 -X POST http://127.0.0.1:{port}{ENDPOINT} -H \"{MARKER}\" -H \"Content-Type: application/json\"{auth} --data-binary @- || exit 0")
+    format!("curl -s -m 2 -X POST http://127.0.0.1:{port}{ENDPOINT} -H \"{MARKER}\" -H \"Content-Type: application/json\" {NO_EXPECT}{auth} --data-binary @- || exit 0")
 }
 
 fn is_ours(hook: &Value) -> bool {
@@ -86,8 +91,9 @@ fn state_of(root: &Value) -> (bool, bool) {
     let Some(hooks) = root.get("hooks").and_then(Value::as_object) else {
         return (false, false);
     };
-    let current = EVENTS.iter().all(|e| ours_in(hooks, e).iter().any(|c| c.contains(ENDPOINT)));
-    let stale = hooks.keys().any(|e| ours_in(hooks, e).iter().any(|c| !c.contains(ENDPOINT)));
+    let up_to_date = |c: &&str| c.contains(ENDPOINT) && c.contains(NO_EXPECT);
+    let current = EVENTS.iter().all(|e| ours_in(hooks, e).iter().any(up_to_date));
+    let stale = hooks.keys().any(|e| ours_in(hooks, e).iter().any(|c| !up_to_date(c)));
     let any = hooks.keys().any(|e| !ours_in(hooks, e).is_empty());
     (current && !stale, any && !(current && !stale))
 }
@@ -212,7 +218,19 @@ mod tests {
         let c = hook_command(27463, "");
         assert!(c.contains("127.0.0.1:27463/api/v1/hook/claude"));
         assert!(c.contains("--data-binary @-"));
+        assert!(c.contains(NO_EXPECT));
         assert!(c.ends_with("|| exit 0"));
+    }
+
+    #[test]
+    fn upgrades_hooks_that_wait_for_100_continue() {
+        let slow = hook_command(27463, "").replace(&format!(" {NO_EXPECT}"), "");
+        let json = serde_json::json!({ "hooks": { "Stop": [{ "hooks": [{ "type": "command", "command": slow }] }] } });
+        let p = temp("slow", Some(json.to_string().as_str()));
+        let s = apply(&p, "status", 27463, "").unwrap();
+        assert!(!s.installed && s.outdated);
+        let s = apply(&p, "install", 27463, "").unwrap();
+        assert!(s.installed && !s.outdated);
     }
 
     #[test]

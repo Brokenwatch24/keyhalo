@@ -31,7 +31,8 @@ fn config_path() -> Result<PathBuf, String> {
 
 fn notify_line(port: u16, token: &str) -> String {
     let url = format!("http://127.0.0.1:{port}{ENDPOINT}");
-    let mut args = vec!["curl", "-s", "-m", "2", "-X", "POST", &url, "-H", "X-KeyHalo-Hook: 1", "-H", "Content-Type: application/json"];
+    // `Expect:` off: long messages would otherwise wait a second for a 100-continue answer.
+    let mut args = vec!["curl", "-s", "-m", "2", "-X", "POST", &url, "-H", "X-KeyHalo-Hook: 1", "-H", "Content-Type: application/json", "-H", "Expect:"];
     let auth = format!("Authorization: Bearer {token}");
     if !token.is_empty() {
         args.extend(["-H", &auth]);

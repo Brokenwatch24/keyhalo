@@ -11,7 +11,7 @@ import { activePage, usePads } from "./store";
 import { endResume, RESUME_BUTTON, resumeInput, resumeLeds, resumeMap, useResume } from "./resume";
 import { taskInput, taskLeds, taskMap } from "./tasks";
 import { closeTabs, tabsInput, tabsLeds, tabsMap } from "./windows";
-import { appColor, closeHeld, refreshWindows, toolName, useOpenWindows, windowInput, windowLabel, WINDOW_TOOLS } from "./windows";
+import { appColor, closeHeld, refreshWindows, windowLed, toolName, useOpenWindows, windowInput, windowLabel, WINDOW_TOOLS } from "./windows";
 import type { PadButtonId, PadDef, PadMapPayload, PadPage } from "./types";
 import type { AgentSession } from "@/core/agents";
 
@@ -150,9 +150,20 @@ const presses = new Map<PadButtonId, Promise<PressInfo>>();
 function sessionPress(id: PadButtonId, session: AgentSession) {
   holdFired.delete(id);
   if (talking) {
-    // Any press stops a dictation.
+    // A press stops the dictation; a second one right after also sends it (Enter).
+    const target = talking.hwnd;
     stopTalk();
     holdFired.add(id);
+    clearTimeout(justStopped?.timer);
+    justStopped = { id, target, timer: setTimeout(() => (justStopped = undefined), DOUBLE_TAP_MS) };
+    return;
+  }
+  if (justStopped?.id === id) {
+    clearTimeout(justStopped.timer);
+    const target = justStopped.target;
+    justStopped = undefined;
+    holdFired.add(id);
+    sendDictation(target);
     return;
   }
   sessionDown.add(id);
@@ -210,6 +221,20 @@ async function tryTalk(session: AgentSession, info: PressInfo, toggle: boolean) 
   talking = { timer: setInterval(repeat, 40), slot: session.slot, hwnd: fg.hwnd, since: Date.now(), toggle };
   repeat();
   bus.emit("hud", { title: `🎙 ${sessionName(session)}`, value: toggle ? tr("pads.agents.dictateTap") : undefined, icon: "info", color: "#ff3b30", durationMs: 1500 });
+}
+
+/** A dictation stopped by a tap: a second tap within DOUBLE_TAP_MS sends it. */
+let justStopped: { id: PadButtonId; target: number; timer: ReturnType<typeof setTimeout> } | undefined;
+/** Claude Code transcribes after Space is released: Enter waits for the text to land. */
+const SEND_DELAY_MS = 1500;
+
+function sendDictation(target: number) {
+  bus.emit("hud", { title: "↵", value: tr("pads.agents.dictateSending"), icon: "info", color: AGENT_COLORS.claude, durationMs: SEND_DELAY_MS });
+  setTimeout(async () => {
+    const fg = await backend.foregroundApp().catch(() => null);
+    // Only into the same window: Enter must not land anywhere else.
+    if (fg?.hwnd === target) void backend.inputSend([{ op: "tap", key: "Enter" }]).catch(() => {});
+  }, SEND_DELAY_MS);
 }
 
 function stopTalk(why?: string) {
@@ -286,9 +311,9 @@ export function computeLeds(t = performance.now()): Map<PadButtonId, Led> {
   } else if (page.kind === "windows" && useOpenWindows.getState().tabs) {
     for (const [id, led] of tabsLeds(DIM) ?? []) out.set(id, led);
   } else if (page.kind === "windows") {
-    const { windows, front } = useOpenWindows.getState();
+    const { windows } = useOpenWindows.getState();
     const closing = closeHeld();
-    for (const w of windows) out.set(slotButton(w.slot), closing ? { hex: "#ff3b30", b: Math.floor(t / 250) % 2 ? 1 : MID } : { hex: appColor(w.process), b: w.hwnd === front ? 1 : DIM });
+    for (const w of windows) out.set(slotButton(w.slot), closing ? { hex: "#ff3b30", b: Math.floor(t / 250) % 2 ? 1 : MID } : windowLed(w, t, DIM));
     WINDOW_TOOLS.forEach((tool, i) => out.set(top(i), { hex: tool.color, b: st.pressed[top(i)] ? 1 : DIM }));
   } else if (page.kind === "mixer") {
     const cols = mixerColumns(page, st.audio);
@@ -352,10 +377,20 @@ export function mapPayload(): PadMapPayload {
     ({ buttons, ...extra } = tabsMap()!);
   } else if (page?.kind === "windows") {
     WINDOW_TOOLS.forEach((tool, i) => (buttons[top(i)] = { label: toolName(tool.key), color: tool.color }));
-    for (const w of useOpenWindows.getState().windows) buttons[slotButton(w.slot)] = { label: windowLabel(w), color: appColor(w.process) };
+    const { windows, tabCounts } = useOpenWindows.getState();
+    for (const w of windows) buttons[slotButton(w.slot)] = { label: (tabCounts[w.hwnd] > 1 ? `⧉${tabCounts[w.hwnd]} ` : "") + windowLabel(w), color: appColor(w.process) };
   } else if (page?.kind === "mixer") {
+    // Same picture as the device: each column's height is its volume, and the top says how much.
     mixerColumns(page, st.audio).forEach((proc, x) => {
-      if (proc) buttons[top(x)] = { label: proc === "master" ? "Master" : proc.replace(/\.exe$/i, ""), color: "#3ccf4e" };
+      if (!proc) return;
+      const a = st.audio.find((v) => lower(v.process) === lower(proc));
+      const name = proc === "master" ? "Master" : proc.replace(/\.exe$/i, "");
+      buttons[top(x)] = { label: a ? `${name} ${a.muted ? "🔇" : `${Math.round(a.volume * 100)}%`}` : name, color: a?.muted ? "#ff3b30" : "#3ccf4e" };
+      const lit = a ? Math.round(a.volume * GRID) : 0;
+      for (let y = 0; y < GRID; y++) {
+        const level = GRID - y;
+        if (level <= lit) buttons[grid(x, y)] = { color: a?.muted ? "#ff3b30" : level >= 8 ? "#ff3b30" : level >= 6 ? "#ffb000" : "#3ccf4e", b: a?.muted ? DIM : MID };
+      }
     });
   } else if (page) {
     for (const [id, def] of Object.entries(page.pads)) buttons[id] = { label: def.label || describePadAction(def.action), color: def.color };
@@ -559,8 +594,9 @@ export async function startPads() {
     const page = activePage(st);
     const needAudio = page?.kind === "mixer" || st.mapVisible;
     const needMedia = page?.kind === "grid" && Object.values(page.pads).some((d) => d.state?.type === "media");
-    if (port && needAudio && tick % 5 === 0) void backend.audioApps().then((audio) => usePads.setState({ audio }), () => {});
-    if (page?.kind === "windows" && tick % 5 === 0) void refreshWindows();
+    if (port && needAudio && tick % 5 === 0)
+      void backend.audioApps().then((audio) => JSON.stringify(audio) !== JSON.stringify(usePads.getState().audio) && usePads.setState({ audio }), () => {});
+    if (page?.kind === "windows" && tick % 10 === 0) void refreshWindows();
     if (port && needMedia && tick % 10 === 0) void backend.mediaState().then((media) => usePads.setState({ media }), () => {});
     void flush();
   }, TICK_MS);

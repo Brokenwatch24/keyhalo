@@ -109,7 +109,7 @@ export type PadConnection =
 export interface PadMapPayload {
   page: string;
   pages: { name: string; color: string; active: boolean }[];
-  buttons: Record<PadButtonId, { label?: string; color: string }>;
+  buttons: Record<PadButtonId, { label?: string; color: string; b?: number }>;
   /** Shown as a list instead of the grid (tasks, sessions to resume): each row marks its pad. */
   list?: PadMapItem[];
   /** One line under the map (what the buttons do right now). */

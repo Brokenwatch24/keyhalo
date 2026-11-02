@@ -138,3 +138,10 @@ kbd {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* The window isn't focused (src/core/util/attention.ts): stop animations, they would redraw unseen. */
+.kh-idle *,
+.kh-idle *::before,
+.kh-idle *::after {
+  animation-play-state: paused !important;
+}

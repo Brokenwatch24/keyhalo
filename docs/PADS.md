@@ -68,7 +68,8 @@ Each pad is one coding-agent session: **orange = Claude Code**, **green = Codex*
 | slow blink, full | finished its turn: your move |
 
 - **Tap a session pad** to bring its terminal window to the front; the HUD shows what it needs
-  (e.g. "Permission: Bash"). Once there, **tap again** to dictate and once more to stop, or **hold** it
+  (e.g. "Permission: Bash"). Once there, **tap again** to dictate and once more to stop (**double tap** stops and sends it with
+  Enter), or **hold** it
   to dictate while held: KeyHalo holds Space (with key repeat) while you
   dictate, like Claude Code's hold-to-talk voice mode (`/voice`), and stops if you leave the window. In Cursor / VS Code the
   terminal is a panel, so dictation starts only if you were already in that window.
@@ -105,8 +106,10 @@ on screen (each row marks where its pad is).
 
 ## Windows page
 
-Each pad is one open window, in the app's colour (full brightness = the window in front). A
-window keeps its pad while it is open; new windows take the free pads.
+Each pad is one open window, in its app's colour: Chrome red, Windows Terminal green, Cursor /
+VS Code amber, File Explorer yellow, Firefox orange, Edge lime, other apps a steady colour of
+their own. The window in front is brightest; a window with several tabs **breathes**. A window
+keeps its pad while it is open; new windows take the free pads.
 
 - **Tap** brings it to the front; tap it again (when it is already in front) to minimise it.
 - **Hold** closes it, like its X button: the app still asks before losing unsaved work.
@@ -120,6 +123,7 @@ window keeps its pad while it is open; new windows take the free pads.
 Each column is one app: `master` (the output device), a process name such as `Spotify.exe`, or
 empty to take the next app that is playing audio. The column's height is its volume (press a pad
 to set it: top row = 100 %, bottom = 12.5 %), red when muted. The top round button mutes the column.
+The pad map shows the same columns with each app's volume in %.
 
 ## Ableton and other DAWs
 

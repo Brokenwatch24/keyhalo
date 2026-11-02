@@ -27,7 +27,7 @@ export interface WindowTabs {
   items: TabInfo[];
 }
 
-export const useOpenWindows = create<{ windows: OpenWindow[]; front: number; tabs: WindowTabs | null }>(() => ({ windows: [], front: 0, tabs: null }));
+export const useOpenWindows = create<{ windows: OpenWindow[]; front: number; tabs: WindowTabs | null; tabCounts: Record<number, number> }>(() => ({ windows: [], front: 0, tabs: null, tabCounts: {} }));
 
 /** The desktop itself, KeyHalo's overlays and the touch keyboard host aren't windows you switch to. */
 function hidden(w: WindowInfo) {
@@ -55,10 +55,66 @@ export function placeWindows(prev: OpenWindow[], wins: WindowInfo[]): OpenWindow
 
 /** One colour per app (the Launchpad mixes red and green only). */
 const PALETTE = ["#ff3b30", "#ff7a00", "#ffb000", "#ffe14d", "#a8e04d", "#3ccf4e"];
+/** Fixed colours for the apps you meet most, so a pad tells its app at a glance. */
+export const APP_COLORS: Record<string, string> = {
+  "chrome.exe": "#ff3b30",
+  "windowsterminal.exe": "#3ccf4e",
+  "cursor.exe": "#ffb000",
+  "code.exe": "#ffb000",
+  "explorer.exe": "#ffe14d",
+  "firefox.exe": "#ff7a00",
+  "msedge.exe": "#a8e04d",
+};
 export function appColor(process: string): string {
+  const fixed = APP_COLORS[process.toLowerCase()];
+  if (fixed) return fixed;
   let h = 0;
   for (const c of process.toLowerCase()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
   return PALETTE[h % PALETTE.length];
+}
+
+/** Apps whose windows have tabs KeyHalo can read. */
+const TABBED = ["chrome.exe", "msedge.exe", "windowsterminal.exe", "explorer.exe", "brave.exe"];
+/** Recount a window's tabs only when its title changes (switching / opening tabs does) or this often. */
+const TABS_STALE_MS = 30_000;
+const counted = new Map<number, { title: string; at: number }>();
+
+/**
+ * Tab counts of the tabbed windows. Reading tabs asks the app itself (UI Automation), which a busy
+ * Terminal answers slowly, so each window is asked only when something changed.
+ */
+async function refreshTabCounts(windows: OpenWindow[]) {
+  const counts: Record<number, number> = { ...useOpenWindows.getState().tabCounts };
+  let changed = false;
+  for (const w of windows.filter((x) => TABBED.includes(x.process.toLowerCase()))) {
+    const last = counted.get(w.hwnd);
+    if (last && last.title === w.title && Date.now() - last.at < TABS_STALE_MS) continue;
+    counted.set(w.hwnd, { title: w.title, at: Date.now() });
+    const n = (await backend.tabs(w.hwnd).catch(() => [])).length;
+    if (counts[w.hwnd] !== n) {
+      counts[w.hwnd] = n;
+      changed = true;
+    }
+  }
+  for (const h of Object.keys(counts).map(Number)) {
+    if (windows.some((w) => w.hwnd === h)) continue;
+    delete counts[h];
+    counted.delete(h);
+    changed = true;
+  }
+  if (changed) useOpenWindows.setState({ tabCounts: counts });
+}
+
+/**
+ * A window's pad: its app's colour; the window in front is brightest, and a window with several
+ * tabs breathes (hold it to see them).
+ */
+export function windowLed(w: OpenWindow, now: number, dim: number): { hex: string; b: number } {
+  const { front, tabCounts } = useOpenWindows.getState();
+  const inFront = w.hwnd === front;
+  if ((tabCounts[w.hwnd] ?? 0) < 2) return { hex: appColor(w.process), b: inFront ? 1 : dim };
+  const wave = 0.5 + 0.5 * Math.sin((now / 1000) * Math.PI * 2 * 0.5);
+  return { hex: appColor(w.process), b: inFront ? 2 / 3 + wave / 3 : 0.15 + wave * (2 / 3 - 0.15) };
 }
 
 /** "Page - Google Chrome" → "Page": the app is already told by the colour and the HUD. */
@@ -81,6 +137,7 @@ export async function refreshWindows() {
     const cur = useOpenWindows.getState();
     const same = cur.front === front && cur.windows.length === windows.length && cur.windows.every((w, i) => w.hwnd === windows[i].hwnd && w.title === windows[i].title);
     if (!same) useOpenWindows.setState({ windows, front });
+    await refreshTabCounts(windows);
     const tabs = useOpenWindows.getState().tabs;
     if (tabs) {
       if (!windows.some((w) => w.hwnd === tabs.hwnd)) closeTabs();

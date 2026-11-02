@@ -57,6 +57,7 @@ fn meaningful(s: &str) -> Option<String> {
 }
 
 /// The last title in a transcript: a /rename (`custom-title`) beats Claude's own (`ai-title`).
+#[cfg(test)]
 fn last_title(transcript: &str) -> Option<String> {
     let (mut custom, mut ai) = (None, None);
     for line in transcript.lines().filter(|l| l.contains("-title\"")) {
@@ -76,8 +77,23 @@ fn transcript_path(claude: &std::path::Path, cwd: &str, session: &str) -> PathBu
     claude.join("projects").join(dir).join(format!("{session}.jsonl"))
 }
 
-/// Title cache by session: re-read only when the transcript grows.
-type TitleCache = HashMap<String, (u64, Option<String>)>;
+/// What a transcript says about its title, and how far it has been read.
+#[derive(Clone, Default)]
+struct Titles {
+    /// Bytes read so far (always at a line end).
+    scanned: u64,
+    custom: Option<String>,
+    ai: Option<String>,
+}
+
+impl Titles {
+    fn best(&self) -> Option<String> {
+        self.custom.as_deref().and_then(meaningful).or_else(|| self.ai.as_deref().and_then(meaningful))
+    }
+}
+
+/// Title state per transcript: a growing transcript is read only from where it was left.
+type TitleCache = HashMap<String, Titles>;
 static TITLES: std::sync::Mutex<Option<TitleCache>> = std::sync::Mutex::new(None);
 
 fn title(claude: &std::path::Path, e: &Entry) -> Option<String> {
@@ -89,30 +105,67 @@ fn title(claude: &std::path::Path, e: &Entry) -> Option<String> {
     transcript_title(&transcript_path(claude, &e.cwd, &e.session_id))
 }
 
-/// A transcript's title (cached by size). Titles repeat through the file, so the last 512 KB
-/// usually hold one; the whole file is read only when they don't.
-fn transcript_title(path: &std::path::Path) -> Option<String> {
-    use std::io::{Read, Seek, SeekFrom};
-    let len = std::fs::metadata(path).ok()?.len();
-    let key = path.to_string_lossy().to_string();
-    if let Some((l, t)) = TITLES.lock().ok()?.get_or_insert_with(HashMap::new).get(&key) {
-        if *l == len {
-            return t.clone();
+/// Reads the complete lines in `from..upto`, keeping the last titles seen. Stops before a line
+/// still being written, so the next read starts there.
+fn scan_titles(path: &std::path::Path, from: u64, upto: u64, t: &mut Titles) {
+    use std::io::{BufRead, BufReader, Read, Seek, SeekFrom};
+    let Ok(mut f) = std::fs::File::open(path) else { return };
+    if f.seek(SeekFrom::Start(from)).is_err() {
+        return;
+    }
+    let mut r = BufReader::new(f.take(upto - from));
+    let mut line = Vec::new();
+    let mut pos = from;
+    loop {
+        line.clear();
+        match r.read_until(b'\n', &mut line) {
+            Ok(n) if n > 0 && line.last() == Some(&b'\n') => pos += n as u64,
+            _ => break,
+        }
+        if !line.windows(7).any(|w| w == b"-title\"") {
+            continue;
+        }
+        let Ok(v) = serde_json::from_slice::<serde_json::Value>(&line) else { continue };
+        let text = |k: &str| v.get(k).and_then(|x| x.as_str()).map(String::from);
+        match v.get("type").and_then(|x| x.as_str()) {
+            Some("custom-title") => t.custom = text("customTitle"),
+            Some("ai-title") => t.ai = text("aiTitle"),
+            _ => {}
         }
     }
-    const TAIL: u64 = 512 * 1024;
-    let mut f = std::fs::File::open(path).ok()?;
-    let mut buf = Vec::new();
-    if len > TAIL {
-        f.seek(SeekFrom::Start(len - TAIL)).ok()?;
-    }
-    f.read_to_end(&mut buf).ok()?;
-    let mut t = last_title(&String::from_utf8_lossy(&buf));
-    if t.is_none() && len > TAIL {
-        t = std::fs::read(path).ok().and_then(|b| last_title(&String::from_utf8_lossy(&b)));
-    }
-    TITLES.lock().ok()?.get_or_insert_with(HashMap::new).insert(key, (len, t.clone()));
-    t
+    t.scanned = t.scanned.max(pos);
+}
+
+/// A transcript's title. The first look reads its last MB (titles repeat through the file) and,
+/// only if that has none, the rest once; after that only the lines added since.
+fn transcript_title(path: &std::path::Path) -> Option<String> {
+    const TAIL: u64 = 1024 * 1024;
+    let len = std::fs::metadata(path).ok()?.len();
+    let key = path.to_string_lossy().to_string();
+    let known = TITLES.lock().ok()?.get_or_insert_with(HashMap::new).get(&key).cloned();
+    let t = match known {
+        Some(mut t) => {
+            if t.scanned < len {
+                scan_titles(path, t.scanned, len, &mut t);
+            }
+            t
+        }
+        None => {
+            let start = len.saturating_sub(TAIL);
+            let mut t = Titles { scanned: start, ..Default::default() };
+            scan_titles(path, start, len, &mut t);
+            if t.best().is_none() && start > 0 {
+                let mut head = Titles::default();
+                scan_titles(path, 0, start, &mut head);
+                t.custom = head.custom;
+                t.ai = head.ai;
+            }
+            t
+        }
+    };
+    let best = t.best();
+    TITLES.lock().ok()?.get_or_insert_with(HashMap::new).insert(key, t);
+    best
 }
 
 /// The folder a transcript ran in and your first message, from its first lines.
@@ -312,6 +365,26 @@ pub async fn agents_live() -> CmdResult<Vec<LiveAgent>> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn reads_titles_incrementally() {
+        let dir = std::env::temp_dir().join(format!("kh-titles-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let p = dir.join("s.jsonl");
+        std::fs::write(&p, "{\"type\":\"ai-title\",\"aiTitle\":\"One\"}\n{\"type\":\"user\"}\n").unwrap();
+        assert_eq!(transcript_title(&p).as_deref(), Some("One"));
+        use std::io::Write;
+        let mut f = std::fs::OpenOptions::new().append(true).open(&p).unwrap();
+        // A line still being written isn't read yet…
+        write!(f, "{{\"type\":\"custom-title\",\"customTitle\":\"Re").unwrap();
+        assert_eq!(transcript_title(&p).as_deref(), Some("One"));
+        // …and is once it ends.
+        writeln!(f, "named\"}}").unwrap();
+        assert_eq!(transcript_title(&p).as_deref(), Some("Renamed"));
+        writeln!(f, "{{\"type\":\"ai-title\",\"aiTitle\":\"Two\"}}").unwrap();
+        assert_eq!(transcript_title(&p).as_deref(), Some("Renamed"));
+        let _ = std::fs::remove_dir_all(dir);
+    }
 
     #[test]
     fn reads_the_latest_title() {

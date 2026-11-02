@@ -1,4 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
+import { watchAttention } from "@/core/util/attention";
 import { FlaskConical } from "lucide-react";
 import { SECTIONS } from "@/sections/registry";
 import { useRoute, navigate } from "./router";
@@ -20,6 +21,7 @@ export function App() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    watchAttention();
     initApp().finally(() => setReady(true));
   }, []);
 

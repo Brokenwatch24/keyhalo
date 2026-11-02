@@ -153,7 +153,7 @@
       "grid": "Cada pad ejecuta su propia acción.",
       "mixer": "Cada columna es el volumen de una app. Los botones de arriba la silencian.",
       "agents": "Cada pad es una sesión viva de Claude Code o Codex. Toca un pad vacío para Claude y dale doble toque para Codex.",
-      "windows": "Cada pad es una ventana abierta. Un toque la trae al frente (o la minimiza) y mantenerlo la cierra. Los botones de arriba organizan las ventanas.",
+      "windows": "Cada pad es una ventana abierta con el color de su app (Chrome rojo, Terminal verde, Cursor ámbar, Explorador amarillo); la del frente brilla más y la que tiene pestañas respira. Toque: al frente / minimizar; mantener: sus pestañas.",
       "tasks": "Un checklist: cada pad es una tarea. Un toque la marca como hecha, mantenerlo la edita y un pad vacío te pide una nueva. La lista sale en pantalla mientras estás en esta página."
     },
     "apps": "Cambiar aquí automáticamente",
@@ -203,7 +203,7 @@
     },
     "open": "Ir a la ventana",
     "forget": "Quitar del pad",
-    "sessionHint": "En el Launchpad: tócalo para ir a su ventana y ver qué necesita. Ya allí, tócalo otra vez para dictar y otra más para parar, o mantenlo pulsado para dictar mientras lo sostienes (KeyHalo mantiene el espacio para el modo de voz de Claude Code; actívalo con /voice). Se detiene si sales de la ventana. En Cursor o VS Code, haz clic primero en la terminal.",
+    "sessionHint": "En el Launchpad: tócalo para ir a su ventana y ver qué necesita. Ya allí, tócalo otra vez para dictar y otra más para parar (doble toque: parar y enviar), o mantenlo pulsado para dictar mientras lo sostienes (KeyHalo mantiene el espacio para el modo de voz de Claude Code; actívalo con /voice). Se detiene si sales de la ventana. En Cursor o VS Code, haz clic primero en la terminal.",
     "emptyKicker": "Pad vacío {n}",
     "emptyTitle": "Pad libre",
     "emptyHint": "En el Launchpad: un toque abre Claude Code aquí, dos toques abren Codex. Se abre en la carpeta del Explorador de archivos que tengas al frente o, si no, en la carpeta por defecto de abajo. ▲ y ▼ arriba hacen lo mismo en el siguiente pad libre.",
@@ -220,7 +220,7 @@
     "codexOther": "Codex ya ejecuta otro programa en notify; KeyHalo no lo toca.",
     "apiOff": "Activa la API local (Ajustes) para que los agentes lleguen a KeyHalo.",
     "dictateClick": "Haz clic en su terminal y vuelve a tocar el pad para dictar",
-    "dictateTap": "Dictando · toca otra vez para parar",
+    "dictateTap": "Dictando · toque: parar · doble toque: parar y enviar",
     "dictateLeft": "Dictado detenido: saliste de la ventana",
     "resume": "Reanudar",
     "resumeNone": "No hay sesiones recientes para reanudar",
@@ -236,7 +236,8 @@
     "closeHint": "Mantén Cerrar y toca una sesión para cerrarla",
     "closeFailed": "No pude cerrarla: cierra su terminal a mano",
     "closeIt": "Cerrar sesión",
-    "resumeOpen": "abierta (toca: ir a ella)"
+    "resumeOpen": "abierta (toca: ir a ella)",
+    "dictateSending": "Enviando…"
   },
   "windows": {
     "empty": "Pad libre",

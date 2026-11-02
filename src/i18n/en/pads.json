@@ -153,7 +153,7 @@
       "grid": "Every pad runs its own action.",
       "mixer": "Each column is one app's volume. The top buttons mute it.",
       "agents": "Each pad is a live Claude Code or Codex session. Tap an empty pad for Claude, double-tap it for Codex.",
-      "windows": "Each pad is an open window. Tap brings it to the front (or minimises it), hold closes it. The top buttons arrange windows.",
+      "windows": "Each pad is an open window in its app's colour (Chrome red, Terminal green, Cursor amber, Explorer yellow); the one in front is brightest and a window with tabs breathes. Tap: front / minimise, hold: its tabs.",
       "tasks": "A checklist: each pad is a task. Tap marks it done, hold edits it, an empty pad asks for a new one. The list shows on screen while you are on this page."
     },
     "apps": "Switch here automatically",
@@ -203,7 +203,7 @@
     },
     "open": "Go to window",
     "forget": "Remove from the pad",
-    "sessionHint": "On the Launchpad: tap to jump to its window and see what it needs. Once there, tap again to dictate and once more to stop, or hold it to dictate while held (KeyHalo holds Space for Claude Code's voice mode; turn it on with /voice). It stops if you leave the window. In Cursor or VS Code, click the terminal first.",
+    "sessionHint": "On the Launchpad: tap to jump to its window and see what it needs. Once there, tap again to dictate, once more to stop (double tap: stop and send), or hold it to dictate while held (KeyHalo holds Space for Claude Code's voice mode; turn it on with /voice). It stops if you leave the window. In Cursor or VS Code, click the terminal first.",
     "emptyKicker": "Empty pad {n}",
     "emptyTitle": "Free pad",
     "emptyHint": "On the Launchpad: tap once to open Claude Code here, twice for Codex. It opens in the folder of the File Explorer window in front, or in the default folder below. ▲ and ▼ on top do the same in the next free pad.",
@@ -220,7 +220,7 @@
     "codexOther": "Codex already runs another program on notify; KeyHalo leaves it alone.",
     "apiOff": "Turn on the local API (Settings) so agents can reach KeyHalo.",
     "dictateClick": "Click its terminal, then press the pad again to dictate",
-    "dictateTap": "Dictating · tap again to stop",
+    "dictateTap": "Dictating · tap: stop · double tap: stop and send",
     "dictateLeft": "Dictation stopped: you left the window",
     "resume": "Resume",
     "resumeNone": "No recent sessions to resume",
@@ -236,7 +236,8 @@
     "closeHint": "Hold Close and tap a session to close it",
     "closeFailed": "Couldn't close it: close its terminal by hand",
     "closeIt": "Close session",
-    "resumeOpen": "open (tap: go there)"
+    "resumeOpen": "open (tap: go there)",
+    "dictateSending": "Sending…"
   },
   "windows": {
     "empty": "Free pad",

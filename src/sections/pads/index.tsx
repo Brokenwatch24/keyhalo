@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { attention } from "@/core/util/attention";
 import { toolName, useOpenWindows, windowLabel, WINDOW_TOOLS } from "@/core/pads/windows";
 import { agentName, folderName, useAgents } from "@/core/agents";
 import { Map as MapIcon, Plus, RotateCcw } from "lucide-react";
@@ -14,8 +15,8 @@ import { accelToCodes, codesToAccel } from "../automations/shared";
 import { addBlankPage, appName, Group, Inspector } from "./Inspector";
 import "./pads.css";
 
-/** The board redraws this often while the page is open (the device itself runs at 10 Hz). */
-const LIVE_MS = 125;
+/** The board redraws this often while the page is open and focused (once a second otherwise). */
+const LIVE_MS = 200;
 
 export default function PadsSection() {
   useThemeQuery();
@@ -210,7 +211,12 @@ function LiveBoard({ selected, onSelect, compact }: { selected: string; onSelect
   const t = useT();
   const [, setTick] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setTick((n) => n + 1), LIVE_MS);
+    let n = 0;
+    const id = setInterval(() => {
+      const seen = attention();
+      if (seen === "hidden" || (seen === "background" && ++n % 5)) return;
+      setTick((x) => x + 1);
+    }, LIVE_MS);
     return () => clearInterval(id);
   }, []);
   const board = usePads((s) => s.board);

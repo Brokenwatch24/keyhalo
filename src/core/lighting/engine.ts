@@ -1,4 +1,5 @@
 import { backend } from "@/core/backend";
+import { attention } from "@/core/util/attention";
 import { acquireInputListening } from "@/core/stats/input";
 import { acquireSystemMetrics } from "@/core/integrations/system";
 import type { Unlisten } from "@/core/backend/api";
@@ -24,7 +25,9 @@ const SYSTEM_WIDGETS = new Set(["widget:cpu", "widget:gpu-temp", "widget:ram"]);
 
 export const VIRTUAL_KEYBOARD = "virtual:keyboard";
 export const VIRTUAL_MOUSE = "virtual:mouse";
-const PREVIEW_FPS = 20;
+/** Preview frames per second while the window is focused / in the background (none when hidden). */
+const PREVIEW_FPS = 15;
+const PREVIEW_FPS_BACKGROUND = 1;
 
 export interface FlashRequest {
   keys?: string[];
@@ -254,7 +257,9 @@ class LightingEngine {
     }
 
     const nowMs = Date.now();
-    if (this.hasWatchers && nowMs - this.lastPreview >= 1000 / PREVIEW_FPS) {
+    const seen = attention();
+    const every = seen === "hidden" ? Infinity : 1000 / (seen === "focused" ? PREVIEW_FPS : PREVIEW_FPS_BACKGROUND);
+    if (this.hasWatchers && nowMs - this.lastPreview >= every) {
       this.lastPreview = nowMs;
       this.publishPreviews(frame);
     }

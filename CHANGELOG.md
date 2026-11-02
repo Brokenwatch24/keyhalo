@@ -18,7 +18,8 @@ All notable changes to KeyHalo are documented here. The format follows
   Explorer window in front. Codex connects in one click (its `notify` command), and Claude Code
   hooks now report each session separately (hooks from 1.1 are upgraded automatically).
   Every running Claude Code session appears on its own, also in Cursor / VS Code terminals and
-  ones started before KeyHalo, named like `/resume` shows it. Tap a session pad again (or hold it) to dictate
+  ones started before KeyHalo, named like `/resume` shows it. Tap a session pad again (or hold it) to dictate; double
+  tap to stop and send
   (KeyHalo holds Space for Claude Code's voice mode).
 - **Tasks page**: a checklist on the pads, shown on screen while you are on it. Tap an empty pad
   to type a task, tap a task to tick it, hold to edit.
@@ -34,6 +35,15 @@ All notable changes to KeyHalo are documented here. The format follows
   while you learn the layout.
 - KeyHalo lets go of the Launchpad while Ableton Live, FL Studio and other DAWs run (Windows MIDI
   ports are exclusive) and takes it back afterwards.
+
+### Fixed
+- **Claude Code hooks no longer slow Claude down**: curl waited a full second for a
+  `100-continue` reply before posting each hook, and Claude Code waits for hooks before every
+  tool. Hooks now answer in ~80 ms; KeyHalo upgrades installed hooks on its own.
+- KeyHalo uses far less CPU and GPU in the background: the keyboard preview redraws at 1 fps while
+  the window isn't focused (15 fps when it is, 0 when hidden), animations pause, and session titles
+  are read incrementally instead of re-reading long transcripts.
+- The pad map shows the mixer's levels (each column's height and volume in %).
 
 ## [1.1.0] — 2026-10-27
 

@@ -113,7 +113,7 @@
 }
 @keyframes dash-pulse {
   50% {
-    box-shadow: 0 0 0 5px color-mix(in srgb, var(--success) 6%, transparent);
+    opacity: 0.45;
   }
 }
 .dash-stage__desk {
