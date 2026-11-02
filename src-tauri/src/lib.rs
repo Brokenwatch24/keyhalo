@@ -8,6 +8,7 @@ pub mod hid;
 pub mod http;
 pub mod input;
 pub mod lamparray;
+pub mod midi;
 pub mod mqtt;
 pub mod shell;
 pub mod storage;
@@ -120,6 +121,15 @@ pub fn run() {
             system::system_mic_muted,
             system::system_set_mic_muted,
             system::system_notifications,
+            system::system_focus_window,
+            system::audio_apps,
+            system::audio_app_set,
+            system::media_state,
+            system::media_command,
+            midi::midi_list,
+            midi::midi_open,
+            midi::midi_close,
+            midi::midi_send,
             system::system_notifications_access,
             system::system_open_path,
             system::system_find_steam_game,
@@ -127,6 +137,7 @@ pub fn run() {
             input::input_set_listening,
             input::remap_configure,
             input::input_send,
+            input::input_launch,
             audio::audio_set_listening,
             api_server::api_configure,
             api_server::api_set_state,
@@ -137,6 +148,7 @@ pub fn run() {
             claude_hooks::claude_hooks,
             shell::tray_set_profiles,
             shell::hud_show,
+            shell::padmap_set,
             shell::app_version,
             shell::app_set_close_to_tray,
         ])
@@ -144,6 +156,7 @@ pub fn run() {
         .expect("error while building KeyHalo")
         .run(|_app, event| {
             if let tauri::RunEvent::Exit = event {
+                midi::shutdown();
                 input::shutdown();
             }
         });

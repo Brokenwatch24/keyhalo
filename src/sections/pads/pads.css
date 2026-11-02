@@ -1,0 +1,280 @@
+/* Pads section: Launchpad board on the left, inspector on the right. */
+.pads-layout {
+  display: grid;
+  grid-template-columns: max-content minmax(320px, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+.pads-board {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+@media (max-width: 1080px) {
+  .pads-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+.pads-note {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  line-height: 1.45;
+}
+
+/* ---------- Page tabs ---------- */
+.pads-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.pads-tab,
+.pads-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.pads-tab:hover,
+.pads-chip:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.pads-tab[aria-selected="true"],
+.pads-chip.is-active {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+  color: var(--text);
+  font-weight: 500;
+}
+.pads-tab__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c);
+}
+.pads-tab__kind {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+.pads-chip {
+  height: 26px;
+  padding: 0 9px;
+}
+.pads-chip .subtle {
+  font-size: var(--text-xs);
+}
+
+/* ---------- Inspector ---------- */
+.pads-inspector {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  position: sticky;
+  top: var(--space-4);
+}
+@media (max-width: 1080px) {
+  .pads-inspector {
+    position: static;
+  }
+}
+.pads-insp__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.pads-insp__kicker {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+.pads-insp__title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pads-insp__section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.pads-insp__section h4 {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+.pads-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pads-action {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pads-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.pads-inline > .kh-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- Colour ---------- */
+.pads-color {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.pads-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.pads-swatch {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 5px;
+  border: 1px solid var(--border-strong);
+  background: var(--c);
+  cursor: pointer;
+}
+.pads-swatch.is-active {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+/* What the LED actually shows (red/green only). */
+.pads-led {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--c) 60%, transparent);
+}
+
+/* ---------- Mixer ---------- */
+.pads-mixer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.pads-mixer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.pads-mixer__n {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+.pads-mixer__col.is-active .pads-mixer__n {
+  color: var(--text);
+  font-weight: 600;
+}
+.pads-mixer__col.is-active .kh-input {
+  border-color: var(--text-2);
+}
+
+/* ---------- Settings ---------- */
+.pads-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-5);
+  align-items: start;
+}
+.pads-form__toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 22px;
+}
+@media (max-width: 960px) {
+  .pads-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pads-form__toggle {
+    padding-top: 0;
+  }
+}
+
+/* ---------- How it works ---------- */
+.pads-howto {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+}
+.pads-howto__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.pads-howto__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pads-howto__steps li {
+  display: flex;
+  gap: 10px;
+}
+.pads-howto__n {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-2);
+}
+.pads-howto__t {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.pads-howto__d {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+@media (max-width: 1180px) {
+  .pads-howto__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .pads-howto__steps {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,78 @@
+/* Launchpad layout (src/ui/PadGrid.tsx) */
+.kh-padgrid {
+  --cell: 54px;
+  --gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(9, var(--cell));
+  grid-auto-rows: var(--cell);
+  gap: var(--gap);
+  padding: 14px;
+  border-radius: 16px;
+  background: #121214;
+  border: 1px solid #26262b;
+  width: max-content;
+}
+.kh-padgrid--compact {
+  --cell: 44px;
+  --gap: 5px;
+  padding: 10px;
+}
+.kh-pad {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid #2c2c32;
+  background: #1c1c20;
+  color: #9a9aa3;
+  cursor: default;
+  overflow: hidden;
+  transition: background 120ms, box-shadow 120ms, transform 80ms;
+}
+.kh-pad--round {
+  border-radius: 50%;
+  transform: scale(0.72);
+}
+.kh-pad.is-lit {
+  background: color-mix(in srgb, var(--pad) 78%, #000);
+  border-color: color-mix(in srgb, var(--pad) 60%, #000);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--pad) 45%, transparent);
+  color: #111;
+}
+.kh-pad[tabindex="0"] {
+  cursor: pointer;
+}
+.kh-pad.is-selected {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.kh-pad.is-pressed {
+  transform: scale(0.92);
+  filter: brightness(1.25);
+}
+.kh-pad--round.is-pressed {
+  transform: scale(0.66);
+}
+.kh-pad__label {
+  font-size: 9.5px;
+  line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  pointer-events: none;
+}
+.kh-pad--round .kh-pad__label {
+  font-size: 10px;
+  -webkit-line-clamp: 2;
+}
+.kh-padgrid--compact .kh-pad__label {
+  font-size: 8.5px;
+}
+.kh-pad:not(.is-lit) .kh-pad__label {
+  color: #7c7c86;
+}

@@ -535,6 +535,17 @@ pub async fn remap_configure(config: serde_json::Value) -> CmdResult<()> {
     Ok(())
 }
 
+/// Start a program (or open a document/URL through the shell when it is not an executable).
+#[tauri::command]
+pub async fn input_launch(path: String, args: Option<Vec<String>>) -> CmdResult<()> {
+    blocking(move || {
+        launch(&path, &args.unwrap_or_default());
+        Ok(())
+    })
+    .await
+    .map_err(err)
+}
+
 #[tauri::command]
 pub async fn input_send(steps: Vec<MacroStep>) -> CmdResult<()> {
     blocking(move || {

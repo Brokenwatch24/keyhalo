@@ -117,9 +117,10 @@ export function EmptyState({ icon, title, children, action }: { icon?: ReactNode
 // Form controls
 // ---------------------------------------------------------------------------
 
-export function Field({ label, hint, aside, children }: { label?: ReactNode; hint?: ReactNode; aside?: ReactNode; children: ReactNode }) {
+/** `as="div"` for controls made of buttons (chips, key recorders): a <label> would click its first button. */
+export function Field({ label, hint, aside, children, as: Tag = "label" }: { label?: ReactNode; hint?: ReactNode; aside?: ReactNode; children: ReactNode; as?: "label" | "div" }) {
   return (
-    <label className="kh-field">
+    <Tag className="kh-field">
       {(label || aside) && (
         <span className="kh-field__label">
           <span>{label}</span>
@@ -128,7 +129,7 @@ export function Field({ label, hint, aside, children }: { label?: ReactNode; hin
       )}
       {children}
       {hint && <span className="kh-field__hint">{hint}</span>}
-    </label>
+    </Tag>
   );
 }
 

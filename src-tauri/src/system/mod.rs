@@ -3,6 +3,8 @@
 pub mod foreground;
 pub mod metrics;
 #[cfg(windows)]
+pub mod mixer;
+#[cfg(windows)]
 pub mod mic;
 pub mod pointer;
 pub mod steam;
@@ -100,6 +102,54 @@ pub async fn system_notifications_access(request: Option<bool>) -> CmdResult<Str
     {
         let _ = request;
         Ok("unsupported".into())
+    }
+}
+
+/// Brings a window (from `system_windows`) to the front.
+#[tauri::command]
+pub async fn system_focus_window(pid: u32, title: String) -> CmdResult<bool> {
+    blocking(move || Ok(foreground::focus(pid, &title))).await
+}
+
+/// Per-app volume: master first, then one entry per process playing audio.
+#[tauri::command]
+pub async fn audio_apps() -> CmdResult<serde_json::Value> {
+    #[cfg(windows)]
+    return blocking(|| mixer::list().map(|v| serde_json::to_value(v).unwrap_or_default())).await;
+    #[cfg(not(windows))]
+    Ok(serde_json::Value::Array(vec![]))
+}
+
+/// Sets volume (0..1) and/or mute for a process ("master" = the output device).
+#[tauri::command]
+pub async fn audio_app_set(process: String, volume: Option<f32>, muted: Option<bool>) -> CmdResult<()> {
+    #[cfg(windows)]
+    return blocking(move || mixer::set(&process, volume, muted)).await;
+    #[cfg(not(windows))]
+    {
+        let _ = (process, volume, muted);
+        Err("not supported".into())
+    }
+}
+
+/// The current "now playing" session, or null.
+#[tauri::command]
+pub async fn media_state() -> CmdResult<serde_json::Value> {
+    #[cfg(windows)]
+    return blocking(|| Ok(serde_json::to_value(mixer::media()).unwrap_or_default())).await;
+    #[cfg(not(windows))]
+    Ok(serde_json::Value::Null)
+}
+
+/// "playPause" | "next" | "prev" on the current media session.
+#[tauri::command]
+pub async fn media_command(command: String) -> CmdResult<bool> {
+    #[cfg(windows)]
+    return blocking(move || mixer::media_command(&command)).await;
+    #[cfg(not(windows))]
+    {
+        let _ = command;
+        Ok(false)
     }
 }
 

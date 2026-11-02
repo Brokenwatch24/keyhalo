@@ -84,9 +84,9 @@ function setPending(pending: PendingNotification[]) {
   setOverlay(pending);
 }
 
-/** Mark everything as seen: turns off the "keep lit" keys. */
-export function clearNotifications() {
-  setPending([]);
+/** Mark everything (or one rule's notifications) as seen: turns off the "keep lit" keys. */
+export function clearNotifications(ruleId?: string) {
+  setPending(ruleId ? useNotifications.getState().pending.filter((p) => p.ruleId !== ruleId) : []);
 }
 
 async function pollWindows(c: NotificationsConfig) {
@@ -211,7 +211,7 @@ export function startNotifications() {
     unregister = null;
     if (!wantHotkey) return;
     const gen = ++hotkeyGen;
-    registerHotkey(wantHotkey, clearNotifications)
+    registerHotkey(wantHotkey, () => clearNotifications())
       .then((un) => (gen === hotkeyGen ? (unregister = un) : un()))
       .catch((e) => useIntegrations.getState().setStatus("notifications", "error", `Hotkey ${wantHotkey}: ${String((e as Error)?.message ?? e)}`));
   });

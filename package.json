@@ -1,7 +1,7 @@
 {
   "name": "keyhalo",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Open-source studio for keyboards and mice: per-key RGB lighting, DPI tuning, per-app keymaps, macros, a typing trainer and community-shared profiles.",
   "license": "MIT",
   "type": "module",

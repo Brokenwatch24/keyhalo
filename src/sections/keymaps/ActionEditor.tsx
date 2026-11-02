@@ -123,7 +123,7 @@ export function ActionFields({
   switch (action.type) {
     case "key":
       return (
-        <Field label={t("keymaps.ui.fields.sendChord")} hint={t("keymaps.ui.fields.sendChordHint")}>
+        <Field as="div" label={t("keymaps.ui.fields.sendChord")} hint={t("keymaps.ui.fields.sendChordHint")}>
           <KeyRecorder value={action.keys} onChange={(keys) => onChange({ ...action, keys })} />
         </Field>
       );

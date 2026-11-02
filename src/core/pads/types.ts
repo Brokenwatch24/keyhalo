@@ -1,0 +1,94 @@
+/**
+ * Pad controllers (Launchpad S and friends): a board of pages, each mapping buttons to actions
+ * and live colours. Button ids: "g:x,y" grid pad (0..7 from the top-left), "t:i" round button
+ * on top, "r:i" round button on the right. Right-column buttons 1–7 pick the page; the 8th
+ * ("Arm") shows the on-screen pad map: hold it to peek, tap it to keep the map open.
+ */
+
+export type PadButtonId = string;
+
+export type PadAction =
+  /** Start a program, or a Start-menu app with path "shell:AppsFolder\\<AppID>". */
+  | { type: "app"; path: string; args?: string[] }
+  | { type: "url"; url: string }
+  /** Run a command in Windows Terminal (e.g. `claude`, `codex`) in a folder. */
+  | { type: "terminal"; command: string; cwd?: string }
+  /** Bring Claude Code's terminal to the front; open it in `cwd` when none is running. */
+  | { type: "claude"; cwd?: string }
+  /** Bring an app's window to the front; run `fallback` when it has no window. */
+  | { type: "focus"; process: string; fallback?: PadAction }
+  /** Key chord (KeyboardEvent.code names), e.g. ["ControlLeft", "ShiftLeft", "KeyS"]. */
+  | { type: "keys"; keys: string[] }
+  /** Focus an app, press a chord there, then return to the previous window (e.g. Spotify "like"). */
+  | { type: "appKeys"; process: string; keys: string[] }
+  | { type: "text"; text: string }
+  | { type: "media"; command: "playPause" | "next" | "prev" }
+  | { type: "mic" }
+  | { type: "volume"; process: string; step?: number; mute?: boolean }
+  /** Mark waiting notifications as seen (one rule, or all). */
+  | { type: "notificationsSeen"; ruleId?: string }
+  /** Show / hide the on-screen pad map. */
+  | { type: "map" }
+  | { type: "page"; page: string }
+  | { type: "profile"; profileId: string };
+
+/** What drives a pad's colour live, instead of its fixed colour. */
+export type PadState =
+  | { type: "claude" }
+  | { type: "mic" }
+  | { type: "media" }
+  /** Blinks while a notification matched by this rule is waiting (Integrations → Notifications). */
+  | { type: "notification"; ruleId: string }
+  /** Full colour while the process runs, dim otherwise. */
+  | { type: "running"; process: string };
+
+export interface PadDef {
+  label?: string;
+  /** Hex colour. The Launchpad S shows red/green mixes (red, orange, amber, yellow, green). */
+  color: string;
+  action?: PadAction;
+  /** Long press (≥ 500 ms). */
+  hold?: PadAction;
+  state?: PadState;
+}
+
+export interface PadPage {
+  id: string;
+  name: string;
+  color: string;
+  /** "mixer": the grid is a per-app volume mixer (columns = `mixer`), top buttons mute. */
+  kind: "grid" | "mixer";
+  /** Switch to this page automatically while one of these processes is in front. */
+  apps?: string[];
+  pads: Record<PadButtonId, PadDef>;
+  /** Mixer columns: process names, "master", or "" (auto: next app playing audio). */
+  mixer?: string[];
+}
+
+export interface PadBoard {
+  version: 1;
+  /** Up to 7 pages (right round buttons 1–7); the 8th shows the pad map. */
+  pages: PadPage[];
+  /** MIDI port name; empty = the first port whose name contains "Launchpad". */
+  port: string;
+  /** While any of these processes runs, KeyHalo lets go of the device (Windows MIDI ports are exclusive). */
+  releaseFor: string[];
+  /** Global hotkey that toggles the on-screen pad map (Tauri accelerator, empty = none). */
+  mapHotkey: string;
+  /** Show the pad's name in the HUD when it runs (handy while learning the layout). */
+  hud: boolean;
+}
+
+export type PadConnection =
+  | { state: "searching" }
+  | { state: "connected"; port: string }
+  | { state: "released"; port: string; app: string }
+  | { state: "busy"; port: string; message: string }
+  | { state: "off" };
+
+/** What the pad map overlay draws (also used by the Pads page). */
+export interface PadMapPayload {
+  page: string;
+  pages: { name: string; color: string; active: boolean }[];
+  buttons: Record<PadButtonId, { label?: string; color: string }>;
+}

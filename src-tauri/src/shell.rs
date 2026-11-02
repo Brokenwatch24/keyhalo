@@ -190,7 +190,14 @@ pub fn on_window_event(window: &tauri::Window, event: &tauri::WindowEvent) {
 
 /// Makes the HUD a non-activating, click-through tool window.
 pub fn setup_hud(app: &AppHandle) {
-    if let Some(hud) = app.get_webview_window("hud") {
+    for label in ["hud", "padmap"] {
+        setup_overlay(app, label);
+    }
+}
+
+/// Click-through, never-focused, no taskbar entry.
+fn setup_overlay(app: &AppHandle, label: &str) {
+    if let Some(hud) = app.get_webview_window(label) {
         let _ = hud.set_ignore_cursor_events(true);
         #[cfg(windows)]
         if let Ok(h) = hud.hwnd() {
@@ -285,6 +292,44 @@ pub async fn hud_show(app: AppHandle, payload: Value) -> CmdResult<()> {
             }
         }
     });
+    Ok(())
+}
+
+/// Shows or hides the pad-map overlay (bottom-right of the monitor under the cursor) and
+/// forwards `payload` (the page to draw) to it.
+#[tauri::command]
+pub async fn padmap_set(app: AppHandle, visible: bool, payload: Option<Value>) -> CmdResult<()> {
+    let w = app.get_webview_window("padmap").ok_or("pad map window missing")?;
+    if let Some(p) = payload {
+        app.emit_to("padmap", "padmap-update", p).map_err(err)?;
+    }
+    if !visible {
+        #[cfg(windows)]
+        hud_native(&w, false);
+        #[cfg(not(windows))]
+        let _ = w.hide();
+        return Ok(());
+    }
+    if let Ok(cursor) = app.cursor_position() {
+        let monitor = app
+            .monitor_from_point(cursor.x, cursor.y)
+            .ok()
+            .flatten()
+            .or_else(|| w.primary_monitor().ok().flatten());
+        if let Some(m) = monitor {
+            let area = m.work_area();
+            let size = w.outer_size().map_err(err)?;
+            let margin = (24.0 * m.scale_factor()) as i32;
+            let x = area.position.x + area.size.width as i32 - size.width as i32 - margin;
+            let y = area.position.y + area.size.height as i32 - size.height as i32 - margin;
+            let _ = w.set_position(PhysicalPosition::new(x, y));
+        }
+    }
+    let _ = w.set_ignore_cursor_events(true);
+    #[cfg(windows)]
+    hud_native(&w, true);
+    #[cfg(not(windows))]
+    let _ = w.show();
     Ok(())
 }
 

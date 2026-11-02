@@ -75,6 +75,39 @@ export class TauriBackend implements Backend {
   claudeHooks(action: "status" | "install" | "remove", port: number, token?: string) {
     return invoke<Awaited<ReturnType<Backend["claudeHooks"]>>>("claude_hooks", { action, port, token: token || null });
   }
+  focusWindow(pid: number, title: string) {
+    return invoke<boolean>("system_focus_window", { pid, title });
+  }
+  audioApps() {
+    return invoke<Awaited<ReturnType<Backend["audioApps"]>>>("audio_apps");
+  }
+  audioAppSet(process: string, volume?: number, muted?: boolean) {
+    return invoke<void>("audio_app_set", { process, volume: volume ?? null, muted: muted ?? null });
+  }
+  mediaState() {
+    return invoke<Awaited<ReturnType<Backend["mediaState"]>>>("media_state");
+  }
+  mediaCommand(command: "playPause" | "next" | "prev") {
+    return invoke<boolean>("media_command", { command });
+  }
+  launch(path: string, args?: string[]) {
+    return invoke<void>("input_launch", { path, args: args ?? null });
+  }
+  midiList() {
+    return invoke<Awaited<ReturnType<Backend["midiList"]>>>("midi_list");
+  }
+  midiOpen(name: string) {
+    return invoke<void>("midi_open", { name });
+  }
+  midiClose(name: string) {
+    return invoke<void>("midi_close", { name });
+  }
+  midiSend(name: string, messages: number[][]) {
+    return invoke<void>("midi_send", { name, messages });
+  }
+  padmapSet(visible: boolean, payload?: unknown) {
+    return invoke<void>("padmap_set", { visible, payload: payload ?? null });
+  }
   notifications() {
     return invoke<Awaited<ReturnType<Backend["notifications"]>>>("system_notifications");
   }

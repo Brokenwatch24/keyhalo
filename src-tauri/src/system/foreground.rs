@@ -170,6 +170,37 @@ mod imp {
     }
 
     pub fn windows() -> Vec<WindowInfo> {
+        top_windows().into_iter().map(|(_, w)| w).collect()
+    }
+
+    /// Brings the window of `pid` titled `title` to the front (restoring it if minimised).
+    pub fn focus(pid: u32, title: &str) -> bool {
+        use windows::Win32::System::Threading::{AttachThreadInput, GetCurrentThreadId};
+        use windows::Win32::UI::Input::KeyboardAndMouse::{SendInput, INPUT, INPUT_MOUSE};
+        let Some((hwnd, _)) = top_windows().into_iter().find(|(_, w)| w.pid == pid && w.title == title) else {
+            return false;
+        };
+        unsafe {
+            if IsIconic(hwnd).as_bool() {
+                let _ = ShowWindow(hwnd, SW_RESTORE);
+            }
+            // Windows only lets the process that sent the last input take the foreground.
+            let input = INPUT { r#type: INPUT_MOUSE, ..Default::default() };
+            SendInput(&[input], std::mem::size_of::<INPUT>() as i32);
+            let _ = SetForegroundWindow(hwnd);
+            if GetForegroundWindow() != hwnd {
+                let fg_thread = GetWindowThreadProcessId(GetForegroundWindow(), None);
+                let me = GetCurrentThreadId();
+                let _ = AttachThreadInput(me, fg_thread, true);
+                let _ = SetForegroundWindow(hwnd);
+                let _ = BringWindowToTop(hwnd);
+                let _ = AttachThreadInput(me, fg_thread, false);
+            }
+            GetForegroundWindow() == hwnd
+        }
+    }
+
+    fn top_windows() -> Vec<(HWND, WindowInfo)> {
         let mut hwnds: Vec<HWND> = Vec::new();
         unsafe {
             let _ = EnumWindows(Some(enum_cb), LPARAM(&mut hwnds as *mut Vec<HWND> as isize));
@@ -204,18 +235,21 @@ mod imp {
                 .entry(pid)
                 .or_insert_with(|| process_name(pid).0)
                 .clone();
-            out.push(WindowInfo {
-                process,
-                title,
-                pid,
-            });
+            out.push((
+                hwnd,
+                WindowInfo {
+                    process,
+                    title,
+                    pid,
+                },
+            ));
         }
         out
     }
 }
 
 #[cfg(windows)]
-pub use imp::{process_for_hwnd, windows};
+pub use imp::{focus, process_for_hwnd, process_name, windows};
 
 #[cfg(windows)]
 pub fn foreground() -> Option<ForegroundApp> {
@@ -233,6 +267,10 @@ pub fn process_for_hwnd(_hwnd: isize) -> Option<String> {
 #[cfg(not(windows))]
 pub fn windows() -> Vec<WindowInfo> {
     Vec::new()
+}
+#[cfg(not(windows))]
+pub fn focus(_pid: u32, _title: &str) -> bool {
+    false
 }
 
 /// Polls the foreground window every 250 ms and emits `foreground-changed` when the focused

@@ -60,6 +60,14 @@ bridge for more hardware.
 
 ![Typing trainer](docs/screenshots/typing-dark.png)
 
+### Launchpad macro board
+
+- Turn a **Novation Launchpad** into a Stream Deck-style board: open apps, websites, Claude Code
+  or Codex, shortcuts, media and per-app volume, with **live pad lights** (Claude Code working /
+  waiting, mic, notifications) and an on-screen **pad map** while you learn it
+- Plays nice with Ableton: KeyHalo lets go of the Launchpad while your DAW is open
+  ([docs](docs/PADS.md))
+
 ### Test bench
 
 - Check every key, switch and mouse button, and measure your mouse's real polling rate

@@ -97,7 +97,7 @@ function WindowsSource() {
         title={t("integrations.ui.notifications.pending")}
         aside={
           pending.length > 0 && (
-            <Button size="sm" icon={<CheckCheck />} onClick={clearNotifications}>
+            <Button size="sm" icon={<CheckCheck />} onClick={() => clearNotifications()}>
               {t("integrations.ui.notifications.markSeen")}
             </Button>
           )
@@ -169,14 +169,14 @@ function WindowsSource() {
                     <Field label={t("integrations.ui.notifications.name")}>
                       <Input value={r.name} onChange={(e) => setRule(r.id, { name: e.target.value })} />
                     </Field>
-                    <Field label={t("integrations.ui.notifications.apps")} hint={t("integrations.ui.notifications.appsHint")}>
+                    <Field as="div" label={t("integrations.ui.notifications.apps")} hint={t("integrations.ui.notifications.appsHint")}>
                       <ChipsInput value={r.apps} onChange={(apps) => setRule(r.id, { apps })} placeholder="discord, yourphone…" />
                     </Field>
-                    <Field label={t("integrations.ui.notifications.contains")} hint={t("integrations.ui.notifications.containsHint")}>
+                    <Field as="div" label={t("integrations.ui.notifications.contains")} hint={t("integrations.ui.notifications.containsHint")}>
                       <ChipsInput value={r.contains} onChange={(contains) => setRule(r.id, { contains })} placeholder="@you, urgent…" />
                     </Field>
                     {!r.mute && (
-                      <Field label={t("integrations.ui.notifications.keys")} hint={t("integrations.ui.notifications.keysHint")}>
+                      <Field as="div" label={t("integrations.ui.notifications.keys")} hint={t("integrations.ui.notifications.keysHint")}>
                         <ChipsInput value={r.keys} onChange={(keys) => setRule(r.id, { keys })} suggestions={[...KEY_CODES]} placeholder="F1, Escape…" />
                       </Field>
                     )}
@@ -201,10 +201,10 @@ function WindowsSource() {
 
       <Section title={t("integrations.ui.settings")}>
         <div className="integrations-form integrations-form--2">
-          <Field label={t("integrations.ui.notifications.indicatorKeys")} hint={t("integrations.ui.notifications.indicatorKeysHint")}>
+          <Field as="div" label={t("integrations.ui.notifications.indicatorKeys")} hint={t("integrations.ui.notifications.indicatorKeysHint")}>
             <ChipsInput value={cfg.indicatorKeys} onChange={(indicatorKeys) => update("notifications", { indicatorKeys })} suggestions={[...KEY_CODES]} placeholder="Escape" />
           </Field>
-          <Field label={t("integrations.ui.notifications.clearHotkey")} hint={t("integrations.ui.notifications.clearHotkeyHint")}>
+          <Field as="div" label={t("integrations.ui.notifications.clearHotkey")} hint={t("integrations.ui.notifications.clearHotkeyHint")}>
             <KeyRecorder
               value={accelToCodes(cfg.clearHotkey)}
               onChange={(codes) => update("notifications", { clearHotkey: codesToAccel(codes) })}

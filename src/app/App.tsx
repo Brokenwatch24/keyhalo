@@ -4,6 +4,7 @@ import { SECTIONS } from "@/sections/registry";
 import { useRoute, navigate } from "./router";
 import { Logo } from "./Logo";
 import { HudView } from "./Hud";
+import { PadMapInApp } from "./PadMap";
 import { SidebarFooter } from "./SidebarFooter";
 import { Toaster } from "@/ui";
 import { useT } from "@/i18n";
@@ -74,6 +75,7 @@ export function App() {
         )}
       </main>
       <HudView />
+      <PadMapInApp />
       <Toaster />
     </div>
   );

@@ -1,0 +1,70 @@
+/* Pad map overlay (src/app/PadMap.tsx) — always dark: it floats over any app. */
+.kh-padmap-window {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100vw;
+  height: 100vh;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.kh-padmap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(10, 10, 12, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  color: #f2f2f4;
+  font-family: var(--font-sans, Inter, system-ui, sans-serif);
+}
+.kh-padmap .kh-padgrid {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.kh-padmap__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 4px;
+}
+.kh-padmap__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.kh-padmap__pages {
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+  color: #8b8b94;
+}
+.kh-padmap__pages > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.kh-padmap__pages > span::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c);
+  opacity: 0.45;
+}
+.kh-padmap__pages > span.is-active {
+  color: #f2f2f4;
+}
+.kh-padmap__pages > span.is-active::before {
+  opacity: 1;
+}
+.kh-padmap-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  pointer-events: none;
+}

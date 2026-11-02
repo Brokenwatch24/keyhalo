@@ -7,6 +7,7 @@ import { init as integrations } from "./integrations/init";
 import { init as automation } from "./automation/init";
 import { init as community } from "./community/init";
 import { init as typing } from "./typing/init";
+import { startPads as pads } from "./pads/engine";
 import { init as stats } from "./stats/init";
 import { initShell } from "./shell";
 import { initUpdates } from "./updates";
@@ -45,6 +46,7 @@ export async function initApp() {
     ["integrations", integrations],
     ["automation", automation],
     ["typing", typing],
+    ["pads", pads],
     ["community", community],
   ] as const) {
     try {

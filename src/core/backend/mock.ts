@@ -181,6 +181,41 @@ export class MockBackend implements Backend {
     if (action !== "status") this.claudeHooked = action === "install";
     return { installed: this.claudeHooked, path: "~/.claude/settings.json" };
   }
+  private demoVolumes: Record<string, { volume: number; muted: boolean }> = {
+    master: { volume: 0.6, muted: false },
+    "Spotify.exe": { volume: 0.8, muted: false },
+    "Discord.exe": { volume: 0.5, muted: false },
+    "chrome.exe": { volume: 1, muted: false },
+  };
+  private demoPlaying = true;
+  async focusWindow() {
+    return false;
+  }
+  async audioApps() {
+    return Object.entries(this.demoVolumes).map(([process, v]) => ({ process, ...v }));
+  }
+  async audioAppSet(process: string, volume?: number, muted?: boolean) {
+    const v = (this.demoVolumes[process] ??= { volume: 1, muted: false });
+    if (volume !== undefined) v.volume = Math.max(0, Math.min(1, volume));
+    if (muted !== undefined) v.muted = muted;
+  }
+  async mediaState() {
+    return { app: "Spotify.exe", title: "Demo track", artist: "KeyHalo", playing: this.demoPlaying };
+  }
+  async mediaCommand(command: "playPause" | "next" | "prev") {
+    if (command === "playPause") this.demoPlaying = !this.demoPlaying;
+    return true;
+  }
+  async launch(path: string) {
+    if (/^https?:/i.test(path)) window.open(path, "_blank", "noopener");
+  }
+  async midiList() {
+    return { inputs: ["Launchpad S (demo)"], outputs: ["Launchpad S (demo)"] };
+  }
+  async midiOpen() {}
+  async midiClose() {}
+  async midiSend() {}
+  async padmapSet() {}
   async notificationsAccess() {
     return "allowed" as const;
   }

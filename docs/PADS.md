@@ -1,0 +1,76 @@
+# Pad controllers (Launchpad)
+
+KeyHalo turns a MIDI pad controller into a macro board with live lights. Supported today:
+**Novation Launchpad S** (and the original Launchpad / Launchpad Mini, which share its protocol).
+No driver is needed: the Launchpad S is class-compliant.
+
+## Layout
+
+```
+  ▲   ▼   ◀   ▶  Ses  U1  U2  Mix     ← top round buttons: extra pads (mixer: mute per column)
+┌───────────────────────────────┐
+│                               │ Vol   ← page 1
+│                               │ Pan   ← page 2
+│        8 × 8 grid pads        │ SndA  ← …
+│                               │ …     ← page 7
+│                               │ Arm   ← pad map (hold to peek, tap to toggle)
+└───────────────────────────────┘
+```
+
+- **Right round buttons 1–7** pick the page. A page can also switch on by itself while an app is
+  in front (`apps`, e.g. `Resolve.exe`), and goes back to your page when you leave it.
+- **Arm** shows the **pad map**: a small always-on-top overlay with every pad's name, so you can
+  learn the layout. Hold Arm to peek, tap it to keep the map open. A global hotkey can toggle it
+  too (Pads → Settings).
+- The LEDs are red/green, so colours are red, orange, amber, yellow, lime and green in 3 brightness
+  levels. Blue-ish colours show as soft amber.
+
+## What a pad can do
+
+| Action | Example |
+|---|---|
+| Open an app | an `.exe`, or a Start-menu app as `shell:AppsFolder\<AppID>` (Claude, Cursor, Discord…) |
+| Open a website | `https://mail.google.com` |
+| Terminal command | `claude`, `codex`, `npm run dev` in a folder (opens Windows Terminal) |
+| Claude Code | brings the terminal running Claude Code to the front; opens it if none is running |
+| Bring an app to the front | `Discord.exe`, with an app or URL to open when it is not running |
+| Shortcut / text | any key chord, or typed text |
+| Shortcut in another app | focus an app, press a chord there, return (e.g. Spotify "like": Alt+Shift+B) |
+| Media | play/pause, next, previous (works with any player that shows Windows media controls) |
+| Volume | per app or master: up, down, mute |
+| Microphone | toggle mute |
+| Notifications | mark as seen (needs Integrations → Notifications) |
+| Page, profile, pad map | switch page, apply a lighting profile, show the map |
+
+A pad can have a second **hold action** (press ≥ 0.5 s). The default *Claude Code* pad brings
+Claude Code forward on tap and opens a new Claude Code session on hold.
+
+## Live lights
+
+| State | Light |
+|---|---|
+| Claude Code | breathing green while it works, fast orange blink when it needs you, green when done, red on error (connect Claude Code in Integrations) |
+| Microphone | red when muted, green when live |
+| Now playing | green while something plays |
+| Notification rule | blinks while a notification from that rule waits; pressing the pad opens the app and marks it as seen |
+| App running | full colour while the process runs, dim otherwise |
+
+## Mixer page
+
+Each column is one app: `master` (the output device), a process name such as `Spotify.exe`, or
+empty to take the next app that is playing audio. The column's height is its volume (press a pad
+to set it: top row = 100 %, bottom = 12.5 %), red when muted. The top round button mutes the column.
+
+## Ableton and other DAWs
+
+Windows MIDI ports are **exclusive**: while KeyHalo holds the Launchpad, Ableton can't use it. So
+KeyHalo lets go of the Launchpad while any app in *Let go while these apps run* is open (Ableton
+Live, FL Studio, Bitwig, Reaper, Studio One, Cubase, Reason, Maschine by default; `*` matches
+anything) and takes it back a few seconds after you close it. If another app holds the port,
+the Pads page shows "in use by another app" and KeyHalo retries.
+
+## Data
+
+The board is saved as `pads.json` in the app data folder. Protocol details:
+`src/core/pads/launchpad.ts` (notes `16 × row + column`, top buttons CC 104–111, colour velocity
+`16 × green + red + 12`, reset `B0 00 00`).

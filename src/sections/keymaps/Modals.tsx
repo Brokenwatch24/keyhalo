@@ -402,7 +402,7 @@ export function PackDetailsModal({
         <Field label={t("common.description")}>
           <Input value={draft.description ?? ""} onChange={(e) => set({ description: e.target.value })} />
         </Field>
-        <Field label={t("keymaps.ui.details.apps")} hint={t("keymaps.ui.details.appsHint")}>
+        <Field as="div" label={t("keymaps.ui.details.apps")} hint={t("keymaps.ui.details.appsHint")}>
           <ChipsInput value={draft.apps} onChange={(apps) => set({ apps })} suggestions={procs} placeholder="Code.exe" />
         </Field>
         <div className="keymaps-form-grid">
@@ -413,7 +413,7 @@ export function PackDetailsModal({
             <Input value={draft.version ?? ""} placeholder="1.0.0" onChange={(e) => set({ version: e.target.value || undefined })} />
           </Field>
         </div>
-        <Field label={t("common.tags")}>
+        <Field as="div" label={t("common.tags")}>
           <ChipsInput value={draft.tags ?? []} onChange={(tags) => set({ tags })} mono={false} placeholder="video, editing" />
         </Field>
       </div>

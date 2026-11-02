@@ -4,6 +4,19 @@ All notable changes to KeyHalo are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] — 2026-11-02
+
+### Added
+- **Launchpad support** (Novation Launchpad S / Mini / original): a macro board with up to seven
+  pages, live pad lights (Claude Code, microphone, now playing, notifications, running apps), long
+  press actions, app-specific pages and a per-app **volume mixer** page. Pads open apps, websites,
+  Claude Code / Codex / any terminal command, bring windows forward, press shortcuts (also inside
+  another app), control media, volume and the microphone.
+- **Pad map overlay**: hold or tap the Arm button (or a hotkey) to see every pad's name on screen
+  while you learn the layout.
+- KeyHalo lets go of the Launchpad while Ableton Live, FL Studio and other DAWs run (Windows MIDI
+  ports are exclusive) and takes it back afterwards.
+
 ## [1.1.0] — 2026-10-27
 
 ### Added

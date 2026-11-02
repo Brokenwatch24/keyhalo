@@ -535,7 +535,7 @@ function TriggerFields({ trigger, onChange }: { trigger: Trigger; onChange: (t: 
     case "hotkey":
       return (
         <div className="automations-grid2">
-          <Field label={t("automation.ui.fields.hotkey")} hint={t("automation.ui.fields.hotkeyHint")}>
+          <Field as="div" label={t("automation.ui.fields.hotkey")} hint={t("automation.ui.fields.hotkeyHint")}>
             <KeyRecorder value={accelToCodes(trigger.accelerator)} onChange={(codes) => onChange({ ...trigger, accelerator: codesToAccel(codes) })} />
           </Field>
           <Field label={t("automation.ui.fields.accelerator")}>
@@ -595,7 +595,7 @@ function ActionFields({ action, onChange }: { action: RuleAction; onChange: (a: 
             </Field>
             <Slider label={t("automation.ui.fields.times")} value={action.times ?? 2} min={1} max={10} onChange={(times) => onChange({ ...action, times })} />
           </div>
-          <Field label={t("automation.ui.fields.keys")} hint={t("automation.ui.fields.keysHint")}>
+          <Field as="div" label={t("automation.ui.fields.keys")} hint={t("automation.ui.fields.keysHint")}>
             <ChipsInput
               value={action.keys ?? []}
               onChange={(keys) => onChange({ ...action, keys: keys.length ? keys : undefined })}

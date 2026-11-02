@@ -43,7 +43,7 @@ export function MicPanel() {
       </div>
       <Section title={t("integrations.ui.settings")}>
         <div className="integrations-form integrations-form--2">
-          <Field label={t("integrations.mic.hotkey")} hint={t("integrations.ui.mic.hotkeyHint")}>
+          <Field as="div" label={t("integrations.mic.hotkey")} hint={t("integrations.ui.mic.hotkeyHint")}>
             <KeyRecorder
               value={accelToCodes(cfg.hotkey)}
               onChange={(codes) => update("mic", { hotkey: codesToAccel(codes) })}

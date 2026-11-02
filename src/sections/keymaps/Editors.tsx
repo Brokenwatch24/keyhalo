@@ -349,7 +349,7 @@ export function LegendEditor({
     >
       <div className="col" style={{ gap: 16 }}>
         <p className="keymaps-note">{t("keymaps.ui.legend.intro")}</p>
-        <Field label={t("keymaps.ui.legend.keys")}>
+        <Field as="div" label={t("keymaps.ui.legend.keys")}>
           <KeyRecorder value={draft.keys} onChange={(keys) => setDraft((d) => ({ ...d, keys }))} autoFocus={draft.keys.length === 0} />
         </Field>
         <Field label={t("keymaps.ui.binding.label")}>

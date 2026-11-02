@@ -52,6 +52,21 @@ export interface ToastNotification {
   time: number;
 }
 
+/** Per-app volume entry (audio_apps). `process` is "master" for the output device. */
+export interface AudioApp {
+  process: string;
+  volume: number;
+  muted: boolean;
+}
+
+/** Current "now playing" media session (media_state). */
+export interface MediaState {
+  app: string;
+  title: string;
+  artist: string;
+  playing: boolean;
+}
+
 export type NotificationAccess = "allowed" | "denied" | "unspecified" | "unsupported";
 
 export interface SystemMetrics {
@@ -175,6 +190,10 @@ export interface BackendEvents {
   "hid-changed": Record<string, never>;
   /** The app is about to exit (~900 ms grace period). */
   "app-quitting": null;
+  /** Raw bytes from an open MIDI input port. */
+  "midi-message": { port: string; data: number[] };
+  /** A MIDI port failed (unplugged / taken by another app) and was closed. */
+  "midi-closed": { port: string; reason: string };
 }
 
 export type Unlisten = () => void;
@@ -239,6 +258,27 @@ export interface Backend {
   notificationsAccess(request?: boolean): Promise<NotificationAccess>;
   /** claude_hooks({ action, port, token }) — add/remove KeyHalo's hooks in ~/.claude/settings.json (other settings kept). */
   claudeHooks(action: "status" | "install" | "remove", port: number, token?: string): Promise<{ installed: boolean; path: string; backup?: string }>;
+  /** system_focus_window({ pid, title }) — bring a window (from windows()) to the front. */
+  focusWindow(pid: number, title: string): Promise<boolean>;
+  /** audio_apps() — master volume first, then each process playing audio. */
+  audioApps(): Promise<AudioApp[]>;
+  /** audio_app_set({ process, volume, muted }) — volume 0..1; "master" = output device. */
+  audioAppSet(process: string, volume?: number, muted?: boolean): Promise<void>;
+  /** media_state() — current media session or null. */
+  mediaState(): Promise<MediaState | null>;
+  /** media_command({ command }) — false when nothing is playing. */
+  mediaCommand(command: "playPause" | "next" | "prev"): Promise<boolean>;
+  /** input_launch({ path, args }) — start a program or open a document/URL. */
+  launch(path: string, args?: string[]): Promise<void>;
+  /** midi_list() — port names. */
+  midiList(): Promise<{ inputs: string[]; outputs: string[] }>;
+  /** midi_open({ name }) — open input + output; rejects with "busy: …" when another app holds it. */
+  midiOpen(name: string): Promise<void>;
+  midiClose(name: string): Promise<void>;
+  /** midi_send({ name, messages }) — raw MIDI messages. */
+  midiSend(name: string, messages: number[][]): Promise<void>;
+  /** padmap_set({ visible, payload }) — the pad-map overlay window. */
+  padmapSet(visible: boolean, payload?: unknown): Promise<void>;
   /** system_metrics() */
   systemMetrics(): Promise<SystemMetrics>;
   /** system_pointer_get() / system_pointer_set({ settings }) */
