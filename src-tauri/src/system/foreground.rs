@@ -11,6 +11,8 @@ pub struct ForegroundApp {
     pub exe_path: Option<String>,
     pub title: String,
     pub pid: u32,
+    /// Window handle (stable while the window lives; titles change).
+    pub hwnd: isize,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -19,6 +21,7 @@ pub struct WindowInfo {
     pub process: String,
     pub title: String,
     pub pid: u32,
+    pub hwnd: isize,
 }
 
 #[cfg(windows)]
@@ -131,6 +134,7 @@ mod imp {
                     exe_path,
                     title: window_title(hwnd),
                     pid,
+                    hwnd: hwnd.0 as isize,
                 },
             ))
         }
@@ -175,11 +179,21 @@ mod imp {
 
     /// Brings the window of `pid` titled `title` to the front (restoring it if minimised).
     pub fn focus(pid: u32, title: &str) -> bool {
+        match top_windows().into_iter().find(|(_, w)| w.pid == pid && w.title == title) {
+            Some((hwnd, _)) => bring(hwnd),
+            None => false,
+        }
+    }
+
+    /// Brings a window to the front by handle (false when it no longer exists).
+    pub fn focus_hwnd(hwnd: isize) -> bool {
+        let hwnd = HWND(hwnd as *mut _);
+        unsafe { IsWindow(Some(hwnd)).as_bool() && bring(hwnd) }
+    }
+
+    fn bring(hwnd: HWND) -> bool {
         use windows::Win32::System::Threading::{AttachThreadInput, GetCurrentThreadId};
         use windows::Win32::UI::Input::KeyboardAndMouse::{SendInput, INPUT, INPUT_MOUSE};
-        let Some((hwnd, _)) = top_windows().into_iter().find(|(_, w)| w.pid == pid && w.title == title) else {
-            return false;
-        };
         unsafe {
             if IsIconic(hwnd).as_bool() {
                 let _ = ShowWindow(hwnd, SW_RESTORE);
@@ -241,6 +255,7 @@ mod imp {
                     process,
                     title,
                     pid,
+                    hwnd: hwnd.0 as isize,
                 },
             ));
         }
@@ -249,7 +264,7 @@ mod imp {
 }
 
 #[cfg(windows)]
-pub use imp::{focus, process_for_hwnd, process_name, windows};
+pub use imp::{focus, focus_hwnd, process_for_hwnd, process_name, windows};
 
 #[cfg(windows)]
 pub fn foreground() -> Option<ForegroundApp> {
@@ -270,6 +285,10 @@ pub fn windows() -> Vec<WindowInfo> {
 }
 #[cfg(not(windows))]
 pub fn focus(_pid: u32, _title: &str) -> bool {
+    false
+}
+#[cfg(not(windows))]
+pub fn focus_hwnd(_hwnd: isize) -> bool {
     false
 }
 

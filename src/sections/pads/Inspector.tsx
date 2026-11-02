@@ -1,4 +1,5 @@
 import { useEffect, useId, useState, type ReactNode } from "react";
+import { AgentsEditor } from "./AgentsEditor";
 import { FolderOpen, Play, Plus, Trash2 } from "lucide-react";
 import { Button, ColorInput, Field, Input, Modal, Segmented, Select, TextArea } from "@/ui";
 import { useT } from "@/i18n";
@@ -58,7 +59,7 @@ export function Group({ label, hint, children }: { label: ReactNode; hint?: Reac
   );
 }
 
-function Head({ kicker, title, children }: { kicker: ReactNode; title: ReactNode; children?: ReactNode }) {
+export function Head({ kicker, title, children }: { kicker: ReactNode; title: ReactNode; children?: ReactNode }) {
   return (
     <div className="pads-insp__head">
       <div className="grow" style={{ minWidth: 0 }}>
@@ -108,6 +109,7 @@ export function Inspector({ selected, onSelect }: { selected: string; onSelect: 
           </>
         );
     } else if (page.kind === "mixer") body = <MixerEditor page={page} column={b.x} onSelect={onSelect} />;
+    else if (page.kind === "agents") body = <AgentsEditor selected={selected} />;
     else body = <PadEditor key={`${page.id}/${selected}`} page={page} id={selected} />;
   }
   return <aside className="pads-inspector">{body}</aside>;
@@ -308,7 +310,7 @@ function ArgsInput({ value, onChange }: { value: string[]; onChange: (args: stri
   );
 }
 
-function FolderInput({ value, onChange }: { value: string; onChange: (dir: string) => void }) {
+export function FolderInput({ value, onChange }: { value: string; onChange: (dir: string) => void }) {
   const t = useT();
   const browse = async () => {
     const { open } = await import("@tauri-apps/plugin-dialog");
@@ -561,6 +563,7 @@ function PageEditor({ page, index }: { page: PadPage; index: number }) {
             options={[
               { value: "grid", label: t("pads.page.kinds.grid") },
               { value: "mixer", label: t("pads.page.kinds.mixer") },
+              { value: "agents", label: t("pads.page.kinds.agents") },
             ]}
           />
         </Group>

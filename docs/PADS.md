@@ -55,6 +55,31 @@ Claude Code forward on tap and opens a new Claude Code session on hold.
 | Notification rule | blinks while a notification from that rule waits; pressing the pad opens the app and marks it as seen |
 | App running | full colour while the process runs, dim otherwise |
 
+## Agents page
+
+Each pad is one coding-agent session: **orange = Claude Code**, **green = Codex**.
+
+| Light | Meaning |
+|---|---|
+| slow blink | opening |
+| dim | ready, waiting for your first prompt |
+| breathing | working |
+| fast blink | needs you (a permission or a question) |
+| slow blink, full | finished its turn: your move |
+
+- **Tap a session pad** to bring its terminal window to the front; the HUD shows what it needs
+  (e.g. "Permission: Bash"). **Hold** it to remove it from the pad (the session keeps running).
+- **Tap an empty pad** to open Claude Code there, **double-tap** for Codex. It opens in the folder
+  of the File Explorer window in front, otherwise in the page's default folder. ▲ and ▼ on top
+  open Claude / Codex in the next free pad.
+- Sessions you start yourself appear on their own once their hooks report in.
+- Connect both in Pads → Agents: Claude Code gets KeyHalo's hooks (each posts Claude's own JSON:
+  session, folder, event, message); Codex gets a `notify` command in `~/.codex/config.toml`
+  (thread id, folder, last message after each turn). Codex only reports finished turns, so its pads
+  never breathe.
+- Each session opens in its own Windows Terminal window, so KeyHalo can bring back exactly that
+  one. Sessions in tabs of one window share the window.
+
 ## Mixer page
 
 Each column is one app: `master` (the output device), a process name such as `Spotify.exe`, or

@@ -10,19 +10,19 @@ use std::path::{Path, PathBuf};
 /// Marker header that identifies KeyHalo's hook commands.
 const MARKER: &str = "X-KeyHalo-Hook: 1";
 
-/// Claude Code hook event → KeyHalo Claude state.
-const EVENTS: [(&str, &str); 5] = [
-    ("UserPromptSubmit", "working"),
-    ("PreToolUse", "working"),
-    ("Notification", "waiting"),
-    ("Stop", "done"),
-    ("SessionEnd", "idle"),
-];
+/// Claude Code hook events KeyHalo listens to. Each hook posts Claude's own JSON (session id,
+/// folder, event, message) so the frontend can track every session separately.
+const EVENTS: [&str; 7] = ["SessionStart", "UserPromptSubmit", "PreToolUse", "PermissionRequest", "Notification", "Stop", "SessionEnd"];
+
+/// Path the hooks post to (1.1 hooks posted `{"action":"claude"}` to /api/v1/action).
+const ENDPOINT: &str = "/api/v1/hook/claude";
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct HooksStatus {
     pub installed: bool,
+    /// KeyHalo hooks from an older version are present (installing again upgrades them).
+    pub outdated: bool,
     pub path: String,
     /// Backup written before the first change, if any.
     pub backup: Option<String>,
@@ -35,16 +35,15 @@ fn settings_path() -> Result<PathBuf, String> {
     Ok(PathBuf::from(home).join(".claude").join("settings.json"))
 }
 
-fn hook_command(state: &str, port: u16, token: &str) -> String {
+fn hook_command(port: u16, token: &str) -> String {
     let auth = if token.is_empty() {
         String::new()
     } else {
         format!(" -H \"Authorization: Bearer {token}\"")
     };
-    // Works in cmd and bash; `|| exit 0` keeps Claude Code quiet when KeyHalo is closed.
-    format!(
-        "curl -s -m 2 -X POST http://127.0.0.1:{port}/api/v1/action -H \"{MARKER}\" -H \"Content-Type: application/json\"{auth} -d \"{{\\\"action\\\":\\\"claude\\\",\\\"params\\\":{{\\\"state\\\":\\\"{state}\\\"}}}}\" || exit 0"
-    )
+    // Claude Code passes the hook JSON on stdin and curl forwards it as is. Works in cmd and
+    // bash; `|| exit 0` keeps Claude Code quiet when KeyHalo is closed.
+    format!("curl -s -m 2 -X POST http://127.0.0.1:{port}{ENDPOINT} -H \"{MARKER}\" -H \"Content-Type: application/json\"{auth} --data-binary @- || exit 0")
 }
 
 fn is_ours(hook: &Value) -> bool {
@@ -68,16 +67,29 @@ fn strip(hooks: &mut Map<String, Value>) {
     hooks.retain(|_, v| v.as_array().map_or(true, |a| !a.is_empty()));
 }
 
-fn installed_in(root: &Value) -> bool {
+/// KeyHalo hook commands under `event`.
+fn ours_in<'a>(hooks: &'a Map<String, Value>, event: &str) -> Vec<&'a str> {
+    hooks
+        .get(event)
+        .and_then(Value::as_array)
+        .into_iter()
+        .flatten()
+        .filter_map(|g| g.get("hooks").and_then(Value::as_array))
+        .flatten()
+        .filter(|h| is_ours(h))
+        .filter_map(|h| h.get("command").and_then(Value::as_str))
+        .collect()
+}
+
+/// (installed and current, KeyHalo hooks from an older version present).
+fn state_of(root: &Value) -> (bool, bool) {
     let Some(hooks) = root.get("hooks").and_then(Value::as_object) else {
-        return false;
+        return (false, false);
     };
-    EVENTS.iter().all(|(event, _)| {
-        hooks
-            .get(*event)
-            .and_then(Value::as_array)
-            .is_some_and(|groups| groups.iter().any(|g| g.get("hooks").and_then(Value::as_array).is_some_and(|hs| hs.iter().any(is_ours))))
-    })
+    let current = EVENTS.iter().all(|e| ours_in(hooks, e).iter().any(|c| c.contains(ENDPOINT)));
+    let stale = hooks.keys().any(|e| ours_in(hooks, e).iter().any(|c| !c.contains(ENDPOINT)));
+    let any = hooks.keys().any(|e| !ours_in(hooks, e).is_empty());
+    (current && !stale, any && !(current && !stale))
 }
 
 fn read(path: &Path) -> Result<Value, String> {
@@ -112,10 +124,10 @@ pub fn apply(path: &Path, action: &str, port: u16, token: &str) -> Result<HooksS
         let map = hooks.as_object_mut().unwrap();
         strip(map);
         if action == "install" {
-            for (event, state) in EVENTS {
+            for event in EVENTS {
                 let list = map.entry(event).or_insert_with(|| json!([]));
                 if let Some(arr) = list.as_array_mut() {
-                    arr.push(json!({ "hooks": [{ "type": "command", "command": hook_command(state, port, token), "timeout": 5 }] }));
+                    arr.push(json!({ "hooks": [{ "type": "command", "command": hook_command(port, token), "timeout": 5 }] }));
                 }
             }
         }
@@ -128,7 +140,8 @@ pub fn apply(path: &Path, action: &str, port: u16, token: &str) -> Result<HooksS
         let text = serde_json::to_string_pretty(&root).map_err(err)?;
         std::fs::write(path, text + "\n").map_err(err)?;
     }
-    Ok(HooksStatus { installed: installed_in(&root), path: path.display().to_string(), backup })
+    let (installed, outdated) = state_of(&root);
+    Ok(HooksStatus { installed, outdated, path: path.display().to_string(), backup })
 }
 
 /// `action`: "status" | "install" | "remove".
@@ -195,11 +208,23 @@ mod tests {
     }
 
     #[test]
-    fn hook_command_sends_valid_json() {
-        let c = hook_command("waiting", 27463, "");
-        let body = c.split(" -d \"").nth(1).unwrap().split("\" ||").next().unwrap().replace("\\\"", "\"");
-        let v: Value = serde_json::from_str(&body).unwrap();
-        assert_eq!(v["params"]["state"], "waiting");
+    fn hook_command_forwards_stdin() {
+        let c = hook_command(27463, "");
+        assert!(c.contains("127.0.0.1:27463/api/v1/hook/claude"));
+        assert!(c.contains("--data-binary @-"));
+        assert!(c.ends_with("|| exit 0"));
+    }
+
+    #[test]
+    fn upgrades_hooks_from_an_older_version() {
+        let old = r#"{"hooks":{"Stop":[{"hooks":[{"type":"command","command":"curl -s -X POST http://127.0.0.1:27463/api/v1/action -H \"X-KeyHalo-Hook: 1\" || exit 0"}]}]}}"#;
+        let p = temp("old", Some(old));
+        let s = apply(&p, "status", 27463, "").unwrap();
+        assert!(!s.installed && s.outdated);
+        let s = apply(&p, "install", 27463, "").unwrap();
+        assert!(s.installed && !s.outdated);
+        let v: Value = serde_json::from_str(&std::fs::read_to_string(&p).unwrap()).unwrap();
+        assert_eq!(v["hooks"]["Stop"].as_array().unwrap().len(), 1);
     }
 
     #[test]

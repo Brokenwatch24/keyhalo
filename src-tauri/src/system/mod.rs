@@ -3,6 +3,8 @@
 pub mod foreground;
 pub mod metrics;
 #[cfg(windows)]
+pub mod explorer;
+#[cfg(windows)]
 pub mod mixer;
 #[cfg(windows)]
 pub mod mic;
@@ -109,6 +111,24 @@ pub async fn system_notifications_access(request: Option<bool>) -> CmdResult<Str
 #[tauri::command]
 pub async fn system_focus_window(pid: u32, title: String) -> CmdResult<bool> {
     blocking(move || Ok(foreground::focus(pid, &title))).await
+}
+
+/// Brings a window to the front by handle.
+#[tauri::command]
+pub async fn system_focus_hwnd(hwnd: isize) -> CmdResult<bool> {
+    blocking(move || Ok(foreground::focus_hwnd(hwnd))).await
+}
+
+/// The folder a File Explorer window shows (None for other windows or virtual folders).
+#[tauri::command]
+pub async fn system_explorer_folder(hwnd: isize) -> CmdResult<Option<String>> {
+    #[cfg(windows)]
+    return blocking(move || Ok(explorer::folder(hwnd))).await;
+    #[cfg(not(windows))]
+    {
+        let _ = hwnd;
+        Ok(None)
+    }
 }
 
 /// Per-app volume: master first, then one entry per process playing audio.

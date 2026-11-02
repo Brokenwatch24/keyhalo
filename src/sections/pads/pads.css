@@ -278,3 +278,29 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Agents page ---------- */
+.pads-agent-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c);
+  flex: none;
+  margin-right: 6px;
+}
+.pads-agent-msg {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+.pads-agent-conn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { agentName, folderName, useAgents } from "@/core/agents";
 import { Map as MapIcon, Plus, RotateCcw } from "lucide-react";
 import { Badge, Button, Card, Field, Input, Modal, Page, Toggle } from "@/ui";
 import { PadGrid, type PadCell } from "@/ui/PadGrid";
@@ -160,7 +161,7 @@ function PageTabs({ onAdded }: { onAdded: (index: number) => void }) {
         <button key={p.id} type="button" role="tab" aria-selected={p.id === active} className="pads-tab" onClick={() => setPage(p.id)}>
           <span className="pads-tab__dot" style={{ ["--c" as string]: previewColor(p.color) }} />
           {p.name || t("pads.pad.unnamed")}
-          {p.kind === "mixer" && <span className="pads-tab__kind">{t("pads.page.kinds.mixer")}</span>}
+          {p.kind !== "grid" && <span className="pads-tab__kind">{t(`pads.page.kinds.${p.kind}`)}</span>}
         </button>
       ))}
       {pages.length < 7 && (
@@ -185,7 +186,11 @@ function boardLabels(page: PadPage | undefined, pages: PadPage[], audio: { proce
   const out: Record<string, string> = {};
   pages.slice(0, 7).forEach((p, i) => (out[right(i)] = p.name));
   out[right(7)] = t("pads.board.map");
-  if (page?.kind === "mixer") mixerColumns(page, audio).forEach((proc, x) => proc && (out[top(x)] = appName(proc, t)));
+  if (page?.kind === "agents") {
+    out[top(0)] = "+ Claude";
+    out[top(1)] = "+ Codex";
+    for (const s of useAgents.getState().sessions) out[grid(s.slot % 8, Math.floor(s.slot / 8))] = `${agentName(s.kind)} ${folderName(s.cwd || "~")}`;
+  } else if (page?.kind === "mixer") mixerColumns(page, audio).forEach((proc, x) => proc && (out[top(x)] = appName(proc, t)));
   else if (page) for (const [id, def] of Object.entries(page.pads)) out[id] = def.label || describePadAction(def.action);
   return out;
 }

@@ -3,6 +3,7 @@ import { registerHotkey } from "@/core/integrations/hotkeys";
 import { clearNotifications, useNotifications } from "@/core/integrations/notifications";
 import { useSignals } from "@/core/lighting/signals";
 import { bus } from "@/core/util/bus";
+import { AGENT_COLORS, agentName, currentFolder, folderName, forgetAgent, launchAgent, openAgent, useAgents } from "@/core/agents";
 import { describePadAction, runPadAction } from "./actions";
 import { ALL_BUTTONS, decode, grid, GRID, isLaunchpadPort, ledMessage, parseButton, RESET, right, top } from "./launchpad";
 import { activePage, usePads } from "./store";
@@ -79,6 +80,91 @@ function stateLed(def: PadDef, t: number): Led {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Agents page
+// ---------------------------------------------------------------------------
+
+const slotButton = (slot: number) => grid(slot % GRID, Math.floor(slot / GRID));
+const AGENT_NEW = { claude: top(0), codex: top(1) } as const;
+
+function agentLeds(t: number): Map<PadButtonId, Led> {
+  const out = new Map<PadButtonId, Led>();
+  const breathe = 0.34 + 0.66 * (0.5 + 0.5 * Math.sin((t / 1000) * Math.PI * 2 * 0.7));
+  for (const s of useAgents.getState().sessions) {
+    const hex = AGENT_COLORS[s.kind];
+    let b = 1 / 3;
+    if (s.state === "starting") b = Math.floor(t / 600) % 2 ? MID : DIM;
+    else if (s.state === "working") b = breathe;
+    else if (s.state === "waiting") b = s.seen ? 1 : Math.floor(t / 250) % 2 ? 1 : 0.15;
+    else if (s.state === "done") b = s.seen ? MID : Math.floor(t / 600) % 2 ? 1 : 0.15;
+    out.set(slotButton(s.slot), { hex, b });
+  }
+  out.set(AGENT_NEW.claude, { hex: AGENT_COLORS.claude, b: DIM });
+  out.set(AGENT_NEW.codex, { hex: AGENT_COLORS.codex, b: DIM });
+  return out;
+}
+
+const DOUBLE_TAP_MS = 320;
+let tapTimer: ReturnType<typeof setTimeout> | undefined;
+let tapSlot = -1;
+
+function agentError(e: unknown) {
+  bus.emit("hud", { title: "Agents", value: String((e as Error)?.message ?? e), icon: "info", color: "#ff6b6b" });
+}
+
+async function newAgent(kind: "claude" | "codex", slot?: number) {
+  const cwd = await currentFolder(usePads.getState().board.agentFolder);
+  hud(`${agentName(kind)} · ${folderName(cwd || "~")}`);
+  await launchAgent(kind, cwd, slot);
+}
+
+/** Agents page input: a session pad opens it (hold forgets it); an empty pad opens Claude, double tap Codex. */
+function agentInput(id: PadButtonId, down: boolean) {
+  const b = parseButton(id);
+  if (!b) return;
+  if (b.kind === "t") {
+    if (down && id === AGENT_NEW.claude) newAgent("claude").catch(agentError);
+    if (down && id === AGENT_NEW.codex) newAgent("codex").catch(agentError);
+    return;
+  }
+  const slot = b.y * GRID + b.x;
+  const session = useAgents.getState().sessions.find((s) => s.slot === slot);
+  if (session) {
+    if (down) {
+      holdFired.delete(id);
+      holdTimers.set(
+        id,
+        setTimeout(() => {
+          holdFired.add(id);
+          forgetAgent(session.key);
+          hud(`${agentName(session.kind)} · ${folderName(session.cwd || "~")} ✕`);
+        }, HOLD_MS),
+      );
+    } else {
+      clearTimeout(holdTimers.get(id));
+      holdTimers.delete(id);
+      if (!holdFired.has(id)) openAgent(session.key).catch(agentError);
+      holdFired.delete(id);
+    }
+    return;
+  }
+  if (!down) return;
+  if (tapSlot === slot && tapTimer) {
+    clearTimeout(tapTimer);
+    tapTimer = undefined;
+    tapSlot = -1;
+    newAgent("codex", slot).catch(agentError);
+    return;
+  }
+  clearTimeout(tapTimer);
+  tapSlot = slot;
+  tapTimer = setTimeout(() => {
+    tapTimer = undefined;
+    tapSlot = -1;
+    newAgent("claude", slot).catch(agentError);
+  }, DOUBLE_TAP_MS);
+}
+
 /** Desired LED for every button right now. */
 export function computeLeds(t = performance.now()): Map<PadButtonId, Led> {
   const st = usePads.getState();
@@ -90,7 +176,9 @@ export function computeLeds(t = performance.now()): Map<PadButtonId, Led> {
   out.set(MAP_BUTTON, { hex: "#ffe14d", b: st.mapVisible ? 1 : DIM });
   if (!page) return out;
 
-  if (page.kind === "mixer") {
+  if (page.kind === "agents") {
+    for (const [id, led] of agentLeds(t)) out.set(id, led);
+  } else if (page.kind === "mixer") {
     const cols = mixerColumns(page, st.audio);
     cols.forEach((proc, x) => {
       const a = proc ? st.audio.find((v) => lower(v.process) === lower(proc)) : undefined;
@@ -137,7 +225,11 @@ export function mapPayload(): PadMapPayload {
   const st = usePads.getState();
   const page = activePage(st);
   const buttons: PadMapPayload["buttons"] = {};
-  if (page?.kind === "mixer") {
+  if (page?.kind === "agents") {
+    buttons[AGENT_NEW.claude] = { label: "+ Claude", color: AGENT_COLORS.claude };
+    buttons[AGENT_NEW.codex] = { label: "+ Codex", color: AGENT_COLORS.codex };
+    for (const s of useAgents.getState().sessions) buttons[slotButton(s.slot)] = { label: `${agentName(s.kind)} ${folderName(s.cwd || "~")}`, color: AGENT_COLORS[s.kind] };
+  } else if (page?.kind === "mixer") {
     mixerColumns(page, st.audio).forEach((proc, x) => {
       if (proc) buttons[top(x)] = { label: proc === "master" ? "Master" : proc.replace(/\.exe$/i, ""), color: "#3ccf4e" };
     });
@@ -199,6 +291,11 @@ export function padInput(id: PadButtonId, down: boolean) {
       manualPage = st.board.pages[b.y].id;
       st.setPage(manualPage);
     }
+    return;
+  }
+
+  if (page.kind === "agents") {
+    agentInput(id, down);
     return;
   }
 
@@ -339,6 +436,8 @@ export async function startPads() {
   usePads.subscribe((s, p) => {
     if (s.mapVisible !== p.mapVisible || (s.mapVisible && (s.pageId !== p.pageId || s.board !== p.board || s.audio !== p.audio))) syncMap();
   });
+
+  useAgents.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "agents" && syncMap());
 
   // Map hotkey.
   let unregister: (() => void) | null = null;

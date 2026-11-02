@@ -31,12 +31,15 @@ export interface ForegroundApp {
   exePath?: string;
   title: string;
   pid: number;
+  /** Window handle (stable while the window lives; titles change). */
+  hwnd?: number;
 }
 
 export interface WindowInfo {
   process: string;
   title: string;
   pid: number;
+  hwnd?: number;
 }
 
 /** A notification currently in the Windows Action Center (system_notifications). */
@@ -190,6 +193,8 @@ export interface BackendEvents {
   "hid-changed": Record<string, never>;
   /** The app is about to exit (~900 ms grace period). */
   "app-quitting": null;
+  /** A coding agent's hook payload (Claude Code hooks, Codex notify) posted to the local API. */
+  "agent-hook": { agent: "claude" | "codex"; payload: Record<string, unknown> };
   /** Raw bytes from an open MIDI input port. */
   "midi-message": { port: string; data: number[] };
   /** A MIDI port failed (unplugged / taken by another app) and was closed. */
@@ -257,9 +262,15 @@ export interface Backend {
   /** system_notifications_access({ request }) — `request` shows the Windows consent prompt. */
   notificationsAccess(request?: boolean): Promise<NotificationAccess>;
   /** claude_hooks({ action, port, token }) — add/remove KeyHalo's hooks in ~/.claude/settings.json (other settings kept). */
-  claudeHooks(action: "status" | "install" | "remove", port: number, token?: string): Promise<{ installed: boolean; path: string; backup?: string }>;
+  claudeHooks(action: "status" | "install" | "remove", port: number, token?: string): Promise<{ installed: boolean; outdated?: boolean; path: string; backup?: string }>;
   /** system_focus_window({ pid, title }) — bring a window (from windows()) to the front. */
   focusWindow(pid: number, title: string): Promise<boolean>;
+  /** system_focus_hwnd({ hwnd }) — bring a window to the front by handle; false when it is gone. */
+  focusHwnd(hwnd: number): Promise<boolean>;
+  /** system_explorer_folder({ hwnd }) — the folder a File Explorer window shows. */
+  explorerFolder(hwnd: number): Promise<string | null>;
+  /** codex_notify({ action, port, token }) — set/remove KeyHalo as Codex's `notify` in ~/.codex/config.toml. */
+  codexNotify(action: "status" | "install" | "remove", port: number, token?: string): Promise<{ installed: boolean; other?: string | null; path: string; backup?: string }>;
   /** audio_apps() — master volume first, then each process playing audio. */
   audioApps(): Promise<AudioApp[]>;
   /** audio_app_set({ process, volume, muted }) — volume 0..1; "master" = output device. */

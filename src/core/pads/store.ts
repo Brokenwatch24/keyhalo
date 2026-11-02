@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { AudioApp, MediaState } from "@/core/backend";
 import { loadJson, saveJsonDebounced } from "@/core/state/persist";
-import { defaultBoard, DEFAULT_RELEASE_FOR } from "./defaults";
+import { agentsPage, defaultBoard, DEFAULT_RELEASE_FOR } from "./defaults";
 import type { PadBoard, PadButtonId, PadConnection, PadDef, PadPage } from "./types";
 
 const FILE = "pads.json";
@@ -36,13 +36,26 @@ export interface PadsState {
 function normalise(saved: Partial<PadBoard> | null): PadBoard {
   const d = defaultBoard();
   if (!saved || !Array.isArray(saved.pages) || saved.pages.length === 0) return d;
+  // 1.2 betas shipped an empty "Work" page where the Agents page now lives.
+  const pages = saved.pages.slice(0, 7).map((p) => {
+    if (p.id === "work" && p.kind === "grid" && !Object.keys(p.pads ?? {}).length) return agentsPage();
+    // The default "Explorer" pad opened File Explorer too easily; it is no longer a default.
+    const ex = p.pads?.["g:6,0"];
+    if (p.id === "home" && ex?.label === "Explorer" && ex.action?.type === "app" && ex.action.path === "explorer.exe") {
+      const pads = { ...p.pads };
+      delete pads["g:6,0"];
+      return { ...p, pads };
+    }
+    return p;
+  });
   return {
     version: 1,
-    pages: saved.pages.slice(0, 7),
+    pages,
     port: typeof saved.port === "string" ? saved.port : "",
     releaseFor: Array.isArray(saved.releaseFor) ? saved.releaseFor : DEFAULT_RELEASE_FOR,
     mapHotkey: typeof saved.mapHotkey === "string" ? saved.mapHotkey : "",
     hud: typeof saved.hud === "boolean" ? saved.hud : true,
+    agentFolder: typeof saved.agentFolder === "string" ? saved.agentFolder : "",
   };
 }
 

@@ -56,8 +56,12 @@ export interface PadPage {
   id: string;
   name: string;
   color: string;
-  /** "mixer": the grid is a per-app volume mixer (columns = `mixer`), top buttons mute. */
-  kind: "grid" | "mixer";
+  /**
+   * "mixer": the grid is a per-app volume mixer (columns = `mixer`), top buttons mute.
+   * "agents": each pad is a live Claude Code / Codex session; an empty pad opens Claude (tap)
+   * or Codex (double tap) in the folder you are browsing.
+   */
+  kind: "grid" | "mixer" | "agents";
   /** Switch to this page automatically while one of these processes is in front. */
   apps?: string[];
   pads: Record<PadButtonId, PadDef>;
@@ -77,6 +81,8 @@ export interface PadBoard {
   mapHotkey: string;
   /** Show the pad's name in the HUD when it runs (handy while learning the layout). */
   hud: boolean;
+  /** Folder for new agents when no File Explorer window is in front (empty = your user folder). */
+  agentFolder: string;
 }
 
 export type PadConnection =

@@ -94,10 +94,18 @@
     "keys": "Teclas",
     "appKeysHint": "Trae la app al frente, pulsa las teclas y vuelve a donde estabas.",
     "text": "Texto",
-    "media": { "prev": "Anterior", "playPause": "Reproducir / Pausa", "next": "Siguiente" },
+    "media": {
+      "prev": "Anterior",
+      "playPause": "Reproducir / Pausa",
+      "next": "Siguiente"
+    },
     "app": "App",
     "volumeHint": "Nombre de un proceso, o master para todo el PC.",
-    "volume": { "down": "Bajar", "up": "Subir", "mute": "Silenciar" },
+    "volume": {
+      "down": "Bajar",
+      "up": "Subir",
+      "mute": "Silenciar"
+    },
     "step": "Paso",
     "rule": "Notificaciones",
     "allRules": "Todas",
@@ -134,10 +142,15 @@
     "noneHint": "Este botón redondo aún no tiene página. Las páginas ocupan la columna derecha desde arriba.",
     "name": "Nombre",
     "kind": "Tipo",
-    "kinds": { "grid": "Pads", "mixer": "Mezclador" },
+    "kinds": {
+      "grid": "Pads",
+      "mixer": "Mezclador",
+      "agents": "Agentes"
+    },
     "kindHint": {
       "grid": "Cada pad ejecuta su propia acción.",
-      "mixer": "Cada columna es el volumen de una app. Los botones de arriba la silencian."
+      "mixer": "Cada columna es el volumen de una app. Los botones de arriba la silencian.",
+      "agents": "Cada pad es una sesión viva de Claude Code o Codex. Toca un pad vacío para Claude y dale doble toque para Codex."
     },
     "apps": "Cambiar aquí automáticamente",
     "appsHint": "Mientras una de estas apps esté al frente. Nombres de proceso; * coincide con cualquier cosa.",
@@ -173,5 +186,34 @@
     "releaseForHint": "Windows solo deja que una app use un puerto MIDI, así que apps de música como Ableton lo necesitan libre. * coincide con cualquier cosa.",
     "hud": "Mostrar el nombre del pad en el HUD",
     "hudHint": "Útil mientras aprendes la distribución."
+  },
+  "agents": {
+    "page": "Página de agentes",
+    "session": "Sesión · pad {n}",
+    "states": {
+      "starting": "Abriendo",
+      "idle": "Lista",
+      "working": "Trabajando",
+      "waiting": "Te necesita",
+      "done": "Tu turno"
+    },
+    "open": "Ir a la ventana",
+    "forget": "Quitar del pad",
+    "sessionHint": "En el Launchpad: tócalo para ir a su ventana y ver qué necesita; mantenlo para quitarlo del pad (la sesión sigue abierta).",
+    "emptyKicker": "Pad vacío {n}",
+    "emptyTitle": "Pad libre",
+    "emptyHint": "En el Launchpad: un toque abre Claude Code aquí, dos toques abren Codex. Se abre en la carpeta del Explorador de archivos que tengas al frente o, si no, en la carpeta por defecto de abajo. ▲ y ▼ arriba hacen lo mismo en el siguiente pad libre.",
+    "openNew": "Abrir {agent}",
+    "folder": "Carpeta por defecto",
+    "folderHint": "Se usa cuando no tienes un Explorador de archivos al frente. Vacío = tu carpeta de usuario.",
+    "connections": "Para que los pads sepan cuándo te necesita un agente",
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "connected": "Conectado",
+    "outdated": "Conectado por una versión anterior: KeyHalo lo actualiza solo.",
+    "claudeHint": "Añade los hooks de KeyHalo a Claude Code (el resto de tu configuración se queda igual).",
+    "codexHint": "Pone a KeyHalo como comando notify de Codex en ~/.codex/config.toml.",
+    "codexOther": "Codex ya ejecuta otro programa en notify; KeyHalo no lo toca.",
+    "apiOff": "Activa la API local (Ajustes) para que los agentes lleguen a KeyHalo."
   }
 }

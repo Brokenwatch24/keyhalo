@@ -94,10 +94,18 @@
     "keys": "Keys",
     "appKeysHint": "Brings the app to the front, presses the keys, then goes back.",
     "text": "Text",
-    "media": { "prev": "Previous", "playPause": "Play / Pause", "next": "Next" },
+    "media": {
+      "prev": "Previous",
+      "playPause": "Play / Pause",
+      "next": "Next"
+    },
     "app": "App",
     "volumeHint": "A process name, or master for the whole PC.",
-    "volume": { "down": "Down", "up": "Up", "mute": "Mute" },
+    "volume": {
+      "down": "Down",
+      "up": "Up",
+      "mute": "Mute"
+    },
     "step": "Step",
     "rule": "Notifications",
     "allRules": "All",
@@ -134,10 +142,15 @@
     "noneHint": "This round button has no page yet. Pages fill the right column from the top.",
     "name": "Name",
     "kind": "Type",
-    "kinds": { "grid": "Pads", "mixer": "Mixer" },
+    "kinds": {
+      "grid": "Pads",
+      "mixer": "Mixer",
+      "agents": "Agents"
+    },
     "kindHint": {
       "grid": "Every pad runs its own action.",
-      "mixer": "Each column is one app's volume. The top buttons mute it."
+      "mixer": "Each column is one app's volume. The top buttons mute it.",
+      "agents": "Each pad is a live Claude Code or Codex session. Tap an empty pad for Claude, double-tap it for Codex."
     },
     "apps": "Switch here automatically",
     "appsHint": "While one of these apps is in front. Process names, * matches anything.",
@@ -173,5 +186,34 @@
     "releaseForHint": "Windows lets only one app use a MIDI port, so music apps like Ableton need it free. * matches anything.",
     "hud": "Show the pad name in the HUD",
     "hudHint": "Handy while you learn the layout."
+  },
+  "agents": {
+    "page": "Agents page",
+    "session": "Session · pad {n}",
+    "states": {
+      "starting": "Starting",
+      "idle": "Ready",
+      "working": "Working",
+      "waiting": "Needs you",
+      "done": "Your turn"
+    },
+    "open": "Go to window",
+    "forget": "Remove from the pad",
+    "sessionHint": "On the Launchpad: tap to jump to its window and see what it needs, hold to remove it from the pad (the session keeps running).",
+    "emptyKicker": "Empty pad {n}",
+    "emptyTitle": "Free pad",
+    "emptyHint": "On the Launchpad: tap once to open Claude Code here, twice for Codex. It opens in the folder of the File Explorer window in front, or in the default folder below. ▲ and ▼ on top do the same in the next free pad.",
+    "openNew": "Open {agent}",
+    "folder": "Default folder",
+    "folderHint": "Used when no File Explorer window is in front. Empty = your user folder.",
+    "connections": "So pads know when an agent needs you",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "connected": "Connected",
+    "outdated": "Connected by an older version: KeyHalo updates it on its own.",
+    "claudeHint": "Adds KeyHalo's hooks to Claude Code (your other settings stay).",
+    "codexHint": "Sets KeyHalo as Codex's notify command in ~/.codex/config.toml.",
+    "codexOther": "Codex already runs another program on notify; KeyHalo leaves it alone.",
+    "apiOff": "Turn on the local API (Settings) so agents can reach KeyHalo."
   }
 }

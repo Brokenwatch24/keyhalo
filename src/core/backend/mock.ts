@@ -191,6 +191,17 @@ export class MockBackend implements Backend {
   async focusWindow() {
     return false;
   }
+  async focusHwnd() {
+    return false;
+  }
+  async explorerFolder() {
+    return null;
+  }
+  private codexHooked = false;
+  async codexNotify(action: "status" | "install" | "remove") {
+    if (action !== "status") this.codexHooked = action === "install";
+    return { installed: this.codexHooked, path: "~/.codex/config.toml" };
+  }
   async audioApps() {
     return Object.entries(this.demoVolumes).map(([process, v]) => ({ process, ...v }));
   }

@@ -12,6 +12,11 @@ All notable changes to KeyHalo are documented here. The format follows
   press actions, app-specific pages and a per-app **volume mixer** page. Pads open apps, websites,
   Claude Code / Codex / any terminal command, bring windows forward, press shortcuts (also inside
   another app), control media, volume and the microphone.
+- **Agents page**: every pad is a live Claude Code or Codex session. It breathes while the agent
+  works and blinks when it needs you; tap it to jump to that session's window and see what it
+  needs. Tap an empty pad to open Claude Code, double-tap for Codex, in the folder of the File
+  Explorer window in front. Codex connects in one click (its `notify` command), and Claude Code
+  hooks now report each session separately (hooks from 1.1 are upgraded automatically).
 - **Pad map overlay**: hold or tap the Arm button (or a hotkey) to see every pad's name on screen
   while you learn the layout.
 - KeyHalo lets go of the Launchpad while Ableton Live, FL Studio and other DAWs run (Windows MIDI

@@ -134,6 +134,24 @@ async fn action(headers: HeaderMap, Query(q): Q, body: Bytes) -> Response {
     json_response(StatusCode::ACCEPTED, json!({ "ok": true, "action": name }))
 }
 
+/// Raw hook payloads from coding agents (Claude Code hooks, Codex `notify`), forwarded as
+/// `agent-hook` so the frontend can track each session.
+async fn agent_hook(Path(agent): Path<String>, headers: HeaderMap, Query(q): Q, body: Bytes) -> Response {
+    if !authorized(&headers, &q) {
+        return unauthorized();
+    }
+    if agent != "claude" && agent != "codex" {
+        return bad_request("unknown agent");
+    }
+    let v: Value = match serde_json::from_slice::<Value>(&body) {
+        Ok(v) if v.is_object() => v,
+        Ok(_) => return bad_request("expected a JSON object"),
+        Err(e) => return bad_request(&format!("invalid JSON: {e}")),
+    };
+    emit("agent-hook", json!({ "agent": agent, "payload": v }));
+    json_response(StatusCode::ACCEPTED, json!({ "ok": true }))
+}
+
 async fn notify(headers: HeaderMap, Query(q): Q, body: Bytes) -> Response {
     if !authorized(&headers, &q) {
         return unauthorized();
@@ -220,6 +238,7 @@ fn router() -> Router {
         .route("/api/v1/status", get(status))
         .route("/api/v1/action", post(action))
         .route("/api/v1/notify", post(notify))
+        .route("/api/v1/hook/{agent}", post(agent_hook))
         .route("/api/v1/ws", get(ws))
         .route("/gsi/{game}", post(gsi))
         .layer(CorsLayer::permissive())

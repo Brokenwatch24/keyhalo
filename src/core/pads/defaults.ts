@@ -30,7 +30,6 @@ function homePage(): PadPage {
     [grid(3, 0)]: pad("Cursor", PAD_COLORS.app, { type: "focus", process: "Cursor.exe", fallback: store("com.todesktop.230313mzl4w4u92") }, { state: { type: "running", process: "Cursor.exe" } }),
     [grid(4, 0)]: pad("Terminal", PAD_COLORS.app, app("wt.exe")),
     [grid(5, 0)]: pad("Chrome", PAD_COLORS.app, { type: "focus", process: "chrome.exe", fallback: store("Chrome") }, { state: { type: "running", process: "chrome.exe" } }),
-    [grid(6, 0)]: pad("Explorer", PAD_COLORS.app, app("explorer.exe")),
     [grid(7, 0)]: pad("KeyHalo", PAD_COLORS.app, { type: "focus", process: "keyhalo.exe" }),
     // Row 1 — web
     [grid(0, 1)]: pad("Gmail", PAD_COLORS.web, url("https://mail.google.com")),
@@ -72,13 +71,13 @@ function mixerPage(): PadPage {
   return { id: "mixer", name: "Mixer", color: "#3ccf4e", kind: "mixer", pads: {}, mixer: ["master", "Spotify.exe", "Discord.exe", "chrome.exe", "", "", "", ""] };
 }
 
-function blankPage(): PadPage {
-  return { id: "work", name: "Work", color: "#ff7a00", kind: "grid", pads: {} };
+export function agentsPage(): PadPage {
+  return { id: "agents", name: "Agents", color: "#ff7a00", kind: "agents", pads: {} };
 }
 
 /** Processes that need the Launchpad for themselves (globs: * = anything). */
 export const DEFAULT_RELEASE_FOR = ["Ableton Live*", "FL64.exe", "FL.exe", "Bitwig Studio.exe", "reaper.exe", "Studio One.exe", "Cubase*.exe", "Reason.exe", "Maschine 2.exe"];
 
 export function defaultBoard(): PadBoard {
-  return { version: 1, pages: [homePage(), mixerPage(), blankPage()], port: "", releaseFor: DEFAULT_RELEASE_FOR, mapHotkey: "", hud: true };
+  return { version: 1, pages: [homePage(), mixerPage(), agentsPage()], port: "", releaseFor: DEFAULT_RELEASE_FOR, mapHotkey: "", hud: true, agentFolder: "" };
 }

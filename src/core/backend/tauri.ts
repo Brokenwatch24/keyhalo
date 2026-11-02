@@ -78,6 +78,15 @@ export class TauriBackend implements Backend {
   focusWindow(pid: number, title: string) {
     return invoke<boolean>("system_focus_window", { pid, title });
   }
+  focusHwnd(hwnd: number) {
+    return invoke<boolean>("system_focus_hwnd", { hwnd });
+  }
+  explorerFolder(hwnd: number) {
+    return invoke<string | null>("system_explorer_folder", { hwnd });
+  }
+  codexNotify(action: "status" | "install" | "remove", port: number, token?: string) {
+    return invoke<Awaited<ReturnType<Backend["codexNotify"]>>>("codex_notify", { action, port, token: token || null });
+  }
   audioApps() {
     return invoke<Awaited<ReturnType<Backend["audioApps"]>>>("audio_apps");
   }

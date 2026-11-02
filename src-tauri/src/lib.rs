@@ -4,6 +4,7 @@
 pub mod api_server;
 pub mod audio;
 pub mod claude_hooks;
+pub mod codex_notify;
 pub mod hid;
 pub mod http;
 pub mod input;
@@ -122,6 +123,8 @@ pub fn run() {
             system::system_set_mic_muted,
             system::system_notifications,
             system::system_focus_window,
+            system::system_focus_hwnd,
+            system::system_explorer_folder,
             system::audio_apps,
             system::audio_app_set,
             system::media_state,
@@ -146,6 +149,7 @@ pub fn run() {
             storage::storage_list,
             storage::storage_delete,
             claude_hooks::claude_hooks,
+            codex_notify::codex_notify,
             shell::tray_set_profiles,
             shell::hud_show,
             shell::padmap_set,
