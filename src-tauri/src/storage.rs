@@ -3,10 +3,13 @@
 
 use crate::util::{blocking, err, CmdResult};
 use std::path::{Component, Path, PathBuf};
-use tauri::Manager;
+use tauri::{AppHandle, Manager};
 
-fn base() -> Result<PathBuf, String> {
-    let app = crate::util::app().ok_or("app not ready")?;
+/// The app data folder. Uses the handle injected into the command: the frontend can call
+/// storage before `setup` has stored the global handle, and reading defaults there would
+/// later overwrite the user's files.
+fn base(app: &AppHandle) -> Result<PathBuf, String> {
+    crate::util::set_app(app.clone());
     app.path().app_data_dir().map_err(err)
 }
 
@@ -29,9 +32,10 @@ pub fn resolve(root: &Path, name: &str) -> Result<PathBuf, String> {
 }
 
 #[tauri::command]
-pub async fn storage_read(name: String) -> CmdResult<Option<String>> {
+pub async fn storage_read(app: AppHandle, name: String) -> CmdResult<Option<String>> {
+    let root = base(&app)?;
     blocking(move || {
-        let path = resolve(&base()?, &name)?;
+        let path = resolve(&root, &name)?;
         match std::fs::read_to_string(&path) {
             Ok(s) => Ok(Some(s)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(None),
@@ -42,9 +46,9 @@ pub async fn storage_read(name: String) -> CmdResult<Option<String>> {
 }
 
 #[tauri::command]
-pub async fn storage_write(name: String, contents: String) -> CmdResult<()> {
+pub async fn storage_write(app: AppHandle, name: String, contents: String) -> CmdResult<()> {
+    let root = base(&app)?;
     blocking(move || {
-        let root = base()?;
         let path = resolve(&root, &name)?;
         if path == root {
             return Err("empty storage name".into());
@@ -69,9 +73,10 @@ pub async fn storage_write(name: String, contents: String) -> CmdResult<()> {
 }
 
 #[tauri::command]
-pub async fn storage_list(dir: String) -> CmdResult<Vec<String>> {
+pub async fn storage_list(app: AppHandle, dir: String) -> CmdResult<Vec<String>> {
+    let root = base(&app)?;
     blocking(move || {
-        let path = resolve(&base()?, &dir)?;
+        let path = resolve(&root, &dir)?;
         let rd = match std::fs::read_dir(&path) {
             Ok(rd) => rd,
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(vec![]),
@@ -90,9 +95,9 @@ pub async fn storage_list(dir: String) -> CmdResult<Vec<String>> {
 }
 
 #[tauri::command]
-pub async fn storage_delete(name: String) -> CmdResult<()> {
+pub async fn storage_delete(app: AppHandle, name: String) -> CmdResult<()> {
+    let root = base(&app)?;
     blocking(move || {
-        let root = base()?;
         let path = resolve(&root, &name)?;
         if path == root {
             return Err("empty storage name".into());
