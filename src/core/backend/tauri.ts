@@ -84,11 +84,23 @@ export class TauriBackend implements Backend {
   explorerFolder(hwnd: number) {
     return invoke<string | null>("system_explorer_folder", { hwnd });
   }
+  tabs(hwnd: number) {
+    return invoke<Awaited<ReturnType<Backend["tabs"]>>>("system_tabs", { hwnd });
+  }
+  tabSelect(hwnd: number, index: number) {
+    return invoke<boolean>("system_tab_select", { hwnd, index });
+  }
   windowCmd(hwnd: number, action: "minimize" | "maximize" | "restore" | "close") {
     return invoke<boolean>("system_window_cmd", { hwnd, action });
   }
   tile(hwnds: number[]) {
     return invoke<number>("system_tile", { hwnds });
+  }
+  agentsEnd(pid: number) {
+    return invoke<boolean>("agents_end", { pid });
+  }
+  agentsTitle(transcript: string) {
+    return invoke<string | null>("agents_title", { transcript });
   }
   agentsRecent(limit?: number) {
     return invoke<Awaited<ReturnType<Backend["agentsRecent"]>>>("agents_recent", { limit: limit ?? null });

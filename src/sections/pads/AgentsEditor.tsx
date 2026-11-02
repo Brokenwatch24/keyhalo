@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { ExternalLink, RotateCcw, Trash2 } from "lucide-react";
+import { ExternalLink, RotateCcw, Trash2, X } from "lucide-react";
 import { Badge, Button, toast } from "@/ui";
 import { useT } from "@/i18n";
 import { backend, type RecentSession } from "@/core/backend";
-import { AGENT_COLORS, agentName, forgetAgent, launchAgent, openAgent, sessionName, useAgents, type AgentKind } from "@/core/agents";
+import { AGENT_COLORS, agentName, closeAgent, forgetAgent, launchAgent, openAgent, sessionName, useAgents, type AgentKind } from "@/core/agents";
 import { GRID, parseButton, previewColor, recentName, resumeNow, usePads } from "@/core/pads";
 import { useSettings } from "@/core/state/settings";
 import { FolderInput, Group, Head } from "./Inspector";
@@ -35,6 +35,9 @@ export function AgentsEditor({ selected }: { selected: string }) {
             <div className="row" style={{ gap: 8 }}>
               <Button size="sm" variant="primary" icon={<ExternalLink />} onClick={() => void openAgent(session.key)}>
                 {t("pads.agents.open")}
+              </Button>
+              <Button size="sm" variant="ghost" icon={<X />} onClick={() => void closeAgent(session.key)}>
+                {t("pads.agents.closeIt")}
               </Button>
               <Button size="sm" variant="ghost" icon={<Trash2 />} onClick={() => forgetAgent(session.key)}>
                 {t("pads.agents.forget")}
@@ -78,7 +81,7 @@ function Recent({ t }: { t: T }) {
     backend.agentsRecent(12).then(setRecent, () => setRecent([]));
   }, [live.length]);
   const ids = new Set(live.map((s) => s.id));
-  const list = recent.filter((r) => !ids.has(r.sessionId)).slice(0, 6);
+  const list = recent.filter((r) => !ids.has(r.sessionId)).slice(0, 8);
   if (!list.length) return null;
   return (
     <div className="pads-insp__section">

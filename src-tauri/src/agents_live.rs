@@ -115,16 +115,42 @@ fn transcript_title(path: &std::path::Path) -> Option<String> {
     t
 }
 
-/// The folder a transcript ran in (its first lines carry `cwd`).
-fn transcript_cwd(path: &std::path::Path) -> Option<String> {
+/// The folder a transcript ran in and your first message, from its first lines.
+fn transcript_head(path: &std::path::Path) -> (Option<String>, Option<String>) {
     use std::io::{BufRead, BufReader};
-    let f = std::fs::File::open(path).ok()?;
-    BufReader::new(f).lines().take(50).map_while(Result::ok).find_map(|l| {
+    let (mut cwd, mut prompt) = (None, None);
+    let Ok(f) = std::fs::File::open(path) else { return (None, None) };
+    for l in BufReader::new(f).lines().take(80).map_while(Result::ok) {
         if !l.contains("\"cwd\"") {
-            return None;
+            continue;
         }
-        serde_json::from_str::<serde_json::Value>(&l).ok()?.get("cwd")?.as_str().map(String::from)
-    })
+        let Ok(v) = serde_json::from_str::<serde_json::Value>(&l) else { continue };
+        if cwd.is_none() {
+            cwd = v.get("cwd").and_then(|c| c.as_str()).map(String::from);
+        }
+        if prompt.is_none() && v.get("type").and_then(|t| t.as_str()) == Some("user") && v.get("isMeta").is_none() {
+            prompt = first_prompt(&v);
+        }
+        if cwd.is_some() && prompt.is_some() {
+            break;
+        }
+    }
+    (cwd, prompt)
+}
+
+/// A user message's text (string content, or its first text block), skipping command echoes.
+fn first_prompt(v: &serde_json::Value) -> Option<String> {
+    let content = v.get("message")?.get("content")?;
+    let text = match content {
+        serde_json::Value::String(s) => s.clone(),
+        serde_json::Value::Array(a) => a.iter().find_map(|b| (b.get("type")?.as_str()? == "text").then(|| b.get("text")?.as_str().map(String::from)).flatten())?,
+        _ => return None,
+    };
+    let text = text.split_whitespace().collect::<Vec<_>>().join(" ");
+    if text.is_empty() || text.starts_with('<') {
+        return None;
+    }
+    Some(text.chars().take(80).collect())
 }
 
 #[derive(Serialize, Debug)]
@@ -133,6 +159,8 @@ pub struct RecentSession {
     pub session_id: String,
     pub cwd: String,
     pub title: Option<String>,
+    /// Your first message, for sessions without a title.
+    pub prompt: Option<String>,
     /// Last write, ms since the epoch.
     pub updated_at: u64,
 }
@@ -153,16 +181,29 @@ fn recent(limit: usize) -> Vec<RecentSession> {
         .into_iter()
         .filter_map(|(at, path)| {
             let session_id = path.file_stem()?.to_string_lossy().to_string();
-            let cwd = transcript_cwd(&path)?;
+            let (cwd, prompt) = transcript_head(&path);
             Some(RecentSession {
+                cwd: cwd?,
+                prompt,
                 title: transcript_title(&path),
                 updated_at: at.duration_since(std::time::UNIX_EPOCH).map(|d| d.as_millis() as u64).unwrap_or(0),
                 session_id,
-                cwd,
             })
         })
         .take(limit)
         .collect()
+}
+
+/// A session's title from its transcript (hooks send `transcript_path`).
+#[tauri::command]
+pub async fn agents_title(transcript: String) -> CmdResult<Option<String>> {
+    blocking(move || {
+        let path = PathBuf::from(&transcript);
+        // Only Claude Code transcripts.
+        let ok = claude_dir().is_some_and(|c| path.starts_with(c.join("projects"))) && path.extension().is_some_and(|x| x == "jsonl");
+        Ok(if ok { transcript_title(&path) } else { None })
+    })
+    .await
 }
 
 /// Recent Claude Code sessions to resume, newest first.
@@ -237,6 +278,31 @@ fn live() -> Vec<LiveAgent> {
     out
 }
 
+/// Ends a Claude Code session's process (only if that pid is Claude Code). Its transcript is
+/// already saved, so it can be resumed later.
+#[tauri::command]
+pub async fn agents_end(pid: u32) -> CmdResult<bool> {
+    blocking(move || {
+        let is_claude = foreground::process_table().get(&pid).is_some_and(|(_, n)| n.to_lowercase().starts_with("claude"));
+        if !is_claude {
+            return Ok(false);
+        }
+        #[cfg(windows)]
+        let ok = unsafe {
+            use windows::Win32::Foundation::CloseHandle;
+            use windows::Win32::System::Threading::{OpenProcess, TerminateProcess, PROCESS_TERMINATE};
+            let Ok(h) = OpenProcess(PROCESS_TERMINATE, false, pid) else { return Ok(false) };
+            let ok = TerminateProcess(h, 0).is_ok();
+            let _ = CloseHandle(h);
+            ok
+        };
+        #[cfg(not(windows))]
+        let ok = false;
+        Ok(ok)
+    })
+    .await
+}
+
 /// Running Claude Code sessions, oldest first.
 #[tauri::command]
 pub async fn agents_live() -> CmdResult<Vec<LiveAgent>> {
@@ -285,5 +351,20 @@ mod tests {
         assert_eq!(pick_window(&chain, &windows[2..], "C:/Users/me", None), None);
         let terms = vec![(7, 300, "✳ Video promocional".to_string()), (7, 301, "◐ Teclado Razer".to_string())];
         assert_eq!(pick_window(&chain, &terms, "C:/Users/me", Some("Teclado Razer")), Some((7, Some(301))));
+    }
+}
+
+#[cfg(test)]
+mod recent_probe {
+    /// Prints what Resume would list (run by hand).
+    #[test]
+    #[ignore]
+    fn probe_recent() {
+        let t0 = std::time::Instant::now();
+        let r = super::recent(64);
+        println!("{} sessions in {:?}", r.len(), t0.elapsed());
+        for s in r.iter().take(20) {
+            println!("{} | {} | {} | {}", s.session_id, s.title.as_deref().unwrap_or("-"), s.prompt.as_deref().unwrap_or("-"), s.cwd);
+        }
     }
 }

@@ -225,17 +225,23 @@
     "resume": "Resume",
     "resumeNone": "No recent sessions to resume",
     "resumePick": "Resume: pick a session",
-    "resumeHint": "Tap the session's pad  ·  ◀ cancels",
+    "resumeHint": "Tap its pad (top row)  ·  ◀ cancels",
     "resumeWhere": "Now tap the pad to open it on",
     "resumePad": "Open “{title}” on which pad?",
     "resumePadHint": "Tap a green pad  ·  ◀ cancels",
     "recent": "Recent sessions",
-    "resumeIt": "Resume"
+    "resumeIt": "Resume",
+    "resumeHintPages": "Tap its pad (top row)  ·  ▲ ▼ more sessions  ·  ◀ cancels",
+    "close": "Close",
+    "closeHint": "Hold Close and tap a session to close it",
+    "closeFailed": "Couldn't close it: close its terminal by hand",
+    "closeIt": "Close session",
+    "resumeOpen": "open (tap: go there)"
   },
   "windows": {
     "empty": "Free pad",
     "emptyHint": "New windows take the free pads. Each window keeps its pad while it is open.",
-    "hint": "On the Launchpad: tap to bring it to the front (tap again to minimise), hold to close it, like its X button (the app asks before losing anything).",
+    "hint": "On the Launchpad: tap to bring it to the front (tap again to minimise). Hold it to see its tabs on the pads (Chrome, Edge, Terminal…) and jump between them.",
     "front": "In front",
     "focus": "Bring to front",
     "minimize": "Minimise",
@@ -262,7 +268,13 @@
       "taskView": "Opens Task view (Win+Tab).",
       "close": "Tap: closes the tab in front (Ctrl+W). Hold it and tap window pads: closes those windows (the pads blink red)."
     },
-    "closedTab": "Tab closed"
+    "closedTab": "Tab closed",
+    "noTabs": "No tabs to show",
+    "back": "Back",
+    "closeTab": "Close tab",
+    "current": "current",
+    "tabCount": "{n} tabs",
+    "tabsHint": "Tap a pad: go to that tab  ·  ▲ ▼ previous / next  ·  ◀ back to the windows"
   },
   "tasks": {
     "new": "New task",

@@ -225,17 +225,23 @@
     "resume": "Reanudar",
     "resumeNone": "No hay sesiones recientes para reanudar",
     "resumePick": "Reanudar: elige una sesión",
-    "resumeHint": "Toca el pad de la sesión  ·  ◀ cancela",
+    "resumeHint": "Toca su pad (fila de arriba)  ·  ◀ cancela",
     "resumeWhere": "Ahora toca el pad donde abrirla",
     "resumePad": "¿En qué pad abro «{title}»?",
     "resumePadHint": "Toca un pad verde  ·  ◀ cancela",
     "recent": "Sesiones recientes",
-    "resumeIt": "Reanudar"
+    "resumeIt": "Reanudar",
+    "resumeHintPages": "Toca su pad (fila de arriba)  ·  ▲ ▼ más sesiones  ·  ◀ cancela",
+    "close": "Cerrar",
+    "closeHint": "Mantén Cerrar y toca una sesión para cerrarla",
+    "closeFailed": "No pude cerrarla: cierra su terminal a mano",
+    "closeIt": "Cerrar sesión",
+    "resumeOpen": "abierta (toca: ir a ella)"
   },
   "windows": {
     "empty": "Pad libre",
     "emptyHint": "Las ventanas nuevas ocupan los pads libres. Cada ventana conserva su pad mientras esté abierta.",
-    "hint": "En el Launchpad: tócalo para traerla al frente (otro toque la minimiza) y mantenlo para cerrarla, como su botón X (la app pregunta antes de perder nada).",
+    "hint": "En el Launchpad: tócalo para traerla al frente (otro toque la minimiza). Mantenlo para ver sus pestañas en los pads (Chrome, Edge, Terminal…) y saltar entre ellas.",
     "front": "Al frente",
     "focus": "Traer al frente",
     "minimize": "Minimizar",
@@ -262,7 +268,13 @@
       "taskView": "Abre la Vista de tareas (Win+Tab).",
       "close": "Toque: cierra la pestaña del frente (Ctrl+W). Mantenlo y toca pads de ventanas: cierra esas ventanas (los pads parpadean en rojo)."
     },
-    "closedTab": "Pestaña cerrada"
+    "closedTab": "Pestaña cerrada",
+    "noTabs": "No tiene pestañas que mostrar",
+    "back": "Volver",
+    "closeTab": "Cerrar pestaña",
+    "current": "actual",
+    "tabCount": "{n} pestañas",
+    "tabsHint": "Toca un pad: ve a esa pestaña  ·  ▲ ▼ anterior / siguiente  ·  ◀ volver a las ventanas"
   },
   "tasks": {
     "new": "Nueva tarea",

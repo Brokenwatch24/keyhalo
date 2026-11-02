@@ -35,10 +35,17 @@ export interface ForegroundApp {
   hwnd?: number;
 }
 
+export interface TabInfo {
+  name: string;
+  selected: boolean;
+}
+
 export interface RecentSession {
   sessionId: string;
   cwd: string;
   title: string | null;
+  /** Your first message, for sessions without a title. */
+  prompt: string | null;
   updatedAt: number;
 }
 
@@ -293,10 +300,18 @@ export interface Backend {
   /** system_explorer_folder({ hwnd }) — the folder a File Explorer window shows. */
   explorerFolder(hwnd: number): Promise<string | null>;
   /** codex_notify({ action, port, token }) — set/remove KeyHalo as Codex's `notify` in ~/.codex/config.toml. */
+  /** system_tabs({ hwnd }) — the tabs of a window (Chrome, Edge, Terminal, Explorer…), in order. */
+  tabs(hwnd: number): Promise<TabInfo[]>;
+  /** system_tab_select({ hwnd, index }) — switch that window to a tab. */
+  tabSelect(hwnd: number, index: number): Promise<boolean>;
   /** system_window_cmd({ hwnd, action }) — minimise / maximise / restore / close (like its X button). */
   windowCmd(hwnd: number, action: "minimize" | "maximize" | "restore" | "close"): Promise<boolean>;
   /** system_tile({ hwnds }) — arrange these windows (front to back) in a grid on the monitor in front. */
   tile(hwnds: number[]): Promise<number>;
+  /** agents_end({ pid }) — end a Claude Code process (false if that pid isn't Claude Code). */
+  agentsEnd(pid: number): Promise<boolean>;
+  /** agents_title({ transcript }) — a session's title from its transcript path (hooks send it). */
+  agentsTitle(transcript: string): Promise<string | null>;
   /** agents_recent({ limit }) — recent Claude Code sessions (newest first), as /resume lists them. */
   agentsRecent(limit?: number): Promise<RecentSession[]>;
   /** prompt_open({ payload }) — show the small text box; the answer arrives as "prompt-result". */

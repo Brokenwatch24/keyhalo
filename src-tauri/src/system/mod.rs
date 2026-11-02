@@ -10,6 +10,7 @@ pub mod mixer;
 pub mod mic;
 pub mod pointer;
 pub mod steam;
+pub mod tabs;
 #[cfg(windows)]
 pub mod toasts;
 
@@ -117,6 +118,18 @@ pub async fn system_focus_window(pid: u32, title: String) -> CmdResult<bool> {
 #[tauri::command]
 pub async fn system_focus_hwnd(hwnd: isize) -> CmdResult<bool> {
     blocking(move || Ok(foreground::focus_hwnd(hwnd))).await
+}
+
+/// The tabs of a window (Chrome, Edge, Windows Terminal, File Explorer…), in order.
+#[tauri::command]
+pub async fn system_tabs(hwnd: isize) -> CmdResult<Vec<tabs::TabInfo>> {
+    blocking(move || Ok(tabs::tabs(hwnd))).await
+}
+
+/// Switch a window to its tab `index`.
+#[tauri::command]
+pub async fn system_tab_select(hwnd: isize, index: usize) -> CmdResult<bool> {
+    blocking(move || Ok(tabs::select(hwnd, index))).await
 }
 
 /// Minimise / maximise / restore / close a window by handle.

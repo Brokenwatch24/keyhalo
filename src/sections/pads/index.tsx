@@ -191,6 +191,7 @@ function boardLabels(page: PadPage | undefined, pages: PadPage[], audio: { proce
     out[top(0)] = "+ Claude";
     out[top(1)] = "+ Codex";
     out[top(2)] = t("pads.agents.resume");
+    out[top(7)] = t("pads.agents.close");
     for (const s of useAgents.getState().sessions) out[grid(s.slot % 8, Math.floor(s.slot / 8))] = s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`;
   } else if (page?.kind === "tasks") {
     out[top(0)] = t("pads.tasks.add");

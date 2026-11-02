@@ -80,8 +80,12 @@ Each pad is one coding-agent session: **orange = Claude Code**, **green = Codex*
   `~/.claude/sessions`. A pad is named after the session (its `/rename` name, or the title Claude
   gives it, as `/resume` shows it) and goes away when the session ends. Remove one by hand in
   Pads → Agents.
-- **◀ Resume**: lists your recent Claude Code sessions on the pads and on screen (title, folder,
-  how long ago). Tap one, then tap the (green) pad to open it on: it opens in that session's
+- **Close** (last top button): hold it and tap session pads (they blink red) to close those
+  sessions. A window KeyHalo opened closes; a session elsewhere (a Cursor terminal) has its Claude
+  Code process ended, so it can be resumed later.
+- **◀ Resume**: lists your recent Claude Code sessions, 8 at a time on the top row of pads and on
+  screen (title, folder, how long ago); ▲ / ▼ page through them. Tap one, then tap the (green) pad
+  to open it on (a session that is already open shows green: tapping it takes you there): it opens in that session's
   folder with `claude --resume`. ◀ again cancels. Pads → Agents lists them too.
 - Connect both in Pads → Agents: Claude Code gets KeyHalo's hooks (each posts Claude's own JSON:
   session, folder, event, message); Codex gets a `notify` command in `~/.codex/config.toml`

@@ -152,9 +152,28 @@ fn execute(o: Out) {
     }
 }
 
+/// Per-session variables Claude Code sets for its own child processes. If KeyHalo was started
+/// from a Claude Code session it inherits them, and a `claude` it opens would think it is that
+/// session's child (no transcript, odd screen). Config such as CLAUDE_CODE_USE_BEDROCK stays.
+const CLAUDE_SESSION_VARS: [&str; 10] = [
+    "CLAUDECODE",
+    "CLAUDE_PID",
+    "CLAUDE_EFFORT",
+    "CLAUDE_CODE_CHILD_SESSION",
+    "CLAUDE_CODE_SESSION_ID",
+    "CLAUDE_CODE_SESSION_ATTENDED",
+    "CLAUDE_CODE_MESSAGING_SOCKET",
+    "CLAUDE_CODE_MESSAGING_TOKEN",
+    "CLAUDE_CODE_ENTRYPOINT",
+    "CLAUDE_CODE_EXECPATH",
+];
+
 fn launch(path: &str, args: &[String]) {
     let mut cmd = std::process::Command::new(path);
     cmd.args(args);
+    for v in CLAUDE_SESSION_VARS {
+        cmd.env_remove(v);
+    }
     #[cfg(windows)]
     {
         use std::os::windows::process::CommandExt;

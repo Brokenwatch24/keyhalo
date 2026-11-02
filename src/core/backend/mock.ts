@@ -198,11 +198,23 @@ export class MockBackend implements Backend {
     return null;
   }
   private codexHooked = false;
+  async tabs() {
+    return [];
+  }
+  async tabSelect() {
+    return false;
+  }
   async windowCmd() {
     return true;
   }
   async tile(hwnds: number[]) {
     return hwnds.length;
+  }
+  async agentsEnd() {
+    return false;
+  }
+  async agentsTitle() {
+    return null;
   }
   async agentsRecent() {
     return [];

@@ -81,6 +81,21 @@ export async function openAgent(key: string, showHud = true): Promise<void> {
   if (showHud || s.message) bus.emit("hud", { title, value: s.message || (ok ? undefined : "Window not found"), icon: "info", color: AGENT_COLORS[s.kind], durationMs: s.message ? 4000 : 1400 });
 }
 
+/**
+ * Close a session: a window KeyHalo opened for it closes (like its X); a session living elsewhere
+ * (a Cursor terminal, a tab) has its Claude Code process ended, and the terminal stays.
+ */
+export async function closeAgent(key: string): Promise<boolean> {
+  const s = useAgents.getState().sessions.find((x) => x.key === key);
+  if (!s) return false;
+  const ownWindow = s.key.includes("-new-") && !!s.hwnd;
+  let ok = false;
+  if (ownWindow) ok = await backend.windowCmd(s.hwnd!, "close").catch(() => false);
+  else if (s.pid) ok = await backend.agentsEnd(s.pid).catch(() => false);
+  if (ok) forgetAgent(key);
+  return ok;
+}
+
 export function forgetAgent(key: string) {
   set(useAgents.getState().sessions.filter((x) => x.key !== key));
 }
@@ -93,6 +108,13 @@ export async function startAgents() {
   await backend.on("agent-hook", async ({ agent, payload }) => {
     const fg = agent === "claude" ? await backend.foregroundApp().catch(() => null) : null;
     set(applyHook(useAgents.getState().sessions, agent, payload, Date.now(), fg));
+    // Sessions known only from hooks (no entry in Claude's session list) still get their title.
+    const id = typeof payload.session_id === "string" ? payload.session_id : "";
+    const transcript = typeof payload.transcript_path === "string" ? payload.transcript_path : "";
+    if (agent === "claude" && id && transcript && !useAgents.getState().sessions.find((s) => s.id === id)?.title) {
+      const title = await backend.agentsTitle(transcript).catch(() => null);
+      if (title) set(useAgents.getState().sessions.map((s) => (s.id === id ? { ...s, title } : s)));
+    }
   });
 
   // Claude widgets and HUD follow the most urgent Claude session.

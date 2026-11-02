@@ -23,10 +23,12 @@ All notable changes to KeyHalo are documented here. The format follows
 - **Tasks page**: a checklist on the pads, shown on screen while you are on it. Tap an empty pad
   to type a task, tap a task to tick it, hold to edit.
 - **Resume** on the Agents page: pick one of your recent Claude Code sessions on the pads, then the
-  pad to open it on; it reopens in its own folder with `claude --resume`.
+  pad to open it on; it reopens in its own folder with `claude --resume`. Hold the Agents page's close
+  button and tap sessions to close them.
 - **Windows page**: every open window is a pad. Tap to bring it forward (again to minimise), hold
   to close it; the top buttons arrange windows in a grid, snap left / right, maximise, minimise,
-  show the desktop and open Task view. The close button closes the tab in front, or (held) every
+  show the desktop and open Task view. Hold a window's pad to see its tabs (Chrome, Edge, Terminal)
+  on the pads and jump between them. The close button closes the tab in front, or (held) every
   window pad you tap.
 - **Pad map overlay**: hold or tap the Arm button (or a hotkey) to see every pad's name on screen
   while you learn the layout.

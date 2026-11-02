@@ -4,12 +4,13 @@ import { clearNotifications, useNotifications } from "@/core/integrations/notifi
 import { useSignals } from "@/core/lighting/signals";
 import { bus } from "@/core/util/bus";
 import { t as tr } from "@/i18n";
-import { AGENT_COLORS, agentName, currentFolder, folderName, launchAgent, openAgent, sessionName, useAgents } from "@/core/agents";
+import { AGENT_COLORS, agentName, closeAgent, currentFolder, folderName, launchAgent, openAgent, sessionName, useAgents } from "@/core/agents";
 import { describePadAction, runPadAction } from "./actions";
 import { ALL_BUTTONS, decode, grid, GRID, isLaunchpadPort, ledMessage, parseButton, RESET, right, top } from "./launchpad";
 import { activePage, usePads } from "./store";
 import { endResume, RESUME_BUTTON, resumeInput, resumeLeds, resumeMap, useResume } from "./resume";
 import { taskInput, taskLeds, taskMap } from "./tasks";
+import { closeTabs, tabsInput, tabsLeds, tabsMap } from "./windows";
 import { appColor, closeHeld, refreshWindows, toolName, useOpenWindows, windowInput, windowLabel, WINDOW_TOOLS } from "./windows";
 import type { PadButtonId, PadDef, PadMapPayload, PadPage } from "./types";
 import type { AgentSession } from "@/core/agents";
@@ -91,6 +92,9 @@ function stateLed(def: PadDef, t: number): Led {
 
 const slotButton = (slot: number) => grid(slot % GRID, Math.floor(slot / GRID));
 const AGENT_NEW = { claude: top(0), codex: top(1) } as const;
+/** Hold it and tap session pads to close those sessions. */
+const AGENT_CLOSE = top(7);
+let agentClosing: { used: boolean } | null = null;
 
 function agentLeds(t: number): Map<PadButtonId, Led> {
   const out = new Map<PadButtonId, Led>();
@@ -107,6 +111,8 @@ function agentLeds(t: number): Map<PadButtonId, Led> {
   out.set(AGENT_NEW.claude, { hex: AGENT_COLORS.claude, b: DIM });
   out.set(AGENT_NEW.codex, { hex: AGENT_COLORS.codex, b: DIM });
   out.set(RESUME_BUTTON, { hex: AGENT_COLORS.claude, b: DIM });
+  out.set(AGENT_CLOSE, { hex: "#ff3b30", b: agentClosing ? 1 : DIM });
+  if (agentClosing) for (const s of useAgents.getState().sessions) out.set(slotButton(s.slot), { hex: "#ff3b30", b: Math.floor(t / 250) % 2 ? 1 : MID });
   return resumeLeds(t, out, DIM) ?? out;
 }
 
@@ -219,6 +225,14 @@ function agentInput(id: PadButtonId, down: boolean) {
   const b = parseButton(id);
   if (!b) return;
   if (resumeInput(id, down)) return;
+  if (id === AGENT_CLOSE) {
+    if (down) agentClosing = { used: false };
+    else {
+      if (agentClosing && !agentClosing.used) bus.emit("hud", { title: tr("pads.agents.close"), value: tr("pads.agents.closeHint"), icon: "info", color: "#ff3b30", durationMs: 2000 });
+      agentClosing = null;
+    }
+    return;
+  }
   if (b.kind === "t") {
     if (down && id === AGENT_NEW.claude) newAgent("claude").catch(agentError);
     if (down && id === AGENT_NEW.codex) newAgent("codex").catch(agentError);
@@ -226,6 +240,12 @@ function agentInput(id: PadButtonId, down: boolean) {
   }
   const slot = b.y * GRID + b.x;
   const session = useAgents.getState().sessions.find((s) => s.slot === slot);
+  if (agentClosing) {
+    if (!down || !session) return;
+    agentClosing.used = true;
+    void closeAgent(session.key).then((ok) => bus.emit("hud", { title: ok ? `✕ ${sessionName(session)}` : sessionName(session), value: ok ? undefined : tr("pads.agents.closeFailed"), icon: "info", color: "#ff3b30", durationMs: 1400 }));
+    return;
+  }
   if (session) {
     if (down) sessionPress(id, session);
     else void sessionRelease(id, session);
@@ -263,6 +283,8 @@ export function computeLeds(t = performance.now()): Map<PadButtonId, Led> {
     for (const [id, led] of agentLeds(t)) out.set(id, led);
   } else if (page.kind === "tasks") {
     for (const [id, led] of taskLeds(page, DIM)) out.set(id, led);
+  } else if (page.kind === "windows" && useOpenWindows.getState().tabs) {
+    for (const [id, led] of tabsLeds(DIM) ?? []) out.set(id, led);
   } else if (page.kind === "windows") {
     const { windows, front } = useOpenWindows.getState();
     const closing = closeHeld();
@@ -320,11 +342,14 @@ export function mapPayload(): PadMapPayload {
     buttons[AGENT_NEW.claude] = { label: "+ Claude", color: AGENT_COLORS.claude };
     buttons[AGENT_NEW.codex] = { label: "+ Codex", color: AGENT_COLORS.codex };
     buttons[RESUME_BUTTON] = { label: tr("pads.agents.resume"), color: AGENT_COLORS.claude };
+    buttons[AGENT_CLOSE] = { label: tr("pads.agents.close"), color: "#ff3b30" };
     for (const s of useAgents.getState().sessions) buttons[slotButton(s.slot)] = { label: s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`, color: AGENT_COLORS[s.kind] };
     const picking = resumeMap(buttons);
     if (picking) ({ buttons, ...extra } = picking);
   } else if (page?.kind === "tasks") {
     ({ buttons, ...extra } = taskMap(page));
+  } else if (page?.kind === "windows" && useOpenWindows.getState().tabs) {
+    ({ buttons, ...extra } = tabsMap()!);
   } else if (page?.kind === "windows") {
     WINDOW_TOOLS.forEach((tool, i) => (buttons[top(i)] = { label: toolName(tool.key), color: tool.color }));
     for (const w of useOpenWindows.getState().windows) buttons[slotButton(w.slot)] = { label: windowLabel(w), color: appColor(w.process) };
@@ -399,7 +424,8 @@ export function padInput(id: PadButtonId, down: boolean) {
   }
 
   if (page.kind === "windows") {
-    windowInput(id, down);
+    if (useOpenWindows.getState().tabs) tabsInput(id, down);
+    else windowInput(id, down);
     return;
   }
 
@@ -559,6 +585,7 @@ export async function startPads() {
       return;
     }
     endResume();
+    closeTabs();
     const kind = activePage(s)?.kind;
     if (kind === "tasks" && !s.mapVisible) {
       usePads.setState({ mapVisible: true });

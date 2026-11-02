@@ -25,11 +25,14 @@ export function PadMapView({ payload }: { payload: PadMapPayload }) {
   );
 }
 
+/** Rows that fit the overlay window (560 px) with a sub line each. */
+const MAX_ROWS = 10;
+
 /** A list (tasks, sessions) where each row shows where its pad is on the 8×8 grid. */
 function PadList({ items }: { items: PadMapItem[] }) {
   return (
     <ol className="kh-padlist">
-      {items.slice(0, 16).map((it) => {
+      {items.slice(0, MAX_ROWS).map((it) => {
         const b = parseButton(it.button);
         const at = b && b.kind === "g" ? b.y * 8 + b.x : -1;
         return (
@@ -46,7 +49,7 @@ function PadList({ items }: { items: PadMapItem[] }) {
           </li>
         );
       })}
-      {items.length > 16 && <li className="kh-padlist__more">+{items.length - 16}</li>}
+      {items.length > MAX_ROWS && <li className="kh-padlist__more">+{items.length - MAX_ROWS}</li>}
     </ol>
   );
 }
