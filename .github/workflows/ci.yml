@@ -17,7 +17,7 @@ jobs:
     name: TypeScript, tests & community content
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
@@ -40,7 +40,7 @@ jobs:
     name: Rust (check, clippy, CLI)
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # The Rust crate may not exist yet on early branches: skip gracefully.
       - name: Detect src-tauri
