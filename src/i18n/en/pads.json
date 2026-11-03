@@ -320,7 +320,9 @@
     "connected": "Connected · {n} to-dos",
     "notInstalled": "BrokenWatchHub isn't installed (or its Puente has no token yet).",
     "markDone": "Done",
-    "capture": "Add to HILO"
+    "capture": "Add to HILO",
+    "newTo": "New tasks go to",
+    "newToHint": "Where a task you write or dictate on the pads is saved."
   },
   "app": {
     "title": "App",
@@ -332,5 +334,15 @@
     "count": "{n} shortcuts on the pads",
     "noneHint": "Make one in Keymaps (or get one from Community): every pack with the app's .exe shows up here.",
     "openKeymaps": "Open Keymaps"
+  },
+  "platia": {
+    "allowed": "Approved",
+    "allowedTask": "Approved for the whole task",
+    "denied": "Denied",
+    "failed": "Platia GO didn't take it",
+    "approve": "Approve",
+    "deny": "Deny",
+    "hint": "Platia GO task (yellow). When it waits for your approval: tap approves once, double tap denies, hold approves for the whole task. Close (top button 8) + tap cancels it.",
+    "source": "Platia GO"
   }
 }

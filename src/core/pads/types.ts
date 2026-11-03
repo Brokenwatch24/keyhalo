@@ -76,6 +76,8 @@ export interface PadPage {
   tasks?: PadTask[];
   /** Tasks page: "hub" = your BrokenWatchHub / HILO to-dos, "local" = this page's own list (default: hub when installed). */
   source?: "hub" | "local";
+  /** Tasks page: where new to-dos go when both BrokenWatchHub and Platia GO are installed. */
+  newTasksTo?: "hilo" | "platia";
 }
 
 export interface PadTask {

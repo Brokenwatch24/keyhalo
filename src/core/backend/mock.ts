@@ -210,6 +210,9 @@ export class MockBackend implements Backend {
   async tile(hwnds: number[]) {
     return hwnds.length;
   }
+  async platiaConfig() {
+    return null;
+  }
   async hubConfig() {
     return null;
   }

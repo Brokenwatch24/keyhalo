@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { pgo } from "@/core/integrations/platiago";
 import { ExternalLink, RotateCcw, Trash2, X } from "lucide-react";
 import { Badge, Button, toast } from "@/ui";
 import { useT } from "@/i18n";
@@ -32,6 +33,16 @@ export function AgentsEditor({ selected }: { selected: string }) {
           <div className="pads-insp__section">
             {session.cwd && <div className="mono pads-note">{session.cwd}</div>}
             {session.message && <p className="pads-agent-msg">{session.message}</p>}
+            {session.via === "platia" && session.approval && (
+              <div className="row" style={{ gap: 8 }}>
+                <Button size="sm" variant="primary" onClick={() => void pgo.answer(session.id!, session.approval!.id, true).catch((e) => toast(String((e as Error)?.message ?? e), "danger"))}>
+                  {t("pads.platia.approve")}
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => void pgo.answer(session.id!, session.approval!.id, false).catch((e) => toast(String((e as Error)?.message ?? e), "danger"))}>
+                  {t("pads.platia.deny")}
+                </Button>
+              </div>
+            )}
             <div className="row" style={{ gap: 8 }}>
               <Button size="sm" variant="primary" icon={<ExternalLink />} onClick={() => void openAgent(session.key)}>
                 {t("pads.agents.open")}

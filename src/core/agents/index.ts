@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { mergePlatiaTasks } from "./platia";
+import { pgo, platiaConfig } from "@/core/integrations/platiago";
 import { backend } from "@/core/backend";
 import { setClaudeState } from "@/core/integrations/claude";
 import { useSettings } from "@/core/state/settings";
@@ -63,6 +65,12 @@ export async function launchAgent(kind: AgentKind, cwd: string, slot?: number, r
 export async function openAgent(key: string, showHud = true): Promise<void> {
   const s = useAgents.getState().sessions.find((x) => x.key === key);
   if (!s) return;
+  if (s.via === "platia") {
+    // A background task has no window: show what it is doing.
+    set(useAgents.getState().sessions.map((x) => (x.key === key ? { ...x, seen: true } : x)));
+    bus.emit("hud", { title: s.title || "Platia GO", value: s.message, icon: "info", color: "#ffe14d", durationMs: 3000 });
+    return;
+  }
   let ok = s.hwnd ? await backend.focusHwnd(s.hwnd).catch(() => false) : false;
   if (!ok) {
     // No handle yet (session started outside KeyHalo): a window of the app hosting it that names
@@ -88,6 +96,11 @@ export async function openAgent(key: string, showHud = true): Promise<void> {
 export async function closeAgent(key: string): Promise<boolean> {
   const s = useAgents.getState().sessions.find((x) => x.key === key);
   if (!s) return false;
+  if (s.via === "platia") {
+    const ok = await pgo.cancel(s.id!).then((r) => r.ok, () => false);
+    if (ok) forgetAgent(key);
+    return ok;
+  }
   const ownWindow = s.key.includes("-new-") && !!s.hwnd;
   let ok = false;
   if (ownWindow) ok = await backend.windowCmd(s.hwnd!, "close").catch(() => false);
@@ -133,6 +146,15 @@ export async function startAgents() {
   };
   void sync();
   setInterval(sync, 2000);
+
+  // Platia GO's background tasks (when its desktop app is installed and running).
+  const syncPlatia = async () => {
+    if (!(await platiaConfig())) return;
+    const tasks = await pgo.tasks().catch(() => null);
+    if (tasks) set(mergePlatiaTasks(useAgents.getState().sessions, tasks, Date.now()));
+  };
+  void syncPlatia();
+  setInterval(syncPlatia, 3000);
 
   // Drop sessions whose window was closed.
   setInterval(async () => {

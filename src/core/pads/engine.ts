@@ -1,4 +1,6 @@
 import { backend, isTauri } from "@/core/backend";
+import { platiaConfig } from "@/core/integrations/platiago";
+import { PLATIA_COLOR, platiaInput } from "@/core/agents/platia";
 import { appForeground, appInput, appLeds, appMap, useAppPage } from "./appPage";
 import { hubInput, hubLeds, hubMap, isHubPage, refreshHubTasks, useHubTasks } from "./hubTasks";
 import { brokenPad, hubConfig } from "@/core/integrations/hub";
@@ -103,7 +105,7 @@ function agentLeds(t: number): Map<PadButtonId, Led> {
   const out = new Map<PadButtonId, Led>();
   const breathe = 0.34 + 0.66 * (0.5 + 0.5 * Math.sin((t / 1000) * Math.PI * 2 * 0.7));
   for (const s of useAgents.getState().sessions) {
-    const hex = AGENT_COLORS[s.kind];
+    const hex = s.via === "platia" ? PLATIA_COLOR : AGENT_COLORS[s.kind];
     let b = 1 / 3;
     if (s.state === "starting") b = Math.floor(t / 600) % 2 ? MID : DIM;
     else if (s.state === "working") b = breathe;
@@ -274,6 +276,10 @@ function agentInput(id: PadButtonId, down: boolean) {
     void closeAgent(session.key).then((ok) => bus.emit("hud", { title: ok ? `✕ ${sessionName(session)}` : sessionName(session), value: ok ? undefined : tr("pads.agents.closeFailed"), icon: "info", color: "#ff3b30", durationMs: 1400 }));
     return;
   }
+  if (session?.via === "platia") {
+    platiaInput(session, down, (key) => useAgents.setState({ sessions: useAgents.getState().sessions.map((x) => (x.key === key ? { ...x, seen: true } : x)) }));
+    return;
+  }
   if (session) {
     if (down) sessionPress(id, session);
     else void sessionRelease(id, session);
@@ -375,7 +381,7 @@ export function mapPayload(): PadMapPayload {
     buttons[AGENT_NEW.codex] = { label: "+ Codex", color: AGENT_COLORS.codex };
     buttons[RESUME_BUTTON] = { label: tr("pads.agents.resume"), color: AGENT_COLORS.claude };
     buttons[AGENT_CLOSE] = { label: tr("pads.agents.close"), color: "#ff3b30" };
-    for (const s of useAgents.getState().sessions) buttons[slotButton(s.slot)] = { label: s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`, color: AGENT_COLORS[s.kind] };
+    for (const s of useAgents.getState().sessions) buttons[slotButton(s.slot)] = { label: s.title || `${agentName(s.kind)} ${folderName(s.cwd || "~")}`, color: s.via === "platia" ? PLATIA_COLOR : AGENT_COLORS[s.kind] };
     const picking = resumeMap(buttons);
     if (picking) ({ buttons, ...extra } = picking);
   } else if (page?.kind === "app") {
@@ -647,7 +653,7 @@ export async function startPads() {
   useResume.subscribe(() => usePads.getState().mapVisible && syncMap());
   useHubTasks.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "tasks" && syncMap());
   useAppPage.subscribe(() => usePads.getState().mapVisible && activePage()?.kind === "app" && syncMap());
-  void hubConfig().then(() => {
+  void Promise.all([hubConfig(), platiaConfig()]).then(() => {
     if (isHubPage(activePage())) void refreshHubTasks();
   });
 

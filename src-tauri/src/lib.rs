@@ -13,6 +13,7 @@ pub mod input;
 pub mod lamparray;
 pub mod midi;
 pub mod mqtt;
+pub mod platia;
 pub mod shell;
 pub mod storage;
 pub mod system;
@@ -158,6 +159,7 @@ pub fn run() {
             codex_notify::codex_notify,
             agents_live::agents_live,
             hub::hub_config,
+            platia::platia_config,
             agents_live::agents_recent,
             agents_live::agents_end,
             agents_live::agents_title,

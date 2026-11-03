@@ -27,6 +27,10 @@ export interface AgentSession {
   host?: string;
   /** Its name (/rename) or Claude's automatic title. */
   title?: string;
+  /** A Platia GO background task (id = its task id): no terminal window, answered from the pad. */
+  via?: "platia";
+  /** Platia GO: what the task waits for you to approve. */
+  approval?: { id: string; canTask: boolean };
   state: AgentState;
   /** What it needs or its last message. */
   message?: string;

@@ -320,7 +320,9 @@
     "connected": "Conectado · {n} pendientes",
     "notInstalled": "BrokenWatchHub no está instalado (o su Puente aún no tiene token).",
     "markDone": "Hecha",
-    "capture": "Añadir a HILO"
+    "capture": "Añadir a HILO",
+    "newTo": "Las tareas nuevas van a",
+    "newToHint": "Dónde se guarda una tarea que escribes o dictas desde los pads."
   },
   "app": {
     "title": "App",
@@ -332,5 +334,15 @@
     "count": "{n} atajos en los pads",
     "noneHint": "Crea uno en Atajos (o bájalo de Comunidad): cualquier paquete con el .exe de la app sale aquí.",
     "openKeymaps": "Abrir Atajos"
+  },
+  "platia": {
+    "allowed": "Aprobado",
+    "allowedTask": "Aprobado para toda la tarea",
+    "denied": "Rechazado",
+    "failed": "Platia GO no lo recibió",
+    "approve": "Aprobar",
+    "deny": "Rechazar",
+    "hint": "Tarea de Platia GO (amarilla). Cuando espera tu aprobación: un toque aprueba una vez, doble toque rechaza y mantener aprueba para toda la tarea. Cerrar (botón 8 de arriba) + toque la cancela.",
+    "source": "Platia GO"
   }
 }

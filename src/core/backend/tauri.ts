@@ -96,6 +96,9 @@ export class TauriBackend implements Backend {
   tile(hwnds: number[]) {
     return invoke<number>("system_tile", { hwnds });
   }
+  platiaConfig() {
+    return invoke<Awaited<ReturnType<Backend["platiaConfig"]>>>("platia_config");
+  }
   hubConfig() {
     return invoke<Awaited<ReturnType<Backend["hubConfig"]>>>("hub_config");
   }

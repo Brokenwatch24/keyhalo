@@ -308,6 +308,8 @@ export interface Backend {
   windowCmd(hwnd: number, action: "minimize" | "maximize" | "restore" | "close"): Promise<boolean>;
   /** system_tile({ hwnds }) — arrange these windows (front to back) in a grid on the monitor in front. */
   tile(hwnds: number[]): Promise<number>;
+  /** platia_config() — Platia GO's loopback port and token (null when not installed or older than 0.9.2). */
+  platiaConfig(): Promise<{ port: number; token: string } | null>;
   /** hub_config() — BrokenWatchHub's port, token and Broken key on this PC (null when not installed). */
   hubConfig(): Promise<{ port: number; token: string; combo: string; keyActive: boolean } | null>;
   /** agents_end({ pid }) — end a Claude Code process (false if that pid isn't Claude Code). */

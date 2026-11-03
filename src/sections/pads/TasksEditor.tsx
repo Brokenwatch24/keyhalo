@@ -4,13 +4,15 @@ import { Badge, Button, Input, Segmented } from "@/ui";
 import { useT } from "@/i18n";
 import { addTask, GRID, parseButton, setTasks, TASK_CLEAR, TASK_NEW, usePads, type PadPage } from "@/core/pads";
 import { hub, useHub } from "@/core/integrations/hub";
-import { hubColor, isHubPage, refreshHubTasks, toggleHubTask, useHubTasks } from "@/core/pads/hubTasks";
+import { hubColor, isHubPage, newTasksTarget, refreshHubTasks, toggleHubTask, useHubTasks } from "@/core/pads/hubTasks";
+import { pgo, usePlatiaGo } from "@/core/integrations/platiago";
 import { Group, Head } from "./Inspector";
 
 /** Inspector for a Tasks page: where its tasks come from, then the selected pad. */
 export function TasksEditor({ page, selected }: { page: PadPage; selected: string }) {
   const t = useT();
   const installed = useHub((s) => s.installed);
+  const platia = usePlatiaGo((s) => s.installed);
   const updatePage = usePads((s) => s.updatePage);
   const hubMode = isHubPage(page);
   return (
@@ -27,7 +29,19 @@ export function TasksEditor({ page, selected }: { page: PadPage; selected: strin
             ]}
           />
         </Group>
-        {hubMode && installed === false && <p className="pads-note">{t("pads.hub.notInstalled")}</p>}
+        {hubMode && installed === false && !platia && <p className="pads-note">{t("pads.hub.notInstalled")}</p>}
+        {hubMode && installed && platia && (
+          <Group label={t("pads.hub.newTo")} hint={t("pads.hub.newToHint")}>
+            <Segmented
+              value={newTasksTarget(page)}
+              onChange={(to) => updatePage(page.id, { newTasksTo: to as "hilo" | "platia" })}
+              options={[
+                { value: "hilo", label: "HILO" },
+                { value: "platia", label: "Platia GO" },
+              ]}
+            />
+          </Group>
+        )}
       </div>
     </>
   );
@@ -80,8 +94,7 @@ function HubTaskEditor({ selected }: { selected: string }) {
             e.preventDefault();
             const v = text.trim();
             if (!v) return;
-            void hub
-              .capture(v)
+            void (newTasksTarget(usePads.getState().board.pages.find((p) => p.kind === "tasks")) === "platia" ? pgo.addTodo(v) : hub.capture(v))
               .then(() => {
                 setText("");
                 return refreshHubTasks();
