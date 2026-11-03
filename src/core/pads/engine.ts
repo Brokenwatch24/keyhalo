@@ -11,6 +11,7 @@ import { bus } from "@/core/util/bus";
 import { t as tr } from "@/i18n";
 import { AGENT_COLORS, agentName, closeAgent, currentFolder, folderName, launchAgent, openAgent, sessionName, useAgents } from "@/core/agents";
 import { describePadAction, runPadAction } from "./actions";
+import { createGhostFilter } from "./ghost";
 import { ALL_BUTTONS, decode, grid, GRID, isLaunchpadPort, ledMessage, parseButton, RESET, right, top } from "./launchpad";
 import { activePage, usePads } from "./store";
 import { endResume, RESUME_BUTTON, resumeInput, resumeLeds, resumeMap, useResume } from "./resume";
@@ -597,10 +598,11 @@ export async function startPads() {
   started = true;
   await usePads.getState().hydrate();
 
+  const deghost = createGhostFilter(padInput);
   await backend.on("midi-message", ({ port: p, data }) => {
     if (p !== port) return;
     const ev = decode(data);
-    if (ev) padInput(ev.id, ev.down);
+    if (ev) deghost(ev.id, ev.down);
   });
   await backend.on("midi-closed", ({ port: p }) => {
     if (p !== port) return;
